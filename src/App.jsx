@@ -1,6 +1,6 @@
 import React from "react";
 //importamos ant design
-
+import Home from "./views/Home";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -18,10 +18,10 @@ const App = () => {
         },
       }}
     >
-      <h1>Hello World</h1>
-      <Button type="primary">Hello World</Button>
+      {/* <h1>Hello World</h1>
+      <Button type="primary">Hello World</Button> */}
       <Routes>
-        <Route path="/"/>
+        <Route path="/" element={<Home/>} />
         <Route path="/admin"/>
         <Route path="/login"/>
         <Route path="/register"/>
