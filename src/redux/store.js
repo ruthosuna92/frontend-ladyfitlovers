@@ -9,4 +9,5 @@ const store = createStore(
   composeEnhacer(applyMiddleware(thunkMiddleware))
 ); // Esta linea nos permite hacer peticiones a un servidor
 
+// hello!
 export default store;
