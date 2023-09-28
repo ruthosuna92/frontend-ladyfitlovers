@@ -1,24 +1,21 @@
-// import "./App.css";
-
-// function App() {
-//   return <>
-
-//   </>;
-// }
-
-// export default App;
-import { ConfigProvider } from "antd";
 import React from "react";
+//importamos ant design
+import "antd/dist/antd.css";
+import { ConfigProvider } from "antd";
 
-const App: React.FC = () => (
-  <ConfigProvider 
-  theme={{ 
-    token: { 
-      colorPrimary: "#00b96b" 
-    }
-    }}>
-    <MyApp />
-  </ConfigProvider>
+const App = () => (
+  <ConfigProvider
+    theme={{
+      token: {
+        // Seed Token
+        colorPrimary: "#00b96b",
+        borderRadius: 2,
+
+        // Alias Token
+        colorBgContainer: "#f6ffed",
+      },
+    }}
+  ></ConfigProvider>
 );
 
 export default App;
