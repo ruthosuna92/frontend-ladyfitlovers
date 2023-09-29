@@ -1,7 +1,7 @@
 import React from "react";
 //importamos ant design
 import Home from "./views/Home";
-import Detail from "./components/Detail/Detail";
+import Detail from "./views/Detail/Detail";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
