@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
+import LoadingMessage from '../../components/LoadingMessage/LoadingMessage';
+import ProductDetails from '../../components/ProductDetails/ProductDetails';
 import getIdDetailProducts from '../../redux/Actions/getIdDetailProducts';
 
 const Detail = () => {
@@ -17,9 +19,7 @@ const Detail = () => {
     dispatch(getIdDetailProducts(id))
   },[id, dispatch])
   const productData = useSelector((state)=> state.products)
-  console.log(productData)
   useEffect(() => {
-    // Actualizar el estado de 'data' cuando 'productData' cambie
     if (productData) {
       const firstColor = productData.stock[0];
 
@@ -62,7 +62,6 @@ const Detail = () => {
       },
     }));
   };
-
   const handleAmountChange = (event) => {
     const newAmount = +event.target.value;
     if (!isNaN(newAmount) && newAmount >= 0 && newAmount <= data.selectedAmount) {
@@ -72,48 +71,17 @@ const Detail = () => {
       }));
     }
   };
-
   if (!productData) {
-    return <div>Cargando datos...</div>;
+    return <LoadingMessage/>;
   }
-
   return (
-    <div>
-      <img src={productData.image} alt={productData.name} />
-      <h1>{productData.name}</h1>
-      <p>Precio: {productData.price}</p>
-      <select name="color" id="" onChange={handleColorChange}>
-        {productData.stock.map((color) => (
-          <option key={color.color} value={color.color}>
-            {color.color}
-          </option>
-        ))}
-      </select>
-      <select
-        name="size"
-        id=""
-        onChange={handleSizeChange}
-        value={data.selectedSize}
-        disabled={data.colorDisabled}
-      >
-        {data.availableSizes.map((size) => (
-          <option key={size.size} value={size.size}>
-            {size.size}
-          </option>
-        ))}
-      </select>
-      <label htmlFor="amount">Amount:</label>
-      <input
-        type="number"
-        id="amount"
-        name="amount"
-        value={data.inputAmount}
-        max={data.selectedAmount}
-        onChange={handleAmountChange}
-      />
-    </div>
+    <ProductDetails
+    productData={productData}
+    data={data}
+    handleColorChange={handleColorChange}
+    handleSizeChange={handleSizeChange}
+    handleAmountChange={handleAmountChange}
+  />
   );
 };
-
 export default Detail;
-
