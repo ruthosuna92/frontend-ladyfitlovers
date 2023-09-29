@@ -1,6 +1,6 @@
 import axios from "axios"
 import { GET_ALL_PRODUCTS } from "../actionTypes"
-const endpoint = 'https://pf-back-production-4255.up.railway.app/product'
+const endpoint = 'https://pf-back-production-4255.up.railway.app/product/allProducts'
 
 const getAllProducts = () => {
     return async (dispatch) => {
