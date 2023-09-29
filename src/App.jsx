@@ -4,7 +4,7 @@ import Home from "./views/Home";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import Products from "./components/Products/Products";
+
 
 const App = () => {
   return (
