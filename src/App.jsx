@@ -1,5 +1,5 @@
 import React from "react";
-import Products from "./components/Products/Products";
+import ProductsView from "./views/ProductsView/ProductsView";
 import Home from "./views/Home/Home";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -30,8 +30,8 @@ const App = () => {
         <Route path="/login" />
         <Route path="/contacto" />
         <Route path="/register" />
-        <Route path="/products" element={<Products/>}/>
-        <Route path="/products/:category" />
+        <Route path="/products" element={<ProductsView/>}/>
+        <Route path="/products/:category"/>
         <Route path="/products/:category/:id" />
       </Routes>
     </ConfigProvider>
