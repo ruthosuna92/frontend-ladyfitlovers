@@ -1,7 +1,20 @@
-import allProducts from "./pruebaProducts"
 import Product from "../Product/Product"
+import { useSelector, useDispatch } from "react-redux"
+import {useEffect} from 'react'
+import getAllProducts from "../../redux/Actions/getAllProducts"
+
+
 
 const Products = () => {
+    
+    const allProducts = useSelector((state) => state.allProducts)
+    const dispatch = useDispatch()
+
+    
+    useEffect(() => {
+        dispatch(getAllProducts())
+    }, [])
+
 
     return <div>
         {
