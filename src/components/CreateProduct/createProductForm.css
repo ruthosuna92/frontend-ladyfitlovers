@@ -1,0 +1,15 @@
+.containerForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 700px;
+  
+}
+
+.inputsContainer{
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
