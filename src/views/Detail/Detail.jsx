@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useDispatch,useSelector } from 'react-redux';
+import getIdDetailProducts from '../../redux/Actions/getIdDetailProducts';
 
 const Detail = () => {
   const { id } = useParams();
+  const dispatch=useDispatch()
   const [data, setData] = useState({
     selectedSize: '',
     selectedAmount: 0,
@@ -11,30 +13,25 @@ const Detail = () => {
     inputAmount: 0,
     availableSizes: [],
   });
-
+  useEffect(()=>{
+    dispatch(getIdDetailProducts(id))
+  },[id, dispatch])
+  const productData = useSelector((state)=> state.products)
+  console.log(productData)
   useEffect(() => {
-    axios
-      .get(`https://pf-back-production-4255.up.railway.app/product/${id}`)
-      .then((response) => {
-        setData((prevData) => ({
-          ...prevData,
-          ...{
-            data: response.data,
-            availableSizes:
-              response.data && response.data.stock.length > 0
-                ? response.data.stock[0].sizeAndQuantity
-                : [],
-            selectedAmount:
-              response.data && response.data.stock.length > 0
-                ? response.data.stock[0].sizeAndQuantity[0].quantity
-                : 0,
-          },
-        }));
-      })
-      .catch((error) => {
-        console.error('Error al hacer la solicitud a la API:', error);
+    // Actualizar el estado de 'data' cuando 'productData' cambie
+    if (productData) {
+      const firstColor = productData.stock[0];
+
+      setData({
+        selectedSize: '',
+        selectedAmount: firstColor ? firstColor.sizeAndQuantity[0].quantity : 0,
+        colorDisabled: false,
+        inputAmount: 0,
+        availableSizes: firstColor ? firstColor.sizeAndQuantity : [],
       });
-  }, [id]);
+    }
+  }, [productData]);
 
   const handleSizeChange = (event) => {
     const selectedSizeValue = event.target.value;
@@ -52,7 +49,7 @@ const Detail = () => {
 
   const handleColorChange = (event) => {
     const selectedColor = event.target.value;
-    const colorData = data.data.stock.find((color) => color.color === selectedColor);
+    const colorData = productData.stock.find((color) => color.color === selectedColor);
 
     setData((prevData) => ({
       ...prevData,
@@ -76,17 +73,17 @@ const Detail = () => {
     }
   };
 
-  if (!data.data) {
+  if (!productData) {
     return <div>Cargando datos...</div>;
   }
 
   return (
     <div>
-      <img src={data.data.image} alt={data.data.name} />
-      <h1>{data.data.name}</h1>
-      <p>Precio: {data.data.price}</p>
+      <img src={productData.image} alt={productData.name} />
+      <h1>{productData.name}</h1>
+      <p>Precio: {productData.price}</p>
       <select name="color" id="" onChange={handleColorChange}>
-        {data.data.stock.map((color) => (
+        {productData.stock.map((color) => (
           <option key={color.color} value={color.color}>
             {color.color}
           </option>
