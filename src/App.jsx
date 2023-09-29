@@ -1,5 +1,5 @@
 import React from "react";
-//importamos ant design
+import Products from "./components/Products/Products";
 import Home from "./views/Home/Home";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
