@@ -1,5 +1,6 @@
 
-
+import Carousel from "../components/Carousel/Carousel"
+import Products from "../components/Products/Products"
 
 
 const Home = () => {
@@ -8,8 +9,10 @@ const Home = () => {
     
     return (
         <div>
-            <p>Hola soy el home!!!</p>
-            
+
+            <Carousel/>
+            {/* <Products/> */}
+
         </div>
     )
 }

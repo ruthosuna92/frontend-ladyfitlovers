@@ -1,0 +1,45 @@
+
+.navBarLinksContainer img{
+    width: 150px;
+    margin: 0px 16px;
+    object-fit: cover;
+
+}
+
+.navBarContainer{
+    right:0px;
+    height: 80px;
+    padding: 0px 56px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F6F1F5;
+}
+
+.navBarLinksContainer{
+display: flex;
+align-items: center;
+gap: 32px;
+}
+
+.navBarButton{
+    background-color:#F6F1F5;
+    border: none;
+    font-size: 20px;   
+    font-weight: bold;
+    color: #171717;
+    cursor: pointer;
+}
+
+.buttonLinkActive{
+    text-decoration: none;
+    color: #BA338A;
+    font-size: 20px;
+    font-weight: 700; 
+    border: none;
+    cursor: pointer; 
+    height:80px;
+    border-bottom:6px solid #BA338A;
+    
+}
