@@ -1,6 +1,6 @@
 import React from "react";
 import Products from "./components/Products/Products";
-import Home from "./views/Home";
+import Home from "./views/Home/Home";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
