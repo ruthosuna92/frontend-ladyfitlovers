@@ -1,6 +1,7 @@
 import React from "react";
 //importamos ant design
 import Home from "./views/Home";
+import Detail from "./components/Detail/Detail";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/products" element={<Products/>} />
         <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
+        <Route path="/detail/:id" element={<Detail/>}/>
       </Routes>
     </ConfigProvider>
   );
