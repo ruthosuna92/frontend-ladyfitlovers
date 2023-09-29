@@ -1,7 +1,8 @@
-import { GET_ALL_PRODUCTS } from "../actionTypes";
+import { GET_ALL_PRODUCTS, GET_ID_DETAIL_PRODUCTS } from "../actionTypes";
 
 const initialState = {
-    allProducts: null
+    allProducts: null,
+    products: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,7 +12,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allProducts: action.payload
             }
-    
+        case GET_ID_DETAIL_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload
+            }
         default:
             return {
                 ...state

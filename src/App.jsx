@@ -1,6 +1,7 @@
 import React from "react";
 import Products from "./components/Products/Products";
 import Home from "./views/Home/Home";
+import Detail from "./views/Detail/Detail";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/products" element={<Products/>}/>
         <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
+        <Route path="/detail/:id" element={<Detail/>}/>
       </Routes>
     </ConfigProvider>
   );

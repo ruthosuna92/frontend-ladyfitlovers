@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./Product.module.css";
+import { Link } from "react-router-dom";
 
 import { Card } from "antd";
 const { Meta } = Card;
@@ -12,7 +13,7 @@ const Product = ({ id, name, image, price, sales }) => {
       {/* <img alt={name} src={image} />
       <p>{name}</p>
       <h3>{price}</h3> */}
-
+      <Link to={`/detail/${id}`}>
       <div key={id} className={style.container}>
         <div className={style.card}>
           <div className={style.imgBx}>
@@ -37,10 +38,11 @@ const Product = ({ id, name, image, price, sales }) => {
                 );
               })}
             </div>
-            <a href="#">Comprar</a>
+            <p href="#">Comprar</p>
           </div>
         </div>
       </div>
+      </Link>
     </div>
   );
 };
