@@ -1,7 +1,12 @@
-import allProducts from "./pruebaProducts"
 import Product from "../Product/Product"
+import { useSelector } from "react-redux"
+
+
 
 const Products = () => {
+    
+    const allProducts = useSelector((state) => state.allProducts)
+
 
     return <div>
         {
