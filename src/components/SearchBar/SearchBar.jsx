@@ -1,30 +1,19 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import  getProductByName from "../../redux/Actions/getProductByName";
 import { Input, Space } from "antd";
+import { useNavigate } from "react-router-dom";
+
 const { Search } = Input;
 
-const onSearch = (value, _e, info) => console.log(info?.source, value);
-
 const SearchBar = ({ onSearch }) => {
-  const handleSearch = (e) => {
-    const searchTerm = e.target.value;
-    onSearch(searchTerm);
-  };
+  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-  // Function to handle input change when searching by name
-  const handleInputChange = (e) => {
-    setSearchedCountry({ value: e.target.value });
-  };
-
-  // Function to handle form submission when searching by name
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    clearFilters();
-    // Update the 'name' filter based on user input
-    setActualFilters((state) => {
-      return { ...state, name: searchedCountry.value.trim() };
-    });
+  const handleSearch = () => {
+    dispatch(getProductByName(searchQuery));
+    navigate("/products");
   };
 
   return (
@@ -32,41 +21,23 @@ const SearchBar = ({ onSearch }) => {
       <br />
       <Space direction="vertical">
         <Search
-          onChange={handleSearch}
           placeholder="Buscar..."
-          bordered={false}
+          allowClear
           onSearch={handleSearch}
+          onChange={(e) => setSearchQuery(e.target.value)}
           style={{
             width: 200,
           }}
-        />
-        <Search
-          onChange={handleSearch}
-          placeholder="Buscar..."
-          allowClear
-          onSearch={onSearch}
-          style={{
-            width: 200,
-          }}
-        />
-
-        <Search
-          onChange={handleSearch}
-          placeholder="Buscar..."
-          onSearch={onSearch}
-          enterButton
-        />
-        <Search
-          onChange={handleSearch}
-          placeholder="Buscar..."
-          allowClear
-          enterButton="Search"
-          size="large"
-          onSearch={handleSearch}
         />
       </Space>
+    </div>
+  );
+};
 
-      {/* <div className={style.searchContainer}>
+export default SearchBar;
+
+{
+  /* <div className={style.searchContainer}>
         <div className={style.labelSearch}>
           <label htmlFor="filter">By Name</label>
         </div>
@@ -88,9 +59,35 @@ const SearchBar = ({ onSearch }) => {
             </button>
           </form>
         </div>
-      </div> */}
-    </div>
-  );
-};
-
-export default SearchBar;
+      </div> 
+      
+      
+      
+      
+      
+      <Search
+          onChange={handleSearch}
+          placeholder="Buscar..."
+          bordered={false}
+          onSearch={handleSearch}
+          style={{
+            width: 200,
+          }}
+        />
+        <Search
+          onChange={handleSearch}
+          placeholder="Buscar..."
+          onSearch={onSearch}
+          enterButton
+        />
+        <Search
+          onChange={handleSearch}
+          placeholder="Buscar..."
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={handleSearch}
+        />
+      
+      */
+}
