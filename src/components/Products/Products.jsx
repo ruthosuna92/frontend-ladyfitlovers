@@ -6,13 +6,22 @@ import getAllProducts from "../../redux/Actions/getAllProducts";
 import style from "./Products.module.css";
 
 const Products = () => {
-  const allProducts = useSelector((state) => state.allProducts);
-  // const filteredProducts = useSelector((state) => state.products);
+  const productsPerPage = useSelector((state) => state.productsPerPage);
+  const allProducts = useSelector((state) => state.allProducts)
+  const filteredProducts = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   if(!allProducts.length){
+  //     dispatch(getAllProducts());
+  //     console.log(allProducts);
+  //   }
+  // }, []);
+  console.log(allProducts);
+  console.log(productsPerPage);
   return (
     <div className={style.cardsContainer}>
-      {allProducts &&
-        allProducts?.map(({ id, name, image, price, sales, size, colour }) => {
+      {productsPerPage.map(({ id, name, image, price, sales, size, colour }) => {
           return (
             <Product
               key={id}
