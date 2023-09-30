@@ -1,25 +1,18 @@
-
-import Carousel from "../../components/Carousel/Carousel"
-import Products from "../../components/Products/Products"
-import SearchBar from "../../components/SearchBar/SearchBar"
+import Carousel from "../../components/Carousel/Carousel";
+import Products from "../../components/Products/Products";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Home = () => {
+  return (
+    <div>
+      <Carousel />
+      {/* <Products/> */}
 
-    
-    
-    return (
-        <div>
+      <SearchBar />
 
-            <Carousel/>
-            {/* <Products/> */}
+      {/* importar novedades! */}
+    </div>
+  );
+};
 
-<SearchBar/>
-
-{/* importar novedades! */}
-
-
-        </div>
-    )
-}
-
-export default Home
+export default Home;

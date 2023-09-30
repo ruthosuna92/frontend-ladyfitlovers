@@ -23,14 +23,9 @@ const reducer = (state = initialState, action) => {
         products: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
-      // busqueda parcial
-      const { name } = action.payload;
-      const filteredProducts = state.allProducts.filter((product) =>
-        product.name.includes(name)
-      );
       return {
         ...state,
-        products: filteredProducts,
+        products: action.payload,
       };
     // case CLEAN:
     //   return {
@@ -47,3 +42,5 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
+//  console.log(filteredProducts)

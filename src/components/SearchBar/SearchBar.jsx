@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import  getProductByName from "../../redux/Actions/getProductByName";
+import getProductByName from "../../redux/Actions/getProductByName";
 import { Input, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -11,13 +11,13 @@ const SearchBar = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    dispatch(getProductByName(searchQuery));
+  const handleSearch = async () => {
+    await dispatch(getProductByName(searchQuery));
     navigate("/products");
   };
 
   return (
-    <div>
+    <>
       <br />
       <Space direction="vertical">
         <Search
@@ -30,7 +30,7 @@ const SearchBar = ({ onSearch }) => {
           }}
         />
       </Space>
-    </div>
+    </>
   );
 };
 

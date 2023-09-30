@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./Product.module.css";
-import { Link } from "react-router-dom";
 
 import { Card } from "antd";
 const { Meta } = Card;
@@ -13,7 +12,7 @@ const Product = ({ id, name, image, price, sales }) => {
       {/* <img alt={name} src={image} />
       <p>{name}</p>
       <h3>{price}</h3> */}
-      <Link to={`/detail/${id}`}>
+
       <div key={id} className={style.container}>
         <div className={style.card}>
           <div className={style.imgBx}>
@@ -22,27 +21,26 @@ const Product = ({ id, name, image, price, sales }) => {
 
           <div className={style.contentBx}>
             <h2>{name}</h2>
+            <h2>$ {price}</h2>
+            <h2>{sales}</h2>
             {/* mapear el array de size para renderizar un span con cada size */}
 
             <div className={style.size}>
               <h3>Talle :</h3>
-              {size.map((talle) => {
-                return <span>{talle}</span>;
+              {size.map((talle, index) => {
+                return <span key={index}>{talle}</span>;
               })}
             </div>
             <div className={style.color}>
               <h3>Color :</h3>
-              {colour.map((colour) => {
-                return (
-                  <span key={colour} style={{ background: colour }}></span>
-                );
+              {colour.map((colour, index) => {
+                return <span key={index} style={{ background: colour }}></span>;
               })}
             </div>
-            <p href="#">Comprar</p>
+            <a href="#">Comprar</a>
           </div>
         </div>
       </div>
-      </Link>
     </div>
   );
 };
