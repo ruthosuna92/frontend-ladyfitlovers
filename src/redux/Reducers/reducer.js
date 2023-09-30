@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 allProducts: action.payload,
-                productsPerPage: state.allProducts.slice(0, 4)
+                productsPerPage: action.payload.slice(0, 4)
             }
         case GET_ID_DETAIL_PRODUCTS:
             return {

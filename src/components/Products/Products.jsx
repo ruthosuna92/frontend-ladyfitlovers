@@ -18,10 +18,10 @@ const Products = () => {
   //   }
   // }, []);
   console.log(allProducts);
+  console.log(productsPerPage);
   return (
     <div className={style.cardsContainer}>
-      {allProducts &&
-        productsPerPage.map(({ id, name, image, price, sales, size, colour }) => {
+      {productsPerPage.map(({ id, name, image, price, sales, size, colour }) => {
           return (
             <Product
               key={id}

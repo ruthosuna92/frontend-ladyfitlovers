@@ -13,10 +13,7 @@ const Pagination = () => {
     // const endIndex = startIndex + quantity
     
     const handlePage = (event) => {
-        // const slice = allProducts.slice(startIndex, endIndex)
         dispatch(setCurrentPage(event.target.id))
-        // dispatch(setProductsPerPage(slice))
-        
     }
 
     return <div>
