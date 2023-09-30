@@ -8,6 +8,7 @@ import style from "./Products.module.css";
 const Products = () => {
   const productsPerPage = useSelector((state) => state.productsPerPage);
   const allProducts = useSelector((state) => state.allProducts)
+  const filteredProducts = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -23,6 +24,7 @@ const Products = () => {
         productsPerPage.map(({ id, name, image, price, sales, size, colour }) => {
           return (
             <Product
+              key={id}
               id={id}
               name={name}
               image={image}
