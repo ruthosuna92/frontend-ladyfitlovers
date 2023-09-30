@@ -6,7 +6,6 @@ import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 
-
 const App = () => {
   return (
     <ConfigProvider
@@ -14,10 +13,16 @@ const App = () => {
         token: {
           // Seed Token
           colorPrimary: "#DF3079",
-          borderRadius: 2,
+          borderRadius: 10,
+          colorBgContainer: "#F6F1F5",
 
-          // Alias Token
-          colorBgContainer: "#f6ffed",
+          fontFamily: "'Poppins', sans-serif",
+          colorLink: "#DF3079",
+          colorInfo: "#DF3079",
+          // colorBgBase: "#E0B3D3",
+          // boxShadow: ,
+          // boxShadowSecondary: ,
+          // boxShadowTertiary: ,
         },
       }}
     >
@@ -25,16 +30,15 @@ const App = () => {
       {/* <h1>Hello World</h1>
       <Button type="primary">Hello World</Button> */}
       <Routes>
-
         <Route path="/" element={<Home />} />
         <Route path="/admin" />
         <Route path="/login" />
         <Route path="/contacto" />
         <Route path="/register" />
-        <Route path="/products" element={<ProductsView/>}/>
-        <Route path="/products/:category"/>
+        <Route path="/products" element={<ProductsView />} />
+        <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
-        <Route path="/detail/:id" element={<Detail/>}/>
+        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </ConfigProvider>
   );
