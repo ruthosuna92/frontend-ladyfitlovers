@@ -10,9 +10,7 @@ import ProductsView from "./views/ProductsView/ProductsView";
 import Home from "./views/Home/Home";
 import Detail from "./views/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react"
-import getAllProducts from "./redux/Actions/getAllProducts";
+
 
 const App = () => {
   // dispatch to get all products globally
@@ -22,7 +20,7 @@ const App = () => {
 
   //condiction para que no se vuelva a cargar los productso si el estado
   useEffect(() => {
-    if (!allProducts) {
+    if (!allProducts.length) {
       dispatch(getAllProducts());
     }
   }, []);
