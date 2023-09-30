@@ -2,14 +2,14 @@ import axios from "axios";
 import { GET_PRODUCT_BY_NAME } from "../actionTypes";
 
 const endpoint =
-  "https://pf-back-production-4255.up.railway.app/product/allProducts";
+  "https://pf-back-production-4255.up.railway.app/product/name?name=";
 
 const getProductByName = (name) => {
   return async (dispatch) => {
     try {
       // const response = await axios.get(`${endpoint}?name=${name}`);
-      const response = await axios.get(`${endpoint}?name_like=${name}`);
-      //   const response = await axios.get(endpoint);
+      // const response = await axios.get(`${endpoint}?name_like=${name}`);
+      const response = await axios.get(endpoint + name);
       dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: response.data,

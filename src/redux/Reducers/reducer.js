@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   allProducts: null,
-  products: null,
+  productDetail: null,
   //   filteredProducts: null,
 };
 
@@ -20,12 +20,12 @@ const reducer = (state = initialState, action) => {
     case GET_ID_DETAIL_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        productDetail: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
-        products: action.payload,
+        allProducts: action.payload,
       };
     // case CLEAN:
     //   return {

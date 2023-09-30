@@ -7,9 +7,6 @@ const Home = () => {
     <div>
       <Carousel />
       {/* <Products/> */}
-
-      <SearchBar />
-
       {/* importar novedades! */}
     </div>
   );
