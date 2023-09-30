@@ -1,20 +1,15 @@
-
-import Carousel from "../../components/Carousel/Carousel"
-import Products from "../../components/Products/Products"
-
+import Carousel from "../../components/Carousel/Carousel";
+import Products from "../../components/Products/Products";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Home = () => {
+  return (
+    <div>
+      <Carousel />
+      {/* <Products/> */}
+      {/* importar novedades! */}
+    </div>
+  );
+};
 
-    
-    
-    return (
-        <div>
-
-            <Carousel/>
-            {/* <Products/> */}
-
-        </div>
-    )
-}
-
-export default Home
+export default Home;

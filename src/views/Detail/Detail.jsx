@@ -1,30 +1,30 @@
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
-import LoadingMessage from '../../components/LoadingMessage/LoadingMessage';
-import ProductDetails from '../../components/ProductDetails/ProductDetails';
-import getIdDetailProducts from '../../redux/Actions/getIdDetailProducts';
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingMessage from "../../components/LoadingMessage/LoadingMessage";
+import ProductDetails from "../../components/ProductDetails/ProductDetails";
+import getIdDetailProducts from "../../redux/Actions/getIdDetailProducts";
 
 const Detail = () => {
   const { id } = useParams();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [data, setData] = useState({
-    selectedSize: '',
+    selectedSize: "",
     selectedAmount: 0,
     colorDisabled: false,
     inputAmount: 0,
     availableSizes: [],
   });
-  useEffect(()=>{
-    dispatch(getIdDetailProducts(id))
-  },[id, dispatch])
-  const productData = useSelector((state)=> state.products)
+  useEffect(() => {
+    dispatch(getIdDetailProducts(id));
+  }, [id, dispatch]);
+  const productData = useSelector((state) => state.productDetail);
   useEffect(() => {
     if (productData) {
       const firstColor = productData.stock[0];
 
       setData({
-        selectedSize: '',
+        selectedSize: "",
         selectedAmount: firstColor ? firstColor.sizeAndQuantity[0].quantity : 0,
         colorDisabled: false,
         inputAmount: 0,
@@ -49,13 +49,15 @@ const Detail = () => {
 
   const handleColorChange = (event) => {
     const selectedColor = event.target.value;
-    const colorData = productData.stock.find((color) => color.color === selectedColor);
+    const colorData = productData.stock.find(
+      (color) => color.color === selectedColor
+    );
 
     setData((prevData) => ({
       ...prevData,
       ...{
         availableSizes: colorData ? colorData.sizeAndQuantity : [],
-        selectedSize: colorData ? colorData.sizeAndQuantity[0].size : '',
+        selectedSize: colorData ? colorData.sizeAndQuantity[0].size : "",
         colorDisabled: !colorData || colorData.sizeAndQuantity.length === 0,
         selectedAmount: colorData ? colorData.sizeAndQuantity[0].quantity : 0,
         inputAmount: 0,
@@ -64,7 +66,11 @@ const Detail = () => {
   };
   const handleAmountChange = (event) => {
     const newAmount = +event.target.value;
-    if (!isNaN(newAmount) && newAmount >= 0 && newAmount <= data.selectedAmount) {
+    if (
+      !isNaN(newAmount) &&
+      newAmount >= 0 &&
+      newAmount <= data.selectedAmount
+    ) {
       setData((prevData) => ({
         ...prevData,
         inputAmount: newAmount,
@@ -72,16 +78,16 @@ const Detail = () => {
     }
   };
   if (!productData) {
-    return <LoadingMessage/>;
+    return <LoadingMessage />;
   }
   return (
     <ProductDetails
-    productData={productData}
-    data={data}
-    handleColorChange={handleColorChange}
-    handleSizeChange={handleSizeChange}
-    handleAmountChange={handleAmountChange}
-  />
+      productData={productData}
+      data={data}
+      handleColorChange={handleColorChange}
+      handleSizeChange={handleSizeChange}
+      handleAmountChange={handleAmountChange}
+    />
   );
 };
 export default Detail;
