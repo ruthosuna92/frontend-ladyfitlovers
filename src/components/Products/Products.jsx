@@ -7,12 +7,7 @@ import style from "./Products.module.css";
 
 const Products = () => {
   const allProducts = useSelector((state) => state.allProducts);
-  const filteredProducts = useSelector((state) => state.products);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);
+  // const filteredProducts = useSelector((state) => state.products);
 
   return (
     <div className={style.cardsContainer}>
