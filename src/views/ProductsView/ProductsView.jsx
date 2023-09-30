@@ -18,8 +18,8 @@ const ProductsView = () => {
   return (
     <div>
       {/* importar filtros, paginado y side bar etc */}
-      <Pagination/>
       <Products />
+      <Pagination/>
     </div>
   );
 };

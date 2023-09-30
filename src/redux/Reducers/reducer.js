@@ -10,6 +10,8 @@ const initialState = {
   //   filteredProducts: null,
     currentPage: 1,
     productsPerPage: [],
+    totalButtons: null,
+    quantity: 4
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,7 +20,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 allProducts: action.payload,
-                productsPerPage: action.payload.slice(0, 4)
+                productsPerPage: action.payload.slice(0, 4),
+                totalButtons: Math.ceil(action.payload.length / state.quantity)
             }
         case GET_ID_DETAIL_PRODUCTS:
             return {
@@ -37,9 +40,8 @@ const reducer = (state = initialState, action) => {
     //     //   filteredProducts: null,
     //   };
     case SET_PAGE:
-            const quantity = 4
-            const startIndex = (action.payload - 1) * quantity
-            const endIndex = startIndex + quantity
+            const startIndex = (action.payload - 1) * state.quantity
+            const endIndex = startIndex + state.quantity
             const slice = state.allProducts.slice(startIndex, endIndex)
             return {
                 ...state,
