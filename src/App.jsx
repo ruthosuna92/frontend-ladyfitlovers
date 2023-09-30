@@ -1,19 +1,30 @@
-import React from "react";
+//imports
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { ConfigProvider, Button } from "antd";
+//actions
+import getAllProducts from "./redux/Actions/getAllProducts";
+// components
 import ProductsView from "./views/ProductsView/ProductsView";
 import Home from "./views/Home/Home";
 import Detail from "./views/Detail/Detail";
-import { ConfigProvider, Button } from "antd";
-import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react"
 import getAllProducts from "./redux/Actions/getAllProducts";
 
 const App = () => {
-  const dispatch = useDispatch()
+  // dispatch to get all products globally
+  const allProducts = useSelector((state) => state.allProducts);
+  const filteredProducts = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
+  //condiction para que no se vuelva a cargar los productso si el estado
   useEffect(() => {
+    if (!allProducts) {
       dispatch(getAllProducts());
+    }
   }, []);
 
   return (

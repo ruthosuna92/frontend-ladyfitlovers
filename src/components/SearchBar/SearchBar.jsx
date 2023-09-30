@@ -8,12 +8,14 @@ const { Search } = Input;
 
 const SearchBar = ({ onSearch }) => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    await dispatch(getProductByName(searchQuery));
-    navigate("/products");
+    if (name) {
+      await dispatch(getProductByName(name));
+      navigate("/products");
+    }
   };
 
   return (
@@ -24,7 +26,7 @@ const SearchBar = ({ onSearch }) => {
           placeholder="Buscar..."
           allowClear
           onSearch={handleSearch}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           style={{
             width: 200,
           }}
