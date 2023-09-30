@@ -3,6 +3,8 @@ import {
   GET_ID_DETAIL_PRODUCTS,
   GET_PRODUCT_BY_NAME,
   FILT_BY_CATEGORY,
+  FILT_BY_COLOR,
+  FILT_BY_SIZE,
 } from "../actionTypes";
 
 const initialState = {
@@ -10,7 +12,7 @@ const initialState = {
   productDetail: null,
   allProducts: null,
   saveProducts: null,
-    
+
 }
 
 const reducer = (state = initialState, action) => {
@@ -39,11 +41,40 @@ const reducer = (state = initialState, action) => {
     //   };
     case FILT_BY_CATEGORY:
       return {
-          ...state,
-          allProducts:  action.payload === "T" ? state.saveProducts :  state.saveProducts.filter(product => product.Category.name === action.payload)
+        ...state,
+        allProducts: action.payload === "T" ? state.saveProducts : state.saveProducts.filter(product => product.Category.name === action.payload)
       }
+    case FILT_BY_COLOR:
+      let filteredProducts;
+
+      if (action.payload === "C") {
+        filteredProducts = state.saveProducts;
+      } else {
+        filteredProducts = state.saveProducts.filter((product) =>
+          product.stock.some((stockItem) => stockItem.color === action.payload)
+        );
+      }
+      return {
+        ...state,
+        allProducts: filteredProducts,
+      };
+    case FILT_BY_SIZE:
+      let filteredSize;
+      console.log(action.payload)
+      if (action.payload === "TA") {
+        filteredSize = state.saveProducts;
+      } else {
+        filteredSize = state.saveProducts.filter((product) =>
+          product.stock.some((stockItem) =>
+            stockItem.sizeAndQuantity.some(
+              (sizeItem) => sizeItem.size === action.payload)))
+      }
+      return {
+        ...state,
+        allProducts: filteredSize,
+      }
+
     default:
-      console.log(state);
       return {
         ...state,
       };
