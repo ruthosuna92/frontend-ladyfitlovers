@@ -5,9 +5,17 @@ import Detail from "./views/Detail/Detail";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-
+import { useDispatch } from "react-redux";
+import { useEffect } from "react"
+import getAllProducts from "./redux/Actions/getAllProducts";
 
 const App = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      dispatch(getAllProducts());
+  }, []);
+
   return (
     <ConfigProvider
       theme={{
