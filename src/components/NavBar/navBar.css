@@ -46,3 +46,8 @@
     align-items: center;
     flex: 1;
 }
+
+.userInfp{
+  display: flex;
+  flex-direction: column;
+}
