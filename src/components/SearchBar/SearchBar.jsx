@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import getProductByName from "../../redux/Actions/getProductByName";
+import getAllProducts from "../../redux/Actions/getAllProducts";
 import { Input, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +16,8 @@ const SearchBar = ({ onSearch }) => {
     if (name) {
       await dispatch(getProductByName(name));
       navigate("/products");
+    } else {
+      await dispatch(getAllProducts());
     }
   };
 
