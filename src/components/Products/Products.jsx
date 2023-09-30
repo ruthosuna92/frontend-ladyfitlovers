@@ -7,11 +7,7 @@ import style from "./Products.module.css";
 
 const Products = () => {
   const allProducts = useSelector((state) => state.allProducts);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);
+  // const filteredProducts = useSelector((state) => state.products);
 
   return (
     <div className={style.cardsContainer}>
@@ -19,6 +15,7 @@ const Products = () => {
         allProducts?.map(({ id, name, image, price, sales, size, colour }) => {
           return (
             <Product
+              key={id}
               id={id}
               name={name}
               image={image}

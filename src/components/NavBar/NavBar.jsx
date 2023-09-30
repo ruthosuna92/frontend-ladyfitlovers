@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import "./navBar.css"
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary'
 import logo from '/svg/LADYFIT1.svg'
+import SearchBar from '../SearchBar/SearchBar'
 
 const NavBar = () => {
     const location = useLocation()
@@ -51,6 +52,10 @@ const NavBar = () => {
                         </button>
                     </Link>
                 </div>
+                <div className='searchBarDiv'>
+                    <SearchBar/>
+                </div>
+                
                 <div>
                     <ButtonPrimary title='Iniciar Sesión' onClick={()=> {}} />
                 </div>
