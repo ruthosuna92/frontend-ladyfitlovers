@@ -12,7 +12,7 @@ const Product = ({ id, name, image, price, sales }) => {
       {/* <img alt={name} src={image} />
       <p>{name}</p>
       <h3>{price}</h3> */}
-
+      <Link to={`/detail/${id}`}>
       <div key={id} className={style.container}>
         <div className={style.card}>
           <div className={style.imgBx}>
@@ -41,6 +41,7 @@ const Product = ({ id, name, image, price, sales }) => {
           </div>
         </div>
       </div>
+      </Link>
     </div>
   );
 };
