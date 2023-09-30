@@ -1,11 +1,11 @@
 import React from "react";
-//importamos ant design
-import Home from "./views/Home";
-import Detail from "./components/Detail/Detail";
+import ProductsView from "./views/ProductsView/ProductsView";
+import Home from "./views/Home/Home";
+import Detail from "./views/Detail/Detail";
 import { ConfigProvider, Button } from "antd";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import Products from "./components/Products/Products";
+
 
 const App = () => {
   return (
@@ -25,13 +25,14 @@ const App = () => {
       {/* <h1>Hello World</h1>
       <Button type="primary">Hello World</Button> */}
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/admin" />
         <Route path="/login" />
         <Route path="/contacto" />
         <Route path="/register" />
-        <Route path="/products" element={<Products/>} />
-        <Route path="/products/:category" />
+        <Route path="/products" element={<ProductsView/>}/>
+        <Route path="/products/:category"/>
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail/>}/>
       </Routes>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import "./navBar.css"
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary'
-import logo from '../../../public/svg/LADYFIT1.svg'
+import logo from '/svg/LADYFIT1.svg'
 
 const NavBar = () => {
     const location = useLocation()
