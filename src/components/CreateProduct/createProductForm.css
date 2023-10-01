@@ -12,4 +12,25 @@
     display: flex;
     gap: 16px;
     width: 100%;
+    margin: 16px 0px;
+}
+
+.fieldAndError{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.inputsSizesContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+.selectDiv{
+    width: 100%;
+}
+
+.createProductError{
+  color: #c12525;
+  font-size: 12px;
 }

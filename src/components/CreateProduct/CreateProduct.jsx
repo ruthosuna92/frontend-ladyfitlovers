@@ -14,7 +14,7 @@ const initialValues = {
     category: '',
     stock: [],
 }
-console.log(initialValues)
+console.log(CreateProductSchema)
   return (
     <div className='createProductContainer'>
         <h1>CREAR PRODUCTO</h1>
@@ -23,7 +23,9 @@ console.log(initialValues)
         validationSchema={CreateProductSchema}
         onSubmit={() => {} }
         >
-           <Form><CreateProductForm/></Form> 
+           {({ errors, touched }) => (
+           <Form><CreateProductForm errors={errors}/></Form> 
+            )}  
         </Formik>
     </div>
   )
