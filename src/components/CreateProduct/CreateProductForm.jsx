@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Field, useFormikContext, FieldArray } from "formik";
 import { Input, Select, notification } from "antd";
+import { useDispatch } from "react-redux";
 import "./createProductForm.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
+import postProduct from "../../redux/Actions/postProduct";
 
 const CreateProductForm = ({ errors }) => {
-  const { values, setFieldValue } = useFormikContext();
-  const [errorColor,setErrorColor] = useState(false)
+  const { values, setFieldValue , resetForm} = useFormikContext();
+  const [errorColor, setErrorColor] = useState(false);
+  const dispatch = useDispatch();
 
   const colorOptions = [
     { value: "", label: "Selecciona un color" },
@@ -22,29 +25,41 @@ const CreateProductForm = ({ errors }) => {
   ];
   const handleSubmit = () => {
     console.log(values);
+    dispatch(postProduct({
+        name: values.name,
+        price: values.price,
+        priceOnSale: values.priceOnSale,
+        unitsSold: values.unitsSold,
+        image: values.image,
+        category: values.category,
+        stock: values.stock,
+    }))
+    resetForm()
   };
 
   const onChange = (value, index) => {
     if (values.stock.some((element) => element.color === value)) {
-     setErrorColor({
+      setErrorColor({
         index: index,
-        message: "Ya has seleccionado este color"
-     })}
-     if(!values.stock.some((element) => element.color === value)){
-        setErrorColor(false)
-    } 
-      setFieldValue(`stock.${index}.color`, value);
-    
-  }
-console.log(errorColor)
+        message: "Ya has seleccionado este color",
+      });
+    }
+    if (!values.stock.some((element) => element.color === value)) {
+      setErrorColor(false);
+    }
+    setFieldValue(`stock.${index}.color`, value);
+  };
+
   return (
     <div className="containerForm">
       <Field id="name" name="name">
         {({ field, form, meta, error }) => {
           return (
             <div className="fieldAndError">
-              <Input {...field} placeholder="Nombre" />
-              {errors.name && <p className="createProductError">{errors.name}</p>}
+              <Input {...field} placeholder="Nombre" autoComplete="off"/>
+              {errors.name && (
+                <p className="createProductError">{errors.name}</p>
+              )}
             </div>
           );
         }}
@@ -55,7 +70,9 @@ console.log(errorColor)
             return (
               <div className="fieldAndError">
                 <Input {...field} placeholder="Precio" />
-                {errors.price && <p className="createProductError">{errors.price}</p>}
+                {errors.price && (
+                  <p className="createProductError">{errors.price}</p>
+                )}
               </div>
             );
           }}
@@ -63,10 +80,10 @@ console.log(errorColor)
         <Field id="priceOnSale" name="priceOnSale">
           {({ field, form, meta }) => {
             return (
-            <div className="fieldAndError">
-            <Input {...field} placeholder="Precio en oferta" />           
-            </div>
-            )
+              <div className="fieldAndError">
+                <Input {...field} placeholder="Precio en oferta" />
+              </div>
+            );
           }}
         </Field>
       </div>
@@ -74,21 +91,25 @@ console.log(errorColor)
         <Field id="image" name="image">
           {({ field, form, meta }) => {
             return (
-                <div className="fieldAndError"> 
+              <div className="fieldAndError">
                 <Input {...field} placeholder="Imagen" />
-                {errors.image && <p className="createProductError">{errors.image}</p>}                
-                </div>
-            )
+                {errors.image && (
+                  <p className="createProductError">{errors.image}</p>
+                )}
+              </div>
+            );
           }}
         </Field>
         <Field id="category" name="category">
           {({ field, form, meta }) => {
             return (
-                <div className="fieldAndError">
+              <div className="fieldAndError">
                 <Input {...field} placeholder="Categoria" />
-                {errors.category && <p className="createProductError">{errors.category}</p>}                
-                </div>
-            )
+                {errors.category && (
+                  <p className="createProductError">{errors.category}</p>
+                )}
+              </div>
+            );
           }}
         </Field>
       </div>
@@ -109,20 +130,20 @@ console.log(errorColor)
                               options={colorOptions}
                               onChange={(value) => onChange(value, index)}
                             />
-                          {errorColor.index === index &&(
-                            <p className="createProductError">{errorColor.message}</p>
-                          )}
+                            {errorColor.index === index && (
+                              <p className="createProductError">
+                                {errorColor.message}
+                              </p>
+                            )}
                           </div>
-                          
-                        )
-                    
+                        );
                       }}
                     </Field>
                   </div>
                   <div className="inputsContainer">
                     {stock?.sizeAndQuantity?.length > 0 &&
                       stock?.sizeAndQuantity.map((sizeAndQuantity, index2) => (
-                        <div className="inputsstockContainer" key={index2}>
+                        <div className="inputsStockContainer" key={index2}>
                           <Field
                             name={`stock.${index}.sizeAndQuantity.${index2}.size`}
                           >
@@ -192,7 +213,18 @@ console.log(errorColor)
           </div>
         )}
       </FieldArray>
-      <ButtonPrimary title="Crear" onClick={handleSubmit} disabled={errors.name || errors.price || errors.category || errors.image || errors.stock || errorColor.message} />
+      <ButtonPrimary
+        title="Crear"
+        onClick={handleSubmit}
+        disabled={
+          errors.name ||
+          errors.price ||
+          errors.category ||
+          errors.image ||
+          errors.stock ||
+          errorColor.message
+        }
+      />
     </div>
   );
 };

@@ -34,3 +34,9 @@
   color: #c12525;
   font-size: 12px;
 }
+
+.inputsStockContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

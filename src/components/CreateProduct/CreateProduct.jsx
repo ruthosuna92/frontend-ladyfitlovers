@@ -9,12 +9,12 @@ const initialValues = {
     name: '',
     price: '',
     priceOnSale: '',
-    unitSold: 0,
+    unitsSold: 0,
     image: '',
     category: '',
     stock: [],
 }
-console.log(CreateProductSchema)
+
   return (
     <div className='createProductContainer'>
         <h1>CREAR PRODUCTO</h1>
