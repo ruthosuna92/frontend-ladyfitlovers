@@ -27,7 +27,7 @@ const LoginModal = (props) => {
       <Form form={form} onFinish={handleSubmit} className="login-form">
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Ingrese un usuario" }]}
         >
           <Input
             prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -36,7 +36,7 @@ const LoginModal = (props) => {
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[{ required: true, message: "Ingrese una contraseña" }]}
         >
           <Input
             prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
