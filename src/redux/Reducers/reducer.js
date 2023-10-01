@@ -2,7 +2,7 @@
 import {
   GET_ALL_PRODUCTS,
   GET_ID_DETAIL_PRODUCTS, SET_PAGE, PRODUCTS_PER_PAGE,
-  GET_PRODUCT_BY_NAME,
+  GET_PRODUCT_BY_NAME, GET_CATEGORIES, POST_CATEGORY,
   FILT_BY_CATEGORY,
   FILT_BY_COLOR,
   FILT_BY_SIZE,
@@ -11,13 +11,12 @@ import {
 const initialState = {
   allProducts: [],
   productDetail: null,
-  saveProducts: [],
-  currentPage: 1,
-  productsPerPage: [],
-  totalButtons: null,
-  quantity: 4,
-  savePivot: [],
-}
+  //   filteredProducts: null,
+    currentPage: 1,
+    productsPerPage: [],
+    totalButtons: null,
+    quantity: 4
+};
 
 const reducer = (state = initialState, action) => {
   console.log(state.productsPerPage)
@@ -27,7 +26,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         saveProducts: action.payload,
         allProducts: action.payload,
-        productsPerPage: action.payload.slice(0, 4),
+        productsPerPage: action.payload.slice(0, 8),
         totalButtons: Math.ceil(action.payload.length / state.quantity),
       }
     case GET_ID_DETAIL_PRODUCTS:
@@ -98,6 +97,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: filteredSize,
       }
+        case GET_CATEGORIES:
+            return {
+                ...state,
+                allCategories: action.payload
+            }
+            case POST_CATEGORY:
+                return {
+                    ...state,
+                    allCategories: [...state.allCategories, action.payload],
+                };
     default:
 
       return {
@@ -108,4 +117,4 @@ const reducer = (state = initialState, action) => {
 
 export default reducer;
 
-//  console.log(filteredProducts)
+

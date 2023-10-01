@@ -4,6 +4,10 @@ export const SET_PAGE = 'SET_PAGE'
 export const PRODUCTS_PER_PAGE = 'PRODUCTS_PER_PAGE'
 export const FILT_BY_CATEGORY = 'FILT_BY_CATEGORY'
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
+export const POST_PRODUCT = "POST_PRODUCT";
+export const GET_CATEGORIES = "GET_CATEGORIES";
+export const POST_CATEGORY = "POST_CATEGORY";
+
 export const FILT_BY_COLOR = "FILT_BY_COLOR";
 export const FILT_BY_SIZE = "FILT_BY_SIZE";
 //NAME

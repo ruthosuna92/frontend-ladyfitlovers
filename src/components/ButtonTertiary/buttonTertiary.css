@@ -1,0 +1,17 @@
+.buttonTertiary{
+    outline: none;
+    border: none;
+    color:#BA338A;
+    background-color: #ffffff;
+    height: 42px;
+    width: 150px;
+    border-radius: 45px 0px 0px 0px;
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 16px;
+   }
+   .buttonTertiary:hover{
+     cursor: pointer;
+     background-color:   #F6F1F5;;
+     color: #c04c98;
+   }
