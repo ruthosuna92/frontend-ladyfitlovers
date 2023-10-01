@@ -11,14 +11,7 @@ const Products = () => {
   const filteredProducts = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if(!allProducts.length){
-  //     dispatch(getAllProducts());
-  //     console.log(allProducts);
-  //   }
-  // }, []);
-  console.log(allProducts);
-  console.log(productsPerPage);
+ 
   return (
     <div className={style.cardsContainer}>
       {productsPerPage.map(({ id, name, image, price, sales, size, colour }) => {

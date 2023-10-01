@@ -8,6 +8,7 @@ import {
   FILT_BY_SIZE,
   GET_CATEGORIES,
   POST_CATEGORY,
+  SET_NAME
 } from "../actionTypes";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   quantity: 8,
   savePivot: [],
   allCategories: null,
+  name: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -62,7 +64,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         productsPerPage: action.payload
       }
-
+    case SET_NAME:
+      return {
+        ...state,
+        name: !state.name ? action.payload : action.payload
+      }
     case FILT_BY_CATEGORY:
       return {
         ...state,
