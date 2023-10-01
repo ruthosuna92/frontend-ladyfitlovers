@@ -38,8 +38,7 @@ const NavBar = () => {
   const [createAcountModalVisible, setCreateAcountModalVisible] = useState(false);
 
   const user = useSelector((state) => state.user);
-  const state = useSelector((state) => state);
-
+  
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
     }
@@ -48,7 +47,7 @@ const NavBar = () => {
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {state.user.typeUser == "Admin" && (
+      {user.typeUser == "Admin" && (
         <Menu.Item key="dashboard">
           <Link to="/admin">
             <FundViewOutlined />

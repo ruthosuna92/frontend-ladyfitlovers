@@ -12,6 +12,7 @@ import Detail from "./views/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
 import Contac from "./views/Contac/Contac";
 import Products from "./components/Products/Products";
+import Dashboard from "./views/Dashboard/Dashboard";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
@@ -56,7 +57,7 @@ const App = () => {
       <Button type="primary">Hello World</Button> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" />
+        <Route path="/admin" element={<Dashboard/>}/>
         <Route path="/login" />
         <Route path="/contacto" element={<Contac />} />
         <Route path="/register" />
