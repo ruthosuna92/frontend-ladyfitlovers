@@ -10,7 +10,7 @@ import ProductsView from "./views/ProductsView/ProductsView";
 import Home from "./views/Home/Home";
 import Detail from "./views/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
-
+import Contac from "./views/Contac/Contac";
 import Products from "./components/Products/Products";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import getAllCategories from "./redux/Actions/getAllCategories";
@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/admin" />
         <Route path="/login" />
-        <Route path="/contacto" />
+        <Route path="/contacto" element={<Contac/>}/>
         <Route path="/register" />
         <Route path="/products" element={<ProductsView />} />
         <Route path="/products/:category" />
