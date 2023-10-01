@@ -6,6 +6,8 @@ import {
   FILT_BY_CATEGORY,
   FILT_BY_COLOR,
   FILT_BY_SIZE,
+  GET_CATEGORIES,
+  POST_CATEGORY,
 } from "../actionTypes";
 
 const initialState = {
@@ -57,8 +59,8 @@ const reducer = (state = initialState, action) => {
       }
     case PRODUCTS_PER_PAGE:
       return {
-          ...state,
-          productsPerPage: action.payload
+        ...state,
+        productsPerPage: action.payload
       }
 
     case FILT_BY_CATEGORY:
@@ -103,16 +105,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: filteredSize,
       }
-      case GET_CATEGORIES:
-            return {
-                ...state,
-                allCategories: action.payload
-            }
-            case POST_CATEGORY:
-                return {
-                    ...state,
-                    allCategories: [...state.allCategories, action.payload],
-                };
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        allCategories: action.payload
+      }
+    case POST_CATEGORY:
+      return {
+        ...state,
+        allCategories: [...state.allCategories, action.payload],
+      };
     default:
 
       return {
