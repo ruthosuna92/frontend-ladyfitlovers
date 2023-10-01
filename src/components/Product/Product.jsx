@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 import { Card } from "antd";
 const { Meta } = Card;
 
-const size = ["xs", "s", "m", "l"];
-const colour = ["white", "black", "red", "blue"];
-const Product = ({ id, name, image, price, sales }) => {
+const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
+  console.log(id, name, image, price, stock, color)
   return (
     <div key={id}>
       {/* <img alt={name} src={image} />
@@ -23,19 +22,25 @@ const Product = ({ id, name, image, price, sales }) => {
           <div className={style.contentBx}>
             <h2>{name}</h2>
             <h2>$ {price}</h2>
-            <h2>{sales}</h2>
+            <h2>{unitsSold} vendidos</h2>
             {/* mapear el array de size para renderizar un span con cada size */}
 
             <div className={style.size}>
-              <h3>Talle :</h3>
-              {size.map((talle, index) => {
-                return <span key={index}>{talle}</span>;
-              })}
-            </div>
+                <h3>Talle :</h3>
+                {color.map(({ sizeAndQuantity }) => (
+                  sizeAndQuantity.map((sizeInfo, index) => (
+                    sizeInfo.quantity > 0 && (
+                      <span key={index}>{sizeInfo.size}</span>
+                    )
+                  ))
+                ))}
+              </div>
+
+
             <div className={style.color}>
               <h3>Color :</h3>
-              {colour.map((colour, index) => {
-                return <span key={index} style={{ background: colour }}></span>;
+              {color.map((color, index) => {
+                return <span key={index} style={{ background: color }}></span>;
               })}
             </div>
             <a href="#">Comprar</a>
@@ -43,6 +48,7 @@ const Product = ({ id, name, image, price, sales }) => {
         </div>
       </div>
       </Link>
+      
     </div>
   );
 };
