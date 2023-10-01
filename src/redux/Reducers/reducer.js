@@ -1,7 +1,7 @@
 import {
   GET_ALL_PRODUCTS,
   GET_ID_DETAIL_PRODUCTS, SET_PAGE, PRODUCTS_PER_PAGE,
-  GET_PRODUCT_BY_NAME,
+  GET_PRODUCT_BY_NAME, GET_CATEGORIES, POST_CATEGORY,
 } from "../actionTypes";
 
 const initialState = {
@@ -11,7 +11,8 @@ const initialState = {
     currentPage: 1,
     productsPerPage: [],
     totalButtons: null,
-    quantity: 4
+    quantity: 8,
+    allCategories: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,7 +21,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 allProducts: action.payload,
-                productsPerPage: action.payload.slice(0, 4),
+                productsPerPage: action.payload.slice(0, 8),
                 totalButtons: Math.ceil(action.payload.length / state.quantity)
             }
         case GET_ID_DETAIL_PRODUCTS:
@@ -53,6 +54,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 productsPerPage: action.payload
             }
+        case GET_CATEGORIES:
+            return {
+                ...state,
+                allCategories: action.payload
+            }
+            case POST_CATEGORY:
+                return {
+                    ...state,
+                    allCategories: [...state.allCategories, action.payload],
+                };
         default:
             return {
                 ...state

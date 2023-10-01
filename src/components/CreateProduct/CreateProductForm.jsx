@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 import { Field, useFormikContext, FieldArray } from "formik";
 import { Input, Select, notification } from "antd";
-import { useDispatch } from "react-redux";
-import "./createProductForm.css";
+import { useDispatch, useSelector } from "react-redux";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
 import postProduct from "../../redux/Actions/postProduct";
+import CreateCategoryModal from "../CreateCategoryModal/CreateCategoryModal";
+import "./createProductForm.css";
 
 const CreateProductForm = ({ errors }) => {
-  const { values, setFieldValue , resetForm} = useFormikContext();
+  const categories = useSelector((state) => state.allCategories);
+  const { values, setFieldValue, resetForm } = useFormikContext();
   const [errorColor, setErrorColor] = useState(false);
+  const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const dispatch = useDispatch();
+
+  const categoriesOptions = categories?.map((category) => {
+    return { value: category.name, label: category.name };
+  });
+  if (categoriesOptions) {
+    categoriesOptions.unshift({ value: "", label: "Selecciona una categoria" });
+  }
 
   const colorOptions = [
     { value: "", label: "Selecciona un color" },
@@ -25,7 +35,8 @@ const CreateProductForm = ({ errors }) => {
   ];
   const handleSubmit = () => {
     console.log(values);
-    dispatch(postProduct({
+    dispatch(
+      postProduct({
         name: values.name,
         price: values.price,
         priceOnSale: values.priceOnSale,
@@ -33,8 +44,9 @@ const CreateProductForm = ({ errors }) => {
         image: values.image,
         category: values.category,
         stock: values.stock,
-    }))
-    resetForm()
+      })
+    );
+    resetForm();
   };
 
   const onChange = (value, index) => {
@@ -50,13 +62,21 @@ const CreateProductForm = ({ errors }) => {
     setFieldValue(`stock.${index}.color`, value);
   };
 
+  const onChangeCategories = (value) => {
+    setFieldValue("category", value);
+  };
+
   return (
+    <>
+    {showCreateCategoryModal && (
+        <CreateCategoryModal visible={showCreateCategoryModal} onClose={()=> setShowCreateCategoryModal(false)}/>
+    )} 
     <div className="containerForm">
       <Field id="name" name="name">
         {({ field, form, meta, error }) => {
           return (
             <div className="fieldAndError">
-              <Input {...field} placeholder="Nombre" autoComplete="off"/>
+              <Input {...field} placeholder="Nombre" autoComplete="off" />
               {errors.name && (
                 <p className="createProductError">{errors.name}</p>
               )}
@@ -104,7 +124,19 @@ const CreateProductForm = ({ errors }) => {
           {({ field, form, meta }) => {
             return (
               <div className="fieldAndError">
-                <Input {...field} placeholder="Categoria" />
+                <Select
+                  {...field}
+                  options={categoriesOptions}
+                  onChange={(value) => onChangeCategories(value)}
+                  style={{ width: "100%" }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCreateCategoryModal(true)}
+                    className="createCategoryButton"
+                >
+                  Crear categoría
+                </button>
                 {errors.category && (
                   <p className="createProductError">{errors.category}</p>
                 )}
@@ -226,6 +258,7 @@ const CreateProductForm = ({ errors }) => {
         }
       />
     </div>
+    </>
   );
 };
 

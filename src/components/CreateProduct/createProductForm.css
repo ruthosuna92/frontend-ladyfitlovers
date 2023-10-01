@@ -40,3 +40,18 @@
     flex-direction: column;
     gap: 16px;
 }
+
+.createCategoryButton{
+    outline: none;
+    border: none;
+    color:#BA338A;
+    background-color: #ffffff;
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    margin-top: 4px;
+   }
+   .createCategoryButton:hover{
+     cursor: pointer;    
+     color: #c04c98;
+}

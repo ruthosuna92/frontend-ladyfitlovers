@@ -13,6 +13,7 @@ import NavBar from "./components/NavBar/NavBar";
 
 import Products from "./components/Products/Products";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
+import getAllCategories from "./redux/Actions/getAllCategories";
 
 const App = () => {
   // dispatch to get all products globally
@@ -24,6 +25,7 @@ const App = () => {
   useEffect(() => {
     if (!allProducts.length) {
       dispatch(getAllProducts());
+      dispatch(getAllCategories())
     }
   }, []);
 
