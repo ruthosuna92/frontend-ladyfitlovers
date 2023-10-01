@@ -34,6 +34,7 @@ const NavBar = () => {
   const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const user = useSelector((state) => state.user);
+  const state = useSelector((state) => state);
 
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
@@ -43,7 +44,7 @@ const NavBar = () => {
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {user.isAdmin && (
+      {state.user.typeUser == "Admin" && (
         <Menu.Item key="dashboard">
           <Link to="/admin">
             <FundViewOutlined />
@@ -131,10 +132,11 @@ const NavBar = () => {
             {userDropdown}
           </div>
         )}
-
-        <div>
-          <ButtonPrimary title="Iniciar Sesión" onClick={openLoginModal} />
-        </div>
+        {!user.email && (
+          <div>
+            <ButtonPrimary title="Iniciar Sesión" onClick={openLoginModal} />
+          </div>
+        )}
       </div>
 
       <LoginModal

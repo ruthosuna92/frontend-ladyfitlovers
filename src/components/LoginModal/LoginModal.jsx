@@ -14,50 +14,23 @@ const LoginModal = (props) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
-  // const handleLogin = async () => {
-  //   try {
-  //     const values = await form.validateFields();
-  //     const { email, password } = values;
-
-  //     setLoading(true);
-
-  //     dispatch(loginUser(email, password))
-  //       .then(() => {
-  //         dispatch(userById()).then(() => {
-  //           setLoading(false);
-  //           props.onClose();
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Login failed:", error);
-  //         setLoading(false);
-  //       });
-  //   } catch (error) {
-  //     console.error("Validation failed:", error);
-  //   }
-  // };
-
   const handleLogin = async () => {
     try {
       const values = await form.validateFields();
       const { email, password } = values;
-      console.log(email, password);
-      // Dispatch loginUser action
-      dispatch(loginUser(email, password)).then((response) => {
-        // Check if the login was successful and idUser is available
-        if (response && response.id) {
-          // Dispatch getUserById action with the obtained idUser
-          dispatch(userById(response.id));
-          // Close the modal if needed
-          props.onClose();
-        } else {
-          console.error("Login failed or id is missing.");
-        }
-      });
+      setLoading(true);
+      const response = await dispatch(loginUser(email, password));
+      const user = await dispatch(userById(response.payload.idUser));
+      // console.log(user);
+      if (user) {
+        setLoading(false);
+        return props.onClose();
+      }
     } catch (error) {
-      console.error("Validation failed:", error);
+      console.log(error.message);
     }
   };
+
   return (
     <Modal
       title="Ingresar"
@@ -121,3 +94,50 @@ const LoginModal = (props) => {
 };
 
 export default LoginModal;
+
+// const handleLogin = async () => {
+//   try {
+//     const values = await form.validateFields();
+//     const { email, password } = values;
+
+//     setLoading(true);
+
+//     dispatch(loginUser(email, password))
+//       .then(() => {
+//         dispatch(userById()).then(() => {
+//           setLoading(false);
+//           props.onClose();
+//         });
+//       })
+//       .catch((error) => {
+//         console.error("Login failed:", error);
+//         setLoading(false);
+//       });
+//   } catch (error) {
+//     console.error("Validation failed:", error);
+//   }
+// };
+
+// const handleLogin = async () => {
+//   try {
+//     const values = await form.validateFields();
+//     const { email, password } = values;
+//     console.log(email, password);
+//     // Dispatch loginUser action
+//     dispatch(loginUser(email, password)).then((response) => {
+//       console.log("Server response:", response.data);
+//       // Check if the login was successful and idUser is available
+//       if (response && response.idUser) {
+//         // Dispatch getUserById action with the obtained idUser
+//         dispatch(userById(response.idUser));
+//         console.log(response.idUser);
+//         // Close the modal if needed
+//         props.onClose();
+//       } else {
+//         console.error("Login failed or id is missing.");
+//       }
+//     });
+//   } catch (error) {
+//     console.error("Validation failed:", error);
+//   }
+// };

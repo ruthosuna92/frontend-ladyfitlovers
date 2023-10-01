@@ -19,11 +19,9 @@ const initialState = {
   quantity: 4,
   // usuario
   isLoggedIn: false,
-  userId: null,
-  user: {
-    isAdmin: false,
-  },
-  token: null,
+  userId: [],
+  user: [],
+  token: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -61,7 +59,7 @@ const reducer = (state = initialState, action) => {
       };
     case LOGIN_USER:
       console.log("login");
-      console.log("Token:", action.payload.message);
+      // console.log("Token:", action.payload.message);
       return {
         ...state,
         isLoggedIn: true,
@@ -81,7 +79,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: false,
-        user: null,
+        user: [],
       };
     default:
       return {

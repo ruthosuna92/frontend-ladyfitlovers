@@ -7,11 +7,12 @@ const loginUser = (email, password) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(endpoint, { email, password });
-      dispatch({
+      console.log(response.data);
+      return dispatch({
         type: LOGIN_USER,
         payload: response.data,
       });
-      console.log(response.data);
+
     } catch (error) {
       if (error.response) {
         console.error(
