@@ -1,19 +1,25 @@
 
 import {
   GET_ALL_PRODUCTS,
-  GET_ID_DETAIL_PRODUCTS, SET_PAGE, PRODUCTS_PER_PAGE,
+  GET_ID_DETAIL_PRODUCTS,
+  SET_PAGE,
+  PRODUCTS_PER_PAGE,
   GET_PRODUCT_BY_NAME,
   FILT_BY_CATEGORY,
   FILT_BY_COLOR,
   FILT_BY_SIZE,
   GET_CATEGORIES,
   POST_CATEGORY,
-  SET_NAME
+  SET_NAME,
+  LOGIN_USER,
+  LOGOUT_USER,
+  USER_BY_ID,
 } from "../actionTypes";
 
 const initialState = {
   allProducts: [],
   productDetail: null,
+  //   filteredProducts: null,
   saveProducts: [],
   currentPage: 1,
   productsPerPage: [],
@@ -21,8 +27,13 @@ const initialState = {
   quantity: 8,
   savePivot: [],
   allCategories: null,
-  name: null
-}
+  name: null,
+    // usuario
+  isLoggedIn: false,
+  userId: [],
+  user: [],
+  token: [],
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -120,6 +131,30 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allCategories: [...state.allCategories, action.payload],
+      };
+      case LOGIN_USER:
+      console.log("login");
+      // console.log("Token:", action.payload.message);
+      return {
+        ...state,
+        isLoggedIn: true,
+        userId: action.payload.id,
+        token: action.payload.token,
+      };
+
+    case USER_BY_ID:
+      console.log("User by ID:", action.payload);
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case LOGOUT_USER:
+      console.log("logout");
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: [],
       };
     default:
 
