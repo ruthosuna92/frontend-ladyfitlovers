@@ -11,54 +11,51 @@ import {
 const initialState = {
   allProducts: [],
   productDetail: null,
-  saveProducts: null,
-    currentPage: 1,
-    productsPerPage: [],
-    totalButtons: null,
-    quantity: 4
+  saveProducts: [],
+  currentPage: 1,
+  productsPerPage: [],
+  totalButtons: null,
+  quantity: 4,
   savePivot: [],
 }
 
 const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case GET_ALL_PRODUCTS:
-            return {
-                ...state,
-                allProducts: action.payload,
-                productsPerPage: action.payload.slice(0, 4),
-                totalButtons: Math.ceil(action.payload.length / state.quantity),
-              saveProducts: action.payload
+  console.log(state.productsPerPage)
+  switch (action.type) {
+    case GET_ALL_PRODUCTS:
+      return {
+        ...state,
+        saveProducts: action.payload,
+        allProducts: action.payload,
+        productsPerPage: action.payload.slice(0, 4),
+        totalButtons: Math.ceil(action.payload.length / state.quantity),
       }
-        case GET_ID_DETAIL_PRODUCTS:
-            return {
-                ...state,
-                productDetail: action.payload
-            }
-            case GET_PRODUCT_BY_NAME:
-              return {
-                ...state,
-                allProducts: action.payload,
-              };
-            // case CLEAN:
+    case GET_ID_DETAIL_PRODUCTS:
+      return {
+        ...state,
+        productDetail: action.payload
+      }
+    case GET_PRODUCT_BY_NAME:
+      return {
+        ...state,
+        allProducts: action.payload,
+      };
+    // case CLEAN:
     //   return {
     //     allProducts: null,
     //     products: null,
     //     //   filteredProducts: null,
     //   };
     case SET_PAGE:
-            const startIndex = (action.payload - 1) * state.quantity
-            const endIndex = startIndex + state.quantity
-            const slice = state.allProducts.slice(startIndex, endIndex)
-            return {
-                ...state,
-                currentPage: action.payload,
-                productsPerPage: slice
-            }
-    case PRODUCTS_PER_PAGE:
-            return {
-                ...state,
-                productsPerPage: action.payload
-            }
+      const startIndex = (action.payload - 1) * state.quantity
+      const endIndex = startIndex + state.quantity
+      const slice = state.allProducts.slice(startIndex, endIndex)
+      return {
+        ...state,
+        currentPage: action.payload,
+        productsPerPage: slice
+      }
+
     case FILT_BY_CATEGORY:
       return {
         ...state,
@@ -74,12 +71,12 @@ const reducer = (state = initialState, action) => {
         filteredProducts = state.saveProducts;
       } else {
         filteredProducts = state.savePivot.length > 0 ? state.savePivot.filter((product) =>
-        product.stock.some((stockItem) => stockItem.color === action.payload)) : state.saveProducts.filter((product) =>
-          product.stock.some((stockItem) => stockItem.color === action.payload)
-        );
-        filteredColor =  state.savePivot.length > 0 ? state.savePivot.filter((product) =>
-        product.stock.some((stockItem) => stockItem.color === action.payload)) : state.saveProducts.filter((product) =>
-          product.stock.some((stockItem) => stockItem.color === action.payload))
+          product.stock.some((stockItem) => stockItem.color === action.payload)) : state.saveProducts.filter((product) =>
+            product.stock.some((stockItem) => stockItem.color === action.payload)
+          );
+        filteredColor = state.savePivot.length > 0 ? state.savePivot.filter((product) =>
+          product.stock.some((stockItem) => stockItem.color === action.payload)) : state.saveProducts.filter((product) =>
+            product.stock.some((stockItem) => stockItem.color === action.payload))
       }
       return {
         ...state,
@@ -102,7 +99,7 @@ const reducer = (state = initialState, action) => {
         allProducts: filteredSize,
       }
     default:
-      console.log(state);
+
       return {
         ...state,
       };

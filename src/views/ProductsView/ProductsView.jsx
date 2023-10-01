@@ -16,7 +16,6 @@ const ProductsView = () => {
   //     console.log(allProducts);
   //   }
   // }, []);
-  console.log(allProducts);
   return (
     <div>
       <Filters />

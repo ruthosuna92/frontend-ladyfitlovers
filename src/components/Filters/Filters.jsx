@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { filtByCategory } from "../../redux/Actions/filtByCategory";
 import { filtByColor } from "../../redux/Actions/filtByColor";
 import { filtBySize } from "../../redux/Actions/filtBySize";
+import setCurrentPage from "../../redux/Actions/setCurrentPage"
+import getAllProducts from "../../redux/Actions/getAllProducts";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,11 @@ const Filters = () => {
     color: "",
     size:""
   });
+  useEffect(()=>{
+    dispatch(setCurrentPage(1))
+  },[allProducts])
   useEffect(() => {
+    
     if (filters.category !== "") {
       dispatch(filtByCategory(filters.category));
     }
@@ -28,6 +34,7 @@ const Filters = () => {
   }, [filters.category, filters.color, filters.size]);
 
   useEffect(() => {
+    
     if (allProducts) {
       const uniqueCategoryNames = Array.from(
         new Set(
@@ -40,6 +47,7 @@ const Filters = () => {
         )
       );
       if (uniqueCategoryNames.length > uniqueCategories.length) {
+        dispatch(getAllProducts())
         setUniqueCategories(uniqueCategoryNames);
       }
       if (uniqueColorFil.length > uniqueColor.length) {
@@ -64,6 +72,7 @@ const Filters = () => {
     });
   };
   const handleSize=(event)=>{
+
     const value = event.target.value;
     setFilters({
       ...filters,
