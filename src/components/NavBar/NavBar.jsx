@@ -125,7 +125,7 @@ const NavBar = () => {
         {/* informacion del usuario */}
         {user.email && (
           <div className="userInfo">
-            Hola, {user.name}
+            Hola, {user.name} {user.surname}
             <Button shape="circle" size="large">
               <ShoppingCartOutlined />
             </Button>
