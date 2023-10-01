@@ -10,6 +10,7 @@ import getAllProducts from "../../redux/Actions/getAllProducts";
 const Filters = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
+  const name = useSelector((state) => state.name)
   const [uniqueCategories, setUniqueCategories] = useState([]);
   const [uniqueColor, setUniqueColor] = useState([])
   const [filters, setFilters] = useState({
@@ -20,6 +21,7 @@ const Filters = () => {
   useEffect(()=>{
     dispatch(setCurrentPage(1))
   },[allProducts])
+  console.log(allProducts);
   useEffect(() => {
     
     if (filters.category !== "") {
@@ -46,7 +48,7 @@ const Filters = () => {
           allProducts.flatMap((product) => product.stock.map((stockItem) => stockItem.color)).filter((color) => color)
         )
       );
-      if (uniqueCategoryNames.length > uniqueCategories.length) {
+      if (uniqueCategoryNames.length > uniqueCategories.length && !name) {
         dispatch(getAllProducts())
         setUniqueCategories(uniqueCategoryNames);
       }

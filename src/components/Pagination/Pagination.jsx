@@ -42,14 +42,10 @@ const Pagination = () => {
             case 'last':
                 return dispatch(setCurrentPage(totalButtonsArray[totalButtonsArray.length - 1]))
             default:
-                
+
                 break;
         }
     }
-
-    // const handlePage = (event) => {
-    //     dispatch(setCurrentPage(event.target.id))
-    // }
 
     return <div>
         {currentPage > 3 && <button name='first' onClick={handlePage} >Primera</button>}
@@ -69,15 +65,9 @@ const Pagination = () => {
         </div>
         {currentPage < totalButtonsArray.length - 2 && <button name='next' onClick={handlePage} >Siguiente</button>}
         {currentPage < totalButtonsArray.length - 2 && <button name='last' onClick={handlePage} >Última</button>}
-        { totalButtonsArray.length > 1 && <p className='texto'> Página {currentPage} de {totalButtons} </p> }
+        {totalButtonsArray.length > 1 && <p className='texto'> Página {currentPage} de {totalButtons} </p>}
     </div>
-        }
-//<div>
-{/* {totalButtonsArray.map((button) => {
-            return <button id={button} onClick={handlePage}>{button}</button>
-        })} */}
-
-//<div>}
+}
 
 
 export default Pagination

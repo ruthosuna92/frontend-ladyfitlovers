@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Field, useFormikContext, FieldArray } from "formik";
 import { Input, Select, notification } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { saveImage } from "./saveImage";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
@@ -15,7 +16,7 @@ const CreateProductForm = ({ errors }) => {
   const [errorColor, setErrorColor] = useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const dispatch = useDispatch();
-
+  
   const categoriesOptions = categories?.map((category) => {
     return { value: category.name, label: category.name };
   });
@@ -33,15 +34,16 @@ const CreateProductForm = ({ errors }) => {
     { value: "black", label: "Negro" },
     { value: "white", label: "Blanco" },
   ];
-  const handleSubmit = () => {
-    console.log(values);
+  const handleSubmit = async() => {
+    const urlImage = await saveImage(values.image)  //values es de formik
+    
     dispatch(
       postProduct({
         name: values.name,
         price: values.price,
         priceOnSale: values.priceOnSale,
         unitsSold: values.unitsSold,
-        image: values.image,
+        image: urlImage,
         category: values.category,
         stock: values.stock,
       })
@@ -108,18 +110,15 @@ const CreateProductForm = ({ errors }) => {
         </Field>
       </div>
       <div className="inputsContainer">
-        <Field id="image" name="image">
-          {({ field, form, meta }) => {
-            return (
+        
+       
               <div className="fieldAndError">
-                <Input {...field} placeholder="Imagen" />
+                <Input type="file" placeholder="Imagen" onChange={e=> setFieldValue("image", e.target.files[0])}/>
                 {errors.image && (
                   <p className="createProductError">{errors.image}</p>
                 )}
               </div>
-            );
-          }}
-        </Field>
+         
         <Field id="category" name="category">
           {({ field, form, meta }) => {
             return (
