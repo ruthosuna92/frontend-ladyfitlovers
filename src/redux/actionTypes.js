@@ -12,7 +12,7 @@ export const GET_CATEGORIES = "GET_CATEGORIES";
 export const POST_CATEGORY = "POST_CATEGORY";
 export const FILT_BY_COLOR = "FILT_BY_COLOR";
 export const FILT_BY_SIZE = "FILT_BY_SIZE";
-//NAME
+export const SET_NAME = "SET_NAME"
 //GET_OFFERS
 //CREATE_PRODUCT
 //EDI_PRODUCT

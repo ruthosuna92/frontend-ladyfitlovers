@@ -10,6 +10,7 @@ import {
   FILT_BY_SIZE,
   GET_CATEGORIES,
   POST_CATEGORY,
+  SET_NAME,
   LOGIN_USER,
   LOGOUT_USER,
   USER_BY_ID,
@@ -26,6 +27,7 @@ const initialState = {
   quantity: 8,
   savePivot: [],
   allCategories: null,
+  name: null,
     // usuario
   isLoggedIn: false,
   userId: [],
@@ -73,7 +75,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         productsPerPage: action.payload
       }
-
+    case SET_NAME:
+      return {
+        ...state,
+        name: !state.name ? action.payload : action.payload
+      }
     case FILT_BY_CATEGORY:
       return {
         ...state,
