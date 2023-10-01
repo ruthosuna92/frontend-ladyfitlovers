@@ -7,12 +7,9 @@ const postProduct = (product) => {
         try {
             const {data} = await axios.post(endpoint, [product])
            
-            return dispatch({
-                type: POST_PRODUCT,
-                payload: data
-            })
+            return {message: 'Producto creado correctamente'}
         } catch (error) {
-            console.log(error);
+            return {message: 'Producto no pudo ser creado'}
         }
 
     }
