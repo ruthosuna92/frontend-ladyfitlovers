@@ -13,10 +13,17 @@ import NavBar from "./components/NavBar/NavBar";
 
 
 const App = () => {
-  
+  // dispatch to get all products globally
+  const allProducts = useSelector((state) => state.allProducts);
+  const filteredProducts = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
   //condiction para que no se vuelva a cargar los productso si el estado
- 
+  useEffect(() => {
+    if (!allProducts.length) {
+      dispatch(getAllProducts());
+    }
+  }, []);
 
   return (
     <ConfigProvider
