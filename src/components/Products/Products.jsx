@@ -24,6 +24,7 @@ const Products = () => {
       {productsPerPage.map(({ id, name, image, price, sales, size, colour }) => {
           return (
             <Product
+              key={id}
               id={id}
               name={name}
               image={image}
