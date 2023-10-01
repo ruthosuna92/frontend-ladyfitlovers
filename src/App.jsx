@@ -30,13 +30,13 @@ const App = () => {
       theme={{
         token: {
           // Seed Token
-          colorPrimary: "#DF3079",
+          colorPrimary: "#C04C98",
           borderRadius: 10,
           colorBgContainer: "#F6F1F5",
 
           fontFamily: "'Poppins', sans-serif",
-          colorLink: "#DF3079",
-          colorInfo: "#DF3079",
+          colorLink: "#C04C98",
+          colorInfo: "#C04C98",
           // colorBgBase: "#E0B3D3",
           // boxShadow: ,
           // boxShadowSecondary: ,
