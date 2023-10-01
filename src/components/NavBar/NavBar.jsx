@@ -4,6 +4,7 @@ import "./navBar.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import logo from "/svg/LADYFIT1.svg";
 import SearchBar from "../SearchBar/SearchBar";
+import LoginModal from "../LoginModal/LoginModal";
 
 import { Space, Button, Menu, Dropdown, Tooltip } from "antd";
 import {
@@ -18,6 +19,8 @@ const NavBar = () => {
   const location = useLocation();
 
   const [visible, setVisible] = useState(false);
+
+  const [loginModalVisible, setLoginModalVisible] = useState(false);
 
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
@@ -50,6 +53,11 @@ const NavBar = () => {
       </Button>
     </Dropdown>
   );
+
+  const openLoginModal = () => {
+    setLoginModalVisible(true);
+  };
+
   return (
     <>
       <div className="navBarContainer">
@@ -106,9 +114,14 @@ const NavBar = () => {
         </div>
 
         <div>
-          <ButtonPrimary title="Iniciar Sesión" onClick={() => {}} />
+          <ButtonPrimary title="Iniciar Sesión" onClick={openLoginModal} />
         </div>
       </div>
+
+      <LoginModal
+        visible={loginModalVisible}
+        onClose={() => setLoginModalVisible(false)}
+      />
     </>
   );
 };
