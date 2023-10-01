@@ -11,18 +11,12 @@ import Home from "./views/Home/Home";
 import Detail from "./views/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
 
+
 const App = () => {
-  // dispatch to get all products globally
-  const allProducts = useSelector((state) => state.allProducts);
-  const filteredProducts = useSelector((state) => state.products);
-  const dispatch = useDispatch();
+  
 
   //condiction para que no se vuelva a cargar los productso si el estado
-  useEffect(() => {
-    if (!allProducts) {
-      dispatch(getAllProducts());
-    }
-  }, []);
+ 
 
   return (
     <ConfigProvider

@@ -16,6 +16,18 @@ const Filters = () => {
     size:""
   });
   useEffect(() => {
+    if (filters.category !== "") {
+      dispatch(filtByCategory(filters.category));
+    }
+    if (filters.color !== "") {
+      dispatch(filtByColor(filters.color))
+    }
+    if(filters.size !== ""){
+      dispatch(filtBySize(filters.size))
+    }
+  }, [filters.category, filters.color, filters.size]);
+
+  useEffect(() => {
     if (allProducts) {
       const uniqueCategoryNames = Array.from(
         new Set(
@@ -35,21 +47,7 @@ const Filters = () => {
       }
     }
   }, [allProducts]);
-  useEffect(() => {
-    if (filters.category !== "") {
-      dispatch(filtByCategory(filters.category));
-      setFilters({...filters, category: "" })
-    }
-    if (filters.color !== "") {
-      dispatch(filtByColor(filters.color))
-      setFilters({...filters, color: "" })
-    }
-    if(filters.size !== ""){
-      console.log(filters.size)
-      dispatch(filtBySize(filters.size))
-      setFilters({...filters, size: "" })
-    }
-  }, [filters.category, filters.color, filters.size]);
+  
 
   const handleChangeCategory = (event) => {
     const value = event.target.value;
@@ -78,12 +76,18 @@ const Filters = () => {
       <option key={index} value={size}>{size}</option>
     ))
   }
-
+  const handleClick = () =>{
+    setFilters({
+      category: "T",
+      color: "",
+      size: ""
+    });
+  }
 
   return (
     <div>
-      <button>Reset</button>
-      <select name="categoria" id="" onChange={handleChangeCategory}>
+      <button onClick={()=>handleClick()}>Reset</button>
+      <select name="categoria" id="" value={filters.category} onChange={handleChangeCategory}>
         <option value="T">Seleccione</option>
         {uniqueCategories.map((categoryName, index) => (
           <option key={index} value={categoryName}>
@@ -91,15 +95,15 @@ const Filters = () => {
           </option>
         ))}
       </select>
-      <select name="color" id="" onChange={handleChangeColor}>
-        <option value="C">Seleccione</option>
+      <select name="color" id="" value={filters.color} onChange={handleChangeColor}>
+        <option value="">Seleccione</option>
         {uniqueColor.map((colorArticle, index) => (
           <option key={index} value={colorArticle}>
             {colorArticle}
           </option>
         ))}
       </select>
-      <select name="talla" id="" onChange={handleSize}>
+      <select name="" id="" value={filters.size} onChange={handleSize}>
         <option value="TA">Seleccione</option>
         {optionSize()}
       </select>

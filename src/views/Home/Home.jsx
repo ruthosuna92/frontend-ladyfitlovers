@@ -1,6 +1,8 @@
 import Carousel from "../../components/Carousel/Carousel";
-import Products from "../../components/Products/Products";
+;
 import SearchBar from "../../components/SearchBar/SearchBar";
+import LoginModal from "../../components/LoginModal/LoginModal";
+
 
 const Home = () => {
   return (
@@ -8,6 +10,9 @@ const Home = () => {
       <Carousel />
       {/* <Products/> */}
       {/* importar novedades! */}
+
+{/* 
+      <LoginModal /> */}
     </div>
   );
 };
