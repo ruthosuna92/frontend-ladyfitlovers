@@ -4,6 +4,8 @@ import Pagination from "../../components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect }from "react"
 import getAllProducts from "../../redux/Actions/getAllProducts";
+import Filters from "../../components/Filters/Filters";
+
 
 const ProductsView = () => {
   const allProducts = useSelector((state) => state.allProducts)
@@ -14,10 +16,9 @@ const ProductsView = () => {
   //     console.log(allProducts);
   //   }
   // }, []);
-  console.log(allProducts);
   return (
     <div>
-      {/* importar filtros, paginado y side bar etc */}
+      <Filters />
       <Products />
       <Pagination/>
     </div>
@@ -25,3 +26,4 @@ const ProductsView = () => {
 };
 
 export default ProductsView;
+

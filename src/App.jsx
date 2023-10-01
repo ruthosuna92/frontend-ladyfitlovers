@@ -11,6 +11,9 @@ import Home from "./views/Home/Home";
 import Detail from "./views/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
 
+import Products from "./components/Products/Products";
+import CreateProduct from "./components/CreateProduct/CreateProduct";
+import getAllCategories from "./redux/Actions/getAllCategories";
 
 const App = () => {
   // dispatch to get all products globally
@@ -22,6 +25,7 @@ const App = () => {
   useEffect(() => {
     if (!allProducts.length) {
       dispatch(getAllProducts());
+      dispatch(getAllCategories())
     }
   }, []);
 
@@ -57,6 +61,7 @@ const App = () => {
         <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/crear-producto" element={<CreateProduct/>}/>
       </Routes>
     </ConfigProvider>
   );
