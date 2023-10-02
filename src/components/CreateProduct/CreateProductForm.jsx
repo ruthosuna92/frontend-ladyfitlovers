@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Field, useFormikContext, FieldArray } from "formik";
-import { Input, Select, notification } from "antd";
+import { Input, Select, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { saveImage } from "./saveImage";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
@@ -31,13 +31,15 @@ const CreateProductForm = ({ errors }) => {
     { value: "green", label: "Verde" },
     { value: "yellow", label: "Amarillo" },
     { value: "violet", label: "Violeta" },
+    { value: "orange", label: "Naranja" },
+    { value: "pink", label: "Rosado" },
     { value: "black", label: "Negro" },
     { value: "white", label: "Blanco" },
   ];
   const handleSubmit = async() => {
     const urlImage = await saveImage(values.image)  //values es de formik
-    
-    dispatch(
+    try {
+    const response = await dispatch(
       postProduct({
         name: values.name,
         price: values.price,
@@ -46,9 +48,15 @@ const CreateProductForm = ({ errors }) => {
         image: urlImage,
         category: values.category,
         stock: values.stock,
-      })
+      })  
     );
+    
+      message.success(response.message, [2], onClose())
+    
     resetForm();
+  }catch{
+    message.error("Error al crear producto", [2], onClose())
+  }
   };
 
   const onChange = (value, index) => {

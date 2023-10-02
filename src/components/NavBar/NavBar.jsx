@@ -19,6 +19,7 @@ import {
   FundViewOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 
 const NavBar = () => {
   const location = useLocation();
@@ -32,6 +33,7 @@ const NavBar = () => {
   // modal
   const [visible, setVisible] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
+  const [createAcountModalVisible, setCreateAcountModalVisible] = useState(false);
 
   const user = useSelector((state) => state.user);
   const state = useSelector((state) => state);
@@ -155,6 +157,13 @@ const NavBar = () => {
         visible={loginModalVisible}
         onClose={() => setLoginModalVisible(false)}
       />
+      {createAcountModalVisible && (
+        <CreateAcountModal
+          visible={createAcountModalVisible}
+          onClose={() => setCreateAcountModalVisible(false)}
+        />
+
+      )}
     </>
   );
 };
