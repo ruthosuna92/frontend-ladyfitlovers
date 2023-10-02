@@ -68,7 +68,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: action.payload,
-        productsPerPage: slice
+        productsPerPage: slice,
+        totalButtons: Math.ceil(state.allProducts.length / state.quantity)
       }
     case PRODUCTS_PER_PAGE:
       return {

@@ -1,5 +1,13 @@
 import setCurrentPage from "../../redux/Actions/setCurrentPage"
 import { useDispatch, useSelector } from "react-redux"
+import { Button, Tooltip, Space } from 'antd';
+import {
+    LeftOutlined,
+    RightOutlined,
+    DoubleLeftOutlined,
+    DoubleRightOutlined
+  } from "@ant-design/icons";
+import style from "./Pagination.module.css"
 
 const Pagination = () => {
 
@@ -28,6 +36,7 @@ const Pagination = () => {
         }
     }
     const handlePage = (event) => {
+        console.log(event.target.value);
         switch (event.target.name) {
             case 'button':
                 return dispatch(setCurrentPage(Number(event.target.id)))
@@ -43,31 +52,51 @@ const Pagination = () => {
                 return dispatch(setCurrentPage(totalButtonsArray[totalButtonsArray.length - 1]))
             default:
 
+
                 break;
         }
     }
 
-    return <div>
-        {currentPage > 3 && <button name='first' onClick={handlePage} >Primera</button>}
-        {currentPage > 1 && <button name='prev' onClick={handlePage} >Anterior</button>}
-        <div>
+    // const handlePage = (event) => {
+    //     dispatch(setCurrentPage(event.target.id))
+    // }
+
+    return <div  className={style.paginationContainer}>
+        <div className={style.arrow} >
+            <div className={style.buttons} >
+        {currentPage > 3 && <Button  shape="circle" ><button className={style.arrowBtn} name="first" onClick={handlePage}> {"<<"} </button></Button>}
+        {currentPage > 1 && <Button  shape="circle" ><button className={style.arrowBtn} name="prev" onClick={handlePage}> {"<"} </button></Button>}
+        </div>
+        <div >
             {buttons(totalButtonsArray).map((number, i) => {
-                return <button
+                return <Button
+                    type={currentPage === number ? "primary" : "secondary"}
+                    shape="circle"
                     key={number}
                     onClick={handlePage}
                     index={i}
                     name={`button`}
-                    id={number}
-                >
+                    id={number}>
                     {number}
-                </button>
+                </Button>
             })}
         </div>
-        {currentPage < totalButtonsArray.length - 2 && <button name='next' onClick={handlePage} >Siguiente</button>}
-        {currentPage < totalButtonsArray.length - 2 && <button name='last' onClick={handlePage} >Última</button>}
+        <div className={style.buttons}>
+        {currentPage < totalButtonsArray.length - 2 && 
+        // <button name='next' onClick={handlePage} >Siguiente</button>}
+      <Button  shape="circle" ><button className={style.arrowBtn} name="next" onClick={handlePage}> {">"} </button></Button>}
+        {currentPage < totalButtonsArray.length - 2 &&   <Button  shape="circle" ><button className={style.arrowBtn} name="last" onClick={handlePage}> {">>"} </button></Button>}
+        </div>
+    </div>
         {totalButtonsArray.length > 1 && <p className='texto'> Página {currentPage} de {totalButtons} </p>}
     </div>
 }
+//<div>
+{/* {totalButtonsArray.map((button) => {
+            return <button id={button} onClick={handlePage}>{button}</button>
+        })} */}
+
+//<div>}
 
 
 export default Pagination
