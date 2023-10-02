@@ -6,16 +6,16 @@ const Carrousel = () => {
   return (
     <Carousel autoplay dotPosition='bottom'>
       <div>
-        <img className='carouselSlide' src='https://www.shutterstock.com/shutterstock/photos/1182942766/display_1500/stock-vector-brush-sale-banner-promotion-ribbon-banner-scroll-price-tag-sticker-badge-poster-vector-1182942766.jpg' />
+        <img className='carouselSlide' src='https://res.cloudinary.com/dv7kzlqy6/image/upload/v1696224356/slide_yyk6fv.svg' />
       </div>
       <div>
-        <img className='carouselSlide' src='https://www.shutterstock.com/shutterstock/photos/1182942766/display_1500/stock-vector-brush-sale-banner-promotion-ribbon-banner-scroll-price-tag-sticker-badge-poster-vector-1182942766.jpg' />
+        <img className='carouselSlide' src='https://res.cloudinary.com/dv7kzlqy6/image/upload/v1696224356/slide_yyk6fv.svg' />
       </div>
       <div>
-        <img className='carouselSlide' src='https://www.shutterstock.com/shutterstock/photos/1182942766/display_1500/stock-vector-brush-sale-banner-promotion-ribbon-banner-scroll-price-tag-sticker-badge-poster-vector-1182942766.jpg' />
+        <img className='carouselSlide' src='https://res.cloudinary.com/dv7kzlqy6/image/upload/v1696224356/slide_yyk6fv.svg' />
       </div>
       <div>
-        <img className='carouselSlide' src='https://www.shutterstock.com/shutterstock/photos/1182942766/display_1500/stock-vector-brush-sale-banner-promotion-ribbon-banner-scroll-price-tag-sticker-badge-poster-vector-1182942766.jpg' />
+        <img className='carouselSlide' src='https://res.cloudinary.com/dv7kzlqy6/image/upload/v1696224356/slide_yyk6fv.svg' />
       </div>
     </Carousel>
   );
