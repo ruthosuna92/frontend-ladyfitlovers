@@ -11,15 +11,19 @@ body {
   min-height: 100vh;
   background: #131313;
 } */
-/* 
+
 .container {
   position: relative;
 }
 
 .container .card {
+  align-items: center;
   position: relative;
-  width: 320px;
-  height: 450px;
+  width: 250px;
+  min-height: 300px;
+  min-width: 200px;
+
+  /* height: 450px; */
   background: #232323;
   border-radius: 20px;
   overflow: hidden;
@@ -32,7 +36,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #1bbfe9;
+  background: #e0b3cd;
   clip-path: circle(150px at 80% 20%);
   transition: 0.5s ease-in-out;
 }
@@ -56,31 +60,33 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
   width: 100%;
   height: 100%;
+  min-height: 100%;
   transition: 0.5s;
 }
 
-.container .card:hover .imgBx {
+/* .container .card:hover .imgBx {
   top: 0%;
   transform: translateY(-25%);
-
-}
+} */
 
 .container .card .imgBx img {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(20deg);
-  width: 270px;
+  transform: translate(-50%, -50%) rotate(20deg); */
+  min-height: 100%;
+  width: 100%;
 }
 
 .container .card .contentBx {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 100px;
+  /* height: 100px; */
+  height: 76px;
+  margin: inherit;
   text-align: center;
   transition: 1s;
   z-index: 90;
@@ -93,6 +99,7 @@ body {
 .container .card .contentBx h2 {
   position: relative;
   font-weight: 600;
+  margin: inherit;
   letter-spacing: 1px;
   color: #fff;
 }
@@ -102,8 +109,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 20px;
+  padding: inherit;
   transition: 0.5s;
+  height: 36px;
   opacity: 0;
   visibility: hidden;
 }
@@ -127,7 +135,6 @@ body {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-right: 10px;
 }
 
 .container .card .contentBx .size span {
@@ -147,8 +154,8 @@ body {
 }
 
 .container .card .contentBx .size span:hover {
-
-  background: #b90000;
+  /* other bug */
+  background: #e0b3cd;
 }
 
 .container .card .contentBx .color span {
@@ -158,18 +165,6 @@ body {
   border-radius: 50%;
   margin: 0 5px;
   cursor: pointer;
-}
-
-.container .card .contentBx .color span:nth-child(2) {
-  background: #1bbfe9;
-}
-
-.container .card .contentBx .color span:nth-child(3) {
-  background: #1b2fe9;
-}
-
-.container .card .contentBx .color span:nth-child(4) {
-  background: #080481;
 }
 
 .container .card .contentBx a {
@@ -190,6 +185,31 @@ body {
   opacity: 1;
   transform: translateY(0px);
   transition-delay: 0.7s;
+}
+
+h3 {
+  margin: 5px;
+
+}
+
+
+/* @media (max-width: 768px) {
+  .pokemon {
+    width: calc(25% - 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .pokemon {
+    width: calc(50% - 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .pokemons .pokemon:first-child:nth-last-child(1) {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+  }
 } */
-
-

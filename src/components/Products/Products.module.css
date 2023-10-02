@@ -1,7 +1,13 @@
 .cardsContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  /* display: grid; */
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  gap: 2rem;
 }
