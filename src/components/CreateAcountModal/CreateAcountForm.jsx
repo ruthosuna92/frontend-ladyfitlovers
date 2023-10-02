@@ -102,14 +102,12 @@ const CreateAcountForm = ({ onClose }) => {
             return (
               <div className="fieldAndError">
                 <div className="inputCreateAcountContainer">
-                  <Input.Password
+                  <Input
                     {...field}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     autoComplete="off"
-                    visibilityToggle={{
-                      visible: showPassword,
-                      onVisibleChange: !showPassword,
-                    }}
+                   
                   />
                   <Button
                     style={{

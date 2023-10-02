@@ -9,6 +9,7 @@ import { Modal, Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import "./LoginModal.css";
+import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
 const LoginModal = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -86,7 +87,10 @@ const LoginModal = (props) => {
           >
             Ingresar
           </Button>
-          O <a href="/register">Registrarme</a>
+          O <ButtonTertiary title="Registrarme" type="button" onClick={()=>{
+            props.onClose();
+            props.setCreateAcountModalVisible(true);
+          }}/>
         </Form.Item>
       </Form>
     </Modal>
