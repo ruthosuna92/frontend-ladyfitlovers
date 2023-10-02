@@ -156,6 +156,7 @@ const NavBar = () => {
       <LoginModal
         visible={loginModalVisible}
         onClose={() => setLoginModalVisible(false)}
+        setCreateAcountModalVisible={setCreateAcountModalVisible}
       />
       {createAcountModalVisible && (
         <CreateAcountModal
