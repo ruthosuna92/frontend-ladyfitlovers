@@ -141,7 +141,7 @@ const NavBar = () => {
           <div className="userInfo">
             Hola, {user.name} {user.surname}
             <Button shape="circle" size="large">
-              <ShoppingCartOutlined />
+              <ShoppingCartOutlined  />
             </Button>
             {userDropdown}
           </div>
