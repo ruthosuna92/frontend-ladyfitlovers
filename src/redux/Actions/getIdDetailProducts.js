@@ -1,6 +1,8 @@
 import axios from "axios"
 import { GET_ID_DETAIL_PRODUCTS } from "../actionTypes"
-const endpoint = 'https://pf-back-production-4255.up.railway.app/product/'
+
+const API_URL_BASE = import.meta.env.VITE_API_URL_BASE
+const endpoint = `${API_URL_BASE}/product/`
 
 const getIdDetailProducts = (id) => {
     return async (dispatch) => {

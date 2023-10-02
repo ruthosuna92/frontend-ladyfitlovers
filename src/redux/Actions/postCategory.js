@@ -1,6 +1,8 @@
 import axios from "axios"
 import { POST_CATEGORY } from "../actionTypes"
-const endpoint = " https://pf-back-production-4255.up.railway.app/product/category"
+
+const API_URL_BASE = import.meta.env.VITE_API_URL_BASE
+const endpoint = `${API_URL_BASE}/product/category`
 
 const postCategory = (category) => {
     return async (dispatch) => {

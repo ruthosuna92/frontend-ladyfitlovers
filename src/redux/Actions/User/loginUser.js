@@ -1,7 +1,8 @@
 import axios from "axios";
 import { LOGIN_USER } from "../../actionTypes";
 
-const endpoint = "https://pf-back-production-4255.up.railway.app/user/login/";
+const API_URL_BASE = import.meta.env.VITE_API_URL_BASE;
+const endpoint = `${API_URL_BASE}/user/login/` ;
 
 const loginUser = (email, password) => {
   return async (dispatch) => {
