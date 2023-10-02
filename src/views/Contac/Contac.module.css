@@ -1,0 +1,41 @@
+.continer{
+    width: 100vw;
+    height: 70vh;
+    display: grid;
+    place-items: center;
+}
+
+.continercontac{
+    position: relative;
+    border-radius: 20px;
+    width: 600px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.continercontac>div{
+    display: flex;  
+    flex-direction: column;
+    gap: 30px;
+}
+.twodata{
+    display: flex;
+    gap: 10px;
+}
+.message{ 
+   position: relative;
+}
+.message1{
+   width: 290px;
+   position: relative;
+}
+.texterror{
+    position: absolute;
+    color: red;
+    top: 15px;
+}
+.editinput{
+width: 200px;
+}

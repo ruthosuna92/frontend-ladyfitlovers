@@ -52,6 +52,7 @@ const Pagination = () => {
                 return dispatch(setCurrentPage(totalButtonsArray[totalButtonsArray.length - 1]))
             default:
 
+
                 break;
         }
     }

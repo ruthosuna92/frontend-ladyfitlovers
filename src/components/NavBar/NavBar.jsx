@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// actions
+import loginUser from "../../redux/Actions/User/loginUser";
+import logoutUser from "../../redux/Actions/User/logoutUser";
+
 import "./navBar.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import logo from "/svg/LADYFIT1.svg";
@@ -17,27 +22,39 @@ import {
 
 const NavBar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
 
+  // logout
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
+  // modal
   const [visible, setVisible] = useState(false);
-
   const [loginModalVisible, setLoginModalVisible] = useState(false);
+
+  const user = useSelector((state) => state.user);
+  const state = useSelector((state) => state);
 
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
     }
     setVisible(false);
   };
+
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="dashboard">
-        <Link to="/admin">
-          <FundViewOutlined />
-          Panel
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="logout">
+      {state.user.typeUser == "Admin" && (
+        <Menu.Item key="dashboard">
+          <Link to="/admin">
+            <FundViewOutlined />
+            Panel Administrador
+          </Link>
+        </Menu.Item>
+      )}
+      <Menu.Item key="logout" onClick={handleLogout}>
         <LogoutOutlined />
-        Salir
+        Cerrar Sesión
       </Menu.Item>
     </Menu>
   );
@@ -117,17 +134,21 @@ const NavBar = () => {
           <SearchBar />
         </div>
 
-        <div className="userInfo">
-          Hola, Anacleta Johnson
-          <Button shape="circle" size="large">
-            <ShoppingCartOutlined />
-          </Button>
-          {userDropdown}
-        </div>
-
-        <div>
-          <ButtonPrimary title="Iniciar Sesión" onClick={openLoginModal} />
-        </div>
+        {/* informacion del usuario */}
+        {user.email && (
+          <div className="userInfo">
+            Hola, {user.name} {user.surname}
+            <Button shape="circle" size="large">
+              <ShoppingCartOutlined />
+            </Button>
+            {userDropdown}
+          </div>
+        )}
+        {!user.email && (
+          <div>
+            <ButtonPrimary title="Iniciar Sesión" onClick={openLoginModal} />
+          </div>
+        )}
       </div>
 
       <LoginModal

@@ -10,7 +10,7 @@ import ProductsView from "./views/ProductsView/ProductsView";
 import Home from "./views/Home/Home";
 import Detail from "./views/Detail/Detail";
 import NavBar from "./components/NavBar/NavBar";
-
+import Contac from "./views/Contac/Contac";
 import Products from "./components/Products/Products";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import getAllCategories from "./redux/Actions/getAllCategories";
@@ -34,13 +34,13 @@ const App = () => {
       theme={{
         token: {
           // Seed Token
-          colorPrimary: "#DF3079",
+          colorPrimary: "#C04C98",
           borderRadius: 10,
           colorBgContainer: "#F6F1F5",
 
           fontFamily: "'Poppins', sans-serif",
-          colorLink: "#DF3079",
-          colorInfo: "#DF3079",
+          colorLink: "#C04C98",
+          colorInfo: "#C04C98",
           // colorBgBase: "#E0B3D3",
           // boxShadow: ,
           // boxShadowSecondary: ,
@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/admin" />
         <Route path="/login" />
-        <Route path="/contacto" />
+        <Route path="/contacto" element={<Contac/>}/>
         <Route path="/register" />
         <Route path="/products" element={<ProductsView />} />
         <Route path="/products/:category" />
