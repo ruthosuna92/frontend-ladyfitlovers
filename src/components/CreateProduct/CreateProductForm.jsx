@@ -31,6 +31,8 @@ const CreateProductForm = ({ errors }) => {
     { value: "green", label: "Verde" },
     { value: "yellow", label: "Amarillo" },
     { value: "violet", label: "Violeta" },
+    { value: "orange", label: "Naranja" },
+    { value: "pink", label: "Rosado" },
     { value: "black", label: "Negro" },
     { value: "white", label: "Blanco" },
   ];
