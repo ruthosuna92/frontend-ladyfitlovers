@@ -24,10 +24,10 @@ const Pagination = () => {
     let endIndex = startIndex + buttonsPerRender
 
     const buttons = (totalButtonsArray) => {
-
+        
         let botonesNum = null
 
-        if (currentPage >= totalButtonsArray.length - 2) {
+        if (currentPage >= totalButtonsArray.length - 2 && currentPage >= 2) {
             botonesNum = totalButtonsArray.slice(totalButtonsArray.length - 3)
             return botonesNum
         } else {
@@ -35,6 +35,7 @@ const Pagination = () => {
             return botonesNum
         }
     }
+    
     const handlePage = (event) => {
         console.log(event.target.value);
         switch (event.target.name) {
