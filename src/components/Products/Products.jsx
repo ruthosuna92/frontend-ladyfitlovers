@@ -14,7 +14,7 @@ const Products = () => {
   return (
     <div className={style.cardsContainer}>
       {productsPerPage.map(({ id, name, image, price, unitsSold, stock }) => {
-        const color = stock.map((stockItem) => stockItem.color);
+        // const color = stock.map((stockItem) => stockItem.color);
 
         return (
           <Product
@@ -24,7 +24,6 @@ const Products = () => {
             image={image}
             price={price}
             unitsSold={unitsSold}
-            color={color}
             stock={stock}
           />
         );
@@ -34,3 +33,4 @@ const Products = () => {
 };
 
 export default Products;
+

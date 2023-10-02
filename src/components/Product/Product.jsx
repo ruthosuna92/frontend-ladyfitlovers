@@ -6,54 +6,99 @@ import { Card } from "antd";
 const { Meta } = Card;
 
 const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
-  console.log(id, name, image, price, stock, color)
+  console.log(id, name, image, price, stock, color);
+  let sizes = []
   return (
-    <div key={id}>
-      {/* <img alt={name} src={image} />
-      <p>{name}</p>
-      <h3>{price}</h3> */}
-      <Link to={`/detail/${id}`}>
-      <div key={id} className={style.container}>
-        <div className={style.card}>
-          <div className={style.imgBx}>
-            <img src={image} alt={name} />
-          </div>
+    <Card>
+      <div key={id}>
+        <div key={id} className={style.container}>
+          <div className={style.card}>
+            <div className={style.imgBx}>
+              <img src={image} alt={name} />
+            </div>
 
-          <div className={style.contentBx}>
-            <h2>{name}</h2>
-            <h2>$ {price}</h2>
-            <h2>{unitsSold} vendidos</h2>
-            {/* mapear el array de size para renderizar un span con cada size */}
+            <div className={style.contentBx}>
+              <h2>{name}</h2>
+              <h2>$ {price}</h2>
+              <h2>{unitsSold} vendidos</h2>
 
-            <div className={style.size}>
+              <div className={style.size}>
                 <h3>Talle :</h3>
-                {color.map(({ sizeAndQuantity }) => (
-                  sizeAndQuantity.map((sizeInfo, index) => (
-                    sizeInfo.quantity > 0 && (
-                      <span key={index}>{sizeInfo.size}</span>
-                    )
-                  ))
-                ))}
+                {stock.map(({ sizeAndQuantity }) => {
+                  return sizeAndQuantity.map((sizeInfo, index) => {
+                    if (sizes.includes(sizeInfo.size)) return;
+                    else {
+                      sizes.push(sizeInfo.size);
+                      return (
+                        sizeInfo.quantity > 0 && (
+                          <span key={index}>{sizeInfo.size}</span>
+                        )
+                      );
+                    }
+                  });
+                })}
               </div>
 
-
-            <div className={style.color}>
-              <h3>Color :</h3>
-              {color.map((color, index) => {
-                return <span key={index} style={{ background: color }}></span>;
-              })}
+              <div className={style.color}>
+                <h3>Color :</h3>
+                {stock.map((color, index) => {
+                  return (
+                    <span key={index} style={{ background: color.color }}>
+                      z
+                    </span>
+                  );
+                })}
+              </div>
+              <a href="#">Comprar</a>
             </div>
-            <a href="#">Comprar</a>
           </div>
         </div>
       </div>
-      </Link>
-      
-    </div>
+    </Card>
   );
 };
 
 export default Product;
+
+{
+  /* <Link to={`/detail/${id}`}>
+<div key={id} className={style.container}>
+  <div className={style.card}>
+    <div className={style.imgBx}>
+      <img src={image} alt={name} />
+    </div>
+
+    <div className={style.contentBx}>
+      <h2>{name}</h2>
+      <h2>$ {price}</h2>
+      <h2>{unitsSold} vendidos</h2>
+      
+
+      <div className={style.size}>
+          <h3>Talle :</h3>
+          {stock.map(({ sizeAndQuantity }) => (
+            sizeAndQuantity.map((sizeInfo, index) => (
+              sizeInfo.quantity > 0 && (
+                <span key={index}>{sizeInfo.size}</span>
+              )
+            ))
+          ))}
+        </div>
+
+
+      <div className={style.color}>
+        <h3>Color :</h3>
+        {color.map((color, index) => {
+          return <span key={index} style={{ background: color }}></span>;
+        })}
+      </div>
+      <a href="#">Comprar</a>
+    </div>
+  </div>
+</div>
+</Link> */
+}
+
 {
   /* card con ant design -> FEA - no leva estilos*/
 }
