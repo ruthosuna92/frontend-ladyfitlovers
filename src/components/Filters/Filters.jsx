@@ -6,7 +6,7 @@ import { filtByColor } from "../../redux/Actions/filtByColor";
 import { filtBySize } from "../../redux/Actions/filtBySize";
 import setCurrentPage from "../../redux/Actions/setCurrentPage"
 import getAllProducts from "../../redux/Actions/getAllProducts";
-
+import style from "./Filters.module.css"
 const Filters = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
@@ -16,27 +16,26 @@ const Filters = () => {
   const [filters, setFilters] = useState({
     category: "",
     color: "",
-    size:""
+    size: ""
   });
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(setCurrentPage(1))
-  },[allProducts])
+  }, [allProducts])
   console.log(allProducts);
   useEffect(() => {
-    
     if (filters.category !== "") {
       dispatch(filtByCategory(filters.category));
     }
     if (filters.color !== "") {
       dispatch(filtByColor(filters.color))
     }
-    if(filters.size !== ""){
+    if (filters.size !== "") {
       dispatch(filtBySize(filters.size))
     }
   }, [filters.category, filters.color, filters.size]);
 
   useEffect(() => {
-    
+
     if (allProducts) {
       const uniqueCategoryNames = Array.from(
         new Set(
@@ -57,7 +56,7 @@ const Filters = () => {
       }
     }
   }, [allProducts]);
-  
+
 
   const handleChangeCategory = (event) => {
     const value = event.target.value;
@@ -73,7 +72,7 @@ const Filters = () => {
       color: value
     });
   };
-  const handleSize=(event)=>{
+  const handleSize = (event) => {
 
     const value = event.target.value;
     setFilters({
@@ -81,13 +80,13 @@ const Filters = () => {
       size: value
     });
   }
-  const optionSize =()=>{
-    const size = ["xs","s", "m", "l", "xl", "xxl"]
-    return size.map((size, index)=>(
+  const optionSize = () => {
+    const size = ["xs", "s", "m", "l", "xl", "xxl"]
+    return size.map((size, index) => (
       <option key={index} value={size}>{size}</option>
     ))
   }
-  const handleClick = () =>{
+  const handleClick = () => {
     setFilters({
       category: "T",
       color: "",
@@ -96,28 +95,39 @@ const Filters = () => {
   }
 
   return (
-    <div>
-      <button onClick={()=>handleClick()}>Reset</button>
-      <select name="categoria" id="" value={filters.category} onChange={handleChangeCategory}>
-        <option value="T">Seleccione</option>
-        {uniqueCategories.map((categoryName, index) => (
-          <option key={index} value={categoryName}>
-            {categoryName}
-          </option>
-        ))}
-      </select>
-      <select name="color" id="" value={filters.color} onChange={handleChangeColor}>
-        <option value="">Seleccione</option>
-        {uniqueColor.map((colorArticle, index) => (
-          <option key={index} value={colorArticle}>
-            {colorArticle}
-          </option>
-        ))}
-      </select>
-      <select name="" id="" value={filters.size} onChange={handleSize}>
-        <option value="TA">Seleccione</option>
-        {optionSize()}
-      </select>
+    <div className={style.containerFilter}>
+      <div className={style.subcontainer}>
+        <button className={style.btnres} onClick={() => handleClick()}>Reset</button>
+        <div className={style.contenselect}>
+          <select name="categoria" id="" value={filters.category} onChange={handleChangeCategory}>
+            <option value="T">Categoria</option>
+            {uniqueCategories.map((categoryName, index) => (
+              <option key={index} value={categoryName}>
+                {categoryName}
+              </option>
+            ))}
+          </select>
+          <i></i>
+        </div>
+        <div className={style.contenselect}>
+          <select name="color" id="" value={filters.color} onChange={handleChangeColor}>
+            <option value="">Color</option>
+            {uniqueColor.map((colorArticle, index) => (
+              <option key={index} value={colorArticle}>
+                {colorArticle}
+              </option>
+            ))}
+          </select>
+          <i></i>
+        </div>
+        <div className={style.contenselect}>
+          <select name="" id="" value={filters.size} onChange={handleSize}>
+            <option value="TA">Talla</option>
+            {optionSize()}
+          </select>
+          <i></i>
+        </div>
+      </div>
     </div>
   );
 };
