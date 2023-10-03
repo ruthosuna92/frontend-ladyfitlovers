@@ -11,7 +11,6 @@ const Filters = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
   const filtersave = useSelector((state)=>state.saveFilters);
-  console.log(filtersave)
   // Cambiar de dos estados locales a un solo estado local
   const [uniqueFilters, setUniqueFilters] = useState({
     category: [],
@@ -20,28 +19,24 @@ const Filters = () => {
     selectColor: "",
     selectSize: ""
   });
-  const [filters, setFilters] = useState({
-    category: "",
-    color: "",
-    size: "",
-  });
-
   useEffect(() => {
     dispatch(setCurrentPage(1));
     dispatch(saveFilter(uniqueFilters))
+    handleChangeCategory
+    handleChangeColor
+    handleSize
   }, [allProducts, uniqueFilters]);
-
   useEffect(() => {
-    if (filters.category !== "") {
-      dispatch(filtByCategory(filters.category));
+    if (uniqueFilters.selectCategory !== "") {
+      dispatch(filtByCategory(uniqueFilters.selectCategory));
     }
-    if (filters.color !== "") {
-      dispatch(filtByColor(filters.color));
+    if (uniqueFilters.selectColor !== "") {
+      dispatch(filtByColor(uniqueFilters.selectColor));
     }
-    if (filters.size !== "") {
-      dispatch(filtBySize(filters.size));
+    if (uniqueFilters.selectSize !== "") {
+      dispatch(filtBySize(uniqueFilters.selectSize));
     }
-  }, [filters.category, filters.color, filters.size]);
+  }, [uniqueFilters.selectCategory, uniqueFilters.selectColor, uniqueFilters.selectSize, ]);
 
   useEffect(() => {
     if (allProducts) {
@@ -55,21 +50,18 @@ const Filters = () => {
           allProducts.flatMap((product) => product.stock.map((stockItem) => stockItem.color)).filter((color) => color)
         )
       );
-      // Actualizar el estado local único con las categorías y colores únicos
       setUniqueFilters({
-        ...uniqueFilters,
         category: uniqueCategoryNames,
         color: uniqueColorFil,
+        selectCategory: filtersave.selectCategory,
+        selectColor: filtersave.selectColor,
+        selectSize: filtersave.selectSize
       });
     }
   }, [allProducts]);
 
   const handleChangeCategory = (event) => {
     const value = event.target.value;
-    setFilters({
-      ...filters,
-      category: value,
-    });
     setUniqueFilters({
       ...uniqueFilters,
       selectCategory: value
@@ -78,10 +70,6 @@ const Filters = () => {
 
   const handleChangeColor = (event) => {
     const value = event.target.value;
-    setFilters({
-      ...filters,
-      color: value,
-    });
     setUniqueFilters({
       ...uniqueFilters,
       selectColor: value
@@ -90,10 +78,6 @@ const Filters = () => {
 
   const handleSize = (event) => {
     const value = event.target.value;
-    setFilters({
-      ...filters,
-      size: value,
-    });
     setUniqueFilters({
       ...uniqueFilters,
       selectSize: value
@@ -110,11 +94,6 @@ const Filters = () => {
   };
 
   const handleClick = () => {
-    setFilters({
-      category: "T",
-      color: "",
-      size: "",
-    });
     setUniqueFilters({
       ...uniqueFilters,
       selectCategory: "T",

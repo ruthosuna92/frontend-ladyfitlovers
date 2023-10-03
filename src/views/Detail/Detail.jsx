@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingMessage from "../../components/LoadingMessage/LoadingMessage";
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
 import getIdDetailProducts from "../../redux/Actions/getIdDetailProducts";
+import style from "./Detail.module.css"
 
 const Detail = () => {
   const { id } = useParams();
@@ -17,6 +18,9 @@ const Detail = () => {
   });
   useEffect(() => {
     dispatch(getIdDetailProducts(id));
+    return () => {
+      dispatch(getIdDetailProducts("none"));
+    };
   }, [id, dispatch]);
   const productData = useSelector((state) => state.productDetail);
   useEffect(() => {
@@ -82,6 +86,8 @@ const Detail = () => {
     return <LoadingMessage />;
   }
   return (
+
+
     <ProductDetails
       productData={productData}
       data={data}
@@ -89,6 +95,7 @@ const Detail = () => {
       handleSizeChange={handleSizeChange}
       handleAmountChange={handleAmountChange}
     />
+
   );
 };
 export default Detail;

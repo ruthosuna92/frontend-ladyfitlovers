@@ -3,7 +3,9 @@ import { getColorName } from "../../utils/getColorName";
 import { Select, Input } from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ProductDetails = ({
   productData,
@@ -36,6 +38,7 @@ const ProductDetails = ({
   return (
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">
+        
         <div className="productDetailImageContainer">
           <img
             className="productDetailImage"
@@ -44,6 +47,11 @@ const ProductDetails = ({
           />
         </div>
         <div className="productDetailInfoContainer">
+        <div className="butonant">
+          <Link to="/products">
+          <ButtonSecondary title="volver"/>
+          </Link>
+        </div>
           <h1 className="productDetailTitle">{productData.name}</h1>
           <p className="productDetailPrice">Precio: ${productData.price}</p>
           <div className="productDetailInputs">

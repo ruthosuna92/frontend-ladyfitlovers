@@ -1,5 +1,4 @@
 
-import { saveFilter } from "../Actions/saveFilter";
 import {
   GET_ALL_PRODUCTS,
   GET_ID_DETAIL_PRODUCTS,
