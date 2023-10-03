@@ -3,7 +3,7 @@ import { LOGIN_USER, LOGOUT_USER } from "../actionTypes";
 const initialState = {
   // usuario
   isLoggedIn: false,
-  user: null,
+  user: [],
 };
 
 const reducerUser = (state = initialState, action) => {
