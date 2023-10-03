@@ -11,7 +11,6 @@ const colStyle = {
 };
 
 const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
-  console.log(id, name, image, price, stock, color);
   let sizes = [];
 
   return (

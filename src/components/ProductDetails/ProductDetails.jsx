@@ -3,6 +3,7 @@ import { getColorName } from "../../utils/getColorName";
 import { Select, Input } from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import { useEffect } from "react";
 
 const ProductDetails = ({
   productData,
@@ -19,7 +20,6 @@ const ProductDetails = ({
     size: "",
     color: "",
   });
-  console.log(selectedProduct);
   const colorOptions = productData.stock.map((color) => {
     return { value: color.color, label: getColorName(color.color) };
   });
@@ -27,6 +27,12 @@ const ProductDetails = ({
   const sizeOptions = data.availableSizes.map((size) => {
     return { value: size.size, label: size.size };
   });
+  useEffect(() => {
+    setSelectedProduct((prevProduct) => ({
+      ...prevProduct,
+      size: "", // Restablece la talla cuando cambia el color
+    }));
+  }, [selectedProduct.color]);
   return (
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">

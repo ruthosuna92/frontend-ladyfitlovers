@@ -33,8 +33,8 @@ const Detail = () => {
     }
   }, [productData]);
 
-  const handleSizeChange = (event) => {
-    const selectedSizeValue = event.target.value;
+  const handleSizeChange = (value) => {
+    const selectedSizeValue = value;
     const selectedSizeObject = data.availableSizes.find(
       (size) => size.size === selectedSizeValue
     );
@@ -47,8 +47,9 @@ const Detail = () => {
     }));
   };
 
-  const handleColorChange = (event) => {
-    const selectedColor = event.target.value;
+  const handleColorChange = (value) => {
+    const selectedColor = value;
+    console.log(selectedColor)
     const colorData = productData.stock.find(
       (color) => color.color === selectedColor
     );
