@@ -7,6 +7,7 @@ import userById from "../../redux/Actions/User/getUserById";
 //imports
 import { Modal, Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import GoogleAuth from "../GoogleAuth/GoogleAuth";
 
 import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
@@ -87,10 +88,18 @@ const LoginModal = (props) => {
           >
             Ingresar
           </Button>
-          O <ButtonTertiary title="Registrarme" type="button" onClick={()=>{
-            props.onClose();
-            props.setCreateAcountModalVisible(true);
-          }}/>
+          O{" "}
+          <ButtonTertiary
+            title="Registrarme"
+            type="button"
+            onClick={() => {
+              props.onClose();
+              props.setCreateAcountModalVisible(true);
+            }}
+          />
+        </Form.Item>
+        <Form.Item>
+          <GoogleAuth />
         </Form.Item>
       </Form>
     </Modal>
