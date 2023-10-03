@@ -13,7 +13,6 @@ const SearchBar = ({ onSearch }) => {
 
   const name = useSelector((state) => state.name)
   const navigate = useNavigate();
-  console.log(name);
   const handleSearch = async () => {
     
     if (name) {

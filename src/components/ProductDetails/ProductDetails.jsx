@@ -3,6 +3,9 @@ import { getColorName } from "../../utils/getColorName";
 import { Select, Input } from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ProductDetails = ({
   productData,
@@ -19,7 +22,6 @@ const ProductDetails = ({
     size: "",
     color: "",
   });
-  console.log(selectedProduct);
   const colorOptions = productData.stock.map((color) => {
     return { value: color.color, label: getColorName(color.color) };
   });
@@ -27,9 +29,16 @@ const ProductDetails = ({
   const sizeOptions = data.availableSizes.map((size) => {
     return { value: size.size, label: size.size };
   });
+  useEffect(() => {
+    setSelectedProduct((prevProduct) => ({
+      ...prevProduct,
+      size: "", // Restablece la talla cuando cambia el color
+    }));
+  }, [selectedProduct.color]);
   return (
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">
+        
         <div className="productDetailImageContainer">
           <img
             className="productDetailImage"
@@ -38,6 +47,11 @@ const ProductDetails = ({
           />
         </div>
         <div className="productDetailInfoContainer">
+        <div className="butonant">
+          <Link to="/products">
+          <ButtonSecondary title="volver"/>
+          </Link>
+        </div>
           <h1 className="productDetailTitle">{productData.name}</h1>
           <p className="productDetailPrice">Precio: ${productData.price}</p>
           <div className="productDetailInputs">

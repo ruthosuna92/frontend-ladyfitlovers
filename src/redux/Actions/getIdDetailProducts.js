@@ -7,11 +7,18 @@ const endpoint = `${API_URL_BASE}/product/`
 const getIdDetailProducts = (id) => {
     return async (dispatch) => {
         try {
-            const {data} = await axios(endpoint+id)
-            return dispatch({
-                type: GET_ID_DETAIL_PRODUCTS,
-                payload: data
-            })
+            if(id === "none"){
+                return dispatch({
+                    type: GET_ID_DETAIL_PRODUCTS,
+                    payload: null
+                })
+            }else{
+                const {data} = await axios(endpoint+id)
+                return dispatch({
+                    type: GET_ID_DETAIL_PRODUCTS,
+                    payload: data
+                })
+            }
         } catch (error) {
             console.log(error);
         }
