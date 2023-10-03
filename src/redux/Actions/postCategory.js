@@ -1,7 +1,7 @@
 import axios from "axios"
 import { POST_CATEGORY } from "../actionTypes"
 
-const API_URL_BASE = import.meta.env.VITE_API_URL_BASE
+const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE
 const endpoint = `${API_URL_BASE}/product/category`
 
 const postCategory = (category) => {

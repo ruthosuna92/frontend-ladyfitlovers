@@ -1,6 +1,6 @@
 export const saveImage = async (file) => {
 
-  const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY_URL;
+  const CLOUDINARY_URL = import.meta.env.VITE_VERCEL_CLOUDINARY_URL;
 
     let urlImage = '';
   const formData = new FormData();

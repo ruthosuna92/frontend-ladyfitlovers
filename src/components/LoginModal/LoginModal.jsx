@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 
 //action
 import loginUser from "../../redux/Actions/User/loginUser";
-import userById from "../../redux/Actions/User/getUserBYId";
+import userById from "../../redux/Actions/User/getUserById";
 //imports
 import { Modal, Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
-import "./LoginModal.css";
+import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
 const LoginModal = (props) => {
   const dispatch = useDispatch();
