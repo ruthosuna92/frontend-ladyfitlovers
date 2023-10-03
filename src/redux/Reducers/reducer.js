@@ -125,7 +125,7 @@ const reducer = (state = initialState, action) => {
         filteredSize = state.allProducts.filter((product) =>
           product.stock.some((stockItem) =>
             stockItem.sizeAndQuantity.some(
-              (sizeItem) => sizeItem.size === action.payload)))
+              (sizeItem) => sizeItem.size === action.payload && sizeItem.quantity > 0)))
       }
       return {
         ...state,
