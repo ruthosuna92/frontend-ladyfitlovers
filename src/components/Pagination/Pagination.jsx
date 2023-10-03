@@ -1,19 +1,13 @@
 import setCurrentPage from "../../redux/Actions/Filter/setCurrentPage"
 import { useDispatch, useSelector } from "react-redux"
-import { Button, Tooltip, Space } from 'antd';
-import {
-    LeftOutlined,
-    RightOutlined,
-    DoubleLeftOutlined,
-    DoubleRightOutlined
-  } from "@ant-design/icons";
+import { Button } from 'antd';
+
 import style from "./Pagination.module.css"
 
 const Pagination = () => {
 
     const dispatch = useDispatch()
     const currentPage = useSelector((state) => state.currentPage)
-    const allProducts = useSelector((state) => state.allProducts)
     const totalButtons = useSelector((state) => state.totalButtons)
 
     const range = (start, stop, step) => //función para crear un arreglo de números que vayan incrementando hasta totalButtons
