@@ -1,31 +1,42 @@
 import React, { useState } from "react";
-import { Input, Button, message } from "antd";
+import { Input, Button, message, Select } from "antd";
 import { Field, useFormikContext } from "formik";
 import { useDispatch } from "react-redux";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import "./createAcountModal.css";
 import postUser from "../../redux/Actions/postUser";
+import { provincias } from "./Provincias";
+import "./createAcountForm.css"
 
 const CreateAcountForm = ({ onClose }) => {
   const { values, errors, resetForm } = useFormikContext();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
- 
-
   const handleSubmit = async () => {
-    try {
-       const response = await dispatch(postUser(values))   
-       
-       if(response.message === "Usuario creado correctamente"){  message.success(response.message, [2], onClose())}else{
-        message.error("Error al crear la cuenta", [2], onClose())
-       }   
-        onClose();
-        resetForm();
+    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - ${values.codigoPostal}, ${values.provincia}`;
 
-    }catch{
-        message.error("Error al crear la cuenta", [2], onClose())
+    const valuesToSend = {
+      name: values.name,
+      surname: values.surname,
+      phone: values.phone,
+      address: address,
+      email: values.email,
+      password: values.password}
+
+    try {
+      const response = await dispatch(postUser(valuesToSend));
+
+      if (response.message === "Usuario creado correctamente") {
+        message.success(response.message, [2], onClose());
+      } else {
+        message.error("Error al crear la cuenta", [2], onClose());
+      }
+      onClose();
+      resetForm();
+    } catch {
+      message.error("Error al crear la cuenta", [2], onClose());
     }
   };
 
@@ -37,7 +48,7 @@ const CreateAcountForm = ({ onClose }) => {
           {({ field, form, meta, error }) => {
             return (
               <div className="fieldAndError">
-                <Input {...field} placeholder="Nombre" autoComplete="off" />
+                <Input {...field} placeholder="Nombre*" autoComplete="off" />
                 {errors.name && (
                   <p className="createProductError">{errors.name}</p>
                 )}
@@ -49,7 +60,7 @@ const CreateAcountForm = ({ onClose }) => {
           {({ field, form, meta, error }) => {
             return (
               <div className="fieldAndError">
-                <Input {...field} placeholder="Apellido" autoComplete="off" />
+                <Input {...field} placeholder="Apellido*" autoComplete="off" />
                 {errors.surname && (
                   <p className="createProductError">{errors.surname}</p>
                 )}
@@ -63,7 +74,7 @@ const CreateAcountForm = ({ onClose }) => {
               <div className="fieldAndError">
                 <Input
                   {...field}
-                  placeholder="Teléfono/celular"
+                  placeholder="Teléfono/celular*"
                   autoComplete="off"
                 />
                 {errors.phone && (
@@ -73,13 +84,102 @@ const CreateAcountForm = ({ onClose }) => {
             );
           }}
         </Field>
-        <Field id="address" name="address">
+        <div className="createAcountCalleNumDpto">
+          <Field id="calle" name="calle">
+            {({ field, form, meta, error }) => {
+              return (
+                <div className="fieldAndError">
+                  <Input {...field} placeholder="Calle*" autoComplete="off" />
+                  {errors.calle && (
+                    <p className="createProductError">{errors.calle}</p>
+                  )}
+                </div>
+              );
+            }}
+          </Field>
+          <Field id="numero" name="numero">
+            {({ field, form, meta, error }) => {
+              return (
+                <div className="fieldAndError">
+                  <Input {...field} placeholder="Número*" autoComplete="off" />
+                  {errors.numero && (
+                    <p className="createProductError">{errors.numero}</p>
+                  )}
+                </div>
+              );
+            }}
+          </Field>
+          <Field id="dpto" name="dpto">
+            {({ field, form, meta, error }) => {
+              return (
+                <div className="fieldAndError">
+                  <Input {...field} placeholder="Dpto" autoComplete="off" />
+                  {errors.dpto && (
+                    <p className="createProductError">{errors.dpto}</p>
+                  )}
+                </div>
+              );
+            }}
+          </Field>
+        </div>
+        <Field id="entreCalles" name="entreCalles">
           {({ field, form, meta, error }) => {
             return (
               <div className="fieldAndError">
-                <Input {...field} placeholder="Dirección" autoComplete="off" />
-                {errors.address && (
-                  <p className="createProductError">{errors.address}</p>
+                <Input
+                  {...field}
+                  placeholder="Entre calles*"
+                  autoComplete="off"
+                />
+                {errors.entreCalles && (
+                  <p className="createProductError">{errors.entreCalles}</p>
+                )}
+              </div>
+            );
+          }}
+        </Field>
+        <div className="createAcountCalleNumDpto">
+        <Field id="localidad" name="localidad">
+          {({ field, form, meta, error }) => {
+            return (
+              <div className="fieldAndError">
+                <Input {...field} placeholder="Localidad*" autoComplete="off" />
+                {errors.localidad && (
+                  <p className="createProductError">{errors.localidad}</p>
+                )}
+              </div>
+            );
+          }}
+        </Field>
+        <Field id="codigoPostal" name="codigoPostal">
+          {({ field, form, meta, error }) => {
+            return (
+              <div className="fieldAndError">
+                <Input
+                  {...field}
+                  placeholder="Código postal*"
+                  autoComplete="off"
+                />
+                {errors.codigoPostal && (
+                  <p className="createProductError">{errors.codigoPostal}</p>
+                )}
+              </div>
+            );
+          }}
+        </Field>
+        </div>
+        <Field id="provincia" name="provincia">
+          {({ field, form, meta, error }) => {
+            return (
+              <div className="fieldAndError">
+                <Select
+                  {...field}
+                  options={provincias}
+                  onChange={(value) => form.setFieldValue("provincia", value)}
+                  style={{ width: "100%" }}
+                />
+                {errors.provincia && (
+                  <p className="createProductError">{errors.provincia}</p>
                 )}
               </div>
             );
@@ -89,7 +189,7 @@ const CreateAcountForm = ({ onClose }) => {
           {({ field, form, meta, error }) => {
             return (
               <div className="fieldAndError">
-                <Input {...field} placeholder="Email" autoComplete="off" />
+                <Input {...field} placeholder="Email*" autoComplete="off" />
                 {errors.email && (
                   <p className="createProductError">{errors.email}</p>
                 )}
@@ -105,9 +205,8 @@ const CreateAcountForm = ({ onClose }) => {
                   <Input
                     {...field}
                     type={showPassword ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder="Password*"
                     autoComplete="off"
-                   
                   />
                   <Button
                     style={{
@@ -167,7 +266,12 @@ const CreateAcountForm = ({ onClose }) => {
               errors.name ||
               errors.surname ||
               errors.phone ||
-              errors.address ||
+              errors.calle ||
+              errors.numero ||
+              errors.entreCalles ||
+              errors.localidad ||
+              errors.codigoPostal ||
+              errors.provincia ||
               errors.email ||
               errors.password
             }
