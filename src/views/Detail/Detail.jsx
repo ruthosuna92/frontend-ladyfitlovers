@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingMessage from "../../components/LoadingMessage/LoadingMessage";
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
 import getIdDetailProducts from "../../redux/Actions/getIdDetailProducts";
-import style from "./Detail.module.css"
+
 
 const Detail = () => {
   const { id } = useParams();

@@ -124,8 +124,7 @@ const reducer = (state = initialState, action) => {
       } else {
         filteredSize = state.allProducts.filter((product) =>
           product.stock.some((stockItem) =>
-            stockItem.sizeAndQuantity.some(
-              (sizeItem) => sizeItem.size === action.payload && sizeItem.quantity > 0)))
+            stockItem.sizeAndQuantity.some((sizeItem) => sizeItem.size === action.payload && sizeItem.quantity > 0)))
       }
       return {
         ...state,
@@ -142,8 +141,7 @@ const reducer = (state = initialState, action) => {
         allCategories: [...state.allCategories, action.payload],
       };
       case LOGIN_USER:
-      console.log("login");
-      // console.log("Token:", action.payload.message);
+  
       return {
         ...state,
         isLoggedIn: true,

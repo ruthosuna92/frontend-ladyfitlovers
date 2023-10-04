@@ -11,6 +11,7 @@ import logo from "/svg/LADYFIT1.svg";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginModal from "../LoginModal/LoginModal";
 
+
 import { Space, Button, Menu, Dropdown, Tooltip } from "antd";
 import {
   ShoppingCartOutlined,
@@ -18,6 +19,7 @@ import {
   LogoutOutlined,
   FundViewOutlined,
   SearchOutlined,
+  ProfileOutlined,
 } from "@ant-design/icons";
 import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 
@@ -57,6 +59,12 @@ const NavBar = () => {
       <Menu.Item key="logout" onClick={handleLogout}>
         <LogoutOutlined />
         Cerrar Sesión
+      </Menu.Item>
+      <Menu.Item key="perfil" >
+        <Link to="/profile">
+          <ProfileOutlined />
+          Perfil
+        </Link>
       </Menu.Item>
     </Menu>
   );
@@ -141,7 +149,7 @@ const NavBar = () => {
           <div className="userInfo">
             Hola, {user.name} {user.surname}
             <Button shape="circle" size="large">
-              <ShoppingCartOutlined  />
+              <ShoppingCartOutlined />
             </Button>
             {userDropdown}
           </div>
