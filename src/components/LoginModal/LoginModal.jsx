@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 //action
@@ -8,13 +8,33 @@ import userById from "../../redux/Actions/User/getUserById";
 import { Modal, Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
+import { gapi } from "gapi-script";
 
 import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
+
+const clientId =
+"521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
+
+
 const LoginModal = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+
+  // auth google
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  });
+
+
 
   const handleLogin = async () => {
     try {
