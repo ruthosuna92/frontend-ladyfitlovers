@@ -1,4 +1,4 @@
-import { SAVE_FILTERS } from "../actionTypes";
+import { SAVE_FILTERS } from "../../actionTypes";
 
 export const saveFilter = (uniqueFilters) => {
     return {

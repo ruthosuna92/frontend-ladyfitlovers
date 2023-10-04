@@ -1,4 +1,4 @@
-import { PRODUCTS_PER_PAGE } from "../actionTypes"
+import { PRODUCTS_PER_PAGE } from "../../actionTypes"
 
 const setProductsPerPage = (slice) => {
 

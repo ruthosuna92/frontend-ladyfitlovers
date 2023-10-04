@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingMessage from "../../components/LoadingMessage/LoadingMessage";
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
-import getIdDetailProducts from "../../redux/Actions/getIdDetailProducts";
-import style from "./Detail.module.css"
+import getIdDetailProducts from "../../redux/Actions/Product/getIdDetailProducts";
+import style from "./Detail.module.css";
 
 const Detail = () => {
   const { id } = useParams();
@@ -53,7 +53,7 @@ const Detail = () => {
 
   const handleColorChange = (value) => {
     const selectedColor = value;
-    console.log(selectedColor)
+    console.log(selectedColor);
     const colorData = productData.stock.find(
       (color) => color.color === selectedColor
     );
@@ -89,8 +89,6 @@ const Detail = () => {
     return <LoadingMessage />;
   }
   return (
-
-
     <ProductDetails
       productData={productData}
       data={data}
@@ -98,7 +96,6 @@ const Detail = () => {
       handleSizeChange={handleSizeChange}
       handleAmountChange={handleAmountChange}
     />
-
   );
 };
 export default Detail;

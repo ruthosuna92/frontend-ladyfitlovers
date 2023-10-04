@@ -1,35 +1,33 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import getProductByName from "../../redux/Actions/getProductByName";
-import getAllProducts from "../../redux/Actions/getAllProducts";
+import getProductByName from "../../redux/Actions/Product/getProductByName";
+import getAllProducts from "../../redux/Actions/Product/getAllProducts";
 import { Input, Space } from "antd";
 import { useNavigate } from "react-router-dom";
-import setName from "../../redux/Actions/setName";
+import setName from "../../redux/Actions/Filter/setName";
 
 const { Search } = Input;
 
 const SearchBar = ({ onSearch }) => {
   const dispatch = useDispatch();
 
-  const name = useSelector((state) => state.name)
+  const name = useSelector((state) => state.name);
   const navigate = useNavigate();
   const handleSearch = async () => {
-    
     if (name) {
       await dispatch(getProductByName(name));
       navigate("/products");
-      
     } else {
       await dispatch(getAllProducts());
     }
   };
   const handleInputChange = (event) => {
-    dispatch(setName(event.target.value))
-  }
+    dispatch(setName(event.target.value));
+  };
   return (
     <>
       <br />
-      <Space direction="vertical" name='espacio'>
+      <Space direction="vertical" name="espacio">
         <Search
           placeholder="Buscar..."
           allowClear={false}

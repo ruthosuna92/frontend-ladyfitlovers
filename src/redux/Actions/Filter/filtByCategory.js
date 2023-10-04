@@ -1,4 +1,4 @@
-import { FILT_BY_CATEGORY } from "../actionTypes";
+import { FILT_BY_CATEGORY } from "../../actionTypes";
 
 export const filtByCategory = (category) => {
     return {

@@ -1,4 +1,4 @@
-import { FILT_BY_COLOR } from "../actionTypes";
+import { FILT_BY_COLOR } from "../../actionTypes";
 
 export const filtByColor = (color) => {
     console.log(color)

@@ -1,16 +1,15 @@
 import axios from "axios"
-import { POST_CATEGORY } from "../actionTypes"
+import { GET_CATEGORIES } from "../../actionTypes"
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE
-const endpoint = `${API_URL_BASE}/product/category`
+const endpoint = `${API_URL_BASE}/product/allCategories`
 
-const postCategory = (category) => {
+const getAllCategories = () => {
     return async (dispatch) => {
         try {
-            const {data} = await axios.post(endpoint, category)
-           
+            const {data} = await axios(endpoint)
             return dispatch({
-                type: POST_CATEGORY,
+                type: GET_CATEGORIES,
                 payload: data
             })
         } catch (error) {
@@ -20,4 +19,4 @@ const postCategory = (category) => {
     }
 }
 
-export default postCategory
+export default getAllCategories
