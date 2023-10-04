@@ -49,6 +49,9 @@ const LoginModal = (props) => {
       console.log(error.message);
     }
   };
+  const handleGoogleLoginSuccess = () => {
+    props.onClose();
+  };
 
   return (
     <Modal
@@ -116,7 +119,7 @@ const LoginModal = (props) => {
           />
         </Form.Item>
         <Form.Item>
-          <GoogleAuth props={props} />
+          <GoogleAuth onGoogleLoginSuccess={handleGoogleLoginSuccess} />
         </Form.Item>
       </Form>
     </Modal>

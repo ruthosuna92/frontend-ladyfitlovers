@@ -1,4 +1,3 @@
-
 import {
   GET_ALL_PRODUCTS,
   GET_ID_DETAIL_PRODUCTS,
@@ -15,6 +14,7 @@ import {
   LOGOUT_USER,
   USER_BY_ID,
   SAVE_FILTERS,
+  AUTH_USER,
 } from "../actionTypes";
 
 const initialState = {
@@ -29,7 +29,7 @@ const initialState = {
   savePivot: [],
   allCategories: null,
   name: null,
-    // usuario
+  // usuario
   isLoggedIn: false,
   userId: [],
   user: [],
@@ -52,12 +52,12 @@ const reducer = (state = initialState, action) => {
         allProducts: action.payload,
         productsPerPage: action.payload.slice(0, 4),
         totalButtons: Math.ceil(action.payload.length / state.quantity),
-      }
+      };
     case GET_ID_DETAIL_PRODUCTS:
       return {
         ...state,
-        productDetail: action.payload
-      }
+        productDetail: action.payload,
+      };
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
@@ -70,32 +70,39 @@ const reducer = (state = initialState, action) => {
     //     //   filteredProducts: null,
     //   };
     case SET_PAGE:
-      const startIndex = (action.payload - 1) * state.quantity
-      const endIndex = startIndex + state.quantity
-      const slice = state.allProducts.slice(startIndex, endIndex)
+      const startIndex = (action.payload - 1) * state.quantity;
+      const endIndex = startIndex + state.quantity;
+      const slice = state.allProducts.slice(startIndex, endIndex);
       return {
         ...state,
         currentPage: action.payload,
         productsPerPage: slice,
-        totalButtons: Math.ceil(state.allProducts.length / state.quantity)
-      }
+        totalButtons: Math.ceil(state.allProducts.length / state.quantity),
+      };
     case PRODUCTS_PER_PAGE:
       return {
         ...state,
-        productsPerPage: action.payload
-      }
+        productsPerPage: action.payload,
+      };
     case SET_NAME:
       return {
         ...state,
-        name: !state.name ? action.payload : action.payload
-      }
+        name: !state.name ? action.payload : action.payload,
+      };
     case FILT_BY_CATEGORY:
       return {
         ...state,
-        allProducts: action.payload === "T" ? state.saveProducts : state.saveProducts.filter(product => product.Category.name === action.payload),
+        allProducts:
+          action.payload === "T"
+            ? state.saveProducts
+            : state.saveProducts.filter(
+                (product) => product.Category.name === action.payload
+              ),
 
-        savePivot: state.saveProducts.filter(product => product.Category.name === action.payload)
-      }
+        savePivot: state.saveProducts.filter(
+          (product) => product.Category.name === action.payload
+        ),
+      };
     case FILT_BY_COLOR:
       let filteredProducts;
       let filteredColor;
@@ -103,24 +110,42 @@ const reducer = (state = initialState, action) => {
       if (action.payload === "C") {
         filteredProducts = state.saveProducts;
       } else {
-        filteredProducts = state.savePivot.length > 0 ? state.savePivot.filter((product) =>
-          product.stock.some((stockItem) => stockItem.color === action.payload)) : state.saveProducts.filter((product) =>
-            product.stock.some((stockItem) => stockItem.color === action.payload)
-          );
-        filteredColor = state.savePivot.length > 0 ? state.savePivot.filter((product) =>
-          product.stock.some((stockItem) => stockItem.color === action.payload)) : state.saveProducts.filter((product) =>
-            product.stock.some((stockItem) => stockItem.color === action.payload))
+        filteredProducts =
+          state.savePivot.length > 0
+            ? state.savePivot.filter((product) =>
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
+              )
+            : state.saveProducts.filter((product) =>
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
+              );
+        filteredColor =
+          state.savePivot.length > 0
+            ? state.savePivot.filter((product) =>
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
+              )
+            : state.saveProducts.filter((product) =>
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
+              );
       }
       return {
         ...state,
         allProducts: filteredProducts,
-        savePivot: filteredColor
+        savePivot: filteredColor,
       };
     case FILT_BY_SIZE:
       let filteredSize;
-      console.log(action.payload)
+      console.log(action.payload);
       if (action.payload === "TA") {
-        filteredSize = state.savePivot.length > 0 ? state.savePivot : state.saveProducts;
+        filteredSize =
+          state.savePivot.length > 0 ? state.savePivot : state.saveProducts;
       } else {
         filteredSize = state.allProducts.filter((product) =>
           product.stock.some((stockItem) =>
@@ -130,18 +155,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allProducts: filteredSize,
-      }
+      };
     case GET_CATEGORIES:
       return {
         ...state,
-        allCategories: action.payload
-      }
+        allCategories: action.payload,
+      };
     case POST_CATEGORY:
       return {
         ...state,
         allCategories: [...state.allCategories, action.payload],
       };
-      case LOGIN_USER:
+    case LOGIN_USER:
       console.log("login");
       // console.log("Token:", action.payload.message);
       return {
@@ -157,7 +182,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-
+    case AUTH_USER:
+      console.log("User authenticated with Google", action.payload);
+      return {
+        ...state,
+        isLoggedIn: true,
+        token: action.payload.token,
+        user: action.payload,
+      };
     case LOGOUT_USER:
       console.log("logout");
       return {
@@ -185,7 +217,6 @@ const reducer = (state = initialState, action) => {
           saveFilters: newSaveFilters,
         };
     default:
-
       return {
         ...state,
       };
@@ -193,6 +224,3 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
-
-
-

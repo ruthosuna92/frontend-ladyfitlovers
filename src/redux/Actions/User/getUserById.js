@@ -8,12 +8,11 @@ const userById = (id) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(endpoint + id);
-       return dispatch({
+      return dispatch({
         type: USER_BY_ID,
         payload: response.data,
         idUser: response.data.id,
       });
-      console.log("User by ID data:", response.data);
     } catch (error) {
       if (error.response) {
         console.error(

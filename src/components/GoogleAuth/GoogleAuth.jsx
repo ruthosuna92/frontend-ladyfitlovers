@@ -6,7 +6,7 @@ import authUser from "../../redux/Actions/User/authUser";
 const clientId =
   "521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
 
-const GoogleAuth = (props) => {
+const GoogleAuth = ({ onGoogleLoginSuccess }) => {
   const dispatch = useDispatch();
 
   const onSuccess = (res) => {
@@ -16,8 +16,9 @@ const GoogleAuth = (props) => {
       profileObj.familyName = "No definido";
     }
     //userId, token, profileObj
-   return dispatch(authUser(profileObj, accessToken));
-    // return props.onClose();
+    dispatch(authUser(profileObj, accessToken));
+    onGoogleLoginSuccess();
+    // return props.onClose()
   };
 
   const onFailure = (res) => {
@@ -29,9 +30,8 @@ const GoogleAuth = (props) => {
       <GoogleLogin
         clientId={clientId}
         buttonText="Login"
-        onSuccess={ () => {onSuccess, props.onClose()}}
+        onSuccess={onSuccess}
         onFailure={onFailure}
-
         cookiesPolicy={"single_host_origin"}
         isSignedIn={true}
       />
