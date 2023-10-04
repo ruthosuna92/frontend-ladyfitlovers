@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import loginUser from "../../redux/Actions/User/loginUser";
 import userById from "../../redux/Actions/User/getUserById";
 //imports
-import { Modal, Form, Input, Button, Checkbox } from "antd";
+import { Modal, Form, Input, Button, Checkbox, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { gapi } from "gapi-script";
@@ -118,8 +118,12 @@ const LoginModal = (props) => {
             }}
           />
         </Form.Item>
+        <Divider>O</Divider>
         <Form.Item>
-          <GoogleAuth onGoogleLoginSuccess={handleGoogleLoginSuccess} />
+          <GoogleAuth
+            onGoogleLoginSuccess={handleGoogleLoginSuccess}
+            
+          />
         </Form.Item>
       </Form>
     </Modal>
