@@ -82,6 +82,9 @@ const Detail = () => {
       }));
     }
   };
+
+  console.log(data);
+  console.log(productData);
   if (!productData) {
     return <LoadingMessage />;
   }
