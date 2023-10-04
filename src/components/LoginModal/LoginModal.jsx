@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 //action
 import loginUser from "../../redux/Actions/User/loginUser";
 import userById from "../../redux/Actions/User/getUserById";
 //imports
-import { Modal, Form, Input, Button, Checkbox } from "antd";
+import { Modal, Form, Input, Button, Checkbox, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import GoogleAuth from "../GoogleAuth/GoogleAuth";
+import { gapi } from "gapi-script";
 
 import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
+
+const clientId =
+  "521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
+
 const LoginModal = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+
+  // auth google
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  });
 
   const handleLogin = async () => {
     try {
@@ -30,6 +48,9 @@ const LoginModal = (props) => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+  const handleGoogleLoginSuccess = () => {
+    props.onClose();
   };
 
   return (
@@ -87,10 +108,22 @@ const LoginModal = (props) => {
           >
             Ingresar
           </Button>
-          O <ButtonTertiary title="Registrarme" type="button" onClick={()=>{
-            props.onClose();
-            props.setCreateAcountModalVisible(true);
-          }}/>
+          O{" "}
+          <ButtonTertiary
+            title="Registrarme"
+            type="button"
+            onClick={() => {
+              props.onClose();
+              props.setCreateAcountModalVisible(true);
+            }}
+          />
+        </Form.Item>
+        <Divider>O</Divider>
+        <Form.Item>
+          <GoogleAuth
+            onGoogleLoginSuccess={handleGoogleLoginSuccess}
+            
+          />
         </Form.Item>
       </Form>
     </Modal>
