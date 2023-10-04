@@ -15,6 +15,7 @@ import Products from "./components/Products/Products";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
+import { Footer } from "antd/es/layout/layout";
 
 const App = () => {
   // dispatch to get all products globally
