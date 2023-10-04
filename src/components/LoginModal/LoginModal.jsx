@@ -14,8 +14,7 @@ import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
 
 const clientId =
-"521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
-
+  "521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
 
 const LoginModal = (props) => {
   const dispatch = useDispatch();
@@ -33,8 +32,6 @@ const LoginModal = (props) => {
     }
     gapi.load("client:auth2", start);
   });
-
-
 
   const handleLogin = async () => {
     try {
@@ -119,7 +116,7 @@ const LoginModal = (props) => {
           />
         </Form.Item>
         <Form.Item>
-          <GoogleAuth />
+          <GoogleAuth props={props} />
         </Form.Item>
       </Form>
     </Modal>
