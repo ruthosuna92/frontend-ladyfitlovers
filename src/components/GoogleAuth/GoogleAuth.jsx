@@ -18,7 +18,6 @@ const GoogleAuth = ({ onGoogleLoginSuccess }) => {
     //userId, token, profileObj
     dispatch(authUser(profileObj, accessToken));
     onGoogleLoginSuccess();
-    // return props.onClose()
   };
 
   const onFailure = (res) => {
