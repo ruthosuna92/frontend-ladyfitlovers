@@ -62,6 +62,9 @@ const LoginModal = (props) => {
     >
       <br />
       <Form form={form} onFinish={handleLogin} className="login-form">
+        <Divider orientation="left" style="">
+          E-mail
+        </Divider>
         <Form.Item
           name="email"
           rules={[
@@ -108,7 +111,7 @@ const LoginModal = (props) => {
           >
             Ingresar
           </Button>
-          O{" "}
+          O
           <ButtonTertiary
             title="Registrarme"
             type="button"
@@ -118,12 +121,11 @@ const LoginModal = (props) => {
             }}
           />
         </Form.Item>
-        <Divider>O</Divider>
+        <Divider orientation="left" style="">
+          Google
+        </Divider>
         <Form.Item>
-          <GoogleAuth
-            onGoogleLoginSuccess={handleGoogleLoginSuccess}
-            
-          />
+          <GoogleAuth onGoogleLoginSuccess={handleGoogleLoginSuccess} />
         </Form.Item>
       </Form>
     </Modal>

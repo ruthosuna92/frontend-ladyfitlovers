@@ -1,4 +1,4 @@
-import { LOGOUT_USER } from "../../actionTypes";
+import { LOGOUT_USER } from "../actionTypes";
 
 const logoutUser = () => {
   return (dispatch) => {

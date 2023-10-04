@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { ConfigProvider, Button } from "antd";
 //actions
-import getAllProducts from "./redux/Actions/getAllProducts";
+import getAllProducts from "./redux/Actions/Product/getAllProducts";
 // components
 import ProductsView from "./views/ProductsView/ProductsView";
 import Home from "./views/Home/Home";
@@ -13,7 +13,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Contac from "./views/Contac/Contac";
 import Products from "./components/Products/Products";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import getAllCategories from "./redux/Actions/getAllCategories";
+import getAllCategories from "./redux/Actions/Category/getAllCategories";
 
 const App = () => {
   // dispatch to get all products globally
@@ -25,7 +25,7 @@ const App = () => {
   useEffect(() => {
     if (!allProducts.length) {
       dispatch(getAllProducts());
-      dispatch(getAllCategories())
+      dispatch(getAllCategories());
     }
   }, []);
 
@@ -41,6 +41,7 @@ const App = () => {
           fontFamily: "'Poppins', sans-serif",
           colorLink: "#C04C98",
           colorInfo: "#C04C98",
+          colorSplit: "black",
           // colorBgBase: "#E0B3D3",
           // boxShadow: ,
           // boxShadowSecondary: ,
@@ -55,13 +56,13 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/admin" />
         <Route path="/login" />
-        <Route path="/contacto" element={<Contac/>}/>
+        <Route path="/contacto" element={<Contac />} />
         <Route path="/register" />
         <Route path="/products" element={<ProductsView />} />
         <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/crear-producto" element={<CreateProduct/>}/>
+        <Route path="/crear-producto" element={<CreateProduct />} />
       </Routes>
     </ConfigProvider>
   );

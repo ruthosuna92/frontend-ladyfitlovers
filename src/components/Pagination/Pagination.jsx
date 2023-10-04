@@ -1,4 +1,4 @@
-import setCurrentPage from "../../redux/Actions/setCurrentPage"
+import setCurrentPage from "../../redux/Actions/Filter/setCurrentPage"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, Tooltip, Space } from 'antd';
 import {
