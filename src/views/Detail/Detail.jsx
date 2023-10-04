@@ -36,7 +36,7 @@ const Detail = () => {
       });
     }
   }, [productData]);
-
+  
   const handleSizeChange = (value) => {
     const selectedSizeValue = value;
     const selectedSizeObject = data.availableSizes.find(

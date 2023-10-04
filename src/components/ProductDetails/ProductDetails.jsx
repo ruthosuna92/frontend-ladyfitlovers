@@ -6,6 +6,7 @@ import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { element } from "prop-types";
 
 const ProductDetails = ({
   productData,
@@ -22,6 +23,12 @@ const ProductDetails = ({
     size: "",
     color: "",
   });
+  const [selects, setSelects] = useState({
+    color: colors[0],
+    sizes: [],
+    quantity: 1
+  })
+
   const colorOptions = productData.stock.map((color) => {
     return { value: color.color, label: getColorName(color.color) };
   });
@@ -35,6 +42,25 @@ const ProductDetails = ({
       size: "", // Restablece la talla cuando cambia el color
     }));
   }, [selectedProduct.color]);
+
+  const array = productData && productData?.stock
+  const colors = array.map((col)=> col.color)
+  
+  const selectsArrays = (color, size) => {
+  
+    if(array.length !== 0){
+      const sizeAndQuantity = array.filter((element) => element.color === color)[0].sizeAndQuantity
+      const sizes = sizeAndQuantity.map((element) => element.size)
+      const topQuantity = sizeAndQuantity.filter((element) => element.size === size)[0].quantity
+      return {
+        sizes,
+        topQuantity
+      }
+    }
+  }
+  console.log(array);
+  console.log(colors);
+  console.log(selectsArrays("gray", "l"));
   return (
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">
