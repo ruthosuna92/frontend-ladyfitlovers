@@ -18,6 +18,7 @@
     align-items: center;
     padding-top: 2rem;
     background-color:#f6f1f5 ;
+    min-height: 512px;
   }	
 
   .titleMostSold{

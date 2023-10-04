@@ -27,16 +27,17 @@
 .navBarButton {
   background-color: #f6f1f5;
   border: none;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600px;
   color: #171717;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
 }
 
 .buttonLinkActive {
   text-decoration: none;
   color: #ba338a;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   border: none;
   cursor: pointer;

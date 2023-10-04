@@ -2,7 +2,6 @@ import React from "react";
 import "./footer.css";
 import { Link } from "react-router-dom";
 import { InstagramOutlined } from "@ant-design/icons";
-import logo from "../../../public/svg/whatsapp-icon.svg";
 
 const Footer = () => {
   return (
@@ -13,9 +12,9 @@ const Footer = () => {
           <p>ladyfitlovers@gmail.com</p>
         </div>
         <div className="footerTopLeft">
-          <Link to="/https://www.instagram.com/ladyfitlovers/">
+          {/* <Link to="/https://www.instagram.com/ladyfitlovers/">
             <img src={logo} />
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="footerBottom">
