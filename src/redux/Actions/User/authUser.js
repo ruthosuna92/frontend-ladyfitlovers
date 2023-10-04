@@ -1,15 +1,19 @@
+import { AUTH_USER } from "../../actionTypes";
 import axios from "axios";
-import { USER_BY_ID } from "../../actionTypes";
 
-const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-const endpoint = `${API_URL_BASE}/user/`;
+const endpoint =
+  "https://pf-back-production-4255.up.railway.app/user/loginGoogle";
+const endpoint2 = "https://pf-back-production-4255.up.railway.app/user/";
 
-const userById = (id) => {
+const authUser = (profileObj, accessToken) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(endpoint + id);
+      const { data } = await axios.post(endpoint, { profileObj, accessToken });
+      const id = data.idUser;
+      const response = await axios.get(endpoint2 + id);
+
       return dispatch({
-        type: USER_BY_ID,
+        type: AUTH_USER,
         payload: response.data,
         idUser: response.data.id,
       });
@@ -29,4 +33,4 @@ const userById = (id) => {
   };
 };
 
-export default userById;
+export default authUser;

@@ -158,6 +158,9 @@ body {
   background: #e0b3cd;
 }
 
+.container .card .contentBx a:hover {
+  background: #e0b3cd;
+}
 .container .card .contentBx .color span {
   width: 20px;
   height: 20px;
@@ -178,7 +181,7 @@ body {
   color: #111;
   opacity: 0;
   transform: translateY(50px);
-  transition: 0.5s;
+  transition: translateY 0.5s;
 }
 
 .container .card:hover .contentBx a {
@@ -189,9 +192,7 @@ body {
 
 h3 {
   margin: 5px;
-
 }
-
 
 /* @media (max-width: 768px) {
   .pokemon {
