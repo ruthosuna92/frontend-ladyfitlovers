@@ -16,6 +16,8 @@ import CreateProduct from "./components/CreateProduct/CreateProduct";
 import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
 import { Footer } from "antd/es/layout/layout";
+// import { Footer } from "antd/es/layout/layout";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   // dispatch to get all products globally
@@ -68,6 +70,7 @@ const App = () => {
         <Route path="/profile" element={<Profile/>}/>
 
       </Routes>
+      <Footer/>
     </ConfigProvider>
   );
 };
