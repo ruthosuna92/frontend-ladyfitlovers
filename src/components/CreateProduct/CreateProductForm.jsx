@@ -235,7 +235,7 @@ const CreateProductForm = ({ errors }) => {
               <ButtonSecondary
                 type="button"
                 className="secondary"
-                title="Agregar"
+                title="Agregar stock"
                 onClick={() =>
                   push({
                     color: "",
@@ -253,7 +253,7 @@ const CreateProductForm = ({ errors }) => {
         )}
       </FieldArray>
       <ButtonPrimary
-        title="Crear"
+        title="Crear producto"
         onClick={handleSubmit}
         disabled={
           errors.name ||

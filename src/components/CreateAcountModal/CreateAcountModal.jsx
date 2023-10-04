@@ -15,7 +15,20 @@ const CreateAcountModal = ({ visible, onClose }) => {
       footer={null}
     >
       <Formik 
-      initialValues={{ name:"", surname:"", address:"", phone:"", email:"" , password:"" , confirmPassword:"" }}
+      initialValues={{
+        name:"",
+        surname:"",
+        calle:"",
+        numero:"",
+        dpto:"",
+        entreCalles:"",
+        localidad:"",
+        codigoPostal:"",
+        provincia:"",
+        phone:"",
+        email:"" ,
+        password:"" ,
+        confirmPassword:"" }}
       validationSchema={CreateAcountSchema}
       >
         {({ errors, touched }) => (
