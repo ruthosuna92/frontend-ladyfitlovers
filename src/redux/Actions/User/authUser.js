@@ -1,4 +1,4 @@
-import { AUTH_USER } from "../../actionTypes";
+import { AUTH_USER } from "../actionTypes";
 import axios from "axios";
 
 const endpoint =

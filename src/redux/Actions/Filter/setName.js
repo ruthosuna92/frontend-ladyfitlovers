@@ -1,4 +1,4 @@
-import { SET_NAME } from "../../actionTypes";
+import { SET_NAME } from "../actionTypes";
 
 const setName = (name) => {
   return {

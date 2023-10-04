@@ -1,4 +1,4 @@
-import { FILT_BY_SIZE } from "../../actionTypes";
+import { FILT_BY_SIZE } from "../actionTypes";
 
 export const filtBySize = (size) => {
   console.log(size);

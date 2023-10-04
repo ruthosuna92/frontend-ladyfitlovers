@@ -1,4 +1,4 @@
-import { SET_PAGE } from "../../actionTypes";
+import { SET_PAGE } from "../actionTypes";
 
 const setCurrentPage = (page) => {
   return {
