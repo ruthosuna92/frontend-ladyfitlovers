@@ -42,6 +42,7 @@ const App = () => {
           fontFamily: "'Poppins', sans-serif",
           colorLink: "#C04C98",
           colorInfo: "#C04C98",
+          colorSplit: "black"
           // colorBgBase: "#E0B3D3",
           // boxShadow: ,
           // boxShadowSecondary: ,
