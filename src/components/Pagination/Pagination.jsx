@@ -42,30 +42,32 @@ const Pagination = () => {
                 return dispatch(setCurrentPage(Number(event.target.id)))
             case 'prev':
                 let anterior = currentPage - 1
-                return dispatch(setCurrentPage(anterior))
+                if(currentPage > 1){
+                    return dispatch(setCurrentPage(anterior))
+                } else {
+                    return dispatch(setCurrentPage(1))
+                }
             case 'next':
                 let siguiente = currentPage + 1
-                return dispatch(setCurrentPage(siguiente))
+                if(currentPage < totalButtonsArray[totalButtonsArray.length - 1]){
+                    return dispatch(setCurrentPage(siguiente))
+                } else {
+                    return dispatch(setCurrentPage(totalButtonsArray[totalButtonsArray.length - 1]))
+                }
             case 'first':
                 return dispatch(setCurrentPage(1))
             case 'last':
                 return dispatch(setCurrentPage(totalButtonsArray[totalButtonsArray.length - 1]))
             default:
-
-
                 break;
         }
     }
 
-    // const handlePage = (event) => {
-    //     dispatch(setCurrentPage(event.target.id))
-    // }
-
     return <div  className={style.paginationContainer}>
         <div className={style.arrow} >
             <div className={style.buttons} >
-        {currentPage > 3 && <Button  shape="circle" ><button className={style.arrowBtn} name="first" onClick={handlePage}> {"<<"} </button></Button>}
-        {currentPage > 1 && <Button  shape="circle" ><button className={style.arrowBtn} name="prev" onClick={handlePage}> {"<"} </button></Button>}
+        {<Button  shape="circle" ><button className={style.arrowBtn} name="first" onClick={handlePage}> {"<<"} </button></Button>}
+        {<Button  shape="circle" ><button className={style.arrowBtn} name="prev" onClick={handlePage}> {"<"} </button></Button>}
         </div>
         <div >
             {buttons(totalButtonsArray).map((number, i) => {
@@ -82,21 +84,15 @@ const Pagination = () => {
             })}
         </div>
         <div className={style.buttons}>
-        {currentPage < totalButtonsArray.length - 2 && 
+        {
         // <button name='next' onClick={handlePage} >Siguiente</button>}
       <Button  shape="circle" ><button className={style.arrowBtn} name="next" onClick={handlePage}> {">"} </button></Button>}
-        {currentPage < totalButtonsArray.length - 2 &&   <Button  shape="circle" ><button className={style.arrowBtn} name="last" onClick={handlePage}> {">>"} </button></Button>}
+        {<Button  shape="circle" ><button className={style.arrowBtn} name="last" onClick={handlePage}> {">>"} </button></Button>}
         </div>
     </div>
-        {totalButtonsArray.length > 1 && <p className='texto'> Página {currentPage} de {totalButtons} </p>}
+        {<p className='texto'> Página {currentPage} de {totalButtons} </p>}
     </div>
 }
-//<div>
-{/* {totalButtonsArray.map((button) => {
-            return <button id={button} onClick={handlePage}>{button}</button>
-        })} */}
-
-//<div>}
 
 
 export default Pagination
