@@ -8,7 +8,7 @@ import {
   EditOutlined, 
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
-import { useDispatch, useSelector } from "react-redux";
+import EditProfile from '../EditProfile/EditProfile';
 import DataProfile from "../DataProfile/DataProfile"
 import style from "./ProfileLayout.module.css"
 
@@ -73,6 +73,7 @@ const ProfileLayout =()=>{
           className={collapsed ? style.layaout : style.layaout2}
           >
           {selectedKey === '1' && <DataProfile />}
+          {selectedKey === '4' && <EditProfile />}
         </Content>
       </Layout>
     </Layout>
