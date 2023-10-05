@@ -15,6 +15,7 @@ export const FILT_BY_SIZE = "FILT_BY_SIZE";
 export const SET_NAME = "SET_NAME";
 export const SAVE_FILTERS = "SAVE_FILTERS";
 export const AUTH_USER = "AUTH_USER";
+export const ADDING_PRODUCT = "ADDING_PRODUCT"
 //GET_OFFERS
 //CREATE_PRODUCT
 //EDI_PRODUCT

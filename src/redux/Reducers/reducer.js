@@ -15,6 +15,7 @@ import {
   USER_BY_ID,
   SAVE_FILTERS,
   AUTH_USER,
+  ADDING_PRODUCT
 } from "../Actions/actionTypes";
 
 const initialState = {
@@ -41,6 +42,7 @@ const initialState = {
     selectColor: "",
     selectSize: "",
   },
+  cart: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -221,6 +223,30 @@ const reducer = (state = initialState, action) => {
         ...state,
         saveFilters: newSaveFilters,
       };
+      case ADDING_PRODUCT:
+        console.log(action.payload);
+      const productDontMatch = state.cart.filter((prod) => {
+        return prod.name !== action.payload.name || prod.color !== action.payload.color || prod.size !== action.payload.size})
+        console.log(productDontMatch);
+        if(productDontMatch.length){
+          return {
+            ...state,
+            cart: [...state.cart, action.payload]
+          }
+        } 
+        else {
+          const productFound = state.cart.find((prod) => {
+            console.log(prod);
+            return prod.name === action.payload.name})
+          console.log(action.payload);
+          console.log(productFound);
+          console.log(state.cart);
+          //productFound.quantity += action.payload.quantity
+          return {
+            ...state,
+            cart: [...state.cart]
+          }
+        }
     default:
       return {
         ...state,
