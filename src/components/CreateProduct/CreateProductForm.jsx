@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Field, useFormikContext, FieldArray } from "formik";
 import { Input, Select, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +9,15 @@ import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
 import postProduct from "../../redux/Actions/Product/postProduct";
 import CreateCategoryModal from "../CreateCategoryModal/CreateCategoryModal";
 import "./createProductForm.css";
+import updateProduct from "../../redux/Actions/Product/updateProduct";
 
-const CreateProductForm = ({ errors }) => {
+const CreateProductForm = ({ errors, isEditing }) => {
   const categories = useSelector((state) => state.allCategories);
   const { values, setFieldValue, resetForm } = useFormikContext();
   const [errorColor, setErrorColor] = useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const dispatch = useDispatch();
-
+console.log(values)
   const categoriesOptions = categories?.map((category) => {
     return { value: category.name, label: category.name };
   });
@@ -58,6 +59,28 @@ const CreateProductForm = ({ errors }) => {
       message.error("Error al crear producto", [2], onClose());
     }
   };
+  const handleEdit = async () => {
+    try {
+      const response = await dispatch(
+        updateProduct({
+          id: values.id,
+          name: values.name,
+          price: values.price,
+          priceOnSale: values.priceOnSale,
+          unitsSold: values.unitsSold,
+          image: values.image,
+          category: values.category,
+          stock: values.stock,
+        })
+      );
+
+      message.success(response.message, [2], onClose());
+
+      resetForm();
+    } catch {
+      message.error("Error al crear producto", [2], onClose());
+    }
+  };
 
   const onChange = (value, index) => {
     if (values.stock.some((element) => element.color === value)) {
@@ -75,6 +98,12 @@ const CreateProductForm = ({ errors }) => {
   const onChangeCategories = (value) => {
     setFieldValue("category", value);
   };
+
+  useEffect(() => {
+    if (isEditing && values.category) {
+      setFieldValue("category", values.category.name);
+    }
+  }, [values.category]);
 
   return (
     <>
@@ -122,40 +151,72 @@ const CreateProductForm = ({ errors }) => {
         </div>
         <div className="inputsContainer">
           <div className="fieldAndError">
-            <Input
-              type="file"
-              placeholder="Imagen"
-              onChange={(e) => setFieldValue("image", e.target.files[0])}
-            />
-            {errors.image && (
-              <p className="createProductError">{errors.image}</p>
+            {!isEditing && (
+              <>
+                <Input
+                  type="file"
+                  placeholder="Imagen"
+                  onChange={(e) => setFieldValue("image", e.target.files[0])}
+                />
+                {errors.image && (
+                  <p className="createProductError">{errors.image}</p>
+                )}
+              </>
             )}
           </div>
-
-          <Field id="category" name="category">
-            {({ field, form, meta }) => {
-              return (
-                <div className="fieldAndError">
-                  <Select
-                    {...field}
-                    options={categoriesOptions}
-                    onChange={(value) => onChangeCategories(value)}
-                    style={{ width: "100%" }}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowCreateCategoryModal(true)}
-                    className="createCategoryButton"
-                  >
-                    Crear categoría
-                  </button>
-                  {errors.category && (
-                    <p className="createProductError">{errors.category}</p>
-                  )}
-                </div>
-              );
-            }}
-          </Field>
+          {!isEditing && (
+            <Field id="category" name="category">
+              {({ field, form, meta }) => {
+                return (
+                  <div className="fieldAndError">
+                    <Select
+                      {...field}
+                      options={categoriesOptions}
+                      onChange={(value) => onChangeCategories(value)}
+                      style={{ width: "100%" }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowCreateCategoryModal(true)}
+                      className="createCategoryButton"
+                    >
+                      Crear categoría
+                    </button>
+                    {errors.category && (
+                      <p className="createProductError">{errors.category}</p>
+                    )}
+                  </div>
+                );
+              }}
+            </Field>
+          )}
+          {isEditing && (
+            <Field id="category" name="category">
+              {({ field, form, meta }) => {
+                return (
+                  <div className="fieldAndError">
+                  <p>Categoria actual: {values.category}</p>
+                    <Select
+                      {...field}
+                      options={categoriesOptions}
+                      onChange={(value) => onChangeCategories(value)}
+                      style={{ width: "100%" }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowCreateCategoryModal(true)}
+                      className="createCategoryButton"
+                    >
+                      Crear categoría
+                    </button>
+                    {errors.category && (
+                      <p className="createProductError">{errors.category}</p>
+                    )}
+                  </div>
+                );
+              }}
+            </Field>
+          )}
         </div>
 
         <FieldArray name="stock">
@@ -260,8 +321,8 @@ const CreateProductForm = ({ errors }) => {
           )}
         </FieldArray>
         <ButtonPrimary
-          title="Crear producto"
-          onClick={handleSubmit}
+          title={isEditing ? "Editar producto" : "Crear producto"}
+          onClick={isEditing ? handleEdit : handleSubmit}
           disabled={
             errors.name ||
             errors.price ||

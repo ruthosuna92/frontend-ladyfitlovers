@@ -6,6 +6,7 @@ export const PRODUCTS_PER_PAGE = "PRODUCTS_PER_PAGE";
 export const POST_PRODUCT = "POST_PRODUCT";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const SET_NAME = "SET_NAME";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 
 //FILTER
 export const GET_CATEGORIES = "GET_CATEGORIES";

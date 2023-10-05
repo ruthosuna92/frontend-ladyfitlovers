@@ -1,11 +1,14 @@
 import { Button, Switch, Table } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import "./productsTable.css";
 import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import "./productsTable.css";
+import EditProductModal from "../../../components/EditPorductModal/EditPorductModal";
 
 const ProductsTable = () => {
   const products = useSelector((state) => state.allProducts);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [productUpdate, setProductUpdate] = useState({});
   
   const columns = [
     {
@@ -54,20 +57,14 @@ const ProductsTable = () => {
       title: "Acciones",
       dataIndex: "",
       key: "action",
-      render: (text, record) => {
+      render: (cell) => {
         return (
           <div>
             <Button
               type="primary"
               icon={<EditOutlined />}
               size="small"
-              onClick={() => {}}
-            />
-            <Button
-              type="secondary"
-              icon={<DeleteOutlined />}
-              size="small"
-              onClick={() => {}}
+              onClick={() => {setShowEditModal(true), setProductUpdate(cell)}}
             />
             
           </div>
@@ -85,7 +82,7 @@ const ProductsTable = () => {
               checkedChildren={<CheckOutlined />}
               unCheckedChildren={<CloseOutlined />}
               defaultChecked={value === true ? true : false}
-              onChange={()=> setShowBanModal(true)}
+              onChange={()=> {}}
             />
           )
         }
@@ -93,6 +90,13 @@ const ProductsTable = () => {
   ];
   return (
     <div>
+        {productUpdate && showEditModal && (
+        <EditProductModal
+          visible={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          product={productUpdate}
+        />
+      )}
       <Table dataSource={products} columns={columns} />
     </div>
   );

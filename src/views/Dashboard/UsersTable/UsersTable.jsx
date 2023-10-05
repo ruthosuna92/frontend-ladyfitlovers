@@ -69,7 +69,7 @@ const UsersTable = () => {
                 setShowEditModal(true), setUser(record);
               }}
             />
-            <Button type="secondary" icon={<DeleteOutlined />} size="small" />
+            
           </div>
         );
       },
@@ -84,7 +84,7 @@ const UsersTable = () => {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             defaultChecked={cell.userBan === true ? true : false}
-            onChange={()=> onChange(!cell.value === true? false : true ,cell )}
+            onChange={()=> onChange(cell.userBan === true ? false : true ,cell )}
           />
         );
       },
