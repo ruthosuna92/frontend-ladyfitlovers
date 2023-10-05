@@ -69,7 +69,6 @@ const ProfileLayout = () => {
               key: "2",
               icon: <UnorderedListOutlined />,
               label: "Mis Reseñas",
-              Content: <h1></h1>,
             },
             {
               key: "3",

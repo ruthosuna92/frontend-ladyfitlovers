@@ -45,7 +45,24 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
     }
   };
   const handleSubmitupdate = async()=>{
-    
+    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
+
+    const valuesToSend = {
+      id: "03e2aa84-4fc0-4f8c-b967-ea5675cfc2b6",
+      name: values.name,
+      surname: values.surname,
+      phone: values.phone,
+      address: address,
+      email: values.email,
+    }
+    console.log(valuesToSend)
+
+    try {
+       const response = await dispatch(updateUser(valuesToSend));
+       console.log(response)
+     } catch {
+       message.error("Error al crear la cuenta");
+    }
   }
   const handleEdit = async () => {
     const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
@@ -280,12 +297,13 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
         </Field>}
 
         <div className="createCategoryButtons">
-          
-              <ButtonSecondary
+            {
+              pivotuser ? "" : <ButtonSecondary
                 title="Cancelar"
                 type="button"
                 onClick={() => onClose()}
               />
+            }
    
           {
             pivotuser ? <ButtonPrimary
