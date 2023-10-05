@@ -1,8 +1,8 @@
 import axios from "axios";
 import { GET_PRODUCT_BY_NAME } from "../actionTypes";
 
-const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE
-const endpoint =`${API_URL_BASE}/product/name?name=`;
+const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
+const endpoint = `${API_URL_BASE}/product/name?name=`;
 
 const getProductByName = (name) => {
   return async (dispatch) => {

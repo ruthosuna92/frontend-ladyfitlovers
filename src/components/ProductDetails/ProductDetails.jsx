@@ -25,7 +25,7 @@ const ProductDetails = ({
   const colorOptions = productData.stock.map((color) => {
     return { value: color.color, label: getColorName(color.color) };
   });
-
+  console.log();
   const sizeOptions = data.availableSizes.map((size) => {
     return { value: size.size, label: size.size };
   });

@@ -4,17 +4,17 @@ import { Field, useFormikContext } from "formik";
 import { useDispatch } from "react-redux";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
-import postCategory from "../../redux/Actions/postCategory";
-import getAllCategories from "../../redux/Actions/getAllCategories";
+import postCategory from "../../redux/Actions/Category/postCategory";
+import getAllCategories from "../../redux/Actions/Category/getAllCategories";
 import "./createCategoryModal.css";
 
-const CreateCategoryForm = ({onClose}) => {
+const CreateCategoryForm = ({ onClose }) => {
   const { values } = useFormikContext();
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    dispatch(postCategory({category: values.name.toUpperCase()}));
-    dispatch(getAllCategories())
+    dispatch(postCategory({ category: values.name.toUpperCase() }));
+    dispatch(getAllCategories());
     onClose();
     resetForm();
   };

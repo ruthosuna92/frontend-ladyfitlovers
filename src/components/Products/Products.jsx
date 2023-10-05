@@ -1,7 +1,8 @@
 import Product from "../Product/Product";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import getAllProducts from "../../redux/Actions/getAllProducts";
+import { Drawer } from "antd";
+import getAllProducts from "../../redux/Actions/Product/getAllProducts";
 import style from "./Products.module.css";
 
 const Products = () => {
@@ -16,15 +17,18 @@ const Products = () => {
         // const color = stock.map((stockItem) => stockItem.color);
 
         return (
-          <Product
-            key={id}
-            id={id}
-            name={name}
-            image={image}
-            price={price}
-            unitsSold={unitsSold}
-            stock={stock}
-          />
+          <>
+            <Product
+              key={id}
+              id={id}
+              name={name}
+              image={image}
+              price={price}
+              unitsSold={unitsSold}
+              stock={stock}
+            ></Product>
+            <Drawer></Drawer>
+          </>
         );
       })}
     </div>
@@ -32,4 +36,3 @@ const Products = () => {
 };
 
 export default Products;
-

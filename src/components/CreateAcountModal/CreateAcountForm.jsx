@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import "./createAcountModal.css";
-import postUser from "../../redux/Actions/postUser";
+import postUser from "../../redux/Actions/User/postUser";
 import { provincias } from "./Provincias";
 import "./createAcountForm.css"
 

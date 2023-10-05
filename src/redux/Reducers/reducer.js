@@ -15,7 +15,7 @@ import {
   USER_BY_ID,
   SAVE_FILTERS,
   AUTH_USER,
-} from "../actionTypes";
+} from "../Actions/actionTypes";
 
 const initialState = {
   allProducts: [],
@@ -39,7 +39,7 @@ const initialState = {
     color: [],
     selectCategory: "",
     selectColor: "",
-    selectSize: ""
+    selectSize: "",
   },
 };
 
@@ -149,7 +149,12 @@ const reducer = (state = initialState, action) => {
       } else {
         filteredSize = state.allProducts.filter((product) =>
           product.stock.some((stockItem) =>
-            stockItem.sizeAndQuantity.some((sizeItem) => sizeItem.size === action.payload && sizeItem.quantity > 0)))
+            stockItem.sizeAndQuantity.some(
+              (sizeItem) =>
+                sizeItem.size === action.payload && sizeItem.quantity > 0
+            )
+          )
+        );
       }
       return {
         ...state,
@@ -195,25 +200,31 @@ const reducer = (state = initialState, action) => {
         isLoggedIn: false,
         user: [],
       };
-      case SAVE_FILTERS:
-        let newSaveFilters = { ...state.saveFilters };
-      
-        if (state.saveFilters.category.length < action.payload.category.length || state.saveFilters.color.length < action.payload.color.length) {
-          newSaveFilters = action.payload;
-        }else if(action.payload.selectCategory  || action.payload.selectColor || action.payload.selectSize ){
-          newSaveFilters={
-            ...newSaveFilters,
-            selectCategory: action.payload.selectCategory,
-            selectColor: action.payload.selectColor,
-            selectSize: action.payload.selectSize
-          }
+    case SAVE_FILTERS:
+      let newSaveFilters = { ...state.saveFilters };
 
-        }
-      
-        return {
-          ...state,
-          saveFilters: newSaveFilters,
+      if (
+        state.saveFilters.category.length < action.payload.category.length ||
+        state.saveFilters.color.length < action.payload.color.length
+      ) {
+        newSaveFilters = action.payload;
+      } else if (
+        action.payload.selectCategory ||
+        action.payload.selectColor ||
+        action.payload.selectSize
+      ) {
+        newSaveFilters = {
+          ...newSaveFilters,
+          selectCategory: action.payload.selectCategory,
+          selectColor: action.payload.selectColor,
+          selectSize: action.payload.selectSize,
         };
+      }
+
+      return {
+        ...state,
+        saveFilters: newSaveFilters,
+      };
     default:
       return {
         ...state,

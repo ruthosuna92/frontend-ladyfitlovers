@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { filtByCategory } from "../../redux/Actions/filtByCategory";
-import { filtByColor } from "../../redux/Actions/filtByColor";
-import { filtBySize } from "../../redux/Actions/filtBySize";
-import { saveFilter } from "../../redux/Actions/saveFilter";
-import setCurrentPage from "../../redux/Actions/setCurrentPage";
+import { useSelector, useDispatch } from "react-redux";
+import { filtByCategory } from "../../redux/Actions/Filter/filtByCategory";
+import { filtByColor } from "../../redux/Actions/Filter/filtByColor";
+import { filtBySize } from "../../redux/Actions/Filter/filtBySize";
+import { saveFilter } from "../../redux/Actions/Filter/saveFilter";
+import setCurrentPage from "../../redux/Actions/Filter/setCurrentPage";
 import style from "./Filters.module.css";
 
 const Filters = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
-  const filtersave = useSelector((state)=>state.saveFilters);
+  const filtersave = useSelector((state) => state.saveFilters);
   // Cambiar de dos estados locales a un solo estado local
   const [uniqueFilters, setUniqueFilters] = useState({
     category: [],
     color: [],
     selectCategory: "",
     selectColor: "",
-    selectSize: ""
+    selectSize: "",
   });
   useEffect(() => {
     dispatch(setCurrentPage(1));
-    dispatch(saveFilter(uniqueFilters))
-    handleChangeCategory
-    handleChangeColor
-    handleSize
+    dispatch(saveFilter(uniqueFilters));
+    handleChangeCategory;
+    handleChangeColor;
+    handleSize;
   }, [allProducts, uniqueFilters]);
   useEffect(() => {
     if (uniqueFilters.selectCategory !== "") {
@@ -36,18 +36,28 @@ const Filters = () => {
     if (uniqueFilters.selectSize !== "") {
       dispatch(filtBySize(uniqueFilters.selectSize));
     }
-  }, [uniqueFilters.selectCategory, uniqueFilters.selectColor, uniqueFilters.selectSize, ]);
+  }, [
+    uniqueFilters.selectCategory,
+    uniqueFilters.selectColor,
+    uniqueFilters.selectSize,
+  ]);
 
   useEffect(() => {
     if (allProducts) {
       const uniqueCategoryNames = Array.from(
         new Set(
-          allProducts.filter((product) => product.Category.name).map((product) => product.Category.name)
+          allProducts
+            .filter((product) => product.Category.name)
+            .map((product) => product.Category.name)
         )
       );
       const uniqueColorFil = Array.from(
         new Set(
-          allProducts.flatMap((product) => product.stock.map((stockItem) => stockItem.color)).filter((color) => color)
+          allProducts
+            .flatMap((product) =>
+              product.stock.map((stockItem) => stockItem.color)
+            )
+            .filter((color) => color)
         )
       );
       setUniqueFilters({
@@ -55,7 +65,7 @@ const Filters = () => {
         color: uniqueColorFil,
         selectCategory: filtersave.selectCategory,
         selectColor: filtersave.selectColor,
-        selectSize: filtersave.selectSize
+        selectSize: filtersave.selectSize,
       });
     }
   }, [allProducts]);
@@ -64,24 +74,24 @@ const Filters = () => {
     const value = event.target.value;
     setUniqueFilters({
       ...uniqueFilters,
-      selectCategory: value
-    })
+      selectCategory: value,
+    });
   };
 
   const handleChangeColor = (event) => {
     const value = event.target.value;
     setUniqueFilters({
       ...uniqueFilters,
-      selectColor: value
-    })
+      selectColor: value,
+    });
   };
 
   const handleSize = (event) => {
     const value = event.target.value;
     setUniqueFilters({
       ...uniqueFilters,
-      selectSize: value
-    })
+      selectSize: value,
+    });
   };
 
   const optionSize = () => {
@@ -98,8 +108,8 @@ const Filters = () => {
       ...uniqueFilters,
       selectCategory: "T",
       selectColor: "",
-      selectSize: "TA"
-    })
+      selectSize: "TA",
+    });
   };
 
   return (
@@ -109,7 +119,12 @@ const Filters = () => {
           Reset
         </button>
         <div className={style.contenselect}>
-          <select name="categoria" id="" value={filtersave.selectCategory} onChange={handleChangeCategory}>
+          <select
+            name="categoria"
+            id=""
+            value={filtersave.selectCategory}
+            onChange={handleChangeCategory}
+          >
             <option value="T">Categoria</option>
             {filtersave.category.map((categoryName, index) => (
               <option key={index} value={categoryName}>
@@ -120,7 +135,12 @@ const Filters = () => {
           <i></i>
         </div>
         <div className={style.contenselect}>
-          <select name="color" id="" value={filtersave.selectColor} onChange={handleChangeColor}>
+          <select
+            name="color"
+            id=""
+            value={filtersave.selectColor}
+            onChange={handleChangeColor}
+          >
             <option value="">Color</option>
             {filtersave.color.map((colorArticle, index) => (
               <option key={index} value={colorArticle}>
@@ -131,7 +151,12 @@ const Filters = () => {
           <i></i>
         </div>
         <div className={style.contenselect}>
-          <select name="" id="" value={filtersave.selectSize} onChange={handleSize}>
+          <select
+            name=""
+            id=""
+            value={filtersave.selectSize}
+            onChange={handleSize}
+          >
             <option value="TA">Talla</option>
             {optionSize()}
           </select>
@@ -143,5 +168,3 @@ const Filters = () => {
 };
 
 export default Filters;
-
-
