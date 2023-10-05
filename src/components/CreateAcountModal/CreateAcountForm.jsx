@@ -42,6 +42,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
       message.error("Error al crear la cuenta", [2], onClose());
     }
   };
+  const handleSubmitupdate = async()=>{
+    
+  }
 
   return (
     <>
@@ -282,19 +285,17 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
             pivotuser ? <ButtonPrimary
               title="Actualizar"
               type="button"
-              onClick={() => handleSubmit()}
+              onClick={() => handleSubmitupdate()}
               disbled={
                 errors.name ||
                 errors.surname ||
-                errors.phone ||
                 errors.calle ||
                 errors.numero ||
                 errors.entreCalles ||
                 errors.localidad ||
                 errors.codigoPostal ||
-                errors.provincia ||
-                errors.email ||
-                errors.password
+                errors.provincia 
+              
               }
             /> :
               <ButtonPrimary
