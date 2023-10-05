@@ -57,7 +57,9 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
       </div>
       <Row>
         <Col style={colStyle} span={24}>
-          <h3>{name}</h3>
+          <NavLink className={style.nameProductCard} to={`/detail/${id}`}>
+            <h3>{name}</h3>
+          </NavLink>
         </Col>
       </Row>
       <Row>

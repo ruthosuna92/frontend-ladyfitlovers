@@ -11,7 +11,6 @@ import logo from "/svg/LADYFIT1.svg";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginModal from "../LoginModal/LoginModal";
 
-
 import { Space, Button, Menu, Dropdown, Tooltip } from "antd";
 import {
   ShoppingCartOutlined,
@@ -20,6 +19,8 @@ import {
   FundViewOutlined,
   SearchOutlined,
   ProfileOutlined,
+  ShoppingOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 
@@ -35,10 +36,11 @@ const NavBar = () => {
   // modal
   const [visible, setVisible] = useState(false);
   const [loginModalVisible, setLoginModalVisible] = useState(false);
-  const [createAcountModalVisible, setCreateAcountModalVisible] = useState(false);
+  const [createAcountModalVisible, setCreateAcountModalVisible] =
+    useState(false);
 
   const user = useSelector((state) => state.user);
-  
+
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
     }
@@ -55,15 +57,28 @@ const NavBar = () => {
           </Link>
         </Menu.Item>
       )}
-      <Menu.Item key="logout" onClick={handleLogout}>
-        <LogoutOutlined />
-        Cerrar Sesión
-      </Menu.Item>
-      <Menu.Item key="perfil" >
+      <Menu.Item key="perfil">
         <Link to="/profile">
-          <ProfileOutlined />
+          <ProfileOutlined className="menuIcon" />
           Perfil
         </Link>
+      </Menu.Item>
+      <Menu.Item key="compras">
+        <Link to="/profile">
+          <ShoppingOutlined className="menuIcon" />
+          Mis compras
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="reseñas">
+        <Link to="/reviews">
+        <StarOutlined className="menuIcon"/>
+
+          Mis reseñas
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined className="menuIcon" />
+        Cerrar Sesión
       </Menu.Item>
     </Menu>
   );
@@ -74,7 +89,7 @@ const NavBar = () => {
       visible={visible}
       onVisibleChange={(v) => setVisible(v)}
     >
-      <Button shape="circle" size="large">
+      <Button shape="circle" size="large" className="buttonNavAccess">
         <UserOutlined />
       </Button>
     </Dropdown>
@@ -146,11 +161,12 @@ const NavBar = () => {
         {/* informacion del usuario */}
         {user.email && (
           <div className="userInfo">
-            Hola, {user.name} {user.surname}
-            <Button shape="circle" size="large">
+            <p>Hola, {user.name} </p>
+            {/* {user.surname} */}
+            {userDropdown}
+            <Button shape="circle" size="large" className="buttonNavAccess">
               <ShoppingCartOutlined />
             </Button>
-            {userDropdown}
           </div>
         )}
         {!user.email && (
@@ -170,7 +186,6 @@ const NavBar = () => {
           visible={createAcountModalVisible}
           onClose={() => setCreateAcountModalVisible(false)}
         />
-
       )}
     </>
   );

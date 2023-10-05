@@ -193,6 +193,13 @@ body {
 h3 {
   margin: 5px;
 }
+.nameProductCard {
+  color: #111;
+}
+.nameProductCard:hover {
+  color: #c04c98;
+  text-decoration: underline;
+}
 
 /* @media (max-width: 768px) {
   .pokemon {
