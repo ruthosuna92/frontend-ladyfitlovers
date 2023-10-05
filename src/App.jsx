@@ -14,6 +14,7 @@ import Contac from "./views/Contac/Contac";
 import Products from "./components/Products/Products";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import getAllCategories from "./redux/Actions/Category/getAllCategories";
+import Profile from "./views/Profile/Profile";
 
 const App = () => {
   // dispatch to get all products globally
@@ -63,6 +64,8 @@ const App = () => {
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/crear-producto" element={<CreateProduct />} />
+        <Route path="/profile" element={<Profile/>}/>
+
       </Routes>
     </ConfigProvider>
   );
