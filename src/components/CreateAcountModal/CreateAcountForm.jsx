@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button, message, Select } from "antd";
 import { Field, useFormikContext } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import "./createAcountModal.css";
@@ -9,13 +9,15 @@ import postUser from "../../redux/Actions/User/postUser";
 import { provincias } from "./Provincias";
 import "./createAcountForm.css"
 
-const CreateAcountForm = ({ onClose }) => {
+const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
+
+  console.log(pivotuser)
   const { values, errors, resetForm } = useFormikContext();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
-    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - ${values.codigoPostal}, ${values.provincia}`;
+    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - ${values.codigoPostal}, ${values.provincia}`;
 
     const valuesToSend = {
       name: values.name,
@@ -23,7 +25,8 @@ const CreateAcountForm = ({ onClose }) => {
       phone: values.phone,
       address: address,
       email: values.email,
-      password: values.password}
+      password: values.password
+    }
 
     try {
       const response = await dispatch(postUser(valuesToSend));
@@ -72,18 +75,22 @@ const CreateAcountForm = ({ onClose }) => {
           {({ field, form, meta, error }) => {
             return (
               <div className="fieldAndError">
+                
                 <Input
                   {...field}
                   placeholder="Teléfono/celular*"
                   autoComplete="off"
                 />
-                {errors.phone && (
+                {pivotuser?"":errors.phone && (
                   <p className="createProductError">{errors.phone}</p>
                 )}
               </div>
             );
           }}
         </Field>
+          {
+            pivotuser? <p>Direccion actual: {dataAddress}</p>:""
+          }
         <div className="createAcountCalleNumDpto">
           <Field id="calle" name="calle">
             {({ field, form, meta, error }) => {
@@ -139,34 +146,34 @@ const CreateAcountForm = ({ onClose }) => {
           }}
         </Field>
         <div className="createAcountCalleNumDpto">
-        <Field id="localidad" name="localidad">
-          {({ field, form, meta, error }) => {
-            return (
-              <div className="fieldAndError">
-                <Input {...field} placeholder="Localidad*" autoComplete="off" />
-                {errors.localidad && (
-                  <p className="createProductError">{errors.localidad}</p>
-                )}
-              </div>
-            );
-          }}
-        </Field>
-        <Field id="codigoPostal" name="codigoPostal">
-          {({ field, form, meta, error }) => {
-            return (
-              <div className="fieldAndError">
-                <Input
-                  {...field}
-                  placeholder="Código postal*"
-                  autoComplete="off"
-                />
-                {errors.codigoPostal && (
-                  <p className="createProductError">{errors.codigoPostal}</p>
-                )}
-              </div>
-            );
-          }}
-        </Field>
+          <Field id="localidad" name="localidad">
+            {({ field, form, meta, error }) => {
+              return (
+                <div className="fieldAndError">
+                  <Input {...field} placeholder="Localidad*" autoComplete="off" />
+                  {errors.localidad && (
+                    <p className="createProductError">{errors.localidad}</p>
+                  )}
+                </div>
+              );
+            }}
+          </Field>
+          <Field id="codigoPostal" name="codigoPostal">
+            {({ field, form, meta, error }) => {
+              return (
+                <div className="fieldAndError">
+                  <Input
+                    {...field}
+                    placeholder="Código postal*"
+                    autoComplete="off"
+                  />
+                  {errors.codigoPostal && (
+                    <p className="createProductError">{errors.codigoPostal}</p>
+                  )}
+                </div>
+              );
+            }}
+          </Field>
         </div>
         <Field id="provincia" name="provincia">
           {({ field, form, meta, error }) => {
@@ -189,7 +196,10 @@ const CreateAcountForm = ({ onClose }) => {
           {({ field, form, meta, error }) => {
             return (
               <div className="fieldAndError">
-                <Input {...field} placeholder="Email*" autoComplete="off" />
+                {
+                  pivotuser ? <Input {...field} placeholder="Email*" autoComplete="off" disabled/>:
+                  <Input {...field} placeholder="Email*" autoComplete="off" />
+                }
                 {errors.email && (
                   <p className="createProductError">{errors.email}</p>
                 )}
@@ -202,22 +212,29 @@ const CreateAcountForm = ({ onClose }) => {
             return (
               <div className="fieldAndError">
                 <div className="inputCreateAcountContainer">
-                  <Input
-                    {...field}
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password*"
-                    autoComplete="off"
-                  />
-                  <Button
-                    style={{
-                      width: 80,
-                    }}
-                    onClick={() => setShowPassword((prevState) => !prevState)}
-                  >
-                    {showPassword ? "Ocultar" : "Mostrar"}
-                  </Button>
+                  {
+                    pivotuser ? "" :
+                      <Input
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password*"
+                        autoComplete="off"
+                      />
+
+                  }
+                  {
+                    pivotuser ? "" :
+                      <Button
+                        style={{
+                          width: 80,
+                        }}
+                        onClick={() => setShowPassword((prevState) => !prevState)}
+                      >
+                        {showPassword ? "Ocultar" : "Mostrar"}
+                      </Button>
+                  }
                 </div>
-                {errors.password && (
+                {pivotuser?"":errors.password && (
                   <p className="createProductError">{errors.password}</p>
                 )}
               </div>
@@ -253,29 +270,52 @@ const CreateAcountForm = ({ onClose }) => {
         }}
       </Field> */}
         <div className="createCategoryButtons">
-          <ButtonSecondary
-            title="Cancelar"
-            type="button"
-            onClick={() => onClose()}
-          />
-          <ButtonPrimary
-            title="Crear"
-            type="button"
-            onClick={() => handleSubmit()}
-            disbled={
-              errors.name ||
-              errors.surname ||
-              errors.phone ||
-              errors.calle ||
-              errors.numero ||
-              errors.entreCalles ||
-              errors.localidad ||
-              errors.codigoPostal ||
-              errors.provincia ||
-              errors.email ||
-              errors.password
-            }
-          />
+          {
+            pivotuser ? "" :
+              <ButtonSecondary
+                title="Cancelar"
+                type="button"
+                onClick={() => onClose()}
+              />
+          }
+          {
+            pivotuser ? <ButtonPrimary
+              title="Actualizar"
+              type="button"
+              onClick={() => handleSubmit()}
+              disbled={
+                errors.name ||
+                errors.surname ||
+                errors.phone ||
+                errors.calle ||
+                errors.numero ||
+                errors.entreCalles ||
+                errors.localidad ||
+                errors.codigoPostal ||
+                errors.provincia ||
+                errors.email ||
+                errors.password
+              }
+            /> :
+              <ButtonPrimary
+                title="Crear"
+                type="button"
+                onClick={() => handleSubmit()}
+                disbled={
+                  errors.name ||
+                  errors.surname ||
+                  errors.phone ||
+                  errors.calle ||
+                  errors.numero ||
+                  errors.entreCalles ||
+                  errors.localidad ||
+                  errors.codigoPostal ||
+                  errors.provincia ||
+                  errors.email ||
+                  errors.password
+                }
+              />
+          }
         </div>
       </div>
     </>

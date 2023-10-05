@@ -33,6 +33,15 @@
     border-radius: 10px;
     padding-left: 5px;
 }
+.dataaddres{
+    border: solid 1px #BA338A;
+    height: 12vh;
+    width: 31.5vw;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 5px;
+}
 .controlle{
     border-radius: 10px;
     overflow: hidden;

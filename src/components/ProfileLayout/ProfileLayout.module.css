@@ -1,10 +1,17 @@
-.layaout{
-    background-color: white;
-    width: 99%;
-    position: relative;
-    padding-left: 100px;
-}
+
 .layaout1{
     background-color: white;
     width: 99%;
+    height: 83vh;
+    display: grid;
+    place-items: center;
+    border: solid 1px red;
+}
+.formSetting{
+    border: solid 1px blue;
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 600px;
 }

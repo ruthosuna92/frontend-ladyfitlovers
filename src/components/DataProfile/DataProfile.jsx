@@ -3,6 +3,7 @@ import style from "./DataProfile.module.css"
 
 const Profile = () => {
     const infouser = useSelector((state) => state.user)
+    console.log(infouser)
 
     return (
         <div className={style.contianerProfiler}>
@@ -32,12 +33,8 @@ const Profile = () => {
                 </div>
                 <div className={style.containerDataName}>
                     <div className={style.nameContainer}>
-                        <label htmlFor="">Provincia</label>
-                        <span className={style.dataNameAndSurname}>provincia</span>
-                    </div>
-                    <div className={style.nameContainer}>
-                    <label htmlFor="">Dirección</label>
-                    <span className={style.dataNameAndSurname}>{infouser.address}</span>
+                        <label htmlFor="">Dirección</label>
+                        <span className={style.dataaddres}>{infouser.address}</span>
                     </div>
                 </div>
             </div>

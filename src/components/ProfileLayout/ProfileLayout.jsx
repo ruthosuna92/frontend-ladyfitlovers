@@ -2,29 +2,58 @@ import React, { useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  ShoppingOutlined ,
+  ShoppingOutlined,
   UserOutlined,
-  UnorderedListOutlined ,
-  EditOutlined, 
+  UnorderedListOutlined,
+  EditOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
-import EditProfile from '../EditProfile/EditProfile';
 import DataProfile from "../DataProfile/DataProfile"
+import CreateAcountForm from '../CreateAcountModal/CreateAcountForm';
 import style from "./ProfileLayout.module.css"
+import { Formik, Form } from "formik";
+import CreateAcountSchema from '../CreateAcountModal/createAcountSchema';
+import { useEffect } from 'react'; 
+import { useDispatch,useSelector } from 'react-redux';
 
 const { Header, Sider, Content } = Layout;
-const ProfileLayout =()=>{
-  const [collapsed, setCollapsed] = useState(false);
+const ProfileLayout = () => {
+  const infouser = useSelector((state)=> state.user)
+  const [dataUser, setFormData] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    phone: '',
+    provincia: '',
+    address: '',
+    pivotuser: false
+  });
+
+  useEffect(() => {
+    // Cuando se actualice la información de usuario (infouser), actualiza el estado local (formData)
+    if (infouser) {
+
+      setFormData({
+        name: infouser.name || '',
+        surname: infouser.surname || '',
+        email: infouser.email || '',
+        phone: infouser.phone || '',
+        provincia: infouser.provincia || '',
+        address: infouser.address || '',
+        pivotuser: true
+      });
+    }
+  }, [infouser]);
   const [selectedKey, setSelectKey] = useState("1")
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const keySelect=({ key })=>{
+  const keySelect = ({ key }) => {
     setSelectKey(key);
   }
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider >
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -58,22 +87,31 @@ const ProfileLayout =()=>{
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer, }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />
+          
         </Header>
         <Content
-          className={collapsed ? style.layaout : style.layaout2}
-          >
+          className={style.layaout1}
+        >
           {selectedKey === '1' && <DataProfile />}
-          {selectedKey === '4' && <EditProfile />}
+          {selectedKey === '4' && <Formik 
+            initialValues={{
+              name: dataUser.name,
+              surname: dataUser.surname,
+              calle: "",
+              numero: "",
+              dpto: "",
+              entreCalles: "",
+              localidad: "",
+              codigoPostal: "",
+              provincia: "",
+              phone: dataUser.phone,
+              email: dataUser.email,
+              password: "",
+              confirmPassword: "",
+             
+            }}
+            validationSchema={CreateAcountSchema}
+          ><div className={style.formSetting} ><CreateAcountForm pivotuser={dataUser.pivotuser} dataAddress={dataUser.address}/></div></Formik>}
         </Content>
       </Layout>
     </Layout>
