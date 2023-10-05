@@ -15,11 +15,13 @@ import {
   USER_BY_ID,
   SAVE_FILTERS,
   AUTH_USER,
-  ADDING_PRODUCT
+  ADDING_PRODUCT,
+  GET_ALL_USERS,
 } from "../Actions/actionTypes";
 
 const initialState = {
   allProducts: [],
+  allUsers: [],
   productDetail: null,
   //   filteredProducts: null,
   saveProducts: [],
@@ -247,6 +249,12 @@ const reducer = (state = initialState, action) => {
             cart: [...state.cart]
           }
         }
+      case GET_ALL_USERS:
+        return {
+          ...state,
+          allUsers: action.payload,
+
+        };
     default:
       return {
         ...state,

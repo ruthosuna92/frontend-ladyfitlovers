@@ -1,62 +1,72 @@
-
 import {
-  AppstoreOutlined,
-  CalendarOutlined,
-  LinkOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
-import { Divider, Menu, Switch } from 'antd';
-import { useState } from 'react';
+  UserOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
+import { Divider, Menu, Switch } from "antd";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
 const SideBarDashboard = () => {
-    function getItem(label, key, icon, children) {
-      return {
-        key,
-        icon,
-        children,
-        label,
-      };
+  const navigate = useNavigate();
+
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+  const items = [
+    getItem("Usuarios", "1", <UserOutlined />),
+    getItem("Productos", "2", <ShopOutlined />),
+    getItem("Ordenes de compra", "3", <ShoppingCartOutlined />),
+    getItem("Crear producto", "4", <UploadOutlined />),
+  ];
+  const handleMenu = ({ item, key, keyPath, selectedKeys, domEvent }) => {
+    switch (key) {
+      case "1":
+        navigate("/admin/usuarios");
+        break;
+      case "2":
+        navigate("/admin/productos");
+        break;
+      case "3":
+        navigate("/admin/ordenes");
+        break;
+      case "4":
+        navigate("/admin/crear-producto");
+      default:
+        console.log("default");
+        break;
     }
-    const items = [
-      getItem('Navigation One', '1', <MailOutlined />),
-      getItem('Navigation Two', '2', <CalendarOutlined />),
-      getItem('Navigation Two', 'sub1', <AppstoreOutlined />),
-      getItem('Navigation Three', 'sub2', <SettingOutlined />),
-      getItem(
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Ant Design
-        </a>,
-        'link',
-        <LinkOutlined />,
-      ),
-    ];
-    const handleMenu = ({ item, key, keyPath, selectedKeys, domEvent }) => {
-        console.log(selectedKeys);
-    }
-//   const [mode, setMode] = useState('inline');
-//   const [theme, setTheme] = useState('light');
-//   const changeMode = (value) => {
-//     setMode(value ? 'vertical' : 'inline');
-//   };
-//   const changeTheme = (value) => {
-//     setTheme(value ? 'dark' : 'light');
-//   };
+  };
+  //   const [mode, setMode] = useState('inline');
+  //   const [theme, setTheme] = useState('light');
+  //   const changeMode = (value) => {
+  //     setMode(value ? 'vertical' : 'inline');
+  //   };
+  //   const changeTheme = (value) => {
+  //     setTheme(value ? 'dark' : 'light');
+  //   };
   return (
     <>
       {/* <br />
       <br /> */}
       <Menu
         style={{
-            width: 256,
+          width: 256,
         }}
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={[""]}
         //defaultOpenKeys={['sub1']}
         mode="inline"
         theme="light"
         items={items}
         onSelect={handleMenu}
       />
-        {/* <Switch onChange={changeMode} /> Change Mode
+      {/* <Switch onChange={changeMode} /> Change Mode
         <Divider type="vertical" />
         <Switch onChange={changeTheme} /> Change Style */}
     </>

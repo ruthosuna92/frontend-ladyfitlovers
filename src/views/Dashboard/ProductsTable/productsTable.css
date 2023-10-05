@@ -1,0 +1,7 @@
+.productsTableImage{
+    width: 70px;
+    height: 100px;
+    border-radius: 4px;
+    object-fit: cover;
+
+}

@@ -126,18 +126,18 @@ const NavBar = () => {
               Contacto
             </button>
           </Link>
-          <Link to="/crear-producto">
+          {/* <Link to="/crear-producto">
             <button
               className={
                 location.pathname === "/crear-producto"
                   ? "buttonLinkActive"
                   : "navBarButton"
               }
-              title="Contact"
+              title="Crear producto"
             >
               Crear
             </button>
-          </Link>
+          </Link> */}
         </div>
         <div className="searchBarDiv">
           <SearchBar />

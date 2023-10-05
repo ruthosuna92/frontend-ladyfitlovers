@@ -9,12 +9,13 @@ import postUser from "../../redux/Actions/User/postUser";
 import { provincias } from "./Provincias";
 import "./createAcountForm.css"
 
-const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
+const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
 
-  console.log(pivotuser)
   const { values, errors, resetForm } = useFormikContext();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+
+ 
 
   const handleSubmit = async () => {
     const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - ${values.codigoPostal}, ${values.provincia}`;
@@ -45,6 +46,31 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
   const handleSubmitupdate = async()=>{
     
   }
+  const handleEdit = async () => {
+    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - ${values.codigoPostal}, ${values.provincia}`;
+
+    const valuesToSend = {
+      name: values.name,
+      surname: values.surname,
+      phone: values.phone,
+      address: address,
+      email: values.email,
+      password: values.password}
+
+    try {
+      // const response = await dispatch(postUser(valuesToSend)); // cambiar por putUser
+
+      if (response.message === "Usuario creado correctamente") {
+        message.success(response.message, [2], onClose());
+      } else {
+        message.error("Error al crear la cuenta", [2], onClose());
+      }
+      onClose();
+      resetForm();
+    } catch {
+      message.error("Error al crear la cuenta", [2], onClose());
+    }
+  };
 
   return (
     <>
@@ -210,7 +236,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
             );
           }}
         </Field>
-        <Field id="password" name="password">
+      { !isEditing && <Field id="password" name="password">
           {({ field, form, meta, error }) => {
             return (
               <div className="fieldAndError">
@@ -243,44 +269,16 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
               </div>
             );
           }}
-        </Field>
-        {/* <Field id="confirmPassword" name="confirmPassword">
-        {({ field, form, meta, error }) => {
-          return (
-            <div className="fieldAndError">
-               <div className="inputCreateAcountContainer">
-                <Input.Password
-                  {...field}
-                  placeholder="Confirmar Password"
-                  autoComplete="off"
-                  visibilityToggle={{
-                    visible: showPassword,
-                    onVisibleChange: !showPassword,
-                  }}
-                />
-                <Button
-                  style={{
-                    width: 80,
-                  }}
-                  onClick={() => setShowPassword((prevState) => !prevState)}
-                >
-                  {showPassword ? "Ocultar" : "Mostrar"}
-                </Button>
-              </div>
-              {errors.confirmPassword && (<p className="createProductError">{errors.confirmPassword}</p>)}
-            </div>
-          );
-        }}
-      </Field> */}
+        </Field>}
+
         <div className="createCategoryButtons">
-          {
-            pivotuser ? "" :
+          
               <ButtonSecondary
                 title="Cancelar"
                 type="button"
                 onClick={() => onClose()}
               />
-          }
+   
           {
             pivotuser ? <ButtonPrimary
               title="Actualizar"
@@ -299,9 +297,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
               }
             /> :
               <ButtonPrimary
-                title="Crear"
-                type="button"
-                onClick={() => handleSubmit()}
+              title={isEditing ? "Editar" : "Crear"}
+              type="button"
+              onClick={isEditing ? handleEdit : handleSubmit}
                 disbled={
                   errors.name ||
                   errors.surname ||
@@ -317,6 +315,8 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress }) => {
                 }
               />
           }
+       
+        
         </div>
       </div>
     </>
