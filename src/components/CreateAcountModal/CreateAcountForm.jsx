@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Input, Button, message, Select } from "antd";
 import { Field, useFormikContext } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { provincias } from "./Provincias";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
-import "./createAcountModal.css";
+import updateUser from "../../redux/Actions/User/updateUser";
 import postUser from "../../redux/Actions/User/postUser";
-import { provincias } from "./Provincias";
+import "./createAcountModal.css";
 import "./createAcountForm.css"
 
 const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
@@ -18,7 +19,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
  
 
   const handleSubmit = async () => {
-    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - ${values.codigoPostal}, ${values.provincia}`;
+    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
 
     const valuesToSend = {
       name: values.name,
@@ -47,18 +48,22 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
     
   }
   const handleEdit = async () => {
-    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - ${values.codigoPostal}, ${values.provincia}`;
+    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
 
     const valuesToSend = {
+      id: values.id,
       name: values.name,
       surname: values.surname,
       phone: values.phone,
       address: address,
       email: values.email,
-      password: values.password}
+      password: values.password,
+      userBan:values.userBan
+    }
+     
 
     try {
-      // const response = await dispatch(postUser(valuesToSend)); // cambiar por putUser
+      const response = await dispatch(updateUser(valuesToSend)); // cambiar por putUser
 
       if (response.message === "Usuario creado correctamente") {
         message.success(response.message, [2], onClose());
@@ -119,6 +124,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
         </Field>
           {
             pivotuser? <p>Direccion actual: {dataAddress}</p>:""
+          }
+          {
+            isEditing? <p>Direccion actual: {values.address}</p>:""
           }
         <div className="createAcountCalleNumDpto">
           <Field id="calle" name="calle">

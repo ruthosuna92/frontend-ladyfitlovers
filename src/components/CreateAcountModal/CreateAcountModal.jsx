@@ -22,6 +22,7 @@ const initialValues = {
   password:"" }
 
   const userInitialValues = {
+    id:user?.id,
     name:user?.name,
     surname:user?.surname,
     calle:"",
@@ -33,6 +34,7 @@ const initialValues = {
     provincia:"",
     phone:user?.phone,
     email:user?.email ,
+    userBan:user?.userBan,
     address:user?.address,
   }
 

@@ -18,6 +18,8 @@ export const AUTH_USER = "AUTH_USER";
 export const ADDING_PRODUCT = "ADDING_PRODUCT"
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const BAN_USER = "BAN_USER";
+export const UPDATE_USER = "UPDATE_USER";
+
 //GET_OFFERS
 //CREATE_PRODUCT
 //EDI_PRODUCT
