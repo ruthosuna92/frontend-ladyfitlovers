@@ -21,6 +21,7 @@ import {
   ProfileOutlined,
   ShoppingOutlined,
   StarOutlined,
+  HeartOutlined,
 } from "@ant-design/icons";
 import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 
@@ -64,16 +65,15 @@ const NavBar = () => {
         </Link>
       </Menu.Item>
       <Menu.Item key="compras">
-        <Link to="/profile">
+        <Link to="/profile/purchased">
           <ShoppingOutlined className="menuIcon" />
           Mis compras
         </Link>
       </Menu.Item>
       <Menu.Item key="reseñas">
-        <Link to="/reviews">
-        <StarOutlined className="menuIcon"/>
-
-          Mis reseñas
+        <Link to="/profile/reviews">
+          <StarOutlined className="menuIcon" />
+          Opiniones
         </Link>
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
@@ -89,7 +89,14 @@ const NavBar = () => {
       visible={visible}
       onVisibleChange={(v) => setVisible(v)}
     >
-      <Button shape="circle" size="large" className="buttonNavAccess">
+      <Button
+        shape="circle"
+        size="large"
+        className="buttonNavAccess"
+        // style={{
+        //   border: "none",
+        // }}
+      >
         <UserOutlined />
       </Button>
     </Dropdown>
@@ -164,7 +171,28 @@ const NavBar = () => {
             <p>Hola, {user.name} </p>
             {/* {user.surname} */}
             {userDropdown}
-            <Button shape="circle" size="large" className="buttonNavAccess">
+            <Link to="/profile/favorites">
+              <Button
+                shape="circle"
+                size="large"
+                className="buttonNavAccess"
+                // style={{
+                //   border: "none",
+                // }}
+              >
+                <HeartOutlined />
+              </Button>
+            </Link>
+            <Button
+              shape="circle"
+              size="large"
+              className="buttonNavAccess"
+              // style={{
+              //   // backgroundColor: "transparent",
+              //   border: "none",
+              //   // padding: 0,
+              // }}
+            >
               <ShoppingCartOutlined />
             </Button>
           </div>

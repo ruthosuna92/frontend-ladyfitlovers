@@ -71,6 +71,11 @@ const App = () => {
         <Route path="/detail/:id" element={<Detail />} />
         {/* <Route path="/crear-producto" element={<CreateProduct />} /> */}
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile/edit" element={<Profile/>}/>
+        <Route path="/profile/favorites" element={<Profile/>}/>
+        <Route path="/profile/purchased" element={<Profile/>}/>
+        <Route path="/profile/reviews" element={<Profile/>}/>
+        
       </Routes>
       <Footer/>
     </ConfigProvider>
