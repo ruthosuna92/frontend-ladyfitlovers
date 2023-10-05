@@ -65,7 +65,7 @@ const ProductDetails = ({
               onChange={handleSizeChange}
               style={{ width: "100%" }}
             />
-            <label htmlFor="amount">Cantidad:</label>
+            
             <Input
               type="number"
               id="amount"
