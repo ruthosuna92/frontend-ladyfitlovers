@@ -1,67 +1,81 @@
 import React, { useState } from "react";
 import { getColorName } from "../../utils/getColorName";
-import { Select, Input } from "antd";
+import { Select} from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { element } from "prop-types";
+import DrawerCart from "../ShoppingCart/Drawer/DrawerCart";
+
 
 const ProductDetails = ({
-  productData,
-  data,
-  handleColorChange,
-  handleSizeChange,
-  handleAmountChange,
+  productData
 }) => {
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState({
-    name: productData.name,
-    price: productData.price * selectedQuantity,
-    image: productData.image,
-    size: "",
-    color: "",
-  });
-  const [selects, setSelects] = useState({
-    color: colors[0],
-    sizes: [],
-    quantity: 1
-  })
-
-  const colorOptions = productData.stock.map((color) => {
-    return { value: color.color, label: getColorName(color.color) };
-  });
-  console.log();
-  const sizeOptions = data.availableSizes.map((size) => {
-    return { value: size.size, label: size.size };
-  });
-  useEffect(() => {
-    setSelectedProduct((prevProduct) => ({
-      ...prevProduct,
-      size: "", // Restablece la talla cuando cambia el color
-    }));
-  }, [selectedProduct.color]);
-
+  //=============================inicializo el arreglo que tiene los objetos con props color y sizeAndQuantity
   const array = productData && productData?.stock
+  //==============================mapeo para obtener el arreglo de solo colores
   const colors = array.map((col)=> col.color)
-  
+  //=============================inicializo función que según los parametros que reciba retorna las tallas y cantidades correspondientes a esos colores y/o talla
   const selectsArrays = (color, size) => {
-  
     if(array.length !== 0){
-      const sizeAndQuantity = array.filter((element) => element.color === color)[0].sizeAndQuantity
-      const sizes = sizeAndQuantity.map((element) => element.size)
-      const topQuantity = sizeAndQuantity.filter((element) => element.size === size)[0].quantity
-      return {
-        sizes,
-        topQuantity
+      const sizeAndQuantity = array?.filter((element) => element.color === color)[0].sizeAndQuantity
+      const sizes = sizeAndQuantity?.map((element) => element.size)
+      const range = (start, stop, step) => 
+      Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step)
+      if(!size){
+        return {
+          sizes,
+          quantities: range(1, sizeAndQuantity[0].quantity, 1),
+          size: sizes[0]
+        }
+      } else {
+        const quantities = range(1, sizeAndQuantity.filter((element) => element.size === size)[0].quantity, 1)
+        return {
+          sizes,
+          quantities,
+          size
+        }
       }
     }
   }
-  console.log(array);
-  console.log(colors);
-  console.log(selectsArrays("gray", "l"));
+  //=======================================estado local que se setea cada vez que el cliente selecciona algo, a su vez se combina con la función
+  const [selects, setSelects] = useState({
+    color: colors[0],
+    sizes: selectsArrays(colors[0], null).sizes,
+    quantities: selectsArrays(colors[0], null).quantities,
+    size: selectsArrays(colors[0], null).size,
+    quantity: 1
+  })
+  const [openDrawer, setOpenDrawer] = useState(false)
+  const onClose = (boolean) => {
+    setOpenDrawer(boolean)
+  };
+  const colorOptions = colors.map((color) => {
+    return { value: color, label: getColorName(color) };
+  });
+  
+  const sizeOptions = selects.sizes.map((size) => {
+    return { value: size, label: size };
+  });
+  
+  const quantitiesOptions = selects.quantities.map((q) => {
+    return { value: q, label: q };
+  });
+  
+  const shopping = {
+    name: productData.name,
+      price: productData.price * selects.quantity,
+      image: productData.image,
+      color: selects.color,
+      size: selects.size,
+      quantity: selects.quantity
+  }
+  console.log(openDrawer);
+  console.log(shopping);
   return (
+    <div>{openDrawer && <DrawerCart
+    openDrawer={openDrawer}
+    onClose={onClose}/> }
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">
         
@@ -82,29 +96,31 @@ const ProductDetails = ({
           <p className="productDetailPrice">Precio: ${productData.price}</p>
           <div className="productDetailInputs">
             <Select
+              defaultValue={selects.color}
               options={colorOptions}
-              onChange={handleColorChange}
+              onChange={(color) => setSelects({...selects, color, sizes: selectsArrays(color, null).sizes})}
               style={{ width: "100%" }}
+              
             />
+  
             <Select
+              defaultValue={selects.size}
               options={sizeOptions}
-              onChange={handleSizeChange}
+              onChange={(size) => setSelects({...selects, size, quantities: selectsArrays(selects.color, size).quantities})}
               style={{ width: "100%" }}
             />
             <label htmlFor="amount">Cantidad:</label>
-            <Input
-              type="number"
-              id="amount"
-              name="amount"
-              value={data.inputAmount}
-              max={data.selectedAmount}
+            <Select
+              options={quantitiesOptions}
+              onChange={(q) => setSelects({...selects, quantity: q}) }
               style={{ width: "100%" }}
-              onChange={handleAmountChange}
+              defaultValue={selects.quantity}
             />
+           
             <ButtonPrimary
               title="Agregar al carrito"
               type="button"
-              onClick={() => {}}
+              onClick={() => setOpenDrawer(true)}
             />
           </div>
         </div>
@@ -113,6 +129,7 @@ const ProductDetails = ({
         <h2>Opiniones</h2>
       </div>
     </div>
+  </div>
   );
 };
 
