@@ -11,7 +11,7 @@ import logo from "/svg/LADYFIT1.svg";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginModal from "../LoginModal/LoginModal";
 
-import { Space, Button, Menu, Dropdown, Tooltip } from "antd";
+import { Space, Button, Menu, Dropdown, Tooltip, Badge } from "antd";
 import {
   ShoppingCartOutlined,
   UserOutlined,
@@ -34,8 +34,10 @@ const NavBar = () => {
     dispatch(logoutUser());
   };
 
-  // modal
+  //menus
   const [visible, setVisible] = useState(false);
+  const [categoryDropdown, setCategoryDropdown] = useState(false);
+  // modal
   const [loginModalVisible, setLoginModalVisible] = useState(false);
   const [createAcountModalVisible, setCreateAcountModalVisible] =
     useState(false);
@@ -65,13 +67,40 @@ const NavBar = () => {
         </Link>
       </Menu.Item>
       <Menu.Item key="compras">
-        <Link to="/profile/purchased">
+        <Link to="/perfil/mis-compras">
           <ShoppingOutlined className="menuIcon" />
           Mis compras
         </Link>
       </Menu.Item>
       <Menu.Item key="reseñas">
-        <Link to="/profile/reviews">
+        <Link to="/perfil/opiniones">
+          <StarOutlined className="menuIcon" />
+          Opiniones
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined className="menuIcon" />
+        Cerrar Sesión
+      </Menu.Item>
+    </Menu>
+  );
+
+  const categories = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="perfil">
+        <Link to="/profile">
+          <ProfileOutlined className="menuIcon" />
+          Perfil
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="compras">
+        <Link to="/perfil/mis-compras">
+          <ShoppingOutlined className="menuIcon" />
+          Mis compras
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="reseñas">
+        <Link to="/perfil/opiniones">
           <StarOutlined className="menuIcon" />
           Opiniones
         </Link>
@@ -105,6 +134,37 @@ const NavBar = () => {
   const openLoginModal = () => {
     setLoginModalVisible(true);
   };
+
+  const productsDropdown = (
+    <Dropdown
+      overlay={menu}
+      visible={visible}
+      onVisibleChange={(v) => setVisible(v)}
+    >
+      <Button
+        shape="circle"
+        size="large"
+        className="buttonNavAccess"
+        // style={{
+        //   border: "none",
+        // }}
+      >
+        <Link to="/products">
+          <button
+            className={
+              location.pathname === "/products"
+                ? "buttonLinkActive"
+                : "navBarButton"
+            }
+            title="Products"
+          >
+            Productos
+          </button>
+        </Link>
+        <UserOutlined />
+      </Button>
+    </Dropdown>
+  );
 
   return (
     <>
@@ -171,32 +231,55 @@ const NavBar = () => {
             <p>Hola, {user.name} </p>
             {/* {user.surname} */}
             {userDropdown}
-            <Link to="/profile/favorites">
-              <Button
-                shape="circle"
-                size="large"
-                className="buttonNavAccess"
-                // style={{
-                //   border: "none",
-                // }}
-              >
-                <HeartOutlined />
-              </Button>
-            </Link>
-            <Button
-              shape="circle"
-              size="large"
-              className="buttonNavAccess"
-              // style={{
-              //   // backgroundColor: "transparent",
-              //   border: "none",
-              //   // padding: 0,
-              // }}
-            >
-              <ShoppingCartOutlined />
-            </Button>
           </div>
         )}
+        <Link to="/perfil/favoritos">
+          <Button
+            shape="circle"
+            size="large"
+            className="buttonNavAccess"
+            // style={{
+            //   border: "none",
+            // }}
+          >
+            <HeartOutlined />
+          </Button>
+        </Link>
+
+        <Button
+          shape="circle"
+          size="large"
+          className="buttonNavAccess"
+          // style={{
+          //   // backgroundColor: "transparent",
+          //   border: "none",
+          //   // padding: 0,
+          // }}
+        >
+          <ShoppingCartOutlined />
+          <sup
+            data-show="true"
+            className="ant-scroll-number ant-badge-count"
+            title="1"
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              transform: "translate(50%, -50%)",
+              backgroundColor: "#ba338a",
+              color: "white",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            1
+          </sup>
+        </Button>
+
         {!user.email && (
           <div>
             <ButtonPrimary title="Iniciar Sesión" onClick={openLoginModal} />

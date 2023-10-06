@@ -13,7 +13,7 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
   let sizes = [];
 
   return (
-    <div key={id}>
+    <div key={id} className="cardBox">
       <div key={id} className={style.container}>
         <div className={style.card}>
           <div className={style.imgBx}>

@@ -192,6 +192,7 @@ body {
 
 h3 {
   margin: 5px;
+  max-width: 100%;
 }
 .nameProductCard {
   color: #111;
@@ -199,6 +200,9 @@ h3 {
 .nameProductCard:hover {
   color: #c04c98;
   text-decoration: underline;
+}
+.cardBox{
+  max-width: 250px;
 }
 
 /* @media (max-width: 768px) {
