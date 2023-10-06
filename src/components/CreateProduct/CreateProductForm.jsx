@@ -17,13 +17,16 @@ const CreateProductForm = ({ errors, isEditing }) => {
   const [errorColor, setErrorColor] = useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const dispatch = useDispatch();
-console.log(values)
+
   const categoriesOptions = categories?.map((category) => {
     return { value: category.name, label: category.name };
   });
   if (categoriesOptions) {
     categoriesOptions.unshift({ value: "", label: "Selecciona una categoria" });
   }
+
+  const categoryUpdateOptions = categories?.map((category) => { 
+    return { value: category.id, label: category.name }})
 
   const colorOptions = [
     { value: "", label: "Selecciona un color" },
@@ -71,6 +74,7 @@ console.log(values)
           image: values.image,
           category: values.category,
           stock: values.stock,
+          active: values.active,
         })
       );
 
@@ -99,11 +103,7 @@ console.log(values)
     setFieldValue("category", value);
   };
 
-  useEffect(() => {
-    if (isEditing && values.category) {
-      setFieldValue("category", values.category.name);
-    }
-  }, [values.category]);
+  
 
   return (
     <>
@@ -164,14 +164,14 @@ console.log(values)
               </>
             )}
           </div>
-          {!isEditing && (
+          
             <Field id="category" name="category">
               {({ field, form, meta }) => {
                 return (
                   <div className="fieldAndError">
                     <Select
                       {...field}
-                      options={categoriesOptions}
+                      options={isEditing ? categoryUpdateOptions: categoriesOptions}
                       onChange={(value) => onChangeCategories(value)}
                       style={{ width: "100%" }}
                     />
@@ -189,34 +189,8 @@ console.log(values)
                 );
               }}
             </Field>
-          )}
-          {isEditing && (
-            <Field id="category" name="category">
-              {({ field, form, meta }) => {
-                return (
-                  <div className="fieldAndError">
-                  <p>Categoria actual: {values.category}</p>
-                    <Select
-                      {...field}
-                      options={categoriesOptions}
-                      onChange={(value) => onChangeCategories(value)}
-                      style={{ width: "100%" }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowCreateCategoryModal(true)}
-                      className="createCategoryButton"
-                    >
-                      Crear categoría
-                    </button>
-                    {errors.category && (
-                      <p className="createProductError">{errors.category}</p>
-                    )}
-                  </div>
-                );
-              }}
-            </Field>
-          )}
+          
+         
         </div>
 
         <FieldArray name="stock">

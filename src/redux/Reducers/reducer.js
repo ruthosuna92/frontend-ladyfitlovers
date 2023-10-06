@@ -33,6 +33,7 @@ import {
 const initialState = {
   //products
   allProducts: [],
+  allProductsAdmin: [], 
   allUsers: [],
   productDetail: null,
   saveProducts: [],
@@ -69,6 +70,7 @@ const reducer = (state = initialState, action) => {
         saveProducts: action.payload,
         allProducts: action.payload,
         productsPerPage: action.payload.slice(0, state.quantity),
+        allProductsAdmin: action.payload,
         totalButtons: Math.ceil(action.payload.length / state.quantity),
       };
     case GET_ID_DETAIL_PRODUCTS:

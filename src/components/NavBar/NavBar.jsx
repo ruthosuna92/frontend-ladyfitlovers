@@ -235,9 +235,9 @@ const NavBar = () => {
             </button>
           </Link> */}
         </div>
-        <div className="searchBarDiv">
+        {!location.pathname.includes('admin') && <div className="searchBarDiv">
           <SearchBar />
-        </div>
+        </div>}
 
         {/* informacion del usuario */}
         {user.email && (

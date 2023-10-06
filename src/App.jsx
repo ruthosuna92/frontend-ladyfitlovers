@@ -24,6 +24,7 @@ const App = () => {
   // dispatch to get all products globally
   const allProducts = useSelector((state) => state.allProducts);
   const filteredProducts = useSelector((state) => state.products);
+  // const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   //condiction para que no se vuelva a cargar los productso si el estado
@@ -35,6 +36,7 @@ const App = () => {
   }, []);
 
   return (
+    
     <ConfigProvider
       theme={{
         token: {

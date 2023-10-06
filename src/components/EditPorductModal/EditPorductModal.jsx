@@ -6,7 +6,8 @@ import CreateProductSchema from "../CreateProduct/createProduct.schema";
 
 const EditProductModal = ({ visible, onClose, product }) => {
     
-    const category = product.Category.name
+    const category = product.Category
+    console.log(category)
   const initialValues = {
     id: product.id,
     name: product.name,
@@ -16,6 +17,7 @@ const EditProductModal = ({ visible, onClose, product }) => {
     image: product.image,
     category: category,
     stock: product.stock,
+    active: product.active,
   };
 
   return (

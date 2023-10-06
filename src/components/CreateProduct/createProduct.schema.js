@@ -17,7 +17,7 @@ const CreateProductSchema = Yup.object().shape({
             )
         })
     ),
-    category: Yup.string().required('Categoria es requerida'),
+    // category: Yup.string().required('Categoria es requerida'),
 });
 
 export default CreateProductSchema;

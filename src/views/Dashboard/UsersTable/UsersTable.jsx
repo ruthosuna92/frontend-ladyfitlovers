@@ -45,6 +45,8 @@ const UsersTable = () => {
     {
       title: "Rol",
       dataIndex: "typeUser",
+      filters: [{ text: "Admin", value: "Admin" }, { text: "Usuario", value: "User"}], 
+      onFilter: (value, record) => record.typeUser.indexOf(value) === 0,
       key: "typeUser",
       render: (text, record) => {
         return (

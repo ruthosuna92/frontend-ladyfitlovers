@@ -6,7 +6,7 @@ import "./productsTable.css";
 import EditProductModal from "../../../components/EditPorductModal/EditPorductModal";
 
 const ProductsTable = () => {
-  const products = useSelector((state) => state.allProducts);
+  const products = useSelector((state) => state.allProductsAdmin);
   const [showEditModal, setShowEditModal] = useState(false);
   const [productUpdate, setProductUpdate] = useState({});
   
