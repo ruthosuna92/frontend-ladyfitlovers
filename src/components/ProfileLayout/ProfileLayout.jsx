@@ -15,9 +15,11 @@ import { Formik, Form } from "formik";
 import CreateAcountSchema from "../CreateAcountModal/createAcountSchema";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
-const ProfileLayout = () => {
+const ProfileLayout = ({profileKey}) => {
+  console.log(profileKey)
   const infouser = useSelector((state) => state.user);
   const [dataUser, setFormData] = useState({
     name: "",
@@ -43,7 +45,7 @@ const ProfileLayout = () => {
       });
     }
   }, [infouser]);
-  const [selectedKey, setSelectKey] = useState("1");
+  const [selectedKey, setSelectKey] = useState(profileKey);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -55,9 +57,10 @@ const ProfileLayout = () => {
       <Sider>
         <div className="demo-logo-vertical" />
         <Menu
-          theme="dark"
+          theme="light"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          style={ {height: "80vh"} }
+          defaultSelectedKeys={profileKey}
           onSelect={keySelect}
           items={[
             {
@@ -84,7 +87,7 @@ const ProfileLayout = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}></Header>
+     
         <Content className={style.layaout1}>
           {selectedKey === "1" && <DataProfile />}
           {selectedKey === "4" && (
