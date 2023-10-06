@@ -73,6 +73,7 @@ const ProductDetails = ({
   });
   //===================================objeto con la información de la selección del cliente
   const shopping = {
+    id: productData.id, 
     name: productData.name,
       price: productData.price * selects.quantity,
       image: productData.image,
