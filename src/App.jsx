@@ -16,7 +16,8 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
-import Footer from "./components/Footer/Footer"
+import Footer from "./components/Footer/Footer";
+import PaymentState from "./components/PaymentState/PaymentState";
 
 const App = () => {
   // dispatch to get all products globally
@@ -57,11 +58,11 @@ const App = () => {
       <Button type="primary">Hello World</Button> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<Dashboard/>}/>
-        <Route path="/admin/usuarios" element={<Dashboard/>}/>
-        <Route path="/admin/productos" element={<Dashboard/>}/>
-        <Route path="/admin/ordenes" element={<Dashboard/>}/>
-        <Route path="/admin/crear-producto" element={<Dashboard/>}/>
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/usuarios" element={<Dashboard />} />
+        <Route path="/admin/productos" element={<Dashboard />} />
+        <Route path="/admin/ordenes" element={<Dashboard />} />
+        <Route path="/admin/crear-producto" element={<Dashboard />} />
         <Route path="/login" />
         <Route path="/contacto" element={<Contac />} />
         <Route path="/register" />
@@ -70,9 +71,10 @@ const App = () => {
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
         {/* <Route path="/crear-producto" element={<CreateProduct />} /> */}
-        <Route path="/perfil/:key" element={<Profile/>}/>
+        <Route path="/perfil/:key" element={<Profile />} />
+        <Route path="/paymentState" element={<PaymentState />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </ConfigProvider>
   );
 };

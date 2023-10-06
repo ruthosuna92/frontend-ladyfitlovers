@@ -4,6 +4,7 @@ import {
   UserOutlined,
   EditOutlined,
   StarOutlined,
+  HeartOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import DataProfile from "../DataProfile/DataProfile";
@@ -16,11 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
-const ProfileLayout = ({profileKey}) => {
-  console.log(profileKey)
+const ProfileLayout = ({ profileKey }) => {
+  console.log(profileKey);
   const infouser = useSelector((state) => state.user);
   const [dataUser, setFormData] = useState({
-    id:"",
+    id: "",
     name: "",
     surname: "",
     email: "",
@@ -59,7 +60,7 @@ const ProfileLayout = ({profileKey}) => {
         <Menu
           theme="light"
           mode="inline"
-          style={ {height: "80vh"} }
+          style={{ height: "80vh" }}
           defaultSelectedKeys={profileKey}
           onSelect={keySelect}
           items={[
@@ -69,25 +70,29 @@ const ProfileLayout = ({profileKey}) => {
               label: "Perfil",
             },
             {
+              key: "editar",
+              icon: <EditOutlined />,
+              label: "Editar Perfil",
+            },
+            {
               key: "compras",
               icon: <ShoppingOutlined />,
               label: "Mis Compras",
             },
             {
               key: "opiniones",
-              icon: <StarOutlined  />,
+              icon: <StarOutlined />,
               label: "Opiniones",
             },
             {
-              key: "editar",
-              icon: <EditOutlined />,
-              label: "Editar Perfil",
+              key: "favoritos",
+              icon: <HeartOutlined />,
+              label: "Favoritos",
             },
           ]}
         />
       </Sider>
       <Layout>
-     
         <Content className={style.layaout1}>
           {selectedKey === "perfil" && <DataProfile />}
           {selectedKey === "editar" && (
