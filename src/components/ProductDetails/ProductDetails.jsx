@@ -124,7 +124,7 @@ const ProductDetails = ({
               style={{ width: "100%" }}
             />
 
-            <label htmlFor="amount">Cantidad:</label>
+            
             <Select
               options={quantitiesOptions}
               onChange={(q) => setSelects({...selects, quantity: q}) }
