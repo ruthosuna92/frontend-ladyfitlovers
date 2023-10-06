@@ -12,6 +12,7 @@ const PaymentState = () => {
       const paymentApproved = async () => {
         if (userId.length) {
           //despachar /purchase/add userId y products
+          
           //despachar limpiar el carrito
         }
       };
