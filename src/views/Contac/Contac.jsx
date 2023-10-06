@@ -71,7 +71,7 @@ const Contac = () => {
             <h1>CONTACTO</h1>
             <div >
                 <div className={style.message}>
-                    <label>
+                    <label className={style.editinput2}>
                         
                         <Input
                             placeholder='Nombre'
@@ -98,7 +98,7 @@ const Contac = () => {
                 </div>
 
                 <div className={style.message}>
-                    <label>
+                    <label className={style.editinput}>
                         
                         <Input
                             placeholder='Teléfono'
@@ -111,7 +111,7 @@ const Contac = () => {
                 </div>
                 </div>
                 <div className={style.message}>
-                    <label>
+                    <label className={style.editinput2}>
                         
                         <Input
                             placeholder='Mensaje'

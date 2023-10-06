@@ -95,7 +95,7 @@ const Filters = () => {
   };
 
   const optionSize = () => {
-    const size = ["S", "M", "L", "XL"];
+    const size = ["s", "m", "l", "xl"];
     return size.map((size, index) => (
       <option key={index} value={size}>
         {size}

@@ -16,26 +16,39 @@
     justify-content: center;
 }
 .continercontac>div{
+    position: relative;
+    height: 60%;
+    width: 100%;
     display: flex;  
+    justify-content: center;
     flex-direction: column;
-    gap: 30px;
+    align-items: center;
+    gap: 50px;
 }
 .twodata{
+    height: 10px;
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     gap: 10px;
 }
 .message{ 
    position: relative;
+   width: 100%;
 }
 .message1{
-   width: 290px;
+   width: 100%;
    position: relative;
 }
 .texterror{
     position: absolute;
+    font-size: 0.8rem;
     color: red;
-    top: 15px;
+    top: 5px;
 }
 .editinput{
- width: 200px;
+width: 100%;
+}
+.editinput2{
+width: 100%;
 }
