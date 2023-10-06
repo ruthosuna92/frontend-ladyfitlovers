@@ -15,11 +15,14 @@ import { Formik, Form } from "formik";
 import CreateAcountSchema from "../CreateAcountModal/createAcountSchema";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
-const ProfileLayout = () => {
+const ProfileLayout = ({profileKey}) => {
+  console.log(profileKey)
   const infouser = useSelector((state) => state.user);
   const [dataUser, setFormData] = useState({
+    id:"",
     name: "",
     surname: "",
     email: "",
@@ -33,6 +36,7 @@ const ProfileLayout = () => {
     // Cuando se actualice la información de usuario (infouser), actualiza el estado local (formData)
     if (infouser) {
       setFormData({
+        id: infouser.id,
         name: infouser.name || "",
         surname: infouser.surname || "",
         email: infouser.email || "",
@@ -43,7 +47,7 @@ const ProfileLayout = () => {
       });
     }
   }, [infouser]);
-  const [selectedKey, setSelectKey] = useState("1");
+  const [selectedKey, setSelectKey] = useState(profileKey);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -55,29 +59,29 @@ const ProfileLayout = () => {
       <Sider>
         <div className="demo-logo-vertical" />
         <Menu
-          theme="dark"
+          theme="light"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          style={ {height: "80vh"} }
+          defaultSelectedKeys={profileKey}
           onSelect={keySelect}
           items={[
             {
-              key: "1",
+              key: "perfil",
               icon: <UserOutlined />,
               label: "Perfil",
             },
             {
-              key: "2",
+              key: "opiniones",
               icon: <UnorderedListOutlined />,
-              label: "Mis Reseñas",
-              Content: <h1></h1>,
+              label: "Opiniones",
             },
             {
-              key: "3",
+              key: "compras",
               icon: <ShoppingOutlined />,
-              label: "Mis Pedidos",
+              label: "Mis Compras",
             },
             {
-              key: "4",
+              key: "editar",
               icon: <EditOutlined />,
               label: "Editar Perfil",
             },
@@ -85,10 +89,10 @@ const ProfileLayout = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}></Header>
+     
         <Content className={style.layaout1}>
-          {selectedKey === "1" && <DataProfile />}
-          {selectedKey === "4" && (
+          {selectedKey === "perfil" && <DataProfile />}
+          {selectedKey === "editar" && (
             <Formik
               initialValues={{
                 name: dataUser.name,
@@ -111,6 +115,7 @@ const ProfileLayout = () => {
                 <CreateAcountForm
                   pivotuser={dataUser.pivotuser}
                   dataAddress={dataUser.address}
+                  idUser={dataUser.id}
                 />
               </div>
             </Formik>

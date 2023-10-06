@@ -7,10 +7,11 @@ import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import updateUser from "../../redux/Actions/User/updateUser";
 import postUser from "../../redux/Actions/User/postUser";
+import getUserById from "../../redux/Actions/User/getUserById"
 import "./createAcountModal.css";
 import "./createAcountForm.css"
 
-const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
+const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser , isEditing }) => {
 
   const { values, errors, resetForm } = useFormikContext();
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +46,25 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
     }
   };
   const handleSubmitupdate = async()=>{
-    
+    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
+
+    const valuesToSend = {
+      id: idUser,
+      name: values.name,
+      surname: values.surname,
+      phone: values.phone,
+      address: address,
+      email: values.email,
+    }
+    console.log(valuesToSend)
+
+    try {
+       const response = await dispatch(updateUser(valuesToSend));
+       dispatch(getUserById(valuesToSend.id))
+       console.log(response)
+     } catch {
+       message.error("Error al crear la cuenta");
+    }
   }
   const handleEdit = async () => {
     const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
@@ -280,12 +299,13 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
         </Field>}
 
         <div className="createCategoryButtons">
-          
-              <ButtonSecondary
+            {
+              pivotuser ? "" : <ButtonSecondary
                 title="Cancelar"
                 type="button"
                 onClick={() => onClose()}
               />
+            }
    
           {
             pivotuser ? <ButtonPrimary

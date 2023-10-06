@@ -146,7 +146,7 @@ const reducer = (state = initialState, action) => {
       };
     case FILT_BY_SIZE:
       let filteredSize;
-      console.log(action.payload);
+
       if (action.payload === "TA") {
         filteredSize =
           state.savePivot.length > 0 ? state.savePivot : state.saveProducts;
