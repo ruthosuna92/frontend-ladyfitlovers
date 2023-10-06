@@ -73,6 +73,7 @@ const ProductDetails = ({
   });
   //===================================objeto con la información de la selección del cliente
   const shopping = {
+    id: productData.id, 
     name: productData.name,
       price: productData.price * selects.quantity,
       image: productData.image,
@@ -123,7 +124,7 @@ const ProductDetails = ({
               style={{ width: "100%" }}
             />
 
-            <label htmlFor="amount">Cantidad:</label>
+            
             <Select
               options={quantitiesOptions}
               onChange={(q) => setSelects({...selects, quantity: q}) }
