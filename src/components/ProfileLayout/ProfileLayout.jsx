@@ -66,22 +66,22 @@ const ProfileLayout = ({profileKey}) => {
           onSelect={keySelect}
           items={[
             {
-              key: "1",
+              key: "perfil",
               icon: <UserOutlined />,
               label: "Perfil",
             },
             {
-              key: "2",
+              key: "opiniones",
               icon: <UnorderedListOutlined />,
-              label: "Mis Reseñas",
+              label: "Opiniones",
             },
             {
-              key: "3",
+              key: "compras",
               icon: <ShoppingOutlined />,
-              label: "Mis Pedidos",
+              label: "Mis Compras",
             },
             {
-              key: "4",
+              key: "editar",
               icon: <EditOutlined />,
               label: "Editar Perfil",
             },
@@ -91,8 +91,8 @@ const ProfileLayout = ({profileKey}) => {
       <Layout>
      
         <Content className={style.layaout1}>
-          {selectedKey === "1" && <DataProfile />}
-          {selectedKey === "4" && (
+          {selectedKey === "perfil" && <DataProfile />}
+          {selectedKey === "editar" && (
             <Formik
               initialValues={{
                 name: dataUser.name,
