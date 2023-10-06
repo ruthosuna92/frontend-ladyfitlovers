@@ -7,6 +7,17 @@ import EditProductModal from "../../../components/EditPorductModal/EditPorductMo
 
 const ProductsTable = () => {
   const products = useSelector((state) => state.allProductsAdmin);
+  const sortedProducts = products.sort((a, b) => a.name.localeCompare(b.name));
+  const allCatgories = useSelector((state) => state.allCategories);
+
+  const categoriesFilterOptions = allCatgories?.map((category) => {
+    return { text: category.name, value: category.name };
+  });
+
+  const productsNames = products?.map((product) => {
+    return { text: product.name, value: product.name };
+  });
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [productUpdate, setProductUpdate] = useState({});
   
@@ -20,12 +31,18 @@ const ProductsTable = () => {
     {
       title: "Nombre",
       dataIndex: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      filters: productsNames,
+      filterSearch: true,
+      onFilter: (value, record) => record.name.startsWith(value),
       key: "name",
       render: (text) => <p>{text.toUpperCase()}</p>,
     },
     {
       title: "Categoria",
       dataIndex: "Category",
+      filters: categoriesFilterOptions,
+      onFilter: (value, record) => record.Category.name === value,
       key: "Category",
       render: (category) => <p>{category.name}</p>,
     },
@@ -33,6 +50,7 @@ const ProductsTable = () => {
       title: "Precio",
       dataIndex: "price",
       key: "price",
+      sorter: (a, b) => a.price - b.price,
       render: (price) => <p>${price}</p>,
     },
     {
@@ -97,7 +115,7 @@ const ProductsTable = () => {
           product={productUpdate}
         />
       )}
-      <Table dataSource={products} columns={columns} />
+      <Table dataSource={sortedProducts} columns={columns} />
     </div>
   );
 };
