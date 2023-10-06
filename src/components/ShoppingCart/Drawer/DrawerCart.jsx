@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Drawer, Space, Card, Row, Col, Image} from 'antd';
 import { useSelector } from 'react-redux';
 import style from "./DrawerCart.module.css"
 
 
-const DrawerCart = ({openDrawer, onClose}) => {
+const DrawerCart = ({openDrawer, onClose, saveCartLocal}) => {
   const cart = useSelector((state) => state.cart)
+  useEffect(()=> {
+    saveCartLocal()
+  }, [])
   const [open, setOpen] = useState(openDrawer);
   const showDefaultDrawer = () => {
     setOpen(openDrawer);
@@ -22,6 +25,7 @@ const DrawerCart = ({openDrawer, onClose}) => {
   console.log(total);
   const handle = (a) => {
     console.log(a);
+    console.log(a.target.offsetParent.id);
     
   }
   return (
@@ -49,16 +53,16 @@ const DrawerCart = ({openDrawer, onClose}) => {
     >
     <Row justify="center">
       <Col span={4}>
-        <div >{name}</div>
+        <div >Nombre<br></br> {name} </div>
       </Col>
       <Col span={4}>
-        <div ><Image alt={name} src={image && image} width={35} /></div>
+        <div><Image alt={name} src={image && image} width={35} /></div>
       </Col>
       <Col span={3}>
         <div >Color<br></br>{color}</div>
       </Col>
       <Col span={4} >
-        <div className={style.algo}>Cant.<br></br><button  id={i} type='primary' name={name} onClick={handle}  shape="circle" >{"-"}</button>{quantity}<button type='primary' name={name} onClick={handle} shape="circle" >{"+"}</button></div>
+        <div className={style.algo}>Cant.<br></br><Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={name} onClick={handle}  shape="circle" >{"-"}</Button>      {quantity}      <Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={name} onClick={handle} shape="circle" >{"+"}</Button></div>
       </Col>
       <Col span={4}>
         <div >Precio x unidad<br></br>{price / quantity}</div>
@@ -72,7 +76,7 @@ const DrawerCart = ({openDrawer, onClose}) => {
       })}
     <div>Costo total<br></br>{total}</div>
           <Space>
-            <Button onClick={() => onClose(false)}>Ver carrito</Button>
+            <Button onClick={() => onClose(false)}>Seguir comprando</Button>
             <Button type="primary" onClick={() => onClose(false)}> 
             {/* // /payment/createOrder   window.location.href = response.data.response.body.init_point; */}
               Ir a pagar

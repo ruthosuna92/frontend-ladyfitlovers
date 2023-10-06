@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getColorName } from "../../utils/getColorName";
-import { Select} from "antd";
+import { Select, message} from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
@@ -15,11 +15,37 @@ const ProductDetails = ({
 }) => {
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
+  const saveCartLocal = () => {
+
+    const localStorageCart = JSON.parse(localStorage.getItem('products'))
+    if(!localStorageCart.length && cart.length){
+      localStorage.setItem('products', JSON.stringify(cart))
+    }
+    if(!cart.length && localStorageCart.length){
+      localStorageCart.map((prod) => dispatch(addingProduct(prod)))
+    } else {
+      localStorage.setItem('products', JSON.stringify(cart))
+    }
+  }
+  useEffect(() => {
+    saveCartLocal()
+  }, [])
+  const [messageApi, contextHolder] = message.useMessage()
   console.log(cart);
   //=============================inicializo el arreglo que tiene los objetos con props color y sizeAndQuantity
-  const array = productData && productData?.stock
+  let array = productData && productData?.stock
   //==============================mapeo para obtener el arreglo de solo colores
-  const colors = array.map((col)=> col.color)
+  console.log(array);
+  const colorsFunc = (array) => {
+    if(!array.length){
+      array = ["N/A"]
+      return array
+    } else {
+      let colors = array.map((col)=> col.color)
+      return colors
+    }
+  }
+  const colors = colorsFunc(array)
   //=============================inicializo función que según los parametros que reciba retorna las tallas y cantidades correspondientes a esos colores y/o talla
   const selectsArrays = (color, size) => {
     if(array.length !== 0){
@@ -41,6 +67,12 @@ const ProductDetails = ({
           size
         }
       }
+    } else {
+      return {
+        sizes: ['Sin stock'],
+        quantities: [0],
+        size: ['Sin stock']
+      }
     }
   }
   //=======================================estado local que se setea cada vez que el cliente selecciona algo, a su vez se combina con la función
@@ -49,7 +81,7 @@ const ProductDetails = ({
     sizes: selectsArrays(colors[0], null).sizes,
     quantities: selectsArrays(colors[0], null).quantities,
     size: selectsArrays(colors[0], null).size,
-    quantity: 1
+    quantity: selectsArrays(colors[0], null).quantities[0]
   })
   //======================================estado local que abre el DrawerCart
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -83,13 +115,24 @@ const ProductDetails = ({
   }
   console.log(shopping);
   const handle = () => {
-    dispatch(addingProduct(shopping))
-    setOpenDrawer(true)
+    if(shopping.quantity){
+      dispatch(addingProduct(shopping))
+      setOpenDrawer(true)
+    } else {
+      messageApi.open({
+        type: 'warning',
+        content: 'Este producto esta sin stock',
+      });
+    }
   }
   return (
-    <div>{openDrawer && <DrawerCart
+    <div>
+      {contextHolder}
+      {openDrawer && <DrawerCart
     openDrawer={openDrawer}
-    onClose={onClose}/>}
+    onClose={onClose}
+    saveCartLocal={saveCartLocal}
+    />}
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">
         
