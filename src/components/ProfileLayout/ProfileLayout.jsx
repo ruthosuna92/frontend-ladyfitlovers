@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   ShoppingOutlined,
   UserOutlined,
-  UnorderedListOutlined,
   EditOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import DataProfile from "../DataProfile/DataProfile";
@@ -71,14 +69,14 @@ const ProfileLayout = ({profileKey}) => {
               label: "Perfil",
             },
             {
-              key: "opiniones",
-              icon: <UnorderedListOutlined />,
-              label: "Opiniones",
-            },
-            {
               key: "compras",
               icon: <ShoppingOutlined />,
               label: "Mis Compras",
+            },
+            {
+              key: "opiniones",
+              icon: <StarOutlined  />,
+              label: "Opiniones",
             },
             {
               key: "editar",
