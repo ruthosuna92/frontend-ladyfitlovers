@@ -70,7 +70,7 @@ const App = () => {
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
         {/* <Route path="/crear-producto" element={<CreateProduct />} /> */}
-        <Route path="/profile/:key" element={<Profile/>}/>
+        <Route path="/perfil/:key" element={<Profile/>}/>
       </Routes>
       <Footer/>
     </ConfigProvider>
