@@ -60,7 +60,7 @@ const NavBar = () => {
         Cerrar Sesión
       </Menu.Item>
       <Menu.Item key="perfil" >
-        <Link to="/profile">
+        <Link to="/profile/1">
           <ProfileOutlined />
           Perfil
         </Link>

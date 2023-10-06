@@ -22,6 +22,7 @@ const ProfileLayout = ({profileKey}) => {
   console.log(profileKey)
   const infouser = useSelector((state) => state.user);
   const [dataUser, setFormData] = useState({
+    id:"",
     name: "",
     surname: "",
     email: "",
@@ -35,6 +36,7 @@ const ProfileLayout = ({profileKey}) => {
     // Cuando se actualice la información de usuario (infouser), actualiza el estado local (formData)
     if (infouser) {
       setFormData({
+        id: infouser.id,
         name: infouser.name || "",
         surname: infouser.surname || "",
         email: infouser.email || "",
@@ -113,6 +115,7 @@ const ProfileLayout = ({profileKey}) => {
                 <CreateAcountForm
                   pivotuser={dataUser.pivotuser}
                   dataAddress={dataUser.address}
+                  idUser={dataUser.id}
                 />
               </div>
             </Formik>

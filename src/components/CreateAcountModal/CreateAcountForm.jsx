@@ -7,10 +7,11 @@ import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import updateUser from "../../redux/Actions/User/updateUser";
 import postUser from "../../redux/Actions/User/postUser";
+import getUserById from "../../redux/Actions/User/getUserById"
 import "./createAcountModal.css";
 import "./createAcountForm.css"
 
-const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
+const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser , isEditing }) => {
 
   const { values, errors, resetForm } = useFormikContext();
   const [showPassword, setShowPassword] = useState(false);
@@ -48,7 +49,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
     const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
 
     const valuesToSend = {
-      id: "03e2aa84-4fc0-4f8c-b967-ea5675cfc2b6",
+      id: idUser,
       name: values.name,
       surname: values.surname,
       phone: values.phone,
@@ -59,6 +60,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, isEditing }) => {
 
     try {
        const response = await dispatch(updateUser(valuesToSend));
+       dispatch(getUserById(valuesToSend.id))
        console.log(response)
      } catch {
        message.error("Error al crear la cuenta");
