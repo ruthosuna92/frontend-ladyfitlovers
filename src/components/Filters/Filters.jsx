@@ -6,6 +6,7 @@ import { filtBySize } from "../../redux/Actions/Filter/filtBySize";
 import { saveFilter } from "../../redux/Actions/Filter/saveFilter";
 import setCurrentPage from "../../redux/Actions/Filter/setCurrentPage";
 import style from "./Filters.module.css";
+import { Select} from "antd";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -95,7 +96,7 @@ const Filters = () => {
   };
 
   const optionSize = () => {
-    const size = ["s", "m", "l", "xl"];
+    const size = ["TA","s", "m", "l", "xl"];
     return size.map((size, index) => (
       <option key={index} value={size}>
         {size}
@@ -151,15 +152,11 @@ const Filters = () => {
           <i></i>
         </div>
         <div className={style.contenselect}>
-          <select
-            name=""
-            id=""
-            value={filtersave.selectSize}
-            onChange={handleSize}
-          >
-            <option value="TA">Talla</option>
-            {optionSize()}
-          </select>
+          <Select 
+          defaultValue={"TA"}
+          options={optionSize}
+          />
+          
           <i></i>
         </div>
       </div>
