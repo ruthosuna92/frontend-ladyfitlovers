@@ -13,7 +13,7 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
   let sizes = [];
 
   return (
-    <div key={id}>
+    <div key={id} className="cardBox">
       <div key={id} className={style.container}>
         <div className={style.card}>
           <div className={style.imgBx}>
@@ -57,7 +57,9 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
       </div>
       <Row>
         <Col style={colStyle} span={24}>
-          <h3>{name}</h3>
+          <NavLink className={style.nameProductCard} to={`/detail/${id}`}>
+            <h3>{name}</h3>
+          </NavLink>
         </Col>
       </Row>
       <Row>

@@ -11,8 +11,7 @@ import logo from "/svg/LADYFIT1.svg";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginModal from "../LoginModal/LoginModal";
 
-
-import { Space, Button, Menu, Dropdown, Tooltip } from "antd";
+import { Space, Button, Menu, Dropdown, Tooltip, Badge } from "antd";
 import {
   ShoppingCartOutlined,
   UserOutlined,
@@ -20,6 +19,9 @@ import {
   FundViewOutlined,
   SearchOutlined,
   ProfileOutlined,
+  ShoppingOutlined,
+  StarOutlined,
+  HeartOutlined,
 } from "@ant-design/icons";
 import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 
@@ -32,38 +34,80 @@ const NavBar = () => {
     dispatch(logoutUser());
   };
 
-  // modal
+  //menus
   const [visible, setVisible] = useState(false);
+  const [categoryDropdown, setCategoryDropdown] = useState(false);
+  // modal
   const [loginModalVisible, setLoginModalVisible] = useState(false);
-  const [createAcountModalVisible, setCreateAcountModalVisible] = useState(false);
+  const [createAcountModalVisible, setCreateAcountModalVisible] =
+    useState(false);
 
   const user = useSelector((state) => state.user);
-  
+
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
     }
     setVisible(false);
   };
 
+  // const categories = (
+  //   <Menu onClick={handleMenuClick}>
+  //     {user.typeUser == "Admin" && (
+  //       <Menu.Item key="dashboard">
+  //         <Link to="/admin">
+  //           <FundViewOutlined />
+  //           Panel Administrador
+  //         </Link>
+  //       </Menu.Item>
+  //     )}
+  //     <Menu.Item key="perfil">
+  //       <Link to="/perfil">
+  //         <ProfileOutlined className="menuIcon" />
+  //         Perfil
+  //       </Link>
+  //     </Menu.Item>
+  //     <Menu.Item key="compras">
+  //       <Link to="/perfil/mis-compras">
+  //         <ShoppingOutlined className="menuIcon" />
+  //         Mis compras
+  //       </Link>
+  //     </Menu.Item>
+  //     <Menu.Item key="reseñas">
+  //       <Link to="/perfil/opiniones">
+  //         <StarOutlined className="menuIcon" />
+  //         Opiniones
+  //       </Link>
+  //     </Menu.Item>
+  //     <Menu.Item key="logout" onClick={handleLogout}>
+  //       <LogoutOutlined className="menuIcon" />
+  //       Cerrar Sesión
+  //     </Menu.Item>
+  //   </Menu>
+  // );
+
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {user.typeUser == "Admin" && (
-        <Menu.Item key="dashboard">
-          <Link to="/admin">
-            <FundViewOutlined />
-            Panel Administrador
-          </Link>
-        </Menu.Item>
-      )}
-      <Menu.Item key="logout" onClick={handleLogout}>
-        <LogoutOutlined />
-        Cerrar Sesión
-      </Menu.Item>
-      <Menu.Item key="perfil" >
-        <Link to="/profile">
-          <ProfileOutlined />
+      <Menu.Item key="perfil">
+        <Link to="/perfil/perfil">
+          <ProfileOutlined className="menuIcon" />
           Perfil
         </Link>
+      </Menu.Item>
+      <Menu.Item key="compras">
+        <Link to="/perfil/compras">
+          <ShoppingOutlined className="menuIcon" />
+          Mis compras
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="opiniones">
+        <Link to="/perfil/opiniones">
+          <StarOutlined className="menuIcon" />
+          Opiniones
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined className="menuIcon" />
+        Cerrar Sesión
       </Menu.Item>
     </Menu>
   );
@@ -74,7 +118,14 @@ const NavBar = () => {
       visible={visible}
       onVisibleChange={(v) => setVisible(v)}
     >
-      <Button shape="circle" size="large">
+      <Button
+        shape="circle"
+        size="large"
+        className="buttonNavAccess"
+        // style={{
+        //   border: "none",
+        // }}
+      >
         <UserOutlined />
       </Button>
     </Dropdown>
@@ -83,6 +134,37 @@ const NavBar = () => {
   const openLoginModal = () => {
     setLoginModalVisible(true);
   };
+
+  const productsDropdown = (
+    <Dropdown
+      overlay={menu}
+      visible={visible}
+      onVisibleChange={(v) => setVisible(v)}
+    >
+      <Button
+        shape="circle"
+        size="large"
+        className="buttonNavAccess"
+        // style={{
+        //   border: "none",
+        // }}
+      >
+        <Link to="/products">
+          <button
+            className={
+              location.pathname === "/products"
+                ? "buttonLinkActive"
+                : "navBarButton"
+            }
+            title="Products"
+          >
+            Productos
+          </button>
+        </Link>
+        <UserOutlined />
+      </Button>
+    </Dropdown>
+  );
 
   return (
     <>
@@ -146,13 +228,58 @@ const NavBar = () => {
         {/* informacion del usuario */}
         {user.email && (
           <div className="userInfo">
-            Hola, {user.name} {user.surname}
-            <Button shape="circle" size="large">
-              <ShoppingCartOutlined />
-            </Button>
+            <p>Hola, {user.name} </p>
+            {/* {user.surname} */}
             {userDropdown}
           </div>
         )}
+        <Link to="/perfil/favoritos">
+          <Button
+            shape="circle"
+            size="large"
+            className="buttonNavAccess"
+            // style={{
+            //   border: "none",
+            // }}
+          >
+            <HeartOutlined />
+          </Button>
+        </Link>
+
+        <Button
+          shape="circle"
+          size="large"
+          className="buttonNavAccess"
+          // style={{
+          //   // backgroundColor: "transparent",
+          //   border: "none",
+          //   // padding: 0,
+          // }}
+        >
+          <ShoppingCartOutlined />
+          <sup
+            data-show="true"
+            className="ant-scroll-number ant-badge-count"
+            title="1"
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              transform: "translate(50%, -50%)",
+              backgroundColor: "#ba338a",
+              color: "white",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            1
+          </sup>
+        </Button>
+
         {!user.email && (
           <div>
             <ButtonPrimary title="Iniciar Sesión" onClick={openLoginModal} />
@@ -170,7 +297,6 @@ const NavBar = () => {
           visible={createAcountModalVisible}
           onClose={() => setCreateAcountModalVisible(false)}
         />
-
       )}
     </>
   );

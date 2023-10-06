@@ -1,28 +1,29 @@
 .contianerProfiler{
     
-    height: 83vh;
-    width: 90vw;
+    height: 80vh;
+    width: 80vw;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
+    margin-top: 40px;
 }
 .subcontainer{
-    height: 50vh; 
-    width: 50%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
+   height: 60vh; 
+   width: 50%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 50px;
 }
 .containerDataName{
+    margin-top: 20px;
     height: 40px;
     width: 70%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
 }
 .dataNameAndSurname{
     border: solid 1px #BA338A;
@@ -32,6 +33,7 @@
     align-items: center;
     border-radius: 10px;
     padding-left: 5px;
+    
 }
 .dataaddres{
     border: solid 1px #BA338A;
@@ -67,8 +69,8 @@
 
 .profileimg{
     border: solid 1px #BA338A;
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
 }
 .nameContainer {
