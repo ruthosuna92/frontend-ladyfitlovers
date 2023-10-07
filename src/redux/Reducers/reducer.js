@@ -66,7 +66,7 @@ const reducer = (state = initialState, action) => {
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
-        allProducts: action.payload,
+        allProducts: state.name.length <2 ? state.saveProducts : action.payload,
       };
     // case CLEAN:
     //   return {
@@ -98,7 +98,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allProducts:
-          action.payload === "T"
+          action.payload === "TA"
             ? state.saveProducts
             : state.saveProducts.filter(
                 (product) => product.Category.name === action.payload
@@ -112,7 +112,7 @@ const reducer = (state = initialState, action) => {
       let filteredProducts;
       let filteredColor;
 
-      if (action.payload === "C") {
+      if (action.payload === "") {
         filteredProducts = state.saveProducts;
       } else {
         filteredProducts =
@@ -148,7 +148,7 @@ const reducer = (state = initialState, action) => {
     case FILT_BY_SIZE:
       let filteredSize;
 
-      if (action.payload === "TA") {
+      if (action.payload === "") {
         filteredSize =
           state.savePivot.length > 0 ? state.savePivot : state.saveProducts;
       } else {
