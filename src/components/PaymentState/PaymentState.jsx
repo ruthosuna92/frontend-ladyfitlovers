@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom"; // Import useHistory for redirection
+import { useLocation } from "react-router-dom";
 import postPurchase from "../../redux/Actions/Purchase/PostPurchase";
 
 const PaymentState = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId);
   const cart = useSelector((state) => state.cart);
-  const history = useHistory();
+  const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
   const data = queryParams.get("data");
