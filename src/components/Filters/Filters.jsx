@@ -25,6 +25,7 @@ const Filters = () => {
     selectColor: "",
     selectSize: "",
   });
+  console.log(uniqueFilters.selectCategory);
   useEffect(() => {
     dispatch(setCurrentPage(1));
     dispatch(saveFilter(uniqueFilters));
@@ -98,7 +99,7 @@ const Filters = () => {
   };
 
   const categoryOptions = [
-    { value: "", label: "CATEGORIA" },
+    { value: "TA", label: "CATEGORIA" },
     ...filtersave.category.map((categoria) => {
       return { value: categoria, label: categoria };
     })
@@ -120,7 +121,7 @@ const Filters = () => {
   const handleClick = () => {
     setUniqueFilters({
       ...uniqueFilters,
-      selectCategory: "T",
+      selectCategory: "TA",
       selectColor: "",
       selectSize: "",
     });
