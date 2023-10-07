@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Drawer, Space, Card, Row, Col, Image} from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import decrementQuantity from '../../../redux/Actions/ShoppingCart/decrementQuantity';
 import style from "./DrawerCart.module.css"
 
 
-const DrawerCart = ({openDrawer, onClose, saveCartLocal}) => {
+const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
   const cart = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+  console.log(openDrawer)
   useEffect(()=> {
-    saveCartLocal()
-  }, [])
+   // saveCartLocal()
+  }, [dispatch])
   const [open, setOpen] = useState(openDrawer);
   const showDefaultDrawer = () => {
     setOpen(openDrawer);
@@ -21,11 +24,14 @@ const DrawerCart = ({openDrawer, onClose, saveCartLocal}) => {
   // const onClose = () => {
   //   setOpen(false);
   // };
+  const prices = cart.map((prod) => prod.price)
+  
   const total = cart.map((prod) => prod.price).reduce((acc, cur) => acc + cur, 0)
-  console.log(total);
+  
   const handle = (a) => {
     console.log(a);
     console.log(a.target.offsetParent.id);
+    dispatch(decrementQuantity(a.target.offsetParent.id))
     
   }
   return (

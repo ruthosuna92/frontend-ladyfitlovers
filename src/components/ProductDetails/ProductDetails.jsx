@@ -15,20 +15,27 @@ const ProductDetails = ({
 }) => {
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
-  const saveCartLocal = () => {
 
-    const localStorageCart = JSON.parse(localStorage.getItem('products'))
-    if(!localStorageCart.length && cart.length){
-      localStorage.setItem('products', JSON.stringify(cart))
-    }
-    if(!cart.length && localStorageCart.length){
-      localStorageCart.map((prod) => dispatch(addingProduct(prod)))
-    } else {
-      localStorage.setItem('products', JSON.stringify(cart))
-    }
-  }
+  // const saveCartLocal = () => {
+  //   //console.log(JSON.parse(localStorage.getItem('products')))
+  //   const localStorageCart = JSON.parse(localStorage.getItem('products'))
+  //   console.log(localStorageCart);
+    
+  //   if(!localStorageCart){
+  //     localStorage.setItem('products', JSON.stringify(cart))
+  //     return
+  //   }
+  //   if(!localStorageCart.length && cart.length){
+  //     localStorage.setItem('products', JSON.stringify(cart))
+  //   }
+  //   if(!cart.length && localStorageCart.length){
+  //     localStorageCart.map((prod) => dispatch(addingProduct(prod)))
+  //   } else {
+  //     localStorage.setItem('products', JSON.stringify(cart))
+  //   }
+  // }
   useEffect(() => {
-    saveCartLocal()
+    // saveCartLocal()
   }, [])
   const [messageApi, contextHolder] = message.useMessage()
   console.log(cart);
@@ -89,6 +96,7 @@ const ProductDetails = ({
   const onClose = (boolean) => {
     setOpenDrawer(boolean)
   };
+  console.log(openDrawer);
   //====================================array de colores mapeado nuevamente para usarlo en el select de ant
   const colorOptions = colors.map((color) => {
     return { value: color, label: getColorName(color) };
@@ -131,7 +139,7 @@ const ProductDetails = ({
       {openDrawer && <DrawerCart
     openDrawer={openDrawer}
     onClose={onClose}
-    saveCartLocal={saveCartLocal}
+    // saveCartLocal={saveCartLocal}
     />}
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">

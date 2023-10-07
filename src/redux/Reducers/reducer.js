@@ -17,6 +17,7 @@ import {
   AUTH_USER,
   ADDING_PRODUCT,
   GET_ALL_USERS,
+  DECREMENT_QUANTITY
 } from "../Actions/actionTypes";
 
 const initialState = {
@@ -54,7 +55,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         saveProducts: action.payload,
         allProducts: action.payload,
-        productsPerPage: action.payload.slice(0, 4),
+        productsPerPage: action.payload.slice(0, state.quantity),
         totalButtons: Math.ceil(action.payload.length / state.quantity),
       };
     case GET_ID_DETAIL_PRODUCTS:
@@ -252,7 +253,7 @@ const reducer = (state = initialState, action) => {
               console.log('ya existe el producto, lo encuentro y le sumo la cantidad');
               let productFound = state.cart.find((prod) => prod.name === action.payload.name && prod.color === action.payload.color && prod.size === action.payload.size)
               productFound.quantity += action.payload.quantity
-              productFound.price += action.payload.price * action.payload.quantity
+              productFound.price = action.payload.price + productFound.price
               return {
                 ...state,
                 cart: [...state.cart]
@@ -266,6 +267,27 @@ const reducer = (state = initialState, action) => {
           allUsers: action.payload,
 
         };
+        case DECREMENT_QUANTITY: 
+        console.log(action.payload);
+        let product = state.cart[action.payload]
+        if(product.quantity > 1){
+          console.log('la cantidad es mayor que 1, disminuyo 1');
+          product.price = product.price - (product.price / product.quantity)
+          product.quantity = product.quantity - 1
+          return {
+            ...state,
+            cart: [...state.cart]
+          }
+        } else {
+          console.log('no se cumple la primera condición, elimino el producto');
+          let product = state.cart[action.payload]
+          console.log(product);
+          return {
+            ...state,
+            cart: state.cart.filter((prod) => prod !== product)
+            //&& prod.color !== product.color && prod.size !== product.size)
+          }
+        }
     default:
       return {
         ...state,
