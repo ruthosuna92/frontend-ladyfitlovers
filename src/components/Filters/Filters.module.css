@@ -8,76 +8,7 @@
     width: 700px;
     justify-content: space-between;
 }
-.btnres{
-    height: 32px;
-    width: 60px;
-    border-radius: 45px 0px 0px 0px;
-    color:#f0f0f0;
-    background-color: #BA338A;
-    border: none;
-    cursor: pointer;
-}
-.btnres:hover{
-    background-color: #f2e1ef;
-    color: #BA338A;
-    border: #BA338A solid 1px;
-}
-select{
-    width: 180px;
-}
-.contenselect select{
-
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    
-}
-.contenselect select::-ms-expand {
-    display: none;
-}
 .contenselect{
-	max-width: 250px;
+	width: 130px;
 	position: relative;
-}
- 
-.contenselect select{
-	display: inline-block;
-	cursor: pointer;
-  	padding: 7px 10px;
-  	height: 32px;
-  	outline: 0; 
-  	border: 0;
-	border-radius: 0;
-	background: #f0f0f0;
-	color: #7b7b7b;
-	font-size: 1em;
-	color: #BA338A;
-	font-family: 
-	'Quicksand', sans-serif;
-	border:2px solid rgba(0,0,0,0.2);
-    border-radius: 12px;
-    position: relative;
-    transition: all 0.25s ease;
-}
- 
-.contenselect select:hover{
-	background: #BA338A;
-    color: white;
-}
-.contenselect i{
-	position: absolute;
-	right: 20px;
-	top: calc(50% - 13px);
-	width: 16px;
-	height: 16px;
-	display: block;
-	border-left:4px solid #ff00a6;
-	border-bottom:4px solid #bb55fb;
-	transform: rotate(-45deg); /* Giramos el cuadrado */
-	transition: all 0.25s ease;
-}
- 
-.contenselect:hover i{
-	margin-top: 3px;
-    transform: rotate(135deg);
 }

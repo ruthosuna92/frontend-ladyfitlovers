@@ -4,13 +4,19 @@ import { filtByCategory } from "../../redux/Actions/Filter/filtByCategory";
 import { filtByColor } from "../../redux/Actions/Filter/filtByColor";
 import { filtBySize } from "../../redux/Actions/Filter/filtBySize";
 import { saveFilter } from "../../redux/Actions/Filter/saveFilter";
+import getProductByName from "../../redux/Actions/Product/getProductByName";
 import setCurrentPage from "../../redux/Actions/Filter/setCurrentPage";
 import style from "./Filters.module.css";
+import { Select, Button} from "antd";
+import {ReloadOutlined } from "@ant-design/icons";
+
 
 const Filters = () => {
+  const size = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
   const filtersave = useSelector((state) => state.saveFilters);
+  console.log(filtersave);
   // Cambiar de dos estados locales a un solo estado local
   const [uniqueFilters, setUniqueFilters] = useState({
     category: [],
@@ -70,97 +76,87 @@ const Filters = () => {
     }
   }, [allProducts]);
 
-  const handleChangeCategory = (event) => {
-    const value = event.target.value;
+  const handleChangeCategory = (value) => {
     setUniqueFilters({
       ...uniqueFilters,
       selectCategory: value,
     });
   };
 
-  const handleChangeColor = (event) => {
-    const value = event.target.value;
+  const handleChangeColor = (value) => {
     setUniqueFilters({
       ...uniqueFilters,
       selectColor: value,
     });
   };
 
-  const handleSize = (event) => {
-    const value = event.target.value;
+  const handleSize = (value) => {
     setUniqueFilters({
       ...uniqueFilters,
       selectSize: value,
     });
   };
 
-  const optionSize = () => {
-    const size = ["s", "m", "l", "xl"];
-    return size.map((size, index) => (
-      <option key={index} value={size}>
-        {size}
-      </option>
-    ));
-  };
+  const categoryOptions = [
+    { value: "", label: "CATEGORIA" },
+    ...filtersave.category.map((categoria) => {
+      return { value: categoria, label: categoria };
+    })
+  ];
+  const colorOptions = [
+    { value: "", label: "COLOR" },
+    ...filtersave.color.map((categoria) => {
+      return { value: categoria, label: categoria };
+    })
+  ];
+
+  const sizeOptions =[
+    {value: "", label:"TALLA"},
+    ...size.map((size) => {
+      return { value: size, label: size };
+    })
+  ] 
 
   const handleClick = () => {
     setUniqueFilters({
       ...uniqueFilters,
       selectCategory: "T",
       selectColor: "",
-      selectSize: "TA",
+      selectSize: "",
     });
   };
 
   return (
     <div className={style.containerFilter}>
       <div className={style.subcontainer}>
-        <button className={style.btnres} onClick={() => handleClick()}>
-          Reset
-        </button>
+        <Button onClick={()=>handleClick()}><ReloadOutlined /></Button>
         <div className={style.contenselect}>
-          <select
-            name="categoria"
-            id=""
-            value={filtersave.selectCategory}
-            onChange={handleChangeCategory}
-          >
-            <option value="T">Categoria</option>
-            {filtersave.category.map((categoryName, index) => (
-              <option key={index} value={categoryName}>
-                {categoryName}
-              </option>
-            ))}
-          </select>
-          <i></i>
+        <Select 
+          defaultValue={"CATEGORIA"}
+          value={!uniqueFilters.selectCategory? "CATEGORIA": uniqueFilters.selectCategory}
+          options={categoryOptions}
+          style={{ width: "100%" }}
+          onChange={handleChangeCategory}
+          />
         </div>
         <div className={style.contenselect}>
-          <select
-            name="color"
-            id=""
-            value={filtersave.selectColor}
-            onChange={handleChangeColor}
-          >
-            <option value="">Color</option>
-            {filtersave.color.map((colorArticle, index) => (
-              <option key={index} value={colorArticle}>
-                {colorArticle}
-              </option>
-            ))}
-          </select>
-          <i></i>
+        <Select 
+          defaultValue={""}
+          value={uniqueFilters.selectColor}
+          options={colorOptions}
+          style={{ width: "100%" }}
+          onChange={handleChangeColor}
+          />
         </div>
         <div className={style.contenselect}>
-          <select
-            name=""
-            id=""
-            value={filtersave.selectSize}
-            onChange={handleSize}
-          >
-            <option value="TA">Talla</option>
-            {optionSize()}
-          </select>
-          <i></i>
+          <Select 
+          defaultValue={"TA"}
+          value={!uniqueFilters.selectSize? "TALLA": uniqueFilters.selectSize}
+          options={sizeOptions}
+          style={{ width: "120%" }}
+          onChange={handleSize}
+          />
+          
         </div>
       </div>
     </div>

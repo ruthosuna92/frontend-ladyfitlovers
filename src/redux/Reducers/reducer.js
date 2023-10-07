@@ -97,7 +97,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allProducts:
-          action.payload === "T"
+          action.payload === ""
             ? state.saveProducts
             : state.saveProducts.filter(
                 (product) => product.Category.name === action.payload
@@ -111,7 +111,7 @@ const reducer = (state = initialState, action) => {
       let filteredProducts;
       let filteredColor;
 
-      if (action.payload === "C") {
+      if (action.payload === "") {
         filteredProducts = state.saveProducts;
       } else {
         filteredProducts =
