@@ -18,6 +18,7 @@ import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
 import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
+import Payment from "./views/Payment/Payment";
 
 const App = () => {
   // dispatch to get all products globally
@@ -73,6 +74,7 @@ const App = () => {
         {/* <Route path="/crear-producto" element={<CreateProduct />} /> */}
         <Route path="/perfil/:key" element={<Profile />} />
         <Route path="/paymentState" element={<PaymentState />} />
+        <Route path="/compra" element={<PaymentState />} />
       </Routes>
       <Footer />
     </ConfigProvider>

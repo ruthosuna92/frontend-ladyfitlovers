@@ -1,86 +1,86 @@
+import { useEffect, useState } from "react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+//actions
 import postPurchase from "../../redux/Actions/Purchase/PostPurchase";
+import cleanCart from "../../redux/Actions/ShoppingCart/cleanCart";
 
 const PaymentState = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId);
   const cart = useSelector((state) => state.cart);
-  const location = useLocation();
+
+  // const userId = useState((state) => state.userId);
+
+  // const cart = useState((state) => state.cart);
 
   const queryParams = new URLSearchParams(location.search);
   const data = queryParams.get("data");
   const parsedData = JSON.parse(decodeURIComponent(data));
 
+  console.log(parsedData);
+
   useEffect(() => {
+    // necesitamos despachar la orden al back primero
     if (parsedData.status === "approved") {
       const paymentApproved = async () => {
-        if (userId && cart.length > 0) {
-          try {
-            // Dispatch an action to create an order and get the payment URL
-            const response = await dispatch(postPurchase(cart));
-            const paymentURL = response.data.paymentURL;
+        if (userId.length) {
+          // una vez tenemos el success
+          // despachamos el envio de informacion como : payment status, order ID
+          //despachar /purchase/add userId y products list para agregar la compra a la lista de compras del usuario
+          const response = await dispatch(postOrder(cart));
 
-            // Redirect the user to the payment gateway's page
-            window.location.href = paymentURL;
-          } catch (error) {
-            console.error("Error initiating payment:", error);
-          }
+          // - The payment gateway responds with a unique payment URL or an order ID.
+
+          //despachar limpiar el carrito
+          // if response ==200 then =>
+          dispatchEvent(cleanCart());
         }
       };
-      paymentApproved();
     }
-  }, [dispatch, userId, cart, parsedData]);
-
+    // }, [dispatch, userId, cart, parsedData]);
+  }, [parsedData]);
   return <div></div>;
 };
 
 export default PaymentState;
 
-// import { useEffect, useState } from "react";
 // import React, { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
-// //actions
-// import postPurchase from "../../redux/Actions/Purchase/PostPurchase";
-// import cleanCart from "../../redux/Actions/ShoppingCart/cleanCart";
+// import { useLocation } from "react-router-dom";
+// import postOrder from "../../redux/Actions/Purchase/PostPurchase";
 
 // const PaymentState = () => {
 //   const dispatch = useDispatch();
 //   const userId = useSelector((state) => state.userId);
 //   const cart = useSelector((state) => state.cart);
-
-//   // const userId = useState((state) => state.userId);
-
-//   // const cart = useState((state) => state.cart);
+//   const location = useLocation();
 
 //   const queryParams = new URLSearchParams(location.search);
-
 //   const data = queryParams.get("data");
-
 //   const parsedData = JSON.parse(decodeURIComponent(data));
 
-//   console.log(parsedData);
-
 //   useEffect(() => {
-//     // necesitamos despachar la orden al back primero
 //     if (parsedData.status === "approved") {
 //       const paymentApproved = async () => {
-//         if (userId.length) {
-//           // una vez tenemos el success
-//           // despachamos el envio de informacion como : payment status, order ID
-//           //despachar /purchase/add userId y products list para agregar la compra a la lista de compras del usuario
-//           dispatch(postPurchase(userId, cart));
+//         if (userId && cart.length > 0) {
+//           try {
+//             // Dispatch an action to create an order and get the payment URL
+//             const response = await dispatch(postOrder(cart));
+//             const paymentURL = response.data.paymentURL;
+//             // userId , orderStatus , currency, totalOrder (suma),  productos, paymentId, paymentStatus
 
-//           // - The payment gateway responds with a unique payment URL or an order ID.
-
-//           //despachar limpiar el carrito
-//           dispatchEvent(cleanCart());
+//             // Redirect the user to the payment gateway's page
+//             window.location.href = paymentURL;
+//           } catch (error) {
+//             console.error("Error initiating payment:", error);
+//           }
 //         }
 //       };
+//       paymentApproved();
 //     }
-//   }, [dispatch, userId, cart, parsedData]);
-//   // }, []);
+//   }, [parsedData]);
+
 //   return <div></div>;
 // };
 
