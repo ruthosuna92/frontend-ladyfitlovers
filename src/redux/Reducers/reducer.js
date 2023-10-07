@@ -65,7 +65,7 @@ const reducer = (state = initialState, action) => {
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
-        allProducts: action.payload,
+        allProducts: state.name.length <2 ? state.saveProducts : action.payload,
       };
     // case CLEAN:
     //   return {
@@ -97,7 +97,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         allProducts:
-          action.payload === "T"
+          action.payload === "TA"
             ? state.saveProducts
             : state.saveProducts.filter(
                 (product) => product.Category.name === action.payload
@@ -111,7 +111,7 @@ const reducer = (state = initialState, action) => {
       let filteredProducts;
       let filteredColor;
 
-      if (action.payload === "C") {
+      if (action.payload === "") {
         filteredProducts = state.saveProducts;
       } else {
         filteredProducts =
@@ -147,7 +147,7 @@ const reducer = (state = initialState, action) => {
     case FILT_BY_SIZE:
       let filteredSize;
 
-      if (action.payload === "TA") {
+      if (action.payload === "") {
         filteredSize =
           state.savePivot.length > 0 ? state.savePivot : state.saveProducts;
       } else {
@@ -227,27 +227,38 @@ const reducer = (state = initialState, action) => {
       };
       case ADDING_PRODUCT:
         console.log(action.payload);
-      const productDontMatch = state.cart.filter((prod) => {
-        return prod.name !== action.payload.name || prod.color !== action.payload.color || prod.size !== action.payload.size})
-        console.log(productDontMatch);
-        if(productDontMatch.length){
+        if(!state.cart.length){
+          console.log('no hay nada, guardo por primera vez')
           return {
             ...state,
-            cart: [...state.cart, action.payload]
+            cart: [action.payload]
           }
-        } 
-        else {
-          const productFound = state.cart.find((prod) => {
-            console.log(prod);
-            return prod.name === action.payload.name})
+        } else {
           console.log(action.payload);
-          console.log(productFound);
-          console.log(state.cart);
-          //productFound.quantity += action.payload.quantity
-          return {
-            ...state,
-            cart: [...state.cart]
-          }
+          let productDontMatch = []
+          //console.log(productDontMatch);
+          productDontMatch = state.cart.filter((prod) => prod.name !== action.payload.name || prod.color !== action.payload.color || prod.size !== action.payload.size)
+            //console.log(productDontMatch);
+            if(productDontMatch.length && productDontMatch.length === state.cart.length){
+              productDontMatch = []
+              //console.log(productDontMatch)
+              console.log('es diferente, agrego como otro producto')
+              return {
+                ...state,
+                cart: [...state.cart, action.payload]
+              }
+            } 
+            else {
+              console.log('ya existe el producto, lo encuentro y le sumo la cantidad');
+              let productFound = state.cart.find((prod) => prod.name === action.payload.name && prod.color === action.payload.color && prod.size === action.payload.size)
+              productFound.quantity += action.payload.quantity
+              productFound.price += action.payload.price * action.payload.quantity
+              return {
+                ...state,
+                cart: [...state.cart]
+              }
+            }
+
         }
       case GET_ALL_USERS:
         return {

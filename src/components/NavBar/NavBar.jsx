@@ -50,42 +50,42 @@ const NavBar = () => {
     setVisible(false);
   };
 
-  // const categories = (
-  //   <Menu onClick={handleMenuClick}>
-  //     {user.typeUser == "Admin" && (
-  //       <Menu.Item key="dashboard">
-  //         <Link to="/admin">
-  //           <FundViewOutlined />
-  //           Panel Administrador
-  //         </Link>
-  //       </Menu.Item>
-  //     )}
-  //     <Menu.Item key="perfil">
-  //       <Link to="/perfil">
-  //         <ProfileOutlined className="menuIcon" />
-  //         Perfil
-  //       </Link>
-  //     </Menu.Item>
-  //     <Menu.Item key="compras">
-  //       <Link to="/perfil/mis-compras">
-  //         <ShoppingOutlined className="menuIcon" />
-  //         Mis compras
-  //       </Link>
-  //     </Menu.Item>
-  //     <Menu.Item key="reseñas">
-  //       <Link to="/perfil/opiniones">
-  //         <StarOutlined className="menuIcon" />
-  //         Opiniones
-  //       </Link>
-  //     </Menu.Item>
-  //     <Menu.Item key="logout" onClick={handleLogout}>
-  //       <LogoutOutlined className="menuIcon" />
-  //       Cerrar Sesión
-  //     </Menu.Item>
-  //   </Menu>
-  // );
-
   const menu = (
+    <Menu onClick={handleMenuClick}>
+      {user.typeUser == "Admin" && (
+        <Menu.Item key="dashboard">
+          <Link to="/admin">
+            <FundViewOutlined />
+            Panel Administrador
+          </Link>
+        </Menu.Item>
+      )}
+      <Menu.Item key="perfil">
+        <Link to="/perfil/perfil">
+          <ProfileOutlined className="menuIcon" />
+          Perfil
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="compras">
+        <Link to="/perfil/compras">
+          <ShoppingOutlined className="menuIcon" />
+          Mis compras
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="opiniones">
+        <Link to="/perfil/opiniones">
+          <StarOutlined className="menuIcon" />
+          Opiniones
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined className="menuIcon" />
+        Cerrar Sesión
+      </Menu.Item>
+    </Menu>
+  );
+
+  const categories = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="perfil">
         <Link to="/perfil/perfil">
