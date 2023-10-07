@@ -8,7 +8,7 @@ const Profile = () => {
     return (
         <div className={style.contianerProfiler}>
             <div className={style.subcontainer}>
-                <img className={style.profileimg} src="" alt="" />
+                <img className={style.profileimg} src={infouser.image} alt="" />
                 <div className={style.containerDataName}>
                     <div className={style.nameContainer}>
                         <label htmlFor="name">Nombre</label>

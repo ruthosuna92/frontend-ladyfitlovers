@@ -20,6 +20,7 @@ const { Header, Sider, Content } = Layout;
 const ProfileLayout = ({ profileKey }) => {
   console.log(profileKey);
   const infouser = useSelector((state) => state.user);
+  console.log(infouser);
   const [dataUser, setFormData] = useState({
     id: "",
     name: "",

@@ -6,6 +6,7 @@ const endpoint =
 const endpoint2 = "https://pf-back-production-4255.up.railway.app/user/";
 
 const authUser = (profileObj, accessToken) => {
+  console.log(profileObj, accessToken);
   return async (dispatch) => {
     try {
       const { data } = await axios.post(endpoint, { profileObj, accessToken });
