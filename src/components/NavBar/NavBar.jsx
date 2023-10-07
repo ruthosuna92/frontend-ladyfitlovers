@@ -55,7 +55,7 @@ const NavBar = () => {
       {user.typeUser == "Admin" && (
         <Menu.Item key="dashboard">
           <Link to="/admin">
-            <FundViewOutlined />
+            <FundViewOutlined className="menuIcon" />
             Panel Administrador
           </Link>
         </Menu.Item>

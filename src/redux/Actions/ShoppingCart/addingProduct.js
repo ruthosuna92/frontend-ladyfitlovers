@@ -1,10 +1,10 @@
-import { ADDING_PRODUCT } from "../actionTypes"
+import { ADDING_PRODUCT } from "../actionTypes";
 const addingProduct = (product) => {
-    console.log(product);
-    return {
-        type: ADDING_PRODUCT,
-        payload: product
-    }
-}
+  console.log(product);
+  return {
+    type: ADDING_PRODUCT,
+    payload: product,
+  };
+};
 
-export default addingProduct
+export default addingProduct;

@@ -1,30 +1,39 @@
 import {
+  //users
+  LOGIN_USER,
+  LOGOUT_USER,
+  USER_BY_ID,
+  AUTH_USER,
+  GET_ALL_USERS,
+  //products
   GET_ALL_PRODUCTS,
   GET_ID_DETAIL_PRODUCTS,
   SET_PAGE,
   PRODUCTS_PER_PAGE,
   GET_PRODUCT_BY_NAME,
+  SET_NAME,
+  //filter
   FILT_BY_CATEGORY,
   FILT_BY_COLOR,
   FILT_BY_SIZE,
+  SAVE_FILTERS,
+  //category
   GET_CATEGORIES,
   POST_CATEGORY,
-  SET_NAME,
-  LOGIN_USER,
-  LOGOUT_USER,
-  USER_BY_ID,
-  SAVE_FILTERS,
-  AUTH_USER,
+  //cart
   ADDING_PRODUCT,
-  GET_ALL_USERS,
+  CLEAN_CART,
+  GET_CART,
+  //favorites
+  //purchase
   DECREMENT_QUANTITY
 } from "../Actions/actionTypes";
 
 const initialState = {
+  //products
   allProducts: [],
   allUsers: [],
   productDetail: null,
-  //   filteredProducts: null,
   saveProducts: [],
   currentPage: 1,
   productsPerPage: [],
@@ -33,7 +42,7 @@ const initialState = {
   savePivot: [],
   allCategories: null,
   name: null,
-  // usuario
+  // user
   isLoggedIn: false,
   userId: [],
   user: [],
@@ -45,7 +54,10 @@ const initialState = {
     selectColor: "",
     selectSize: "",
   },
-  cart: []
+  //cart
+  cart: [],
+  //favorites
+  //purchase
 };
 
 const reducer = (state = initialState, action) => {
@@ -68,12 +80,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: state.name.length <2 ? state.saveProducts : action.payload,
       };
-    // case CLEAN:
-    //   return {
-    //     allProducts: null,
-    //     products: null,
-    //     //   filteredProducts: null,
-    //   };
     case SET_PAGE:
       const startIndex = (action.payload - 1) * state.quantity;
       const endIndex = startIndex + state.quantity;
@@ -155,7 +161,11 @@ const reducer = (state = initialState, action) => {
         filteredSize = state.allProducts.filter((product) =>
           product.stock.some((stockItem) =>
             stockItem.sizeAndQuantity.some(
-              (sizeItem) => sizeItem.size === action.payload && sizeItem.quantity > 0)))
+              (sizeItem) =>
+                sizeItem.size === action.payload && sizeItem.quantity > 0
+            )
+          )
+        );
       }
       return {
         ...state,
@@ -228,45 +238,62 @@ const reducer = (state = initialState, action) => {
       };
       case ADDING_PRODUCT:
         console.log(action.payload);
-        if(!state.cart.length){
-          console.log('no hay nada, guardo por primera vez')
+        if (!state.cart.length) {
+          console.log("no hay nada, guardo por primera vez");
           return {
             ...state,
-            cart: [action.payload]
-          }
+            cart: [action.payload],
+          };
         } else {
           console.log(action.payload);
-          let productDontMatch = []
+          let productDontMatch = [];
           //console.log(productDontMatch);
-          productDontMatch = state.cart.filter((prod) => prod.name !== action.payload.name || prod.color !== action.payload.color || prod.size !== action.payload.size)
+          productDontMatch = state.cart.filter(
+            (prod) =>
+              prod.name !== action.payload.name ||
+              prod.color !== action.payload.color ||
+              prod.size !== action.payload.size
+          );
+          //console.log(productDontMatch);
+          if (
+            productDontMatch.length &&
+            productDontMatch.length === state.cart.length
+          ) {
+            productDontMatch = [];
+            //console.log(productDontMatch)
+            console.log("es diferente, agrego como otro producto");
+            return {
+              ...state,
+              cart: [...state.cart, action.payload],
+            };
+          } else {
+            console.log(action.payload);
+            let productDontMatch = []
             //console.log(productDontMatch);
-            if(productDontMatch.length && productDontMatch.length === state.cart.length){
-              productDontMatch = []
-              //console.log(productDontMatch)
-              console.log('es diferente, agrego como otro producto')
-              return {
-                ...state,
-                cart: [...state.cart, action.payload]
+            productDontMatch = state.cart.filter((prod) => prod.name !== action.payload.name || prod.color !== action.payload.color || prod.size !== action.payload.size)
+              //console.log(productDontMatch);
+              if(productDontMatch.length && productDontMatch.length === state.cart.length){
+                productDontMatch = []
+                //console.log(productDontMatch)
+                console.log('es diferente, agrego como otro producto')
+                return {
+                  ...state,
+                  cart: [...state.cart, action.payload]
+                }
+              } 
+              else {
+                console.log('ya existe el producto, lo encuentro y le sumo la cantidad');
+                let productFound = state.cart.find((prod) => prod.name === action.payload.name && prod.color === action.payload.color && prod.size === action.payload.size)
+                productFound.quantity += action.payload.quantity
+                productFound.price = action.payload.price + productFound.price
+                return {
+                  ...state,
+                  cart: [...state.cart]
+                }
               }
-            } 
-            else {
-              console.log('ya existe el producto, lo encuentro y le sumo la cantidad');
-              let productFound = state.cart.find((prod) => prod.name === action.payload.name && prod.color === action.payload.color && prod.size === action.payload.size)
-              productFound.quantity += action.payload.quantity
-              productFound.price = action.payload.price + productFound.price
-              return {
-                ...state,
-                cart: [...state.cart]
-              }
-            }
-
+  
+          }
         }
-      case GET_ALL_USERS:
-        return {
-          ...state,
-          allUsers: action.payload,
-
-        };
         case DECREMENT_QUANTITY: 
         console.log(action.payload);
         let product = state.cart[action.payload]
@@ -288,6 +315,12 @@ const reducer = (state = initialState, action) => {
             //&& prod.color !== product.color && prod.size !== product.size)
           }
         }
+      case GET_ALL_USERS:
+        return {
+          ...state,
+          allUsers: action.payload,
+
+        };
     default:
       return {
         ...state,
