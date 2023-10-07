@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //actions
 import postPurchase from "../../redux/Actions/Purchase/PostPurchase";
@@ -39,7 +38,7 @@ const PaymentState = () => {
       };
     }
     // }, [dispatch, userId, cart, parsedData]);
-  }, [parsedData]);
+  }, []);
   return <div></div>;
 };
 
