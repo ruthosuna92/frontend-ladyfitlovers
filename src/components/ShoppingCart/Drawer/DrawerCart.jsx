@@ -30,8 +30,19 @@ const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
   
   const handle = (a) => {
     console.log(a);
+    console.log(a.target.localName === "span");
+    console.log(a.target.localName === "button");
     console.log(a.target.offsetParent.id);
-    dispatch(decrementQuantity(a.target.offsetParent.id))
+    console.log(a.target.id);
+    
+    if(a.target.innerText === "-"){
+      if(a.target.localName === "span"){
+        dispatch(decrementQuantity(a.target.offsetParent.id))
+      } else {
+        dispatch(decrementQuantity(a.target.id))
+      }
+    }
+    
     
   }
   return (
@@ -94,19 +105,34 @@ const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
 };
 export default DrawerCart;
 
-/*
-const handleBuy = async () => {
-    const id = await createPreference();
-    if (id) {
-      setPreferenceId(id);
-    }
-  };
-const createPreference = async () => {
-  try {
-    const response = await axios.post("/payment/createOrder", { products: cart });
-    window.location.href = response.data.response.body.init_point;
-  } catch (error) {
-  lconsole.log(error.message)
-  }
-};
-*/
+
+// const handleBuy = async () => {
+//   try {
+//     const { data } = await axios.post("/payment/createOrder", { products: cart, })
+//     window.location.href = data.response.body.init_point;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// {
+//   "userId": "c853ce97-99d1-401a-91ce-a7ec6d88dd37",
+//   "products": [
+//  {
+// "id": 312,
+// "name": "MUSCULOSA BODY",
+// "image": "https://d22fxaf9t8d39k.cloudfront.net/e7932f7f83718e372db5316f598c872d4daacfd08d1e496e80a70112c821518a205310.jpg",
+//     "price": 8400,
+//     "color": "red",
+//     "quantity": 6
+// },
+// {
+// "id": 3,
+// "name": "REMERA MANGA LARGA",
+// "image": "https://d22fxaf9t8d39k.cloudfront.net/38e94b7bc0a1e5cdbc1c3523a0a138a1ca007735ba6eec97394a48f542c47469205310.jpg",
+//     "price": 8500,
+//     "color": "red",
+//     "quantity": 2
+// }
+// ]
+// }
