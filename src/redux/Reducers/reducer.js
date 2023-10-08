@@ -26,6 +26,10 @@ import {
   GET_CART,
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
+
+  //orders
+  GET_ORDERS,
+
   //favorites
   //purchase
 } from "../Actions/actionTypes";
@@ -58,6 +62,10 @@ const initialState = {
   },
   //cart
   cart: [],
+
+  //orders
+  allOrders: [],
+
   //favorites
   //purchase
 };
@@ -356,6 +364,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: [],
       };
+    case GET_ORDERS:
+      return {
+        ...state,
+        allOrders: action.payload,
+      };
+
     default:
       return {
         ...state,

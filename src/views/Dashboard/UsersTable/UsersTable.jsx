@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getAllUsers from "../../../redux/Actions/User/getAllUsers";
-import { Button, Switch, Table, Tag } from "antd";
+import { Button, Switch, Table, Tag, message } from "antd";
 import {
   CheckOutlined,
   CloseOutlined,
@@ -20,11 +20,17 @@ const UsersTable = () => {
 
   const allUsers = useSelector((state) => state.allUsers);
   
-  const sortedEmails = allUsers.sort((a, b) => a.email.localeCompare(b.email));
-
   
-  const onChange = (value, user) => {
-    dispatch(userBan(value, user));
+  const onChange = async (value, user) => {
+    try {
+     const response= await dispatch(userBan(value, user));
+     if(response){
+      dispatch(getAllUsers());
+      message.success("Usuario actualizado correctamente", [2] , onClose() );
+      }
+    } catch (error) {
+      
+    }
   };
 
   const columns = [
@@ -47,6 +53,18 @@ const UsersTable = () => {
       sorter: (a, b) => a.email.localeCompare(b.email),
       key: "email",
       render: (text) => <p>{text}</p>,
+    },
+    {
+      title: "Telefono",
+      dataIndex: "phone",
+      key: "phone",
+      render: (text) => <p>{text  || "No definido"}</p>,
+    },
+    {
+      title: "Dirección",
+      dataIndex: "address",
+      key: "address",
+      render: (text) => <p>{text || "No definido"}</p>,
     },
     {
       title: "Rol",

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { Input, Button, message, Select } from "antd";
 import { Field, useFormikContext } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { provincias } from "./Provincias";
+import { saveImage } from "../CreateProduct/saveImage";
 import AvatarEditor from "react-avatar-editor";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import updateUser from "../../redux/Actions/User/updateUser";
 import postUser from "../../redux/Actions/User/postUser";
 import getUserById from "../../redux/Actions/User/getUserById"
-import { saveImage } from "../CreateProduct/saveImage";
-import { useEffect } from "react";
 import editPhoto from "../editPhoto/editPhoto";
+import getAllUsers from "../../redux/Actions/User/getAllUsers";
 import "./createAcountModal.css";
 import "./createAcountForm.css"
 
@@ -49,11 +49,13 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
   }, [selectedImage.saveImage]);
   
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
 
 
   const handleSubmit = async () => {
+    setLoading(true);
     const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
 
     const valuesToSend = {
@@ -75,6 +77,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
       }
       onClose();
       resetForm();
+      setLoading(false);
     } catch {
       message.error("Error al crear la cuenta", [2], onClose());
     }
@@ -109,14 +112,17 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
     }
   }
   const handleEdit = async () => {
-    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
+    setLoading(true);
+    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
+
+    const checkNewAddress = values.calle && values.numero && values.dpto && values.entreCalles && values.localidad && values.codigoPostal && values.provincia
 
     const valuesToSend = {
       id: values.id,
       name: values.name,
       surname: values.surname,
       phone: values.phone,
-      address: address,
+      address: checkNewAddress ?  address : values.address ,
       email: values.email,
       password: values.password,
       userBan: values.userBan
@@ -126,15 +132,17 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
     try {
       const response = await dispatch(updateUser(valuesToSend)); // cambiar por putUser
 
-      if (response.message === "Usuario creado correctamente") {
+      if (response.message === "Usuario editado correctamente") {
         message.success(response.message, [2], onClose());
+        setLoading(false);
       } else {
-        message.error("Error al crear la cuenta", [2], onClose());
+        message.error("Error al editar el usuario" , [2], onClose());
       }
       onClose();
       resetForm();
+      dispatch(getAllUsers())
     } catch {
-      message.error("Error al crear la cuenta", [2], onClose());
+        message.error("Error al editar el usuario" , [2], onClose());
     }
   };
 
@@ -388,7 +396,8 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
                   errors.codigoPostal ||
                   errors.provincia ||
                   errors.email ||
-                  errors.password
+                  errors.password  ||
+                  loading
                 }
               />
           }

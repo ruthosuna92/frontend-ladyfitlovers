@@ -11,7 +11,7 @@ import DataProfile from "../DataProfile/DataProfile";
 import CreateAcountForm from "../CreateAcountModal/CreateAcountForm";
 import style from "./ProfileLayout.module.css";
 import { Formik, Form } from "formik";
-import CreateAcountSchema from "../CreateAcountModal/createAcountSchema";
+import {CreateAcountSchema} from "../CreateAcountModal/createAcountSchema";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";

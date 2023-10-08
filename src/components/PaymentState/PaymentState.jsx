@@ -22,7 +22,8 @@ const PaymentState = () => {
   // console.log(data);
 
   const parsedData = JSON.parse(decodeURIComponent(data));
-  const totalAmount = 200;
+  const totalAmount = products.map((prod) => prod.price * prod.quantity).reduce((acc, cur) => acc + cur, 0)
+  
   const mpId = parsedData.payment_id;
   // console.log(parsedData);
 

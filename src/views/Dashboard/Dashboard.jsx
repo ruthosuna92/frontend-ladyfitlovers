@@ -3,6 +3,7 @@ import SideBarDashboard from "../../components/SideBar/SideBarDashboard/SideBarD
 import UsersTable from "./UsersTable/Userstable";
 import ProductsTable from "./ProductsTable/ProductsTable";
 import CreateProduct from "../../components/CreateProduct/CreateProduct";
+import OrdersTable from "./OrderTable/OrdersTable";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -16,7 +17,7 @@ const Dashboard = () => {
         {location.pathname === "/admin" && <h1>Dashboard</h1>}
         {location.pathname === "/admin/usuarios" && <UsersTable />}
         {location.pathname === "/admin/productos" && <ProductsTable />}
-        {location.pathname === "/admin/ordenes" && <h1>Ordenes</h1>}
+        {location.pathname === "/admin/ordenes" && <OrdersTable/>}
         {location.pathname === "/admin/crear-producto" && <CreateProduct/>}
       </div>
     </div>

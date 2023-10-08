@@ -88,18 +88,6 @@ const ProductsTable = () => {
       render: (stock) => <p>{stock}</p>,
     },
     {
-      title: "Stock",
-      dataIndex: "stock",
-      key: "stock",
-      render: (stock) => {
-        if(stock.length >= 0) {
-            return <p>{stock[0]?.size}</p>;
-            } else {
-            return <p>0</p>;
-            }
-      },
-    },
-    {
       title: "Acciones",
       dataIndex: "",
       key: "action",

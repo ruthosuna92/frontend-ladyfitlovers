@@ -13,6 +13,7 @@ import { gapi } from "gapi-script";
 import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
 
+//Enviar a una variable de entorno!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const clientId =
   "521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
 
@@ -33,7 +34,7 @@ const LoginModal = (props) => {
       });
     }
     gapi.load("client:auth2", start);
-  });
+  }, [])
 
   const handleLogin = async () => {
     try {
@@ -127,7 +128,7 @@ const LoginModal = (props) => {
           Google
         </Divider>
         <Form.Item>
-          <GoogleAuth onGoogleLoginSuccess={handleGoogleLoginSuccess} />
+        <GoogleAuth onGoogleLoginSuccess={handleGoogleLoginSuccess} />
         </Form.Item>
       </Form>
     </Modal>

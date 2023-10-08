@@ -28,13 +28,15 @@ const GoogleAuth = ({ onGoogleLoginSuccess }) => {
   return (
 
       <div id="signInButton" className="googleButton">
+        
         <GoogleLogin
           clientId={clientId}
-          buttonText="Login"
+          buttonText="Iniciar con Google"
           onSuccess={onSuccess}
           onFailure={onFailure}
           cookiesPolicy={"single_host_origin"}
           isSignedIn={true}
+          
         />
       </div>
 
