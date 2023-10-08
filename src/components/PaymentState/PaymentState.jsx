@@ -11,11 +11,12 @@ const PaymentState = () => {
   const products = useSelector((state) => state.cart);
 
   const queryParams = new URLSearchParams(location.search);
+  console.log(queryParams);
   const data = queryParams.get("data");
-  const mpId = parsedData.id;
-  const totalAmount = parsedData.totalAmount;
+  console.log(data);
   const parsedData = JSON.parse(decodeURIComponent(data));
-
+  const totalAmount = 200;
+  const mpId = parsedData.payment_id;
   console.log(parsedData);
 
   useEffect(() => {
@@ -26,20 +27,20 @@ const PaymentState = () => {
           // una vez tenemos el success
           // despachamos el envio de informacion como : payment status, order ID
           //despachar /purchase/add userId y products list para agregar la compra a la lista de compras del usuario
-          const response = await dispatch(
+          const response = dispatch(
             postOrder({ userId, products, mpId, totalAmount })
           );
-          if (response == 200) {
+          if (response) {
             console.log("order added");
             //despachar limpiar el carrito
-            dispatchEvent(cleanCart());
+            dispatch(cleanCart());
           }
           // - The payment gateway responds with a unique payment URL or an order ID.
         }
       };
     }
-    // }, [dispatch, userId, cart, parsedData]);
   }, [parsedData]);
+  // }, []);
   return (
     <div>
       <h2>Compra realizada con exito!</h2>
