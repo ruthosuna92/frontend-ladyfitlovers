@@ -12,8 +12,10 @@ const postOrder = ({ userId, products, mpId, totalAmount }) => {
         mpId,
         totalAmount,
       });
-      console.log("Compra realizada correctamente");
-      return data;
+
+      return {
+        message: "Compra realizada correctamente",
+      };
     } catch (error) {
       if (error.response) {
         console.error(
