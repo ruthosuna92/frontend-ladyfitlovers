@@ -7,7 +7,7 @@ const endpoint = `${API_URL_BASE}/cart/clean`;
 const cleanCart = (userId) => {
   return async (dispatch) => {
     try {
-      await axios.put(endpoint, userId);
+      await axios.put(endpoint, {userId});
 
       return dispatch({
         type: CLEAN_CART,

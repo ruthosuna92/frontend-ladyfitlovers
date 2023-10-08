@@ -8,7 +8,8 @@ import { NavLink } from "react-router-dom";
 
 const PaymentState = () => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userId);
+  const userId = useSelector((state) => state.user.id);
+  console.log(userId);
   const products = useSelector((state) => state.cart);
   const location = useLocation();
 
@@ -27,28 +28,31 @@ const PaymentState = () => {
 
   useEffect(() => {
     // necesitamos despachar la orden al back primero
+    dispatch(cleanCart(userId));
+
     if (parsedData.status === "approved") {
       const paymentApproved = async () => {
-        if (userId.length) {
+        if (userId) {
           // una vez tenemos el success
           // despachamos el envio de informacion como : payment status, order ID
           //despachar /purchase/add userId y products list para agregar la compra a la lista de compras del usuario
           console.log(userId, products, mpId, totalAmount);
 
-          const response = dispatch(
+          const response = await dispatch(
             postOrder({ userId, products, mpId, totalAmount })
           );
-          if (response) {
+          if (response ==201) {
             console.log("order added");
             //despachar limpiar el carrito
-            dispatch(cleanCart());
+            dispatch(cleanCart(userId));
           }
         }
       };
       paymentApproved();
     }
-  }, [parsedData]);
-  // }, []);
+  // }, [userId]);
+  }, []);
+  
   return (
     <div>
       <h2>Compra realizada con exito!</h2>
@@ -95,46 +99,6 @@ export default PaymentState;
 //       paymentApproved();
 //     }
 //   }, [parsedData]);
-
-//   return <div></div>;
-// };
-
-// export default PaymentState;
-
-// import React, { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom"; // Import useHistory for redirection
-// import postPurchase from "../../redux/Actions/Purchase/PostPurchase";
-
-// const PaymentState = () => {
-//   const dispatch = useDispatch();
-//   const userId = useSelector((state) => state.userId);
-//   const cart = useSelector((state) => state.cart);
-//   const history = useHistory();
-
-//   const queryParams = new URLSearchParams(location.search);
-//   const data = queryParams.get("data");
-//   const parsedData = JSON.parse(decodeURIComponent(data));
-
-//   useEffect(() => {
-//     if (parsedData.status === "approved") {
-//       const paymentApproved = async () => {
-//         if (userId && cart.length > 0) {
-//           try {
-//             // Dispatch an action to create an order and get the payment URL
-//             const response = await dispatch(postPurchase(cart));
-//             const paymentURL = response.data.paymentURL;
-
-//             // Redirect the user to the payment gateway's page
-//             window.location.href = paymentURL;
-//           } catch (error) {
-//             console.error("Error initiating payment:", error);
-//           }
-//         }
-//       };
-//       paymentApproved();
-//     }
-//   }, [dispatch, userId, cart, parsedData]);
 
 //   return <div></div>;
 // };
