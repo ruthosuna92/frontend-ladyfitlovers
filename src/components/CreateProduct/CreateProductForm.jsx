@@ -25,8 +25,9 @@ const CreateProductForm = ({ errors, isEditing }) => {
     categoriesOptions.unshift({ value: "", label: "Selecciona una categoria" });
   }
 
-  const categoryUpdateOptions = categories?.map((category) => { 
-    return { value: category.id, label: category.name }})
+  const categoryUpdateOptions = categories?.map((category) => {
+    return { value: category.id, label: category.name };
+  });
 
   const colorOptions = [
     { value: "", label: "Selecciona un color" },
@@ -103,8 +104,6 @@ const CreateProductForm = ({ errors, isEditing }) => {
     setFieldValue("category", value);
   };
 
-  
-
   return (
     <>
       {showCreateCategoryModal && (
@@ -164,14 +163,17 @@ const CreateProductForm = ({ errors, isEditing }) => {
               </>
             )}
           </div>
-          
+
+          {!isEditing && (
             <Field id="category" name="category">
               {({ field, form, meta }) => {
                 return (
                   <div className="fieldAndError">
                     <Select
                       {...field}
-                      options={isEditing ? categoryUpdateOptions: categoriesOptions}
+                      options={
+                        isEditing ? categoryUpdateOptions : categoriesOptions
+                      }
                       onChange={(value) => onChangeCategories(value)}
                       style={{ width: "100%" }}
                     />
@@ -189,8 +191,7 @@ const CreateProductForm = ({ errors, isEditing }) => {
                 );
               }}
             </Field>
-          
-         
+          )}
         </div>
 
         <FieldArray name="stock">

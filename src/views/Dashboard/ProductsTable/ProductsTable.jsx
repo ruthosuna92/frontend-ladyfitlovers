@@ -1,11 +1,13 @@
 import { Button, Switch, Table } from "antd";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import "./productsTable.css";
 import EditProductModal from "../../../components/EditPorductModal/EditPorductModal";
+import updateProduct from "../../../redux/Actions/Product/updateProduct";
 
 const ProductsTable = () => {
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.allProductsAdmin);
   const sortedProducts = products.sort((a, b) => a.name.localeCompare(b.name));
   const allCatgories = useSelector((state) => state.allCategories);
@@ -20,6 +22,32 @@ const ProductsTable = () => {
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [productUpdate, setProductUpdate] = useState({});
+
+
+  const handleActive = async (value, product) => {
+    try {
+      const response = await dispatch(
+        updateProduct({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          priceOnSale: product.priceOnSale,
+          unitsSold: product.unitsSold,
+          image: product.image,
+          category: product.category,
+          stock: product.stock,
+          active: value,
+        })
+      );
+
+      message.success(response.message, [2], onClose());
+
+      resetForm();
+    } catch {
+      message.error("Error al crear producto", [2], onClose());
+    }
+  };
+
   
   const columns = [
     {
@@ -91,16 +119,16 @@ const ProductsTable = () => {
     },
     {
         title: "Activo",
-        dataIndex: "active",
+        dataIndex: "",
         key: "active",
-        render: (value) => {
-            console.log(value)
+        render: (cell) => {
+           
           return (
             <Switch
               checkedChildren={<CheckOutlined />}
               unCheckedChildren={<CloseOutlined />}
-              defaultChecked={value === true ? true : false}
-              onChange={()=> {}}
+              defaultChecked={cell.active === true ? true : false}
+              onChange={()=> handleActive(cell.active === true ? false : true, cell)}
             />
           )
         }
