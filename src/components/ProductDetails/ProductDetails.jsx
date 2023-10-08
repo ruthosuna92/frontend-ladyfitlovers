@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getColorName } from "../../utils/getColorName";
-import { Select} from "antd";
+import { Select, message} from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
@@ -15,11 +15,26 @@ const ProductDetails = ({
 }) => {
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
-  console.log(cart);
+
+  useEffect(() => {
+    // saveCartLocal()
+  }, [])
+  const [messageApi, contextHolder] = message.useMessage()
+
   //=============================inicializo el arreglo que tiene los objetos con props color y sizeAndQuantity
-  const array = productData && productData?.stock
+  let array = productData && productData?.stock
   //==============================mapeo para obtener el arreglo de solo colores
-  const colors = array.map((col)=> col.color)
+
+  const colorsFunc = (array) => {
+    if(!array.length){
+      array = ["N/A"]
+      return array
+    } else {
+      let colors = array.map((col)=> col.color)
+      return colors
+    }
+  }
+  const colors = colorsFunc(array)
   //=============================inicializo función que según los parametros que reciba retorna las tallas y cantidades correspondientes a esos colores y/o talla
   const selectsArrays = (color, size) => {
     if(array.length !== 0){
@@ -41,6 +56,12 @@ const ProductDetails = ({
           size
         }
       }
+    } else {
+      return {
+        sizes: ['Sin stock'],
+        quantities: [0],
+        size: ['Sin stock']
+      }
     }
   }
   //=======================================estado local que se setea cada vez que el cliente selecciona algo, a su vez se combina con la función
@@ -49,7 +70,7 @@ const ProductDetails = ({
     sizes: selectsArrays(colors[0], null).sizes,
     quantities: selectsArrays(colors[0], null).quantities,
     size: selectsArrays(colors[0], null).size,
-    quantity: 1
+    quantity: selectsArrays(colors[0], null).quantities[0]
   })
   //======================================estado local que abre el DrawerCart
   const [openDrawer, setOpenDrawer] = useState(false)
@@ -57,6 +78,7 @@ const ProductDetails = ({
   const onClose = (boolean) => {
     setOpenDrawer(boolean)
   };
+
   //====================================array de colores mapeado nuevamente para usarlo en el select de ant
   const colorOptions = colors.map((color) => {
     return { value: color, label: getColorName(color) };
@@ -75,21 +97,42 @@ const ProductDetails = ({
   const shopping = {
     id: productData.id, 
     name: productData.name,
-      price: productData.price * selects.quantity,
+      price: productData.price,
       image: productData.image,
       color: selects.color,
       size: selects.size,
       quantity: selects.quantity
   }
-  console.log(shopping);
+ const max = selects.quantities[selects.quantities.length - 1] //cantidad máxima de stock del producto renderizado en detail
+
   const handle = () => {
-    dispatch(addingProduct(shopping))
-    setOpenDrawer(true)
+    if(shopping.quantity){
+      let productExist = cart.find((prod) => prod.id === shopping.id && prod.color === shopping.color && prod.size === shopping.size)
+      if(productExist && productExist.quantity + shopping.quantity > max){
+        messageApi.open({
+          type: 'warning',
+          content: `Has excedido el límite del stock, puedes agregar ${max - productExist.quantity} producto(s) más`,
+        });
+      } else {
+        dispatch(addingProduct(shopping))
+        setOpenDrawer(true)
+      }
+    } else {
+      messageApi.open({
+        type: 'warning',
+        content: 'Este producto esta sin stock',
+      });
+    }
   }
+ 
   return (
-    <div>{openDrawer && <DrawerCart
+    <div>
+      {contextHolder}
+      {openDrawer && <DrawerCart
     openDrawer={openDrawer}
-    onClose={onClose}/>}
+    onClose={onClose}
+    // saveCartLocal={saveCartLocal}
+    />}
     <div className="productDetailContainer">
       <div className="productDetailContainerTop">
         

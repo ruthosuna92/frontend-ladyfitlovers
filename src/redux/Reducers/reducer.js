@@ -24,6 +24,8 @@ import {
   ADDING_PRODUCT,
   CLEAN_CART,
   GET_CART,
+  DECREMENT_QUANTITY,
+  INCREMENT_QUANTITY,
   //favorites
   //purchase
 } from "../Actions/actionTypes";
@@ -66,7 +68,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         saveProducts: action.payload,
         allProducts: action.payload,
-        productsPerPage: action.payload.slice(0, 4),
+        productsPerPage: action.payload.slice(0, state.quantity),
         totalButtons: Math.ceil(action.payload.length / state.quantity),
       };
     case GET_ID_DETAIL_PRODUCTS:
@@ -180,7 +182,36 @@ const reducer = (state = initialState, action) => {
         ...state,
         allCategories: [...state.allCategories, action.payload],
       };
+      case LOGIN_USER:
+  
+      return {
+        ...state,
+        isLoggedIn: true,
+        userId: action.payload.id,
+        token: action.payload.token,
+      };
 
+    case USER_BY_ID:
+      console.log("User by ID:", action.payload);
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case AUTH_USER:
+      console.log("User authenticated with Google", action.payload);
+      return {
+        ...state,
+        isLoggedIn: true,
+        token: action.payload.token,
+        user: action.payload,
+      };
+    case LOGOUT_USER:
+      console.log("logout");
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: [],
+      };
     case SAVE_FILTERS:
       let newSaveFilters = { ...state.saveFilters };
 
@@ -206,98 +237,112 @@ const reducer = (state = initialState, action) => {
         ...state,
         saveFilters: newSaveFilters,
       };
-    case ADDING_PRODUCT:
-      console.log(action.payload);
-      if (!state.cart.length) {
-        console.log("no hay nada, guardo por primera vez");
-        return {
-          ...state,
-          cart: [action.payload],
-        };
-      } else {
-        console.log(action.payload);
-        let productDontMatch = [];
-        //console.log(productDontMatch);
-        productDontMatch = state.cart.filter(
-          (prod) =>
-            prod.name !== action.payload.name ||
-            prod.color !== action.payload.color ||
-            prod.size !== action.payload.size
-        );
-        //console.log(productDontMatch);
-        if (
-          productDontMatch.length &&
-          productDontMatch.length === state.cart.length
-        ) {
-          productDontMatch = [];
-          //console.log(productDontMatch)
-          console.log("es diferente, agrego como otro producto");
+      case ADDING_PRODUCT:
+        
+        if (!state.cart.length) {
+          console.log("no hay nada, guardo por primera vez");
           return {
             ...state,
-            cart: [...state.cart, action.payload],
+            cart: [action.payload],
           };
         } else {
-          console.log(
-            "ya existe el producto, lo encuentro y le sumo la cantidad"
-          );
-          let productFound = state.cart.find(
+          
+          let productDontMatch = [];
+          
+          productDontMatch = state.cart.filter(
             (prod) =>
-              prod.name === action.payload.name &&
-              prod.color === action.payload.color &&
-              prod.size === action.payload.size
+              prod.name !== action.payload.name ||
+              prod.color !== action.payload.color ||
+              prod.size !== action.payload.size
           );
-          productFound.quantity += action.payload.quantity;
-          productFound.price += action.payload.price * action.payload.quantity;
+          
+          if (
+            productDontMatch.length &&
+            productDontMatch.length === state.cart.length
+          ) {
+            productDontMatch = [];
+            
+            console.log("es diferente, agrego como otro producto");
+            return {
+              ...state,
+              cart: [...state.cart, action.payload],
+            };
+          } else {
+            
+            let productDontMatch = []
+            
+            productDontMatch = state.cart.filter((prod) => prod.name !== action.payload.name || prod.color !== action.payload.color || prod.size !== action.payload.size)
+              
+              if(productDontMatch.length && productDontMatch.length === state.cart.length){
+                productDontMatch = []
+                
+                console.log('es diferente, agrego como otro producto')
+                return {
+                  ...state,
+                  cart: [...state.cart, action.payload]
+                }
+              } 
+              else {
+                console.log('ya existe el producto, lo encuentro y le sumo la cantidad');
+                let productFound = state.cart.find((prod) => prod.name === action.payload.name && prod.color === action.payload.color && prod.size === action.payload.size)
+                productFound.quantity += action.payload.quantity
+
+                return {
+                  ...state,
+                  cart: [...state.cart]
+                }
+              }
+  
+          }
+        }
+        case DECREMENT_QUANTITY: 
+        
+        let product = state.cart[action.payload]
+        
+        if(product.quantity > 1){
+          console.log('la cantidad es mayor que 1, disminuyo 1');
+         
+          product.quantity = product.quantity - 1
           return {
             ...state,
-            cart: [...state.cart],
-          };
+            cart: [...state.cart]
+          }
+        } else {
+          console.log('no se cumple la primera condición, elimino el producto');
+          let product = state.cart[action.payload]
+        
+          return {
+            ...state,
+            cart: state.cart.filter((prod) => prod !== product)
+        
+          }
         }
-      }
-    case CLEAN_CART:
-      return {
-        ...state,
-        cart: [],
-      };
-    case GET_CART:
-      return {
-        ...state,
-        cart: action.payload,
-      };
-    //user
-    case GET_ALL_USERS:
-      return {
-        ...state,
-        allUsers: action.payload,
-      };
-    case LOGIN_USER:
-      return {
-        ...state,
-        isLoggedIn: true,
-        userId: action.payload.id,
-        token: action.payload.token,
-      };
-    case USER_BY_ID:
-      console.log("User by ID:", action.payload);
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case AUTH_USER:
-      console.log("User authenticated with Google", action.payload);
-      return {
-        ...state,
-        isLoggedIn: true,
-        token: action.payload.token,
-        user: action.payload,
-      };
-    case LOGOUT_USER:
-      console.log("logout");
-      return {
-        ...state,
-        isLoggedIn: false,
-        user: [],
-      };
+        case INCREMENT_QUANTITY: 
+    
+        let productIn = state.cart[action.payload.index]
+        if(productIn.quantity < action.payload.top){
+          console.log('la cantidad es menor que el top, aumento 1');
+         
+          productIn.quantity = productIn.quantity + 1
+          return {
+            ...state,
+            cart: [...state.cart]
+          }
+        } else {
+          console.log('no se cumple la primera condición, no sumo nada');
+          
+          return {
+            ...state,
+            cart: [...state.cart]
+            
+          }
+        }
+      case GET_ALL_USERS:
+        return {
+          ...state,
+          allUsers: action.payload,
+
+        };
     default:
       return {
         ...state,
