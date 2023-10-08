@@ -1,10 +1,10 @@
 import { INCREMENT_QUANTITY } from "../actionTypes";
 
-const incrementQuantity = (index) => {
+const incrementQuantity = (index, top) => {
 
     return {
         type: INCREMENT_QUANTITY,
-        payload: index
+        payload: {index, top}
     }
 }
 

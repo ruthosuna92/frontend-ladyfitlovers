@@ -24,9 +24,10 @@ import {
   ADDING_PRODUCT,
   CLEAN_CART,
   GET_CART,
+  DECREMENT_QUANTITY,
+  INCREMENT_QUANTITY,
   //favorites
   //purchase
-  DECREMENT_QUANTITY
 } from "../Actions/actionTypes";
 
 const initialState = {
@@ -237,7 +238,7 @@ const reducer = (state = initialState, action) => {
         saveFilters: newSaveFilters,
       };
       case ADDING_PRODUCT:
-        console.log(action.payload);
+        
         if (!state.cart.length) {
           console.log("no hay nada, guardo por primera vez");
           return {
@@ -245,36 +246,36 @@ const reducer = (state = initialState, action) => {
             cart: [action.payload],
           };
         } else {
-          console.log(action.payload);
+          
           let productDontMatch = [];
-          //console.log(productDontMatch);
+          
           productDontMatch = state.cart.filter(
             (prod) =>
               prod.name !== action.payload.name ||
               prod.color !== action.payload.color ||
               prod.size !== action.payload.size
           );
-          //console.log(productDontMatch);
+          
           if (
             productDontMatch.length &&
             productDontMatch.length === state.cart.length
           ) {
             productDontMatch = [];
-            //console.log(productDontMatch)
+            
             console.log("es diferente, agrego como otro producto");
             return {
               ...state,
               cart: [...state.cart, action.payload],
             };
           } else {
-            console.log(action.payload);
+            
             let productDontMatch = []
-            //console.log(productDontMatch);
+            
             productDontMatch = state.cart.filter((prod) => prod.name !== action.payload.name || prod.color !== action.payload.color || prod.size !== action.payload.size)
-              //console.log(productDontMatch);
+              
               if(productDontMatch.length && productDontMatch.length === state.cart.length){
                 productDontMatch = []
-                //console.log(productDontMatch)
+                
                 console.log('es diferente, agrego como otro producto')
                 return {
                   ...state,
@@ -285,7 +286,7 @@ const reducer = (state = initialState, action) => {
                 console.log('ya existe el producto, lo encuentro y le sumo la cantidad');
                 let productFound = state.cart.find((prod) => prod.name === action.payload.name && prod.color === action.payload.color && prod.size === action.payload.size)
                 productFound.quantity += action.payload.quantity
-                productFound.price = action.payload.price + productFound.price
+
                 return {
                   ...state,
                   cart: [...state.cart]
@@ -295,11 +296,12 @@ const reducer = (state = initialState, action) => {
           }
         }
         case DECREMENT_QUANTITY: 
-        console.log(action.payload);
+        
         let product = state.cart[action.payload]
+        
         if(product.quantity > 1){
           console.log('la cantidad es mayor que 1, disminuyo 1');
-          product.price = product.price - (product.price / product.quantity)
+         
           product.quantity = product.quantity - 1
           return {
             ...state,
@@ -308,11 +310,31 @@ const reducer = (state = initialState, action) => {
         } else {
           console.log('no se cumple la primera condición, elimino el producto');
           let product = state.cart[action.payload]
-          console.log(product);
+        
           return {
             ...state,
             cart: state.cart.filter((prod) => prod !== product)
-            //&& prod.color !== product.color && prod.size !== product.size)
+        
+          }
+        }
+        case INCREMENT_QUANTITY: 
+    
+        let productIn = state.cart[action.payload.index]
+        if(productIn.quantity < action.payload.top){
+          console.log('la cantidad es menor que el top, aumento 1');
+         
+          productIn.quantity = productIn.quantity + 1
+          return {
+            ...state,
+            cart: [...state.cart]
+          }
+        } else {
+          console.log('no se cumple la primera condición, no sumo nada');
+          
+          return {
+            ...state,
+            cart: [...state.cart]
+            
           }
         }
       case GET_ALL_USERS:

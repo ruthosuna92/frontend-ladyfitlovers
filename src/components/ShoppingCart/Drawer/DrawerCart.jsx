@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Drawer, Space, Card, Row, Col, Image} from 'antd';
+import { Button, Drawer, Space, Card, Row, Col, Image, message} from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import decrementQuantity from '../../../redux/Actions/ShoppingCart/decrementQuantity';
+import incrementQuantity from '../../../redux/Actions/ShoppingCart/incrementQuantity';
 import style from "./DrawerCart.module.css"
 
 
-const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
+const DrawerCart = ({openDrawer, onClose}) => {
+  
+  const allProducts = useSelector((state) => state.allProducts)
   const cart = useSelector((state) => state.cart)
   const dispatch = useDispatch()
-  console.log(openDrawer)
-  useEffect(()=> {
-   // saveCartLocal()
-  }, [dispatch])
+  
+  const [messageApi, contextHolder] = message.useMessage()
+ 
   const [open, setOpen] = useState(openDrawer);
   const showDefaultDrawer = () => {
     setOpen(openDrawer);
@@ -21,42 +23,70 @@ const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
     width: 20,
     height: 20
   };
-  // const onClose = () => {
-  //   setOpen(false);
-  // };
+
   const prices = cart.map((prod) => prod.price)
   
-  const total = cart.map((prod) => prod.price).reduce((acc, cur) => acc + cur, 0)
+  const total = cart.map((prod) => prod.price * prod.quantity).reduce((acc, cur) => acc + cur, 0)
   
-  const handle = (a) => {
-    console.log(a);
-    console.log(a.target.localName === "span");
-    console.log(a.target.localName === "button");
-    console.log(a.target.offsetParent.id);
-    console.log(a.target.id);
-    
-    if(a.target.innerText === "-"){
-      if(a.target.localName === "span"){
-        dispatch(decrementQuantity(a.target.offsetParent.id))
-      } else {
-        dispatch(decrementQuantity(a.target.id))
+
+  const handleCard = (e) => {
+
+    if(e.target.localName === "span"){
+
+      const id = e.nativeEvent.srcElement.parentElement.offsetParent.offsetParent.id
+      let colorSelected = cart[e.target.offsetParent.id].color
+      let sizeSelected = e.target.offsetParent.name
+      let indexCart = e.target.offsetParent.id
+      const top = allProducts.find((p) => p.id === Number(id)).stock.find((col) => col.color === colorSelected).sizeAndQuantity.find((siz) => siz.size === sizeSelected).quantity
+      if(e.target.innerText === "-"){
+          dispatch(decrementQuantity(indexCart))
       }
+      if(e.target.innerText === "+"){
+        dispatch(incrementQuantity(indexCart, top))
+      }
+      
     }
-    
-    
+    if(e.target.localName === "button"){
+      const id = e.nativeEvent.srcElement.parentElement.offsetParent.offsetParent.id
+      let colorSelected = cart[e.target.id].color
+      let sizeSelected = e.target.name
+      let indexCart = e.target.id
+      
+      const top = allProducts.find((p) => p.id === Number(id)).stock.find((col) => col.color === colorSelected).sizeAndQuantity.find((siz) => siz.size === sizeSelected).quantity
+      
+      if(e.target.innerText === "-"){
+        dispatch(decrementQuantity(indexCart))
+    }
+      if(e.target.innerText === "+"){
+        dispatch(incrementQuantity(indexCart, top)) 
+      }
+      
+    }
   }
+  
+  const handleBuy = async () => {
+    try {
+      const { data } = await axios.post("/payment/createOrder", { products: cart, })
+      window.location.href = data.response.body.init_point;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
+    {contextHolder}
       <Drawer
         title="Carrito de compras"
         placement="right"
         size="large"
         onClose={() => onClose(false)}
         open={open}
+        onClick={(e) => handleCard(e)}
         // extra={
         // }
       > 
       {cart.length > 0 && cart.map(({name, color, image, size, quantity, price, id}, i) => {
+        
         return <div>
 
       <Card
@@ -67,6 +97,8 @@ const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
         height:120,
         margin:5,
       }}
+      id={id}
+      name={size}
     >
     <Row justify="center">
       <Col span={4}>
@@ -79,13 +111,13 @@ const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
         <div >Color<br></br>{color}</div>
       </Col>
       <Col span={4} >
-        <div className={style.algo}>Cant.<br></br><Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={name} onClick={handle}  shape="circle" >{"-"}</Button>      {quantity}      <Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={name} onClick={handle} shape="circle" >{"+"}</Button></div>
+        <div className={style.algo}>Cant.<br></br><Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"-"}</Button>      { quantity } <Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"+"}</Button></div>
       </Col>
       <Col span={4}>
-        <div >Precio x unidad<br></br>{price / quantity}</div>
+        <div >Precio x unidad<br></br>{price}</div>
       </Col>
       <Col span={3}>
-        <div >Total<br></br>{price}</div>
+        <div >Total<br></br>{price * quantity}</div>
       </Col>
     </Row>
     </Card>
@@ -94,7 +126,7 @@ const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
     <div>Costo total<br></br>{total}</div>
           <Space>
             <Button onClick={() => onClose(false)}>Seguir comprando</Button>
-            <Button type="primary" onClick={() => onClose(false)}> 
+            <Button type="primary" onClick={() => handleBuy}> 
             {/* // /payment/createOrder   window.location.href = response.data.response.body.init_point; */}
               Ir a pagar
             </Button>
@@ -106,14 +138,6 @@ const DrawerCart = ({openDrawer, onClose, /*saveCartLocal*/}) => {
 export default DrawerCart;
 
 
-// const handleBuy = async () => {
-//   try {
-//     const { data } = await axios.post("/payment/createOrder", { products: cart, })
-//     window.location.href = data.response.body.init_point;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 // {
 //   "userId": "c853ce97-99d1-401a-91ce-a7ec6d88dd37",

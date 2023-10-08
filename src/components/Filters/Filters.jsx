@@ -16,7 +16,7 @@ const Filters = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
   const filtersave = useSelector((state) => state.saveFilters);
-  console.log(filtersave);
+  
   // Cambiar de dos estados locales a un solo estado local
   const [uniqueFilters, setUniqueFilters] = useState({
     category: [],
@@ -25,7 +25,7 @@ const Filters = () => {
     selectColor: "",
     selectSize: "",
   });
-  console.log(uniqueFilters.selectCategory);
+
   useEffect(() => {
     dispatch(setCurrentPage(1));
     dispatch(saveFilter(uniqueFilters));
