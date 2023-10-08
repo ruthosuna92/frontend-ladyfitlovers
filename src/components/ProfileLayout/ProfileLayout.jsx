@@ -14,13 +14,13 @@ import { Formik, Form } from "formik";
 import CreateAcountSchema from "../CreateAcountModal/createAcountSchema";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+
 
 const { Header, Sider, Content } = Layout;
 const ProfileLayout = ({ profileKey }) => {
-  console.log(profileKey);
+  const navigate = useNavigate();
   const infouser = useSelector((state) => state.user);
-  console.log(infouser);
   const [dataUser, setFormData] = useState({
     id: "",
     name: "",
@@ -33,7 +33,7 @@ const ProfileLayout = ({ profileKey }) => {
   });
 
   useEffect(() => {
-    // Cuando se actualice la información de usuario (infouser), actualiza el estado local (formData)
+    console.log(infouser);
     if (infouser) {
       setFormData({
         id: infouser.id,
@@ -45,6 +45,8 @@ const ProfileLayout = ({ profileKey }) => {
         address: infouser.address || "",
         pivotuser: true,
       });
+    }else if (!infouser.id){
+      return navigate("/")
     }
   }, [infouser]);
   const [selectedKey, setSelectKey] = useState(profileKey);

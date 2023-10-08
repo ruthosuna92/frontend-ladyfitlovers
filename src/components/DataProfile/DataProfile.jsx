@@ -7,7 +7,10 @@ const Profile = () => {
     return (
         <div className={style.contianerProfiler}>
             <div className={style.subcontainer}>
-                <img className={style.profileimg} src={infouser.image} alt="" />
+                {
+                    !infouser.image ? <img className={style.profileimg} src="../../assets/img/user.png" alt="" />:
+                    <img className={style.profileimg} src={infouser.image} alt="" />
+                }
                 <div className={style.containerDataName}>
                     <div className={style.nameContainer}>
                         <label htmlFor="name">Nombre</label>
