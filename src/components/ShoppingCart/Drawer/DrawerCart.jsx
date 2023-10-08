@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import decrementQuantity from '../../../redux/Actions/ShoppingCart/decrementQuantity';
 import incrementQuantity from '../../../redux/Actions/ShoppingCart/incrementQuantity';
 import style from "./DrawerCart.module.css"
+import { getColorName } from '../../../utils/getColorName';
+import axios from 'axios';
+const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 
 
 const DrawerCart = ({openDrawer, onClose}) => {
-  
-  const allProducts = useSelector((state) => state.allProducts)
+  const allProductsAdmin = useSelector((state) => state.allProductsAdmin)
   const cart = useSelector((state) => state.cart)
   const dispatch = useDispatch()
   
@@ -30,44 +32,48 @@ const DrawerCart = ({openDrawer, onClose}) => {
   
 
   const handleCard = (e) => {
-
-    if(e.target.localName === "span"){
-
-      const id = e.nativeEvent.srcElement.parentElement.offsetParent.offsetParent.id
-      let colorSelected = cart[e.target.offsetParent.id].color
-      let sizeSelected = e.target.offsetParent.name
-      let indexCart = e.target.offsetParent.id
-      const top = allProducts.find((p) => p.id === Number(id)).stock.find((col) => col.color === colorSelected).sizeAndQuantity.find((siz) => siz.size === sizeSelected).quantity
-      if(e.target.innerText === "-"){
+    console.log(e.target.outerText);
+    if(e.target.outerText !== "Ir a pagar"){
+      if(e.target.localName === "span" ){
+  
+        const id = e.nativeEvent.srcElement.parentElement.offsetParent.offsetParent.id
+        let colorSelected = cart[e.target.offsetParent.id].color
+        let sizeSelected = e.target.offsetParent.name
+        let indexCart = e.target.offsetParent.id
+        const top = allProductsAdmin.find((p) => p.id === Number(id)).stock.find((col) => col.color === colorSelected).sizeAndQuantity.find((siz) => siz.size === sizeSelected).quantity
+        if(e.target.innerText === "-"){
+            dispatch(decrementQuantity(indexCart))
+        }
+        if(e.target.innerText === "+"){
+          dispatch(incrementQuantity(indexCart, top))
+        }
+        
+      }
+      if(e.target.localName === "button"){
+        const id = e.nativeEvent.srcElement.parentElement.offsetParent.offsetParent.id
+        let colorSelected = cart[e.target.id].color
+        let sizeSelected = e.target.name
+        let indexCart = e.target.id
+        
+        const top = allProductsAdmin.find((p) => p.id === Number(id)).stock.find((col) => col.color === colorSelected).sizeAndQuantity.find((siz) => siz.size === sizeSelected).quantity
+        
+        if(e.target.innerText === "-"){
           dispatch(decrementQuantity(indexCart))
       }
-      if(e.target.innerText === "+"){
-        dispatch(incrementQuantity(indexCart, top))
+        if(e.target.innerText === "+"){
+          dispatch(incrementQuantity(indexCart, top)) 
+        }
+        
       }
-      
-    }
-    if(e.target.localName === "button"){
-      const id = e.nativeEvent.srcElement.parentElement.offsetParent.offsetParent.id
-      let colorSelected = cart[e.target.id].color
-      let sizeSelected = e.target.name
-      let indexCart = e.target.id
-      
-      const top = allProducts.find((p) => p.id === Number(id)).stock.find((col) => col.color === colorSelected).sizeAndQuantity.find((siz) => siz.size === sizeSelected).quantity
-      
-      if(e.target.innerText === "-"){
-        dispatch(decrementQuantity(indexCart))
-    }
-      if(e.target.innerText === "+"){
-        dispatch(incrementQuantity(indexCart, top)) 
-      }
-      
     }
   }
   
   const handleBuy = async () => {
+    console.log('el boton no es el problema');
     try {
-      const { data } = await axios.post("/payment/createOrder", { products: cart, })
-      window.location.href = data.response.body.init_point;
+      
+      const { data } = await axios.post(`${API_URL_BASE}/payment/createOrder`, { products: cart })
+      window.location.href = data.response.init_point;
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +114,7 @@ const DrawerCart = ({openDrawer, onClose}) => {
         <div><Image alt={name} src={image && image} width={35} /></div>
       </Col>
       <Col span={3}>
-        <div >Color<br></br>{color}</div>
+        <div >Color<br></br>{getColorName(color)}</div>
       </Col>
       <Col span={4} >
         <div className={style.algo}>Cant.<br></br><Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"-"}</Button>      { quantity } <Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"+"}</Button></div>
@@ -126,7 +132,7 @@ const DrawerCart = ({openDrawer, onClose}) => {
     <div>Costo total<br></br>{total}</div>
           <Space>
             <Button onClick={() => onClose(false)}>Seguir comprando</Button>
-            <Button type="primary" onClick={() => handleBuy}> 
+            <Button type="primary" onClick={() => handleBuy()}> 
             {/* // /payment/createOrder   window.location.href = response.data.response.body.init_point; */}
               Ir a pagar
             </Button>

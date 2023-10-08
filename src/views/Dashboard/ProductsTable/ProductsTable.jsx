@@ -9,7 +9,7 @@ import updateProduct from "../../../redux/Actions/Product/updateProduct";
 const ProductsTable = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.allProductsAdmin);
-  const sortedProducts = products.sort((a, b) => a.name.localeCompare(b.name));
+  const sortedProducts = products?.sort((a, b) => a.name.localeCompare(b.name));
   const allCatgories = useSelector((state) => state.allCategories);
 
   const categoriesFilterOptions = allCatgories?.map((category) => {

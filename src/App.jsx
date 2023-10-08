@@ -29,14 +29,12 @@ const App = () => {
 
   //condiction para que no se vuelva a cargar los productso si el estado
   useEffect(() => {
-    if (!allProducts.length) {
-      dispatch(getAllProducts());
-      dispatch(getAllCategories());
-    }
+    dispatch(getAllProducts());
+    dispatch(getAllCategories());
   }, []);
 
   return (
-    
+
     <ConfigProvider
       theme={{
         token: {
