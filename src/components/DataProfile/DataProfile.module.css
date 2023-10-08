@@ -68,10 +68,11 @@
 }
 
 .profileimg{
-    border: solid 1px #BA338A;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
+  border: solid 1px #BA338A;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit:cover;
 }
 .nameContainer {
     position: relative;

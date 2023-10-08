@@ -3,12 +3,15 @@ import { Input, Button, message, Select } from "antd";
 import { Field, useFormikContext } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { provincias } from "./Provincias";
+import AvatarEditor from "react-avatar-editor";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import updateUser from "../../redux/Actions/User/updateUser";
 import postUser from "../../redux/Actions/User/postUser";
 import getUserById from "../../redux/Actions/User/getUserById"
 import { saveImage } from "../CreateProduct/saveImage";
+import { useEffect } from "react";
+import editPhoto from "../editPhoto/editPhoto";
 import "./createAcountModal.css";
 import "./createAcountForm.css"
 
@@ -26,7 +29,25 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
       saveImage: event.target.files[0]
     });
   };
-
+  useEffect(() => {
+    async function fetchImage() {
+      if (selectedImage.saveImage) {
+        try {
+          const imageUrl = await saveImage(selectedImage.saveImage);
+          setSelectedImage((prevImage) => ({
+            ...prevImage,
+            urlImage: imageUrl,
+          }));
+        } catch (error) {
+          // Manejar errores si es necesario
+        }
+      }
+    }
+  
+    fetchImage(); // Llama a la función async inmediatamente
+  
+  }, [selectedImage.saveImage]);
+  
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
@@ -60,18 +81,6 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
   };
   const handleSubmitupdate = async () => {
     const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
-    if (selectedImage.saveImage) {
-      try {
-        const imageUrl = await saveImage(selectedImage.saveImage);
-        setSelectedImage({
-          ...saveImage,
-          urlImage: imageUrl
-        })
-        // Puedes usar 'imageUrl' según sea necesario, por ejemplo, guárdalo en tus datos de usuario.
-      } catch (error) {
-        // Maneja el error si saveImage falla
-      }
-    }
   
     const valuesToSend = {
       id: idUser,
@@ -86,9 +95,17 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
 
     try {
       const response = await dispatch(updateUser(valuesToSend));
-      dispatch(getUserById(valuesToSend.id))
+      console.log(response);
+      dispatch(getUserById(valuesToSend.id));
+
+      if (response.message === "Usuario editado correctamente") {
+        message.success(response.message);
+        resetForm(); // Restablece los valores del formulario
+      } else {
+        message.error("Error al editar la cuenta");
+      }
     } catch {
-      message.error("Error al crear la cuenta");
+      message.error("hola");
     }
   }
   const handleEdit = async () => {
@@ -124,7 +141,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
   return (
     <>
       <div className="containerFormCreateAcount">
-        { pivotuser ? <input
+        { pivotuser ? <Input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
