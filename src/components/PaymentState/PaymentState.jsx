@@ -10,13 +10,10 @@ const PaymentState = () => {
   const userId = useSelector((state) => state.userId);
   const products = useSelector((state) => state.cart);
 
-  // const userId = useState((state) => state.userId);
-
-  // const cart = useState((state) => state.cart);
-
   const queryParams = new URLSearchParams(location.search);
   const data = queryParams.get("data");
-  // const mpId = queryParams.get("mpId");
+  const mpId = parsedData.id;
+  const totalAmount = parsedData.totalAmount;
   const parsedData = JSON.parse(decodeURIComponent(data));
 
   console.log(parsedData);
@@ -29,7 +26,9 @@ const PaymentState = () => {
           // una vez tenemos el success
           // despachamos el envio de informacion como : payment status, order ID
           //despachar /purchase/add userId y products list para agregar la compra a la lista de compras del usuario
-          const response = await dispatch(postOrder({ userId, products, mpId, totalAmount }));
+          const response = await dispatch(
+            postOrder({ userId, products, mpId, totalAmount })
+          );
           if (response == 200) {
             console.log("order added");
             //despachar limpiar el carrito
