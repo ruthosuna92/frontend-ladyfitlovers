@@ -10,7 +10,7 @@ import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import logo from "/svg/LADYFIT1.svg";
 import SearchBar from "../SearchBar/SearchBar";
 import LoginModal from "../LoginModal/LoginModal";
-
+import DrawerCart from "../ShoppingCart/Drawer/DrawerCart";
 import { Space, Button, Menu, Dropdown, Tooltip, Badge } from "antd";
 import {
   ShoppingCartOutlined,
@@ -43,6 +43,13 @@ const NavBar = () => {
     useState(false);
 
   const user = useSelector((state) => state.user);
+  //drawerCart
+  const cart = useSelector((state) => state.cart)
+  const [openDrawer, setOpenDrawer] = useState(false)
+  const onClose = (boolean) => {
+    setOpenDrawer(boolean)
+  };
+  const totalProducts = cart.map((prod) => prod.quantity).reduce((a, b) => a + b, 0)
 
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
@@ -55,7 +62,7 @@ const NavBar = () => {
       {user.typeUser == "Admin" && (
         <Menu.Item key="dashboard">
           <Link to="/admin">
-            <FundViewOutlined />
+            <FundViewOutlined className="menuIcon" />
             Panel Administrador
           </Link>
         </Menu.Item>
@@ -165,9 +172,16 @@ const NavBar = () => {
       </Button>
     </Dropdown>
   );
-
+            const handle = (e) => {
+              setOpenDrawer(true)
+            }
   return (
     <>
+    {openDrawer && <DrawerCart
+    openDrawer={openDrawer}
+    onClose={onClose}
+    // saveCartLocal={saveCartLocal}
+    />}
       <div className="navBarContainer">
         <div className="navBarLinksContainer">
           <Link to="/">
@@ -221,9 +235,9 @@ const NavBar = () => {
             </button>
           </Link> */}
         </div>
-        <div className="searchBarDiv">
+        {!location.pathname.includes('admin') && <div className="searchBarDiv">
           <SearchBar />
-        </div>
+        </div>}
 
         {/* informacion del usuario */}
         {user.email && (
@@ -250,6 +264,7 @@ const NavBar = () => {
           shape="circle"
           size="large"
           className="buttonNavAccess"
+          onClick={handle}
           // style={{
           //   // backgroundColor: "transparent",
           //   border: "none",
@@ -257,7 +272,7 @@ const NavBar = () => {
           // }}
         >
           <ShoppingCartOutlined />
-          <sup
+          {totalProducts > 0 &&<sup
             data-show="true"
             className="ant-scroll-number ant-badge-count"
             title="1"
@@ -276,8 +291,8 @@ const NavBar = () => {
               alignItems: "center",
             }}
           >
-            1
-          </sup>
+            {totalProducts}
+          </sup>}
         </Button>
 
         {!user.email && (

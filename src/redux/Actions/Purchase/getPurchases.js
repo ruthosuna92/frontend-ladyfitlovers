@@ -1,23 +1,16 @@
-import { AUTH_USER } from "../actionTypes";
 import axios from "axios";
+import { GET_PURCHASES } from "../actionTypes";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-// const endpoint = `${API_URL_BASE}/`;
-const endpoint = `${API_URL_BASE}/user/loginGoogle`;
-const endpoint2 = `${API_URL_BASE}/user/`;
+const endpoint = `${API_URL_BASE}/purchase/`;
 
-const authUser = (profileObj, accessToken) => {
-  console.log(profileObj, accessToken);
+const getPurchases = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, { profileObj, accessToken });
-      const id = data.idUser;
-      const response = await axios.get(endpoint2 + id);
-
+      const response = await axios.get(endpoint + userId);
       return dispatch({
-        type: AUTH_USER,
+        type: GET_PURCHASES,
         payload: response.data,
-        idUser: response.data.id,
       });
     } catch (error) {
       if (error.response) {
@@ -35,4 +28,4 @@ const authUser = (profileObj, accessToken) => {
   };
 };
 
-export default authUser;
+export default getAllUsers;

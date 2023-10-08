@@ -1,24 +1,17 @@
-import { AUTH_USER } from "../actionTypes";
 import axios from "axios";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-// const endpoint = `${API_URL_BASE}/`;
-const endpoint = `${API_URL_BASE}/user/loginGoogle`;
-const endpoint2 = `${API_URL_BASE}/user/`;
+const endpoint = `${API_URL_BASE}/purchase/add`;
 
-const authUser = (profileObj, accessToken) => {
-  console.log(profileObj, accessToken);
+const postPurchase = (productList) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, { profileObj, accessToken });
+      const { data } = await axios.post(endpoint, [productList]);
       const id = data.idUser;
-      const response = await axios.get(endpoint2 + id);
 
-      return dispatch({
-        type: AUTH_USER,
-        payload: response.data,
-        idUser: response.data.id,
-      });
+      return {
+        message: "Compra realizada correctamente",
+      };
     } catch (error) {
       if (error.response) {
         console.error(
@@ -35,4 +28,4 @@ const authUser = (profileObj, accessToken) => {
   };
 };
 
-export default authUser;
+export default postPurchase;

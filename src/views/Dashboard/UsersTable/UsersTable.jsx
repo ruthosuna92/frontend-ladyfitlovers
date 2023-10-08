@@ -11,22 +11,27 @@ import {
 import CreateAcountModal from "../../../components/CreateAcountModal/CreateAcountModal";
 import userBan from "../../../redux/Actions/User/banUser";
 
-
 const UsersTable = () => {
   const dispatch = useDispatch();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showBanModal, setShowBanModal] = useState(false);
   const [user, setUser] = useState({});
 
+
   const allUsers = useSelector((state) => state.allUsers);
+  
+  const sortedEmails = allUsers.sort((a, b) => a.email.localeCompare(b.email));
+
+  
   const onChange = (value, user) => {
     dispatch(userBan(value, user));
-  }
+  };
 
   const columns = [
     {
       title: "Nombre",
       dataIndex: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
       key: "name",
       render: (text) => <p>{text}</p>,
     },
@@ -39,16 +44,22 @@ const UsersTable = () => {
     {
       title: "Email",
       dataIndex: "email",
+      sorter: (a, b) => a.email.localeCompare(b.email),
       key: "email",
       render: (text) => <p>{text}</p>,
     },
     {
       title: "Rol",
       dataIndex: "typeUser",
+      filters: [
+        { text: "Admin", value: "Admin" },
+        { text: "Usuario", value: "User" },
+      ],
+      onFilter: (value, record) => record.typeUser.indexOf(value) === 0,
       key: "typeUser",
       render: (text, record) => {
         return (
-          <Tag color={record.typeUser === "admin" ? "red" : "green"}>
+          <Tag color={record.typeUser === "Admin" ? "green" : "blue"}>
             {text}
           </Tag>
         );
@@ -69,7 +80,6 @@ const UsersTable = () => {
                 setShowEditModal(true), setUser(record);
               }}
             />
-            <Button type="secondary" icon={<DeleteOutlined />} size="small" />
           </div>
         );
       },
@@ -84,7 +94,9 @@ const UsersTable = () => {
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             defaultChecked={cell.userBan === true ? true : false}
-            onChange={()=> onChange(!cell.value === true? false : true ,cell )}
+            onChange={() =>
+              onChange(cell.userBan === true ? false : true, cell)
+            }
           />
         );
       },

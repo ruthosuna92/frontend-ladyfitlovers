@@ -1,11 +1,53 @@
 import { Button, Switch, Table } from "antd";
-import React from "react";
-import { useSelector } from "react-redux";
-import "./productsTable.css";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import "./productsTable.css";
+import EditProductModal from "../../../components/EditPorductModal/EditPorductModal";
+import updateProduct from "../../../redux/Actions/Product/updateProduct";
 
 const ProductsTable = () => {
-  const products = useSelector((state) => state.allProducts);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.allProductsAdmin);
+  const sortedProducts = products?.sort((a, b) => a.name.localeCompare(b.name));
+  const allCatgories = useSelector((state) => state.allCategories);
+
+  const categoriesFilterOptions = allCatgories?.map((category) => {
+    return { text: category.name, value: category.name };
+  });
+
+  const productsNames = products?.map((product) => {
+    return { text: product.name, value: product.name };
+  });
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [productUpdate, setProductUpdate] = useState({});
+
+
+  const handleActive = async (value, product) => {
+    try {
+      const response = await dispatch(
+        updateProduct({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          priceOnSale: product.priceOnSale,
+          unitsSold: product.unitsSold,
+          image: product.image,
+          category: product.category,
+          stock: product.stock,
+          active: value,
+        })
+      );
+
+      message.success(response.message, [2], onClose());
+
+      resetForm();
+    } catch {
+      message.error("Error al crear producto", [2], onClose());
+    }
+  };
+
   
   const columns = [
     {
@@ -17,12 +59,18 @@ const ProductsTable = () => {
     {
       title: "Nombre",
       dataIndex: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      filters: productsNames,
+      filterSearch: true,
+      onFilter: (value, record) => record.name.startsWith(value),
       key: "name",
       render: (text) => <p>{text.toUpperCase()}</p>,
     },
     {
       title: "Categoria",
       dataIndex: "Category",
+      filters: categoriesFilterOptions,
+      onFilter: (value, record) => record.Category.name === value,
       key: "Category",
       render: (category) => <p>{category.name}</p>,
     },
@@ -30,6 +78,7 @@ const ProductsTable = () => {
       title: "Precio",
       dataIndex: "price",
       key: "price",
+      sorter: (a, b) => a.price - b.price,
       render: (price) => <p>${price}</p>,
     },
     {
@@ -54,20 +103,14 @@ const ProductsTable = () => {
       title: "Acciones",
       dataIndex: "",
       key: "action",
-      render: (text, record) => {
+      render: (cell) => {
         return (
           <div>
             <Button
               type="primary"
               icon={<EditOutlined />}
               size="small"
-              onClick={() => {}}
-            />
-            <Button
-              type="secondary"
-              icon={<DeleteOutlined />}
-              size="small"
-              onClick={() => {}}
+              onClick={() => {setShowEditModal(true), setProductUpdate(cell)}}
             />
             
           </div>
@@ -76,16 +119,16 @@ const ProductsTable = () => {
     },
     {
         title: "Activo",
-        dataIndex: "active",
+        dataIndex: "",
         key: "active",
-        render: (value) => {
-            console.log(value)
+        render: (cell) => {
+           
           return (
             <Switch
               checkedChildren={<CheckOutlined />}
               unCheckedChildren={<CloseOutlined />}
-              defaultChecked={value === true ? true : false}
-              onChange={()=> setShowBanModal(true)}
+              defaultChecked={cell.active === true ? true : false}
+              onChange={()=> handleActive(cell.active === true ? false : true, cell)}
             />
           )
         }
@@ -93,7 +136,14 @@ const ProductsTable = () => {
   ];
   return (
     <div>
-      <Table dataSource={products} columns={columns} />
+        {productUpdate && showEditModal && (
+        <EditProductModal
+          visible={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          product={productUpdate}
+        />
+      )}
+      <Table dataSource={sortedProducts} columns={columns} />
     </div>
   );
 };

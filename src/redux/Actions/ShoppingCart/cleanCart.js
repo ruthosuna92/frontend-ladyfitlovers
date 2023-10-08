@@ -1,23 +1,16 @@
-import { AUTH_USER } from "../actionTypes";
 import axios from "axios";
+import { CLEAN_CART } from "../actionTypes";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-// const endpoint = `${API_URL_BASE}/`;
-const endpoint = `${API_URL_BASE}/user/loginGoogle`;
-const endpoint2 = `${API_URL_BASE}/user/`;
+const endpoint = `${API_URL_BASE}/cart/clean`;
 
-const authUser = (profileObj, accessToken) => {
-  console.log(profileObj, accessToken);
+const cleanCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, { profileObj, accessToken });
-      const id = data.idUser;
-      const response = await axios.get(endpoint2 + id);
+      await axios.put(endpoint, userId);
 
       return dispatch({
-        type: AUTH_USER,
-        payload: response.data,
-        idUser: response.data.id,
+        type: CLEAN_CART,
       });
     } catch (error) {
       if (error.response) {
@@ -35,4 +28,7 @@ const authUser = (profileObj, accessToken) => {
   };
 };
 
-export default authUser;
+export default cleanCart;
+
+// payload: response.data,
+// idUser: response.data.id,
