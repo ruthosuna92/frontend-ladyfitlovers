@@ -49,3 +49,30 @@ Now, let's address what you need to do differently in your frontend code:
 Make sure to review Mercado Pago's documentation thoroughly for integration details, as they may have specific requirements and APIs for handling payments.
 
 In summary, the key points are to redirect the user to the payment gateway's page for payment and handle payment confirmation in your backend. The frontend should primarily initiate the payment and handle the user's interaction with the payment gateway.
+
+
+Front End (postOrder.js):
+
+In your postOrder.js file, you have an action called postOrder that sends a POST request to your back end endpoint (/payment/createOrder) with the user's cart data. It appears you are using Redux for state management. The action dispatches this request when the user initiates a purchase.
+
+You're using axios to make the HTTP request, and you pass the userId and cart as data in the request. This part of the code seems correct.
+
+Back End (createOrder Endpoint):
+
+Your back end should receive the POST request at /payment/createOrder. It should then create a Mercado Pago order based on the cart data received. You would typically use the Mercado Pago API to create this order. Ensure that your back end handles this logic correctly and communicates with Mercado Pago to create the order. Once the order is created, your back end should respond to the front end with information about the order, such as an order ID or a payment URL.
+
+Front End (PaymentState.js):
+
+In the PaymentState.js component, you seem to be handling the response from your back end and checking if the payment status is "approved." If the payment is approved, you should proceed to the next steps:
+
+Dispatch an action to add the purchase to the user's history (if it's not already implemented). You mentioned dispatching /purchase/add with the userId and cart data. Ensure that this action is properly configured and handled in your Redux store.
+
+Dispatch an action to clean the cart (dispatchEvent(cleanCart())) to remove the purchased items from the user's cart.
+
+You might also want to handle the scenario when the payment is not approved and provide appropriate feedback to the user.
+
+Redirecting the User:
+
+After handling the order creation and processing on the back end, you should send back information like the payment URL or order ID to your front end. Then, in your PaymentState.js component, you can use this information to redirect the user to Mercado Pago's payment page. You can use JavaScript to perform the redirection using window.location.href or a similar method.
+
+Remember to handle errors and edge cases in both your front end and back end code, and ensure that your Mercado Pago integration is properly configured with the necessary API credentials and settings. Testing and logging are essential to identify and troubleshoot any issues during the payment process.

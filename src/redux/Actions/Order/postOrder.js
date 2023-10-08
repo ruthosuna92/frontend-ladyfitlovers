@@ -3,10 +3,15 @@ import axios from "axios";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/payment/createOrder`;
 
-const postOrder = (productList) => {
+const postOrder = ({ userId, products, mpId, totalAmount }) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, userId, { products: cart });
+      const { data } = await axios.post(endpoint, {
+        userId,
+        products,
+        mpId,
+        totalAmount,
+      });
 
       return {
         message: "Compra realizada correctamente",

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //actions
-import postPurchase from "../../redux/Actions/Purchase/PostPurchase";
+import postOrder from "../../redux/Actions/Order/postOrder";
 import cleanCart from "../../redux/Actions/ShoppingCart/cleanCart";
+import { NavLink } from "react-router-dom";
 
 const PaymentState = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId);
-  const cart = useSelector((state) => state.cart);
+  const products = useSelector((state) => state.cart);
 
   // const userId = useState((state) => state.userId);
 
@@ -15,6 +16,7 @@ const PaymentState = () => {
 
   const queryParams = new URLSearchParams(location.search);
   const data = queryParams.get("data");
+  // const mpId = queryParams.get("mpId");
   const parsedData = JSON.parse(decodeURIComponent(data));
 
   console.log(parsedData);
@@ -27,19 +29,25 @@ const PaymentState = () => {
           // una vez tenemos el success
           // despachamos el envio de informacion como : payment status, order ID
           //despachar /purchase/add userId y products list para agregar la compra a la lista de compras del usuario
-          const response = await dispatch(postOrder(cart));
-
+          const response = await dispatch(postOrder({ userId, products, mpId, totalAmount }));
+          if (response == 200) {
+            console.log("order added");
+            //despachar limpiar el carrito
+            dispatchEvent(cleanCart());
+          }
           // - The payment gateway responds with a unique payment URL or an order ID.
-
-          //despachar limpiar el carrito
-          // if response ==200 then =>
-          dispatchEvent(cleanCart());
         }
       };
     }
     // }, [dispatch, userId, cart, parsedData]);
-  }, []);
-  return <div></div>;
+  }, [parsedData]);
+  return (
+    <div>
+      <h2>Compra realizada con exito!</h2>
+      <NavLink>Ir al detalle de compra</NavLink>
+      <NavLink>Volver al inicio</NavLink>
+    </div>
+  );
 };
 
 export default PaymentState;
