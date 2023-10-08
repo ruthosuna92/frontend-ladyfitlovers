@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //actions
 import postOrder from "../../redux/Actions/Order/postOrder";
@@ -9,15 +10,20 @@ const PaymentState = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId);
   const products = useSelector((state) => state.cart);
+  const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
-  console.log(queryParams);
+
+  // console.log(queryParams);
+
   const data = queryParams.get("data");
-  console.log(data);
+
+  // console.log(data);
+
   const parsedData = JSON.parse(decodeURIComponent(data));
   const totalAmount = 200;
   const mpId = parsedData.payment_id;
-  console.log(parsedData);
+  // console.log(parsedData);
 
   useEffect(() => {
     // necesitamos despachar la orden al back primero
@@ -27,6 +33,8 @@ const PaymentState = () => {
           // una vez tenemos el success
           // despachamos el envio de informacion como : payment status, order ID
           //despachar /purchase/add userId y products list para agregar la compra a la lista de compras del usuario
+          console.log(userId, products, mpId, totalAmount);
+
           const response = dispatch(
             postOrder({ userId, products, mpId, totalAmount })
           );
@@ -35,9 +43,9 @@ const PaymentState = () => {
             //despachar limpiar el carrito
             dispatch(cleanCart());
           }
-          // - The payment gateway responds with a unique payment URL or an order ID.
         }
       };
+      paymentApproved();
     }
   }, [parsedData]);
   // }, []);
@@ -45,7 +53,7 @@ const PaymentState = () => {
     <div>
       <h2>Compra realizada con exito!</h2>
       <NavLink>Ir al detalle de compra</NavLink>
-      <NavLink>Volver al inicio</NavLink>
+      <NavLink to="/">Volver al inicio</NavLink>
     </div>
   );
 };
