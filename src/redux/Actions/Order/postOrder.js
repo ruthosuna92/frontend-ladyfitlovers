@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-const endpoint = `${API_URL_BASE}/payment/createOrder`;
+const endpoint = `${API_URL_BASE}/order/create`;
 
 const postOrder = ({ userId, products, mpId, totalAmount }) => {
   return async (dispatch) => {

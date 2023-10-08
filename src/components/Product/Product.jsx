@@ -5,7 +5,7 @@ import { NavLink, Link } from "react-router-dom";
 import { Card, Button, Row, Col } from "antd";
 const { Meta } = Card;
 const colStyle = {
-  // width: "25%",
+  width: 10,
   textAlign: "center",
 };
 
@@ -65,6 +65,13 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
       <Row>
         <Col style={colStyle} span={24}>
           $ {price}
+        </Col>
+      </Row>
+      <Row>
+        <Col style={colStyle} span={24}>
+          <NavLink className={style.buy} to={`/detail/${id}`}>
+            Comprar
+          </NavLink>
         </Col>
       </Row>
     </div>
