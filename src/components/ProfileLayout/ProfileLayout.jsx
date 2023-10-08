@@ -9,6 +9,7 @@ import {
 import { Layout, Menu, Button, theme } from "antd";
 import DataProfile from "../DataProfile/DataProfile";
 import CreateAcountForm from "../CreateAcountModal/CreateAcountForm";
+import ShoppingClient from "../ShoppingClient/ShoppingClient";
 import style from "./ProfileLayout.module.css";
 import { Formik, Form } from "formik";
 import CreateAcountSchema from "../CreateAcountModal/createAcountSchema";
@@ -18,7 +19,6 @@ import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 const ProfileLayout = ({ profileKey }) => {
-  console.log(profileKey);
   const infouser = useSelector((state) => state.user);
   const [dataUser, setFormData] = useState({
     id: "",
@@ -95,6 +95,7 @@ const ProfileLayout = ({ profileKey }) => {
       <Layout>
         <Content className={style.layaout1}>
           {selectedKey === "perfil" && <DataProfile />}
+          {selectedKey === "compras" && <ShoppingClient />}
           {selectedKey === "editar" && (
             <Formik
               initialValues={{
