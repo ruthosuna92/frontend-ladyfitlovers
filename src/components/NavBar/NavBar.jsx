@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // actions
 import loginUser from "../../redux/Actions/User/loginUser";
@@ -28,10 +28,13 @@ import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // logout
   const handleLogout = () => {
+
     dispatch(logoutUser());
+    navigate("/");
   };
 
   //menus
@@ -44,12 +47,14 @@ const NavBar = () => {
 
   const user = useSelector((state) => state.user);
   //drawerCart
-  const cart = useSelector((state) => state.cart)
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const cart = useSelector((state) => state.cart);
+  const [openDrawer, setOpenDrawer] = useState(false);
   const onClose = (boolean) => {
-    setOpenDrawer(boolean)
+    setOpenDrawer(boolean);
   };
-  const totalProducts = cart.map((prod) => prod.quantity).reduce((a, b) => a + b, 0)
+  const totalProducts = cart
+    .map((prod) => prod.quantity)
+    .reduce((a, b) => a + b, 0);
 
   const handleMenuClick = (e) => {
     if (e.key === "logout") {
@@ -59,7 +64,7 @@ const NavBar = () => {
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {user.typeUser == "Admin" && (
+      {user.typeUser === "Admin" && (
         <Menu.Item key="dashboard">
           <Link to="/admin">
             <FundViewOutlined className="menuIcon" />
@@ -172,16 +177,18 @@ const NavBar = () => {
       </Button>
     </Dropdown>
   );
-            const handle = (e) => {
-              setOpenDrawer(true)
-            }
+  const handle = (e) => {
+    setOpenDrawer(true);
+  };
   return (
     <>
-    {openDrawer && <DrawerCart
-    openDrawer={openDrawer}
-    onClose={onClose}
-    // saveCartLocal={saveCartLocal}
-    />}
+      {openDrawer && (
+        <DrawerCart
+          openDrawer={openDrawer}
+          onClose={onClose}
+          // saveCartLocal={saveCartLocal}
+        />
+      )}
       <div className="navBarContainer">
         <div className="navBarLinksContainer">
           <Link to="/">
@@ -235,65 +242,73 @@ const NavBar = () => {
             </button>
           </Link> */}
         </div>
-        {!location.pathname.includes('admin') && <div className="searchBarDiv">
-          <SearchBar />
-        </div>}
+        {!location.pathname.includes("admin") && (
+          <div className="searchBarDiv">
+            <SearchBar />
+          </div>
+        )}
 
         {/* informacion del usuario */}
-        {user.email && (
+        {!location.pathname.includes("admin") && user.email && (
           <div className="userInfo">
             <p>Hola, {user.name} </p>
             {/* {user.surname} */}
             {userDropdown}
           </div>
         )}
-        <Link to="/perfil/favoritos">
-          <Button
-            shape="circle"
-            size="large"
-            className="buttonNavAccess"
-            // style={{
-            //   border: "none",
-            // }}
-          >
-            <HeartOutlined />
-          </Button>
-        </Link>
+        {!location.pathname.includes("admin") && (
+          <>
+            <Link to="/perfil/favoritos">
+              <Button
+                shape="circle"
+                size="large"
+                className="buttonNavAccess"
+                // style={{
+                //   border: "none",
+                // }}
+              >
+                <HeartOutlined />
+              </Button>
+            </Link>
 
-        <Button
-          shape="circle"
-          size="large"
-          className="buttonNavAccess"
-          onClick={handle}
-          // style={{
-          //   // backgroundColor: "transparent",
-          //   border: "none",
-          //   // padding: 0,
-          // }}
-        >
-          <ShoppingCartOutlined />
-          {totalProducts > 0 &&<sup
-            data-show="true"
-            className="ant-scroll-number ant-badge-count"
-            title="1"
-            style={{
-              position: "absolute",
-              top: "0",
-              right: "0",
-              transform: "translate(50%, -50%)",
-              backgroundColor: "#ba338a",
-              color: "white",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {totalProducts}
-          </sup>}
-        </Button>
+            <Button
+              shape="circle"
+              size="large"
+              className="buttonNavAccess"
+              onClick={handle}
+              // style={{
+              //   // backgroundColor: "transparent",
+              //   border: "none",
+              //   // padding: 0,
+              // }}
+            >
+              <ShoppingCartOutlined />
+              {totalProducts > 0 && (
+                <sup
+                  data-show="true"
+                  className="ant-scroll-number ant-badge-count"
+                  title="1"
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    right: "0",
+                    transform: "translate(50%, -50%)",
+                    backgroundColor: "#ba338a",
+                    color: "white",
+                    borderRadius: "50%",
+                    width: "20px",
+                    height: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {totalProducts}
+                </sup>
+              )}
+            </Button>
+          </>
+        )}
 
         {!user.email && (
           <div>

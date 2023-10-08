@@ -2,11 +2,10 @@ import React from "react";
 import { Modal } from "antd";
 import { Formik, Form } from "formik";
 import CreateAcountForm from "./CreateAcountForm";
-import CreateAcountSchema from "./createAcountSchema";
-
+import {CreateAcountSchema, UpdateAcountSchema} from "./createAcountSchema";
 
 const CreateAcountModal = ({ visible, onClose, isEditing , user}) => {
-console.log(user)
+
 const initialValues = {
   name:"",
   surname:"",
@@ -47,7 +46,7 @@ const initialValues = {
     >
       <Formik 
       initialValues={isEditing ? userInitialValues : initialValues}
-      validationSchema={CreateAcountSchema}
+      validationSchema={isEditing ? UpdateAcountSchema : CreateAcountSchema}
       >
         {({ errors, touched }) => (
           <Form>

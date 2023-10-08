@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import style from "./DataProfile.module.css"
-
 const Profile = () => {
     const infouser = useSelector((state) => state.user)
     console.log(infouser)
@@ -8,7 +7,10 @@ const Profile = () => {
     return (
         <div className={style.contianerProfiler}>
             <div className={style.subcontainer}>
-                <img className={style.profileimg} src="" alt="" />
+                {
+                    !infouser.image ? <img className={style.profileimg} src="../../assets/img/user.png" alt="" />:
+                    <img className={style.profileimg} src={infouser.image} alt="" />
+                }
                 <div className={style.containerDataName}>
                     <div className={style.nameContainer}>
                         <label htmlFor="name">Nombre</label>

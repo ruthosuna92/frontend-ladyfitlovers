@@ -15,6 +15,9 @@ body {
 .container {
   position: relative;
 }
+.cardBox {
+  max-width: 250px;
+}
 
 .container .card {
   align-items: center;
@@ -135,6 +138,7 @@ body {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  text-wrap: wrap;
 }
 
 .container .card .contentBx .size span {
@@ -193,7 +197,9 @@ body {
 h3 {
   margin: 5px;
   max-width: 100%;
+  text-wrap: wrap;
 }
+
 .nameProductCard {
   color: #111;
 }
@@ -201,10 +207,17 @@ h3 {
   color: #c04c98;
   text-decoration: underline;
 }
-.cardBox{
+.cardBox {
   max-width: 250px;
 }
+.buy{
+  text-decoration: none;
+  color:#c04c98;
+}
+.buy:hover{
 
+  color:#c04c98;
+}
 /* @media (max-width: 768px) {
   .pokemon {
     width: calc(25% - 10px);

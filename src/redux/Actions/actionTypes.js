@@ -42,6 +42,11 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 //OFFERS
 export const GET_OFFERS = "GET_OFFERS";
 
+//ORDERS
+export const GET_ORDERS = "GET_ORDERS";
+
+
+
 //GET_OFFERS
 //CREATE_PRODUCT
 //EDI_PRODUCT
