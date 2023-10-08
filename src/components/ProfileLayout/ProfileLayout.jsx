@@ -99,7 +99,7 @@ const ProfileLayout = ({ profileKey }) => {
       <Layout>
         <Content className={style.layaout1}>
           {selectedKey === "perfil" && <DataProfile />}
-          {selectedKey === "compras" && <ShoppingClient />}
+          {selectedKey === "compras" && <ShoppingClient idUser={infouser.id} />}
           {selectedKey === "editar" && (
             <Formik
               initialValues={{
