@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import getAllProducts from "../../redux/Actions/Product/getAllProducts";
 import Filters from "../../components/Filters/Filters";
+import style from "./ProductsView.module.css"
 
 const ProductsView = () => {
   const allProducts = useSelector((state) => state.allProducts);
@@ -16,9 +17,11 @@ const ProductsView = () => {
   //   }
   // }, []);
   return (
-    <div>
+    <div className={style.containerAll}>
       <Filters />
-      <Products />
+      <div className={style.containeProduct}>
+        <Products />
+      </div>
       <Pagination />
     </div>
   );

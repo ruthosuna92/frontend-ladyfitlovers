@@ -4,7 +4,7 @@ import { GET_PURCHASES } from "../actionTypes";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/purchase/`;
 
-const getPurchases = (userId) => {
+const getPurchases = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(endpoint + userId);
@@ -28,4 +28,4 @@ const getPurchases = (userId) => {
   };
 };
 
-export default getAllUsers;
+export default getPurchases;

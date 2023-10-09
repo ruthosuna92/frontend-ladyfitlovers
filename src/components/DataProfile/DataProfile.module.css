@@ -76,6 +76,7 @@
   background-image: url("../../assets/img/user.png");
   background-position: center;
   background-size: 100% 100%;
+  box-shadow: 0 0 20px #BA338A ;
 }
 .nameContainer {
     position: relative;
