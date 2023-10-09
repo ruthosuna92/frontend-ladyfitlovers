@@ -1,4 +1,8 @@
 .shoppingClientContainer{
     height: 78vh;
-    width: 100%;
+    width: 85vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
 }

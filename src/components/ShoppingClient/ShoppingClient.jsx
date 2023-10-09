@@ -25,7 +25,7 @@ const ShoppingClient = ({ idUser }) => {
 
   return (
     <div className={style.shoppingClientContainer}>
-      <div>
+      
         {orderUser.map((userOrder) => (
           <div key={userOrder.id}>
             {userOrder.products.map((product) => (
@@ -34,7 +34,7 @@ const ShoppingClient = ({ idUser }) => {
                 bordered={false}
                 hoverable={true}
                 style={{
-                  width: "100%",
+                  width: "160vh",
                   height: 120,
                   margin: 5,
                 }}
@@ -64,7 +64,6 @@ const ShoppingClient = ({ idUser }) => {
             ))}
           </div>
         ))}
-      </div>
     </div>
   );
 };
