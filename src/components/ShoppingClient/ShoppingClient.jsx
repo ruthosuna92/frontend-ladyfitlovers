@@ -1,32 +1,26 @@
 import style from "./ShoppingClient.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import getOrders from "../../redux/Actions/Order/getOrders";
+import getOrdersByUser from "../../redux/Actions/Order/getOrdersByUser";
 import { Card, Row, Col, Image } from 'antd';
 import { getColorName } from "../../utils/getColorName";
 
 const ShoppingClient = ({ idUser }) => {
-  const ordersUser = useSelector((state) => state.allOrders);
-  const [orderUser, setOrderUser] = useState([]);
+  const ordersUser = useSelector((state) => state.ordersUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrders());
+    dispatch(getOrdersByUser(idUser));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (idUser) {
-      const userOrders = ordersUser.filter((order) => order.UserId === idUser);
-      setOrderUser(userOrders);
-    }
-  }, [idUser, ordersUser]);
+  
 
-  console.log(orderUser);
+  console.log(ordersUser);
 
   return (
     <div className={style.shoppingClientContainer}>
       
-        {orderUser.map((userOrder) => (
+        {ordersUser.map((userOrder) => (
           <div key={userOrder.id}>
             {userOrder.products.map((product) => (
               <Card

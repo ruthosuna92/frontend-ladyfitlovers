@@ -29,7 +29,7 @@ import {
 
   //orders
   GET_ORDERS,
-
+  GET_ORDERID,
   //favorites
   //purchase
 } from "../Actions/actionTypes";
@@ -65,7 +65,7 @@ const initialState = {
 
   //orders
   allOrders: [],
-
+  ordersUser: [],
   //favorites
   //purchase
 };
@@ -369,7 +369,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         allOrders: action.payload,
       };
-
+    case GET_ORDERID:
+      console.log(action.payload);
+      return {
+        ...state,
+        ordersUser: action.payload,
+      }
     default:
       return {
         ...state,

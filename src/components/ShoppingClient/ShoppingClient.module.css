@@ -1,8 +1,16 @@
 .shoppingClientContainer{
-    height: 78vh;
+    height: 70vh;
     width: 85vw;
     display: flex;
     align-items: center;
     flex-direction: column;
     margin-top: 40px;
+    overflow: auto;
+}
+.shoppingClientContainer::-webkit-scrollbar {
+    width: 3px; 
+}
+.shoppingClientContainer::-webkit-scrollbar-thumb {
+    background-color: #BA338A; 
+    border-radius: 20px;
 }
