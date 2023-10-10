@@ -64,7 +64,8 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
       phone: values.phone,
       address: address,
       email: values.email,
-      password: values.password
+      password: values.password,
+      userBan: false
     }
 
     try {
