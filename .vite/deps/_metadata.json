@@ -1,0 +1,137 @@
+{
+  "hash": "88bd65e3",
+  "browserHash": "cf0553b2",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "20954211",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "8eaf35a2",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../node_modules/react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "ffb23dd3",
+      "needsInterop": true
+    },
+    "@ant-design/icons": {
+      "src": "../../node_modules/@ant-design/icons/es/index.js",
+      "file": "@ant-design_icons.js",
+      "fileHash": "db1a494a",
+      "needsInterop": false
+    },
+    "antd": {
+      "src": "../../node_modules/antd/es/index.js",
+      "file": "antd.js",
+      "fileHash": "8ef5d109",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "f6cbf0ba",
+      "needsInterop": false
+    },
+    "formik": {
+      "src": "../../node_modules/formik/dist/formik.esm.js",
+      "file": "formik.js",
+      "fileHash": "7bdc76d2",
+      "needsInterop": false
+    },
+    "gapi-script": {
+      "src": "../../node_modules/gapi-script/index.js",
+      "file": "gapi-script.js",
+      "fileHash": "639f1067",
+      "needsInterop": false
+    },
+    "react-avatar-editor": {
+      "src": "../../node_modules/react-avatar-editor/dist/index.js",
+      "file": "react-avatar-editor.js",
+      "fileHash": "27235d0f",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "b577ae5e",
+      "needsInterop": true
+    },
+    "react-google-login": {
+      "src": "../../node_modules/react-google-login/dist/google-login.js",
+      "file": "react-google-login.js",
+      "fileHash": "a2d31846",
+      "needsInterop": true
+    },
+    "react-redux": {
+      "src": "../../node_modules/react-redux/es/index.js",
+      "file": "react-redux.js",
+      "fileHash": "0cb3c831",
+      "needsInterop": false
+    },
+    "react-router": {
+      "src": "../../node_modules/react-router/dist/index.js",
+      "file": "react-router.js",
+      "fileHash": "ae398f7d",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "5cea058f",
+      "needsInterop": false
+    },
+    "redux": {
+      "src": "../../node_modules/redux/es/redux.js",
+      "file": "redux.js",
+      "fileHash": "e38114ef",
+      "needsInterop": false
+    },
+    "redux-thunk": {
+      "src": "../../node_modules/redux-thunk/es/index.js",
+      "file": "redux-thunk.js",
+      "fileHash": "9b1a52cf",
+      "needsInterop": false
+    },
+    "yup": {
+      "src": "../../node_modules/yup/index.esm.js",
+      "file": "yup.js",
+      "fileHash": "089c67a0",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-JJL4IDR7": {
+      "file": "chunk-JJL4IDR7.js"
+    },
+    "chunk-DZXRV6RW": {
+      "file": "chunk-DZXRV6RW.js"
+    },
+    "chunk-U6BKTZS5": {
+      "file": "chunk-U6BKTZS5.js"
+    },
+    "chunk-T4MTQRGO": {
+      "file": "chunk-T4MTQRGO.js"
+    },
+    "chunk-4P2QOK7P": {
+      "file": "chunk-4P2QOK7P.js"
+    },
+    "chunk-GTA4LLDB": {
+      "file": "chunk-GTA4LLDB.js"
+    },
+    "chunk-4KLNKA2P": {
+      "file": "chunk-4KLNKA2P.js"
+    },
+    "chunk-ZAUFE7H7": {
+      "file": "chunk-ZAUFE7H7.js"
+    },
+    "chunk-UXIASGQL": {
+      "file": "chunk-UXIASGQL.js"
+    }
+  }
+}
