@@ -26,7 +26,7 @@ import {
   GET_CART,
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
-
+  REMOVING_PRODUCT,
   //orders
   GET_ORDERS,
   GET_ORDERID,
@@ -353,6 +353,13 @@ const reducer = (state = initialState, action) => {
           cart: [...state.cart],
         };
       }
+    case REMOVING_PRODUCT:
+      let productRemoved = state.cart[action.payload];
+
+      return {
+        ...state,
+        cart: state.cart.filter((prod) => prod !== productRemoved),
+      };
     case GET_ALL_USERS:
       return {
         ...state,

@@ -6,6 +6,7 @@ import incrementQuantity from '../../../redux/Actions/ShoppingCart/incrementQuan
 import style from "./DrawerCart.module.css"
 import { getColorName } from '../../../utils/getColorName';
 import axios from 'axios';
+import removingProduct from '../../../redux/Actions/ShoppingCart/removingProduct';
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 
 
@@ -32,7 +33,19 @@ const DrawerCart = ({openDrawer, onClose}) => {
   
 
   const handleCard = (e) => {
-    console.log(e.target.outerText);
+
+    if(e.target.outerText === "x"){
+      if(e.target.localName === "span" ){
+        let index = e.target.offsetParent.id
+        dispatch(removingProduct(index))
+        return
+
+      } else {
+        let indexCart = e.target.id
+        dispatch(removingProduct(indexCart))
+        return
+      }
+    }
     if(e.target.outerText !== "Ir a pagar"){
       if(e.target.localName === "span" ){
   
@@ -65,7 +78,7 @@ const DrawerCart = ({openDrawer, onClose}) => {
         }
         
       }
-    }
+    } 
   }
   
   const handleBuy = async () => {
@@ -101,11 +114,12 @@ const DrawerCart = ({openDrawer, onClose}) => {
       style={{
         width: 655,
         height:120,
-        margin:5,
+        margin:15,
       }}
       id={id}
       name={size}
     >
+      
     <Row justify="center">
       <Col span={4}>
         <div >Nombre<br></br> {name} </div>
@@ -117,13 +131,16 @@ const DrawerCart = ({openDrawer, onClose}) => {
         <div >Color<br></br>{getColorName(color)}</div>
       </Col>
       <Col span={4} >
-        <div className={style.algo}>Cant.<br></br><Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"-"}</Button>      { quantity } <Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"+"}</Button></div>
+        <div >Cant.<br></br><Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"-"}</Button>      { quantity } <Button style={{backgroundColor: "#e0b3cd", color: "black"}} size='small' className={i} id={i} type='secondary' name={size}  shape="circle" >{"+"}</Button></div>
       </Col>
       <Col span={4}>
         <div >Precio x unidad<br></br>{price}</div>
       </Col>
-      <Col span={3}>
+      <Col span={4}>
         <div >Total<br></br>{price * quantity}</div>
+      </Col>
+      <Col span={1}>
+      <Button id={i} shape='circle' size='small' >x</Button>
       </Col>
     </Row>
     </Card>
