@@ -3,10 +3,9 @@ import { Modal } from "antd";
 import { Formik, Form } from "formik";
 import CreateAcountForm from "./CreateAcountForm";
 import { CreateAcountSchema, UpdateAcountSchema } from "./createAcountSchema";
-import UpdatePassword from "../UpdatePassword/UpdatePassword";
 
-const CreateAcountModal = ({ visible, onClose, isEditing, user, pivotuser }) => {
-  console.log(pivotuser);
+const CreateAcountModal = ({ visible, onClose, isEditing, user }) => {
+ 
   const initialValues = {
     name: "",
     surname: "",
@@ -40,16 +39,7 @@ const CreateAcountModal = ({ visible, onClose, isEditing, user, pivotuser }) => 
   }
 
   return (
-    pivotuser ? (
-      <Modal
-      title="Actualizar Contraseña"
-      visible={visible}
-      onCancel={onClose}
-      footer={null}
-    >
-      <UpdatePassword/>
-    </Modal>
-    ) : (
+   
       <Modal
         title="Crear cuenta"
         visible={visible}
@@ -67,8 +57,7 @@ const CreateAcountModal = ({ visible, onClose, isEditing, user, pivotuser }) => 
           )}
         </Formik>
       </Modal>
-    )
-  );
+  )
 };
 
 export default CreateAcountModal;
