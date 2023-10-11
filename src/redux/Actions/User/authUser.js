@@ -11,7 +11,7 @@ const authUser = (profileObj, accessToken) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(endpoint, { profileObj, accessToken });
-      console.log(data)
+      console.log(data.token)
       const id = data.idUser;
       const config = {
         headers: {
@@ -24,6 +24,7 @@ const authUser = (profileObj, accessToken) => {
         type: AUTH_USER,
         payload: response.data,
         idUser: response.data.id,
+        accessToken: data.token,
       });
     } catch (error) {
       if (error.response) {

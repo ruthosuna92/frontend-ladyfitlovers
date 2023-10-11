@@ -4,7 +4,6 @@ import { Button,Table, Tag } from "antd";
 import {
   EditOutlined,
 } from "@ant-design/icons";
-import getAllOrders from "../../../redux/Actions/Order/getOrders";
 import OrderExpandedRow from "./OrderExpandedRow";
 import UpdateOrderModal from "./UpdateOrderModal";
 

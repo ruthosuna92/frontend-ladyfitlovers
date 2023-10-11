@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./DataProfile.module.css"
 const Profile = () => {
     const infouser = useSelector((state) => state.user)
-    console.log(infouser)
+    
 
     return (
         <div className={style.contianerProfiler}>

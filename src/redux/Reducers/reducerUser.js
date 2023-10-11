@@ -4,6 +4,7 @@ const initialState = {
   // usuario
   isLoggedIn: false,
   user: null,
+  accessToken: null,
 };
 
 const reducerUser = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const reducerUser = (state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         user: action.payload,
+        accessToken: action.accessToken,
       };
     case LOGOUT_USER:
       return {

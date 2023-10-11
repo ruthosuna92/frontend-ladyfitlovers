@@ -46,7 +46,7 @@ export const GET_OFFERS = "GET_OFFERS";
 //ORDERS
 export const GET_ORDERS = "GET_ORDERS";
 export const GET_ORDERID = "GET_ORDERID";
-
+export const PUT_ORDER = "PUT_ORDER";
 
 
 //GET_OFFERS

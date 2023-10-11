@@ -4,10 +4,15 @@ import { USER_BY_ID } from "../actionTypes";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/user/`;
 
-const userById = (id) => {
+const userById = (id, accessToken) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(endpoint + id);
+      const config = {
+        headers: {
+          authorization: `Bearer ${accessToken}`
+        }
+      }
+      const response = await axios.get(endpoint + id, config);
       return dispatch({
         type: USER_BY_ID,
         payload: response.data,
