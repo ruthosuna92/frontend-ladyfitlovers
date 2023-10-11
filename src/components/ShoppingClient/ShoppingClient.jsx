@@ -13,9 +13,6 @@ const ShoppingClient = ({ idUser }) => {
     dispatch(getOrdersByUser(idUser));
   }, [dispatch]);
 
-  
-
-  console.log(ordersUser);
 
   return (
     <div className={style.shoppingClientContainer}>

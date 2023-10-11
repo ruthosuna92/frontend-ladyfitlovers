@@ -64,9 +64,10 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
       name: values.name,
       surname: values.surname,
       phone: values.phone,
-      address: address,
+      address: values.calle && values.numero && values.dpto && values.entreCalles && values.localidad && values.codigoPostal && values.provincia ? address : undefined,
       email: values.email,
-      password: values.password
+      password: values.password,
+      userBan: false
     }
 
     try {

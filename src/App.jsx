@@ -1,7 +1,7 @@
 //imports
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { ConfigProvider, Button } from "antd";
 //actions
 import getAllProducts from "./redux/Actions/Product/getAllProducts";
@@ -19,12 +19,13 @@ import Profile from "./views/Profile/Profile";
 import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
 import Payment from "./views/Payment/Payment";
+import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
 
 const App = () => {
   // dispatch to get all products globally
   const allProducts = useSelector((state) => state.allProducts);
   const filteredProducts = useSelector((state) => state.products);
-  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   //condiction para que no se vuelva a cargar los productso si el estado
@@ -59,11 +60,11 @@ const App = () => {
       <Button type="primary">Hello World</Button> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/usuarios" element={<Dashboard />} />
-        <Route path="/admin/productos" element={<Dashboard />} />
-        <Route path="/admin/ordenes" element={<Dashboard />} />
-        <Route path="/admin/crear-producto" element={<Dashboard />} />
+        <Route path="/admin" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin/usuarios" element={user?.typeUser === "Admin" ?  <Dashboard />: <Navigate to='/'/>} />
+        <Route path="/admin/productos" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin/ordenes" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin/crear-producto" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
         <Route path="/login" />
         <Route path="/contacto" element={<Contac />} />
         <Route path="/register" />
@@ -71,10 +72,10 @@ const App = () => {
         <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
-        {/* <Route path="/crear-producto" element={<CreateProduct />} /> */}
-        <Route path="/perfil/:key" element={<Profile />} />
+        <Route path="/perfil/:key" element={user?.typeUser === "User" ? <Profile/> : <Navigate to='/'/> } />
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
+        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>
       </Routes>
       <Footer />
     </ConfigProvider>

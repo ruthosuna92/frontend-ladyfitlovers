@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import {  useSelector } from "react-redux";
 import { Button,Table, Tag } from "antd";
 import {
   EditOutlined,
@@ -9,7 +9,6 @@ import OrderExpandedRow from "./OrderExpandedRow";
 import UpdateOrderModal from "./UpdateOrderModal";
 
 const OrdersTable = () => {
-  const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.allOrders);
   const tableOrders = allOrders.map((order) => {
     return {
@@ -87,6 +86,13 @@ const OrdersTable = () => {
       render: (text) => <p>${text}</p>,
     },
     {
+      title: "Fecha de compra",
+      dataIndex: "orderDate",
+      sorter: (a, b) => a.totalAmount - b.totalAmount,
+      key: 4,
+      render: (text) => <p>{text}</p>,
+    },
+    {
       title: "Id pago",
       dataIndex: "mercadopagoTransactionId",
       key: 5,
@@ -131,9 +137,7 @@ const OrdersTable = () => {
     },
   ];
 
-  useEffect(() => {
-    dispatch(getAllOrders());
-  }, []);
+
 
   return (
     <div>
