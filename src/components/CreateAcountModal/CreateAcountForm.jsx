@@ -12,7 +12,7 @@ import postUser from "../../redux/Actions/User/postUser";
 import getUserById from "../../redux/Actions/User/getUserById"
 import editPhoto from "../editPhoto/editPhoto";
 import getAllUsers from "../../redux/Actions/User/getAllUsers";
-import LoginModal from "../LoginModal/LoginModal";
+import UpdatePasswordModal from "../UpdatePassword/UpdatePasswordModal";
 import "./createAcountModal.css";
 import "./createAcountForm.css"
 
@@ -415,7 +415,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
           }
 
         </div>
-          <LoginModal
+          <UpdatePasswordModal
             visible={loginModalVisible}
             onClose={() => setLoginModalVisible(false)}
             pivotuser={pivotuser}
