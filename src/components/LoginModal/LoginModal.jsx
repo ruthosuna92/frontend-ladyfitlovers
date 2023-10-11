@@ -42,7 +42,7 @@ const LoginModal = (props) => {
       const { email, password } = values;
       setLoading(true);
       const response = await dispatch(loginUser(email, password));
-      const user = await dispatch(userById(response.payload.userId));
+      const user = await dispatch(userById(response.payload.idUser));
       // console.log(user);
       if (user) {
         setLoading(false);

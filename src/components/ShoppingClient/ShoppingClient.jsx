@@ -20,7 +20,7 @@ const ShoppingClient = ({ idUser }) => {
   return (
     <div className={style.shoppingClientContainer}>
       
-        {ordersUser.map((userOrder) => (
+        {ordersUser?.map((userOrder) => (
           <div key={userOrder.id}>
             {userOrder.products.map((product) => (
               <Card

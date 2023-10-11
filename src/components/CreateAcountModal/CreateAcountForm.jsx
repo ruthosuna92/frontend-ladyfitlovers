@@ -1,7 +1,7 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Button, message, Select } from "antd";
 import { Field, useFormikContext } from "formik";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { provincias } from "./Provincias";
 import { saveImage } from "../CreateProduct/saveImage";
 import AvatarEditor from "react-avatar-editor";
@@ -12,11 +12,13 @@ import postUser from "../../redux/Actions/User/postUser";
 import getUserById from "../../redux/Actions/User/getUserById"
 import editPhoto from "../editPhoto/editPhoto";
 import getAllUsers from "../../redux/Actions/User/getAllUsers";
+import LoginModal from "../LoginModal/LoginModal";
 import "./createAcountModal.css";
 import "./createAcountForm.css"
 
 const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }) => {
-
+  console.log(pivotuser);
+  const [loginModalVisible, setLoginModalVisible] = useState(false);
   const { values, errors, resetForm } = useFormikContext();
   const [selectedImage, setSelectedImage] = useState({
     saveImage: null,
@@ -43,11 +45,11 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
         }
       }
     }
-  
+
     fetchImage(); // Llama a la función async inmediatamente
-  
+
   }, [selectedImage.saveImage]);
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -84,7 +86,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
   };
   const handleSubmitupdate = async () => {
     const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
-  
+
     const valuesToSend = {
       id: idUser,
       name: values.name,
@@ -111,9 +113,12 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
       message.error("hola");
     }
   }
+  const openLoginModal = () => {
+    setLoginModalVisible(true);
+  }
   const handleEdit = async () => {
     setLoading(true);
-    const address= `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
+    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
 
     const checkNewAddress = values.calle && values.numero && values.dpto && values.entreCalles && values.localidad && values.codigoPostal && values.provincia
 
@@ -122,7 +127,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
       name: values.name,
       surname: values.surname,
       phone: values.phone,
-      address: checkNewAddress ?  address : values.address ,
+      address: checkNewAddress ? address : values.address,
       email: values.email,
       password: values.password,
       userBan: values.userBan
@@ -136,26 +141,26 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
         message.success(response.message, [2], onClose());
         setLoading(false);
       } else {
-        message.error("Error al editar el usuario" , [2], onClose());
+        message.error("Error al editar el usuario", [2], onClose());
       }
       onClose();
       resetForm();
       dispatch(getAllUsers())
     } catch {
-        message.error("Error al editar el usuario" , [2], onClose());
+      message.error("Error al editar el usuario", [2], onClose());
     }
   };
 
   return (
     <>
       <div className="containerFormCreateAcount">
-        { pivotuser ? <Input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-          />: ""
+        {pivotuser ? <Input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        /> : ""
         }
-        
+
         <Field id="name" name="name">
           {/* Todos los field tienen que tener un name y un id por defecto, lo que cambia es el valor que yo le envìo */}
           {({ field, form, meta, error }) => {
@@ -363,6 +368,13 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
               onClick={() => onClose()}
             />
           }
+          {
+            pivotuser ? <ButtonSecondary
+              title="Update Password"
+              type="button"
+              onClick={openLoginModal}
+            /> : ""
+          }
 
           {
             pivotuser ? <ButtonPrimary
@@ -396,14 +408,18 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
                   errors.codigoPostal ||
                   errors.provincia ||
                   errors.email ||
-                  errors.password  ||
+                  errors.password ||
                   loading
                 }
               />
           }
 
-
         </div>
+          <LoginModal
+            visible={loginModalVisible}
+            onClose={() => setLoginModalVisible(false)}
+            pivotuser={pivotuser}
+          />
       </div>
     </>
   );
