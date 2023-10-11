@@ -1,19 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 //action
 import loginUser from "../../redux/Actions/User/loginUser";
 import userById from "../../redux/Actions/User/getUserById";
 //imports
-import { Modal, Form, Input, Button, Checkbox } from "antd";
+import { Modal, Form, Input, Button, Checkbox, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import GoogleAuth from "../GoogleAuth/GoogleAuth";
+import { gapi } from "gapi-script";
 
 import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
+
+//Enviar a una variable de entorno!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const clientId =
+  "521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
+
+
+
 const LoginModal = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+
+  // auth google
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    }
+    gapi.load("client:auth2", start);
+  }, [])
 
   const handleLogin = async () => {
     try {
@@ -21,7 +42,7 @@ const LoginModal = (props) => {
       const { email, password } = values;
       setLoading(true);
       const response = await dispatch(loginUser(email, password));
-      const user = await dispatch(userById(response.payload.idUser));
+      const user = await dispatch(userById(response.payload.idUser)); //idUser es lo que devuelve el loginser del back.
       // console.log(user);
       if (user) {
         setLoading(false);
@@ -30,6 +51,9 @@ const LoginModal = (props) => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+  const handleGoogleLoginSuccess = () => {
+    props.onClose();
   };
 
   return (
@@ -41,6 +65,9 @@ const LoginModal = (props) => {
     >
       <br />
       <Form form={form} onFinish={handleLogin} className="login-form">
+        <Divider orientation="left" style="">
+          E-mail
+        </Divider>
         <Form.Item
           name="email"
           rules={[
@@ -87,10 +114,21 @@ const LoginModal = (props) => {
           >
             Ingresar
           </Button>
-          O <ButtonTertiary title="Registrarme" type="button" onClick={()=>{
-            props.onClose();
-            props.setCreateAcountModalVisible(true);
-          }}/>
+          O
+          <ButtonTertiary
+            title="Registrarme"
+            type="button"
+            onClick={() => {
+              props.onClose();
+              props.setCreateAcountModalVisible(true);
+            }}
+          />
+        </Form.Item>
+        <Divider orientation="left" style="">
+          Google
+        </Divider>
+        <Form.Item>
+        <GoogleAuth onGoogleLoginSuccess={handleGoogleLoginSuccess} />
         </Form.Item>
       </Form>
     </Modal>

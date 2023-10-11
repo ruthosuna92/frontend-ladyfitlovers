@@ -1,0 +1,28 @@
+.googleButton button {
+  width: 100%;
+  background-color: transparent !important;
+  font-family: "Poppins", sans-serif !important;
+  /* box-shadow: none !important;  */
+  justify-content: center !important;
+}
+.googleButton button:hover {
+  cursor: pointer;
+  border-color: #c04c98 !important;
+}
+.googleButton div {
+  display: flex !important;
+
+  background-color: transparent !important;
+}
+
+.googleButton button {
+  border-radius: 15px !important;
+}
+.googleButton {
+  display: flex;
+
+  justify-content: center !important;
+}
+.googleButton div path {
+  height: 100%;
+}

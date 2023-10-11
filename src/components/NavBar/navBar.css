@@ -13,6 +13,9 @@
   align-items: center;
   justify-content: space-between;
   background-color: #f6f1f5;
+  box-shadow: 0px 4px 14px -4px rgb(161, 161, 161);
+  -webkit-box-shadow: 0px 4px 14px -4px rgba(161, 161, 161, 1);
+  -moz-box-shadow: 0px 4px 14px -4px rgba(161, 161, 161, 1);
 }
 
 .navBarLinksContainer {
@@ -24,16 +27,17 @@
 .navBarButton {
   background-color: #f6f1f5;
   border: none;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600px;
   color: #171717;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
 }
 
 .buttonLinkActive {
   text-decoration: none;
   color: #ba338a;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   border: none;
   cursor: pointer;
@@ -41,13 +45,40 @@
   border-bottom: 6px solid #ba338a;
 }
 .searchBarDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex: 1;
+  margin-right: 1em;
 }
 
-.userInfp{
+.userInfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
 }
+.userInfo p {
+  padding-right: 0.5em;
+}
+.menuIcon {
+  /* padding: 0.5em; */
+  margin-right: 0.7em;
+}
+.buttonNavAccess,
+.buttonNavAccess span {
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttonNavAccess svg,
+.buttonNavAccess path,
+.buttonNavAccess span {
+  width: 100%;
+  height: 84%;
+  margin: 0;
+}
+
+/* .cartBadge{
+  
+} */

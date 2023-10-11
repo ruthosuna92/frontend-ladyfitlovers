@@ -1,0 +1,28 @@
+.cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+  
+    flex-direction: row;
+    justify-content: space-evenly;
+  
+    /* display: grid; */
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    gap: 2rem;
+  }
+
+  .mostSoldProductsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+    background-color:#f6f1f5 ;
+    min-height: 512px;
+  }	
+
+  .titleMostSold{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }

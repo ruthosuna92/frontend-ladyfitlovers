@@ -1,0 +1,92 @@
+.contianerProfiler{
+    
+    height: 80vh;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
+}
+.subcontainer{
+   height: 60vh; 
+   width: 50%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 50px;
+}
+.containerDataName{
+    margin-top: 20px;
+    height: 40px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.dataNameAndSurname{
+    border: solid 1px #BA338A;
+    height: 40px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 5px;
+    
+}
+.dataaddres{
+    border: solid 1px #BA338A;
+    height: 12vh;
+    width: 31.5vw;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 5px;
+}
+.controlle{
+    border-radius: 10px;
+    overflow: hidden;
+}
+.dataEmail{
+    border: solid 1px #BA338A;
+    height: 40px;
+    width: 300px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 5px;
+    overflow-x: scroll;
+}
+.dataEmail::-webkit-scrollbar {
+    height: 3px; /* Ancho del scrollbar */
+}
+
+.dataEmail::-webkit-scrollbar-thumb {
+    background-color: #BA338A; /* Color del scrollbar */
+}
+
+.profileimg{
+  border: solid 1px #BA338A;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit:cover;
+  background-image: url("../../assets/img/user.png");
+  background-position: center;
+  background-size: 100% 100%;
+  box-shadow: 0 0 20px #BA338A ;
+}
+.nameContainer {
+    position: relative;
+}
+
+label {
+    position: absolute;
+    top: -15px; 
+    left: 0;
+    width: 26%;
+    background-color: none;
+    font-size: 0.7rem;
+}

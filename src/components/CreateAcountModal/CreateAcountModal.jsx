@@ -2,10 +2,40 @@ import React from "react";
 import { Modal } from "antd";
 import { Formik, Form } from "formik";
 import CreateAcountForm from "./CreateAcountForm";
-import CreateAcountSchema from "./createAcountSchema";
+import {CreateAcountSchema, UpdateAcountSchema} from "./createAcountSchema";
 
+const CreateAcountModal = ({ visible, onClose, isEditing , user}) => {
 
-const CreateAcountModal = ({ visible, onClose }) => {
+const initialValues = {
+  name:"",
+  surname:"",
+  calle:"",
+  numero:"",
+  dpto:"",
+  entreCalles:"",
+  localidad:"",
+  codigoPostal:"",
+  provincia:"",
+  phone:"",
+  email:"" ,
+  password:"" }
+
+  const userInitialValues = {
+    id:user?.id,
+    name:user?.name,
+    surname:user?.surname,
+    calle:"",
+    numero:"",
+    dpto:"",
+    entreCalles:"",
+    localidad:"",
+    codigoPostal:"",
+    provincia:"",
+    phone:user?.phone,
+    email:user?.email ,
+    userBan:user?.userBan,
+    address:user?.address,
+  }
 
   return (
     <Modal
@@ -15,12 +45,12 @@ const CreateAcountModal = ({ visible, onClose }) => {
       footer={null}
     >
       <Formik 
-      initialValues={{ name:"", surname:"", address:"", phone:"", email:"" , password:"" , confirmPassword:"" }}
-      validationSchema={CreateAcountSchema}
+      initialValues={isEditing ? userInitialValues : initialValues}
+      validationSchema={isEditing ? UpdateAcountSchema : CreateAcountSchema}
       >
         {({ errors, touched }) => (
           <Form>
-            <CreateAcountForm onClose={onClose}/>
+            <CreateAcountForm onClose={onClose} isEditing={isEditing}/>
           </Form>
         )}
 

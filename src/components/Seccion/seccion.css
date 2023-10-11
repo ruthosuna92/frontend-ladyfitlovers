@@ -1,0 +1,10 @@
+.seccionContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 1200px;
+    padding: 2rem 0;
+    background-color: #E0B3D3;
+}

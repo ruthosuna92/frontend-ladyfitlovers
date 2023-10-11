@@ -1,0 +1,18 @@
+
+.layaout1{
+    background-color: #F1ECF0;
+    width: 88vw;
+    height: 71vh;
+    display: grid;
+    place-items: center;
+    margin: 10px;
+    border-radius: 10px;
+}
+.formSetting{
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 600px;
+    
+}

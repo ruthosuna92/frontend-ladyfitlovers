@@ -1,8 +1,8 @@
 import axios from "axios";
-import { LOGIN_USER } from "../../actionTypes";
+import { LOGIN_USER } from "../actionTypes";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-const endpoint = `${API_URL_BASE}/user/login/` ;
+const endpoint = `${API_URL_BASE}/user/login/`;
 
 const loginUser = (email, password) => {
   return async (dispatch) => {
@@ -13,7 +13,6 @@ const loginUser = (email, password) => {
         type: LOGIN_USER,
         payload: response.data,
       });
-
     } catch (error) {
       if (error.response) {
         console.error(

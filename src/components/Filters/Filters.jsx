@@ -1,131 +1,163 @@
-// Filters.js
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { filtByCategory } from "../../redux/Actions/filtByCategory";
-import { filtByColor } from "../../redux/Actions/filtByColor";
-import { filtBySize } from "../../redux/Actions/filtBySize";
-import setCurrentPage from "../../redux/Actions/setCurrentPage"
-import getAllProducts from "../../redux/Actions/getAllProducts";
-import style from "./Filters.module.css"
+import { useSelector, useDispatch } from "react-redux";
+import { filtByCategory } from "../../redux/Actions/Filter/filtByCategory";
+import { filtByColor } from "../../redux/Actions/Filter/filtByColor";
+import { filtBySize } from "../../redux/Actions/Filter/filtBySize";
+import { saveFilter } from "../../redux/Actions/Filter/saveFilter";
+import getProductByName from "../../redux/Actions/Product/getProductByName";
+import setCurrentPage from "../../redux/Actions/Filter/setCurrentPage";
+import style from "./Filters.module.css";
+import { Select, Button} from "antd";
+import {ReloadOutlined } from "@ant-design/icons";
+
+
 const Filters = () => {
+  const size = ["S", "M", "L", "XL"];
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.allProducts);
-  const name = useSelector((state) => state.name)
-  const [uniqueCategories, setUniqueCategories] = useState([]);
-  const [uniqueColor, setUniqueColor] = useState([])
-  const [filters, setFilters] = useState({
-    category: "",
-    color: "",
-    size: ""
+  const filtersave = useSelector((state) => state.saveFilters);
+  
+  // Cambiar de dos estados locales a un solo estado local
+  const [uniqueFilters, setUniqueFilters] = useState({
+    category: [],
+    color: [],
+    selectCategory: "",
+    selectColor: "",
+    selectSize: "",
   });
-  useEffect(() => {
-    dispatch(setCurrentPage(1))
-  }, [allProducts])
-  console.log(allProducts);
-  useEffect(() => {
-    if (filters.category !== "") {
-      dispatch(filtByCategory(filters.category));
-    }
-    if (filters.color !== "") {
-      dispatch(filtByColor(filters.color))
-    }
-    if (filters.size !== "") {
-      dispatch(filtBySize(filters.size))
-    }
-  }, [filters.category, filters.color, filters.size]);
 
   useEffect(() => {
+    dispatch(setCurrentPage(1));
+    dispatch(saveFilter(uniqueFilters));
+    handleChangeCategory;
+    handleChangeColor;
+    handleSize;
+  }, [allProducts, uniqueFilters]);
+  useEffect(() => {
+    if (uniqueFilters.selectCategory !== "") {
+      dispatch(filtByCategory(uniqueFilters.selectCategory));
+    }
+    if (uniqueFilters.selectColor !== "") {
+      dispatch(filtByColor(uniqueFilters.selectColor));
+    }
+    if (uniqueFilters.selectSize !== "") {
+      dispatch(filtBySize(uniqueFilters.selectSize));
+    }
+  }, [
+    uniqueFilters.selectCategory,
+    uniqueFilters.selectColor,
+    uniqueFilters.selectSize,
+  ]);
 
+  useEffect(() => {
     if (allProducts) {
       const uniqueCategoryNames = Array.from(
         new Set(
-          allProducts.filter((product) => product.Category.name).map((product) => product.Category.name)
-        ),
+          allProducts
+            .filter((product) => product.Category.name)
+            .map((product) => product.Category.name)
+        )
       );
       const uniqueColorFil = Array.from(
         new Set(
-          allProducts.flatMap((product) => product.stock.map((stockItem) => stockItem.color)).filter((color) => color)
+          allProducts
+            .flatMap((product) =>
+              product.stock.map((stockItem) => stockItem.color)
+            )
+            .filter((color) => color)
         )
       );
-      if (uniqueCategoryNames.length > uniqueCategories.length && !name) {
-        dispatch(getAllProducts())
-        setUniqueCategories(uniqueCategoryNames);
-      }
-      if (uniqueColorFil.length > uniqueColor.length) {
-        setUniqueColor(uniqueColorFil);
-      }
+      setUniqueFilters({
+        category: uniqueCategoryNames,
+        color: uniqueColorFil,
+        selectCategory: filtersave.selectCategory,
+        selectColor: filtersave.selectColor,
+        selectSize: filtersave.selectSize,
+      });
     }
   }, [allProducts]);
 
-
-  const handleChangeCategory = (event) => {
-    const value = event.target.value;
-    setFilters({
-      ...filters,
-      category: value
+  const handleChangeCategory = (value) => {
+    setUniqueFilters({
+      ...uniqueFilters,
+      selectCategory: value,
     });
   };
-  const handleChangeColor = (event) => {
-    const value = event.target.value;
-    setFilters({
-      ...filters,
-      color: value
+
+  const handleChangeColor = (value) => {
+    setUniqueFilters({
+      ...uniqueFilters,
+      selectColor: value,
     });
   };
-  const handleSize = (event) => {
 
-    const value = event.target.value;
-    setFilters({
-      ...filters,
-      size: value
+  const handleSize = (value) => {
+    setUniqueFilters({
+      ...uniqueFilters,
+      selectSize: value,
     });
-  }
-  const optionSize = () => {
-    const size = ["xs", "s", "m", "l", "xl", "xxl"]
-    return size.map((size, index) => (
-      <option key={index} value={size}>{size}</option>
-    ))
-  }
+  };
+
+  const categoryOptions = [
+    { value: "TA", label: "CATEGORIA" },
+    ...filtersave.category.map((categoria) => {
+      return { value: categoria, label: categoria };
+    })
+  ];
+  const colorOptions = [
+    { value: "", label: "COLOR" },
+    ...filtersave.color.map((categoria) => {
+      return { value: categoria, label: categoria };
+    })
+  ];
+
+  const sizeOptions =[
+    {value: "", label:"TALLA"},
+    ...size.map((size) => {
+      return { value: size, label: size };
+    })
+  ] 
+
   const handleClick = () => {
-    setFilters({
-      category: "T",
-      color: "",
-      size: ""
+    setUniqueFilters({
+      ...uniqueFilters,
+      selectCategory: "TA",
+      selectColor: "",
+      selectSize: "",
     });
-  }
+  };
 
   return (
     <div className={style.containerFilter}>
       <div className={style.subcontainer}>
-        <button className={style.btnres} onClick={() => handleClick()}>Reset</button>
+        <Button onClick={()=>handleClick()}><ReloadOutlined /></Button>
         <div className={style.contenselect}>
-          <select name="categoria" id="" value={filters.category} onChange={handleChangeCategory}>
-            <option value="T">Categoria</option>
-            {uniqueCategories.map((categoryName, index) => (
-              <option key={index} value={categoryName}>
-                {categoryName}
-              </option>
-            ))}
-          </select>
-          <i></i>
+        <Select 
+          defaultValue={"CATEGORIA"}
+          value={!uniqueFilters.selectCategory? "CATEGORIA": uniqueFilters.selectCategory}
+          options={categoryOptions}
+          style={{ width: "100%" }}
+          onChange={handleChangeCategory}
+          />
         </div>
         <div className={style.contenselect}>
-          <select name="color" id="" value={filters.color} onChange={handleChangeColor}>
-            <option value="">Color</option>
-            {uniqueColor.map((colorArticle, index) => (
-              <option key={index} value={colorArticle}>
-                {colorArticle}
-              </option>
-            ))}
-          </select>
-          <i></i>
+        <Select 
+          defaultValue={""}
+          value={uniqueFilters.selectColor}
+          options={colorOptions}
+          style={{ width: "100%" }}
+          onChange={handleChangeColor}
+          />
         </div>
         <div className={style.contenselect}>
-          <select name="" id="" value={filters.size} onChange={handleSize}>
-            <option value="TA">Talla</option>
-            {optionSize()}
-          </select>
-          <i></i>
+          <Select 
+          defaultValue={"TA"}
+          value={!uniqueFilters.selectSize? "TALLA": uniqueFilters.selectSize}
+          options={sizeOptions}
+          style={{ width: "120%" }}
+          onChange={handleSize}
+          />
+          
         </div>
       </div>
     </div>
@@ -133,4 +165,3 @@ const Filters = () => {
 };
 
 export default Filters;
-

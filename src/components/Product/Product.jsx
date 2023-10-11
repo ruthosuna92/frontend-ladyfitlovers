@@ -1,21 +1,19 @@
 import React from "react";
 import style from "./Product.module.css";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import { Card, Button, Row, Col } from "antd";
 const { Meta } = Card;
 const colStyle = {
-  // width: "25%",
+  width: 10,
   textAlign: "center",
-
 };
 
 const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
-  console.log(id, name, image, price, stock, color);
   let sizes = [];
 
   return (
-    <div key={id}>
+    <div key={id} className="cardBox">
       <div key={id} className={style.container}>
         <div className={style.card}>
           <div className={style.imgBx}>
@@ -51,21 +49,29 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
                 );
               })}
             </div>
-            <Link to={`/detail/${id}`}>
-           Comprar
-            </Link>
+            <NavLink className={style.buy} to={`/detail/${id}`}>
+              Comprar
+            </NavLink>
           </div>
         </div>
       </div>
       <Row>
-       
-        <Col style={colStyle} span={24} >
-          <h3>{name}</h3>
-        </Col>        
+        <Col style={colStyle} span={24}>
+          <NavLink className={style.nameProductCard} to={`/detail/${id}`}>
+            <h3>{name}</h3>
+          </NavLink>
+        </Col>
       </Row>
       <Row>
         <Col style={colStyle} span={24}>
           $ {price}
+        </Col>
+      </Row>
+      <Row>
+        <Col style={colStyle} span={24}>
+          <NavLink className={style.buy} to={`/detail/${id}`}>
+            Comprar
+          </NavLink>
         </Col>
       </Row>
     </div>
