@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 import DrawerCart from "../ShoppingCart/Drawer/DrawerCart";
 import { useDispatch, useSelector } from "react-redux";
 import addingProduct from "../../redux/Actions/ShoppingCart/addingProduct";
+//import sub components
+import ProductReviews from "./ProductReviews/ProductReviews";
+
 
 
 const ProductDetails = ({
