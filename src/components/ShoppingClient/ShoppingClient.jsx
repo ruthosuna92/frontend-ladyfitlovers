@@ -13,14 +13,11 @@ const ShoppingClient = ({ idUser }) => {
     dispatch(getOrdersByUser(idUser));
   }, [dispatch]);
 
-  
-
-  console.log(ordersUser);
 
   return (
     <div className={style.shoppingClientContainer}>
       
-        {ordersUser.map((userOrder) => (
+        {ordersUser?.map((userOrder) => (
           <div key={userOrder.id}>
             {userOrder.products.map((product) => (
               <Card
