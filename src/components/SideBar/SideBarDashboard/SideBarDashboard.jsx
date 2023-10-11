@@ -3,6 +3,7 @@ import {
   ShopOutlined,
   ShoppingCartOutlined,
   UploadOutlined,
+  LineChartOutlined,
 } from "@ant-design/icons";
 import { Divider, Menu, Switch } from "antd";
 import { useState } from "react";
@@ -20,6 +21,7 @@ const SideBarDashboard = () => {
     };
   }
   const items = [
+    getItem("Resumen", "5", <LineChartOutlined />),
     getItem("Usuarios", "1", <UserOutlined />),
     getItem("Productos", "2", <ShopOutlined />),
     getItem("Ordenes de compra", "3", <ShoppingCartOutlined />),
@@ -38,6 +40,9 @@ const SideBarDashboard = () => {
         break;
       case "4":
         navigate("/admin/crear-producto");
+      case "5":
+        navigate("/admin");
+        break;
       default:
         console.log("default");
         break;
