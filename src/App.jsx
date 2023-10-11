@@ -19,6 +19,7 @@ import Profile from "./views/Profile/Profile";
 import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
 import Payment from "./views/Payment/Payment";
+import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
 
 const App = () => {
   // dispatch to get all products globally
@@ -74,6 +75,7 @@ const App = () => {
         <Route path="/perfil/:key" element={user?.typeUser === "User" ? <Profile/> : <Navigate to='/'/> } />
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
+        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>
       </Routes>
       <Footer />
     </ConfigProvider>
