@@ -191,83 +191,39 @@ export default PaymentState;
 // import { useLocation } from "react-router-dom";
 // import postOrder from "../../redux/Actions/Purchase/PostPurchase";
 
-// const PaymentState = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const location = useLocation();
-//   const userId = useSelector((state) => state.user.id);
-//   const products = useSelector((state) => state.cart);
-//   const queryParams = new URLSearchParams(location.search);
-//   const data = queryParams.get("data");
-//   const parsedData = JSON.parse(decodeURIComponent(data));
-//   const totalAmount = products.reduce(
-//     (acc, prod) => acc + prod.price * prod.quantity,
-//     0
-//   );
-//   const mpId = parsedData?.payment_id;
-
-//   useEffect(() => {
-//     dispatch(cleanCart(userId));
-//     if (parsedData.status === "approved") {
-//       const paymentApproved = async () => {
-//         if (userId) {
-//           const response = await dispatch(
-//             postOrder({ userId, products, mpId, totalAmount })
-//           );
-//           if (response === 201) {
-//             console.log("Order added");
-//             dispatch(cleanCart(userId));
-//           }
-//         }
-//       };
-//       paymentApproved();
-//     }
-//   }, []);
-
-//   const renderSuccessCard = () => (
-//     <Card>
-//       <Result
-//         status="success"
-//         title="Compra realizada con éxito!"
-//         subTitle="Su compra ha sido aprobada y procesada correctamente."
-//         extra={[
-//           <Button
-//             type="primary"
-//             key="profile"
-//             onClick={() => navigate("/perfil/compras")}
-//           >
-//             <ShoppingOutlined /> Ir al detalle de compra
-//           </Button>,
-//           <Button type="default" key="home" onClick={() => history.push("/")}>
-//             Volver al inicio
-//           </Button>,
-//         ]}
-//       />
-//     </Card>
-//   );
-
-//   const renderErrorCard = () => (
-//     <Card>
-//       <Result
-//         status="error"
-//         title="Error en la compra"
-//         subTitle="Hubo un problema con su compra. Por favor, intente nuevamente más tarde."
-//         extra={[
-//           <Button type="default" key="home" onClick={() => navigate("/")}>
-//             Volver al inicio
-//           </Button>,
-//         ]}
-//       />
-//     </Card>
-//   );
-
-//   return parsedData.status === "approved"
-//     ? renderSuccessCard()
-//     : renderErrorCard();
-// };
-
 const PaymentState = () => {
-  const navigate =useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const userId = useSelector((state) => state.user.id);
+  const products = useSelector((state) => state.cart);
+  const queryParams = new URLSearchParams(location.search);
+  const data = queryParams.get("data");
+  const parsedData = JSON.parse(decodeURIComponent(data));
+  const totalAmount = products.reduce(
+    (acc, prod) => acc + prod.price * prod.quantity,
+    0
+  );
+  const mpId = parsedData?.payment_id;
+
+  useEffect(() => {
+    dispatch(cleanCart(userId));
+    if (parsedData.status === "approved") {
+      const paymentApproved = async () => {
+        if (userId) {
+          const response = await dispatch(
+            postOrder({ userId, products, mpId, totalAmount })
+          );
+          if (response === 201) {
+            console.log("Order added");
+            dispatch(cleanCart(userId));
+          }
+        }
+      };
+      paymentApproved();
+    }
+  }, []);
+
   const renderSuccessCard = () => (
     <Card>
       <Result
@@ -282,7 +238,7 @@ const PaymentState = () => {
           >
             <ShoppingOutlined /> Ir al detalle de compra
           </Button>,
-          <Button type="default" key="home" onClick={() => navigate("/")}>
+          <Button type="default" key="home" onClick={() => history.push("/")}>
             Volver al inicio
           </Button>,
         ]}
@@ -297,11 +253,7 @@ const PaymentState = () => {
         title="Error en la compra"
         subTitle="Hubo un problema con su compra. Por favor, intente nuevamente más tarde."
         extra={[
-          <Button
-            type="default"
-            key="home"
-            onClick={() => navigate("/")}
-          >
+          <Button type="default" key="home" onClick={() => navigate("/")}>
             Volver al inicio
           </Button>,
         ]}
@@ -309,12 +261,61 @@ const PaymentState = () => {
     </Card>
   );
 
-  return (
-    <div>
-      {renderSuccessCard()}
-      {renderErrorCard()}
-    </div>
-  );
+  return parsedData.status === "approved"
+    ? renderSuccessCard()
+    : renderErrorCard();
 };
 
 export default PaymentState;
+
+
+// const PaymentState = () => {
+//   const navigate =useNavigate()
+//   const renderSuccessCard = () => (
+//     <Card>
+//       <Result
+//         status="success"
+//         title="Compra realizada con éxito!"
+//         subTitle="Su compra ha sido aprobada y procesada correctamente."
+//         extra={[
+//           <Button
+//             type="primary"
+//             key="profile"
+//             onClick={() => navigate("/perfil/compras")}
+//           >
+//             <ShoppingOutlined /> Ir al detalle de compra
+//           </Button>,
+//           <Button type="default" key="home" onClick={() => navigate("/")}>
+//             Volver al inicio
+//           </Button>,
+//         ]}
+//       />
+//     </Card>
+//   );
+
+//   const renderErrorCard = () => (
+//     <Card>
+//       <Result
+//         status="error"
+//         title="Error en la compra"
+//         subTitle="Hubo un problema con su compra. Por favor, intente nuevamente más tarde."
+//         extra={[
+//           <Button
+//             type="default"
+//             key="home"
+//             onClick={() => navigate("/")}
+//           >
+//             Volver al inicio
+//           </Button>,
+//         ]}
+//       />
+//     </Card>
+//   );
+
+//   return (
+//     <div>
+//       {renderSuccessCard()}
+//       {renderErrorCard()}
+//     </div>
+//   );
+// };
