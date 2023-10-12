@@ -1,0 +1,19 @@
+.NoFound{
+    /* height: 80vh;
+    width: 80vw; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #BA338A;
+    width: 600px;
+    height: 500px;
+}
+.imgNoFound{
+    background-image: url("../../../assets/img/emptyCart.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+}

@@ -3,20 +3,24 @@ import { Button, Drawer, Space, Card, Row, Col, Image, message} from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import decrementQuantity from '../../../redux/Actions/ShoppingCart/decrementQuantity';
 import incrementQuantity from '../../../redux/Actions/ShoppingCart/incrementQuantity';
-import style from "./DrawerCart.module.css"
 import { getColorName } from '../../../utils/getColorName';
-import axios from 'axios';
 import removingProduct from '../../../redux/Actions/ShoppingCart/removingProduct';
-const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-
+import checkout from '../../../redux/Actions/ShoppingCart/checkout';
+import LoginModal from '../../LoginModal/LoginModal';
+import EmptyCart from '../emptyCart/emptyCart';
+import { useNavigate } from 'react-router';
 
 const DrawerCart = ({openDrawer, onClose}) => {
   const allProductsAdmin = useSelector((state) => state.allProductsAdmin)
   const cart = useSelector((state) => state.cart)
+  const user = useSelector((state) => state.user)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   
   const [messageApi, contextHolder] = message.useMessage()
- 
+  const [loginModalVisible, setLoginModalVisible] = useState(false);
+  const [createAcountModalVisible, setCreateAcountModalVisible] =
+    useState(false);
   const [open, setOpen] = useState(openDrawer);
   const showDefaultDrawer = () => {
     setOpen(openDrawer);
@@ -82,17 +86,24 @@ const DrawerCart = ({openDrawer, onClose}) => {
   }
   
   const handleBuy = async () => {
-    console.log('el boton no es el problema');
-    try {
-      
-      const { data } = await axios.post(`${API_URL_BASE}/payment/createOrder`, { products: cart })
-      window.location.href = data.response.init_point;
-    } catch (error) {
-      console.log(error);
+    if(user.email && total > 0){
+      dispatch(checkout(cart))
+    } else {
+      setLoginModalVisible(true)
     }
   };
+  const handle = () => {
+    onClose(false)
+    navigate("/products")
+
+  }
   return (
     <>
+     <LoginModal
+        visible={loginModalVisible}
+        onClose={() => setLoginModalVisible(false)}
+        setCreateAcountModalVisible={setCreateAcountModalVisible}
+      />
     {contextHolder}
       <Drawer
         title="Carrito de compras"
@@ -104,10 +115,19 @@ const DrawerCart = ({openDrawer, onClose}) => {
         // extra={
         // }
       > 
+      {total === 0 && <Card  bordered={false}
+      
+      style={{
+        backgroundColor: "#FFFFFF",
+        // width: 655,
+        // height:200,
+        // margin:15,
+      }} 
+      ><EmptyCart/></Card>}
       {cart.length > 0 && cart.map(({name, color, image, size, quantity, price, id}, i) => {
         
         return <div>
-
+      
       <Card
       bordered={false}
       hoverable={true}
@@ -146,10 +166,11 @@ const DrawerCart = ({openDrawer, onClose}) => {
     </Card>
         </div>
       })}
-    <div>Costo total<br></br>{total}</div>
+    {total > 0 && <div>Costo total<br></br>{total}</div>}
           <Space>
-            <Button onClick={() => onClose(false)}>Seguir comprando</Button>
-            <Button type="primary" onClick={() => handleBuy()}> 
+          {total === 0 && <Button onClick={handle}>Buscar productos</Button>}
+            {total > 0 && <Button onClick={() => onClose(false)}>Seguir comprando</Button>}
+            <Button type="primary" disabled={total === 0} onClick={() => handleBuy()}> 
             {/* // /payment/createOrder   window.location.href = response.data.response.body.init_point; */}
               Ir a pagar
             </Button>
