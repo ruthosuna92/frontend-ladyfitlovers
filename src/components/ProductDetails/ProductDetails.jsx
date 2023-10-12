@@ -12,7 +12,6 @@ import addingProduct from "../../redux/Actions/ShoppingCart/addingProduct";
 import ProductReviews from "./ProductReviews/ProductReviews";
 
 const ProductDetails = ({ productData }) => {
-  console.log(productData);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
