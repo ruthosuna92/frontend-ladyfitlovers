@@ -150,7 +150,7 @@ const ProductDetails = ({ productData }) => {
 
   //REVIEWS----------------------------------------------------------------
   const accessToken = useSelector((state) => state.accessToken);
-  console.log(accessToken);
+  console.log(accessToken, "accessToken")
   const currentProductId = productData.id;
   const [userHasPurchased, setUserHasPurchased] = useState(false);
 
@@ -158,17 +158,12 @@ const ProductDetails = ({ productData }) => {
   // console.log(ordersByUser);
 
   //mapear las ordenes del usuario y verificar si dentro de esas ordenes hay al menos un product.id que coincida con el currentProductId
-
   useEffect(() => {
-    dispatch(getOrdersByUser(userId, accessToken)).then((ordersByUser) => {
-      const hasPurchased = ordersByUser.some((order) =>
-        order.products.some((product) => product.id === currentProductId)
-      );
+    dispatch(getOrdersByUser(userId, accessToken));
+  }, [dispatch]);
 
-      setUserHasPurchased(hasPurchased);
-    });
-  }, [userId, accessToken, currentProductId, dispatch]);
-  //completar con un use effect que verifique si ya existe una review de ese producto de ese usuario, no mostrar el formulario de postReview
+
+
 
   return (
     <div>
@@ -252,3 +247,15 @@ const ProductDetails = ({ productData }) => {
 };
 
 export default ProductDetails;
+
+
+  // useEffect(() => {
+  //   dispatch(getOrdersByUser(userId, accessToken)).then((ordersByUser) => {
+  //     const hasPurchased = ordersByUser.some((order) =>
+  //       order.products.some((product) => product.id === currentProductId)
+  //     );
+
+  //     setUserHasPurchased(hasPurchased);
+  //   });
+  // }, [userId, accessToken, currentProductId, dispatch]);
+  //completar con un use effect que verifique si ya existe una review de ese producto de ese usuario, no mostrar el formulario de postReview
