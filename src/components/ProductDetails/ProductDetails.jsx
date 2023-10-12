@@ -10,10 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import addingProduct from "../../redux/Actions/ShoppingCart/addingProduct";
 //import sub components
 import ProductReviews from "./ProductReviews/ProductReviews";
+import ReviewForm from "./ReviewForm/ReviewForm";
+//actions
+import getOrdersByUser from "../../redux/Actions/Order/getOrdersByUser";
+//react router dom
+import { useParams } from "react-router-dom";
 
 const ProductDetails = ({ productData }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.user.id);
+  console.log(userId);
 
   useEffect(() => {
     // saveCartLocal()
@@ -141,6 +148,28 @@ const ProductDetails = ({ productData }) => {
     }
   };
 
+  //REVIEWS----------------------------------------------------------------
+  const accessToken = useSelector((state) => state.accessToken);
+  console.log(accessToken);
+  const currentProductId = productData.id;
+  const [userHasPurchased, setUserHasPurchased] = useState(false);
+
+  // const ordersByUser = dispatch(getOrdersByUser(userId, accessToken))
+  // console.log(ordersByUser);
+
+  //mapear las ordenes del usuario y verificar si dentro de esas ordenes hay al menos un product.id que coincida con el currentProductId
+
+  useEffect(() => {
+    dispatch(getOrdersByUser(userId, accessToken)).then((ordersByUser) => {
+      const hasPurchased = ordersByUser.some((order) =>
+        order.products.some((product) => product.id === currentProductId)
+      );
+
+      setUserHasPurchased(hasPurchased);
+    });
+  }, [userId, accessToken, currentProductId, dispatch]);
+  //completar con un use effect que verifique si ya existe una review de ese producto de ese usuario, no mostrar el formulario de postReview
+
   return (
     <div>
       {contextHolder}
@@ -213,7 +242,9 @@ const ProductDetails = ({ productData }) => {
         <div className="productDetailContainerBottom">
           <h2>Opiniones</h2>
 
-          <ProductReviews productData={productData}/>
+          {userHasPurchased && <ReviewForm productData={productData} />}
+
+          <ProductReviews productData={productData} />
         </div>
       </div>
     </div>
