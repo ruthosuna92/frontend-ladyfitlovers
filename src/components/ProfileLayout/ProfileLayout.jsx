@@ -34,7 +34,7 @@ const ProfileLayout = ({ profileKey }) => {
   });
 
   useEffect(() => {
-    console.log(infouser);
+    
     if (infouser) {
       setFormData({
         id: infouser.id,

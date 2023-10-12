@@ -13,6 +13,7 @@ import updateProduct from "../../redux/Actions/Product/updateProduct";
 
 const CreateProductForm = ({ errors, isEditing }) => {
   const categories = useSelector((state) => state.allCategories);
+  const accessToken = useSelector((state) => state.accessToken);
   const { values, setFieldValue, resetForm } = useFormikContext();
   const [errorColor, setErrorColor] = useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
@@ -53,7 +54,8 @@ const CreateProductForm = ({ errors, isEditing }) => {
           image: urlImage,
           category: values.category,
           stock: values.stock,
-        })
+        },
+        accessToken)
       );
 
       message.success(response.message, [2], onClose());
@@ -76,7 +78,7 @@ const CreateProductForm = ({ errors, isEditing }) => {
           category: values.category,
           stock: values.stock,
           active: values.active,
-        })
+        }, accessToken)
       );
 
       message.success(response.message, [2], onClose());
@@ -283,10 +285,10 @@ const CreateProductForm = ({ errors, isEditing }) => {
                     push({
                       color: "",
                       sizeAndQuantity: [
-                        { size: "s", quantity: 0 },
-                        { size: "m", quantity: 0 },
-                        { size: "l", quantity: 0 },
-                        { size: "xl", quantity: 0 },
+                        { size: "S", quantity: 0 },
+                        { size: "M", quantity: 0 },
+                        { size: "L", quantity: 0 },
+                        { size: "XL", quantity: 0 },
                       ],
                     })
                   }

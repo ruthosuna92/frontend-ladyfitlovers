@@ -194,25 +194,27 @@ const reducer = (state = initialState, action) => {
         allCategories: [...state.allCategories, action.payload],
       };
     case LOGIN_USER:
+      console.log("User logged in:", action);
       return {
         ...state,
         isLoggedIn: true,
         userId: action.payload.id,
-        token: action.payload.token,
+        accessToken: action.payload.token,
       };
 
     case USER_BY_ID:
-      console.log("User by ID:", action.payload);
+
       return {
         ...state,
         user: action.payload,
       };
+      
     case AUTH_USER:
       console.log("User authenticated with Google", action.payload);
       return {
         ...state,
         isLoggedIn: true,
-        token: action.payload.token,
+        accessToken: action.accessToken,
         user: action.payload,
       };
     case LOGOUT_USER:

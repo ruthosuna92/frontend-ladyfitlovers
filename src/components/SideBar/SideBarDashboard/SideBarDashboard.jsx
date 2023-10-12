@@ -21,11 +21,11 @@ const SideBarDashboard = () => {
     };
   }
   const items = [
-    getItem("Resumen", "5", <LineChartOutlined />),
     getItem("Usuarios", "1", <UserOutlined />),
     getItem("Productos", "2", <ShopOutlined />),
     getItem("Ordenes de compra", "3", <ShoppingCartOutlined />),
     getItem("Crear producto", "4", <UploadOutlined />),
+    getItem("Resumen", "5", <LineChartOutlined />),
   ];
   const handleMenu = ({ item, key, keyPath, selectedKeys, domEvent }) => {
     switch (key) {

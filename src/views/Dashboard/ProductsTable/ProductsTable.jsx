@@ -9,8 +9,14 @@ import updateProduct from "../../../redux/Actions/Product/updateProduct";
 const ProductsTable = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.allProductsAdmin);
-  const sortedProducts = products?.sort((a, b) => a.name.localeCompare(b.name));
   const allCatgories = useSelector((state) => state.allCategories);
+ const accessToken = useSelector((state) => state.accessToken);
+ const [showEditModal, setShowEditModal] = useState(false);
+ const [productUpdate, setProductUpdate] = useState({});
+
+
+
+  const sortedProducts = products?.sort((a, b) => a.name.localeCompare(b.name));
 
   const categoriesFilterOptions = allCatgories?.map((category) => {
     return { text: category.name, value: category.name };
@@ -20,9 +26,7 @@ const ProductsTable = () => {
     return { text: product.name, value: product.name };
   });
 
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [productUpdate, setProductUpdate] = useState({});
-
+  
 
   const handleActive = async (value, product) => {
     try {
@@ -31,13 +35,13 @@ const ProductsTable = () => {
           id: product.id,
           name: product.name,
           price: product.price,
-          priceOnSale: product.priceOnSale,
+          priceOnSale: product.priceOnSale || product.price,
           unitsSold: product.unitsSold,
           image: product.image,
           category: product.category,
           stock: product.stock,
           active: value,
-        })
+        }, accessToken)
       );
 
       message.success(response.message, [2], onClose());
