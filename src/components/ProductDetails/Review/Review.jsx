@@ -5,16 +5,7 @@ import userById from "../../../redux/Actions/User/getUserById";
 import styles from "./Review.module.css";
 
 //antd
-import {
-  Avatar,
-  Button,
-  Col,
-  Row,
-  Rate,
-  Card,
-  Skeleton,
-  Switch,
-} from "antd";
+import { Avatar, Button, Col, Row, Rate, Card, Skeleton, Switch } from "antd";
 import {
   EditOutlined,
   EllipsisOutlined,
@@ -55,9 +46,7 @@ const Review = ({ id, reviewText, rating, updatedAt, user }) => {
         loading={loading}
       >
         <Meta
-          avatar={
-            <Avatar src={reviewUser.image} />
-          }
+          avatar={<Avatar src={reviewUser.image} />}
           title={reviewUser.name}
           description={
             <div className={styles.reviewDescription}>

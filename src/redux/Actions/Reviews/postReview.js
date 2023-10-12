@@ -3,30 +3,33 @@ import { POST_REVIEW } from "../actionTypes";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/review`;
 
-const addingProduct = (product) => {
+const addingProduct = (review) => {
   console.log(product);
   return async (dispatch) => {
     try {
       const response = await axios.post(endpoint, {
-        userId: product.userId,
-        review: [review],
+        userId,
+        productId,
+        reviewText,
+        rating,
       });
+
       const responseData = response.data;
       if (responseData.success) {
         dispatch({
           type: POST_REVIEW,
-          payload: product,
+          payload: responseData.data,
         });
-        return { message: "Producto agregado al carrito correctamente" };
+        return { message: "Reseña agregada correctamente" };
       } else {
         return {
-          message: responseData.message || "Producto no pudo ser agregado",
+          message: responseData.message || "La reseña no pudo ser agregada",
         };
       }
     } catch (error) {
-      console.error("Error adding product to cart:", error);
+      console.error("Error al agregar la reseña:", error);
 
-      return { message: "Producto no pudo ser agregado" };
+      return { message: "Reseña no agregada" };
     }
   };
 };
