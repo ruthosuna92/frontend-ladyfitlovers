@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //action
 import loginUser from "../../redux/Actions/User/loginUser";
@@ -23,7 +23,7 @@ const LoginModal = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-
+  const cart = useSelector((state)=> state.cart)
   // auth google
 
   useEffect(() => {
