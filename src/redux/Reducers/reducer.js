@@ -66,7 +66,7 @@ const initialState = {
   //orders
   allOrders: [],
   ordersUser: [],
-  //favorites
+  favorites: []
   //purchase
 };
 

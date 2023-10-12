@@ -20,6 +20,7 @@ import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
 import Payment from "./views/Payment/Payment";
 import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
+import Favs from "./views/Favs/Favs";
 
 const App = () => {
   // dispatch to get all products globally
@@ -76,6 +77,7 @@ const App = () => {
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>
+        <Route path="/favoritos/:id" element={user?.typeUser === "User" ? <Favs/>: <Navigate to='/'/>}/>
       </Routes>
       <Footer />
     </ConfigProvider>
