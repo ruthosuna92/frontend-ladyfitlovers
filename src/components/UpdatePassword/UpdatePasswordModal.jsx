@@ -2,8 +2,7 @@
 import { Modal } from "antd";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 
-const UpdatePasswordModal = ({ visible, onClose, pivotuser }) => {
-  console.log(pivotuser);
+const UpdatePasswordModal = ({ visible, onClose }) => {
  
   return (
       <Modal
@@ -12,7 +11,7 @@ const UpdatePasswordModal = ({ visible, onClose, pivotuser }) => {
       onCancel={onClose}
       footer={null}
     >
-      <UpdatePassword/>
+      <UpdatePassword onClose={onClose}/>
     </Modal>
     
   );

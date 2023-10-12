@@ -98,7 +98,6 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
       email: values.email,
       image: selectedImage.urlImage
     }
-    console.log(valuesToSend)
 
     try {
       const response = await dispatch(updateUser(valuesToSend, accessToken));

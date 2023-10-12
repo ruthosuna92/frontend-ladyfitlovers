@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Input, Divider } from "antd";
+import { Input, Divider, message } from "antd";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import updateUser from "../../redux/Actions/User/updateUser";
+import style from "./UpdatePassword.module.css"
 
-const UpdatePassword = () => {
+const UpdatePassword = ({onClose}) => {
+  const accessToken = useSelector((state) => state.accessToken);
+  const infouser = useSelector((state) => state.user)
+  console.log(infouser.id);
+  const id = infouser.id
   const dispatch = useDispatch()
   const [error, setError] = useState({
     errorPasscurrent: "",
@@ -13,24 +18,24 @@ const UpdatePassword = () => {
   });
   console.log(error);
   const [updatePassword, setUpdatePassword] = useState({
-    passwordActual: "",
-    passwordNueva: "",
+    password: "",
+    newPassword: "",
     passwordNueva2: "",
   });
-  useEffect(()=>{
-    if (updatePassword.passwordNueva === updatePassword.passwordNueva2) {
+  useEffect(() => {
+    if (updatePassword.newPassword === updatePassword.passwordNueva2) {
       setError({
         ...error,
-        passwordNueva:""
+        newPassword: ""
       });
     }
     validate()
-  },[updatePassword.passwordNueva2, updatePassword.passwordActual])
+  }, [updatePassword.passwordNueva2, updatePassword.password])
   const handleChangePasswordActual = (event) => {
     const { value } = event.target;
     setUpdatePassword({
       ...updatePassword,
-      passwordActual: value,
+      password: value,
     });
   };
 
@@ -43,17 +48,17 @@ const UpdatePassword = () => {
   };
 
   const validate = () => {
-    const errorpass={
-      error1:"",
-      error2:""
+    const errorpass = {
+      error1: "",
+      error2: ""
     }
-    if (updatePassword.passwordNueva !== updatePassword.passwordNueva2) {
-      errorpass.error1="Las contraseñas nuevas no coinciden"
+    if (updatePassword.newPassword !== updatePassword.passwordNueva2) {
+      errorpass.error1 = "Las contraseñas no coinciden"
     }
-    if(updatePassword.passwordActual === ""){
-      errorpass.error2="Tienes que colocar tu contraseña actual"
-    }else{
-      errorpass.error2=""
+    if (updatePassword.password === "") {
+      errorpass.error2 = "Tienes que colocar tu contraseña actual"
+    } else {
+      errorpass.error2 = ""
     }
     setError({
       ...error,
@@ -61,45 +66,57 @@ const UpdatePassword = () => {
       errorPassNew: errorpass.error1
     })
   };
-  const handleSumit =()=>{
-    if(error.errorPassNew === "" && error.errorPasscurrent === ""){
-      const {passwordActual, passwordNueva}=updatePassword
-      //dispatch(updateUser({passwordActual, passwordNueva}))
+  const handleSumit = async() => {
+    if (error.errorPassNew === "" && error.errorPasscurrent === "") {
+      const { password, newPassword } = updatePassword
+      const 
+      response = await dispatch(updateUser({ password, newPassword, id }, accessToken))
+      if (response.message === "Usuario editado correctamente") {
+        message.success(response.message);
+        onClose();
+        setUpdatePassword({})
+      }else{
+        message.error("Error al editar la cuenta");
+      }
     }
   }
 
   return (
     <div>
+      <div className={style.containerInput}>
+        <Input
+          placeholder="Contraseña Actual*"
+          autoComplete="off"
+          onChange={handleChangePasswordActual}
+          value={updatePassword.password}
+        />
+        {error.errorPasscurrent && <p className={style.error}>{error.errorPasscurrent}</p>}
 
-      <Input
-        placeholder="Contraseña Actual*"
-        autoComplete="off"
-        onChange={handleChangePasswordActual}
-        value={updatePassword.passwordActual}
-      />
-      {error.errorPasscurrent && <p style={{ color: "red" }}>{error.errorPasscurrent}</p>}
+      </div>
       <Divider orientation="left">Ingrese la nueva contraseña</Divider>
       <Input
         placeholder="Contraseña Nueva*"
         autoComplete="off"
-        name="passwordNueva"
+        name="newPassword"
         type="password"
         onChange={handleChangePasswordNew}
-        value={updatePassword.passwordNueva}
+        value={updatePassword.newPassword}
       />
       <Divider orientation="left">Ingrese nuevamente la contraseña</Divider>
-      <Input
-        placeholder="Contraseña Nueva*"
-        autoComplete="off"
-        name="passwordNueva2"
-        type="password"
-        onChange={handleChangePasswordNew}
-        value={updatePassword.passwordNueva2}
+      <div className={style.containerInput}>
+        <Input
+          placeholder="Contraseña Nueva*"
+          autoComplete="off"
+          name="passwordNueva2"
+          type="password"
+          onChange={handleChangePasswordNew}
+          value={updatePassword.passwordNueva2}
         />
-      <br />
-      {error.errorPassNew && <p style={{ color: "red" }}>{error.errorPassNew}</p>}
-      
-      <ButtonPrimary title="Actualizar" onClick={handleSumit}/>
+        {error.errorPassNew && <p className={style.error}>{error.errorPassNew}</p>}
+      </div>
+      <div className={style.btnSubmit}>
+        <ButtonPrimary title="Actualizar" onClick={handleSumit} />
+      </div>
     </div>
   );
 };
