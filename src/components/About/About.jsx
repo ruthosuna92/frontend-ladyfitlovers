@@ -16,7 +16,7 @@ const About = () => {
     {
       name: 'Marina Solange García',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697166325/Portrait_Placeholder_mk4ckt.png',
+      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697215135/sol_mlmjnq.jpg',
       linkedin: 'https://www.linkedin.com/in/marina-solange-garcia/',
       github: 'https://github.com/msolangeg',
     },
@@ -30,7 +30,7 @@ const About = () => {
     {
       name: 'Davian Pavon Amado',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697166325/Portrait_Placeholder_mk4ckt.png',
+      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697217646/davian_ogvkuv.jpg',
       linkedin: 'https://www.linkedin.com/in/davian-pabon-amado-54105627a/',
       github: 'https://github.com/altair201',
     },
@@ -68,11 +68,7 @@ const About = () => {
       <div className="barra">
           <h1 className="titleAbout">Grupo de desarrollo web</h1>
           <p className="pAbout">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Perferendis minima ea quae sapiente iure reiciendis repudiandae!
-            Incidunt tenetur qui sed quam nulla! Ipsum alias cupiditate a! Magni
-            delectus libero tempore.
-          </p>
+            Somos un grupo de desarrolladores web, egresados del bootcamp "Soy Henry" que nos unimos para crear un e-commerce para una tienda de ropa deportiva femenina. Brindandoles el servicio de asesoramiento, maquetación del diseño de su marca y funcionalidades según especificaciones requeridas. Realizamos un proyecto integro... ba bla bla</p>
       </div>
       <div className="aboutCardsContainer">
    {users.map((user) => (

@@ -1,5 +1,6 @@
 .footerContainer{
     bottom: 0;
+    flex-shrink: 0;
 }
 .footerBottom{
     display: flex;
