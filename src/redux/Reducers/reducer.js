@@ -379,7 +379,7 @@ const reducer = (state = initialState, action) => {
         allOrders: action.payload,
       };
     case GET_ORDERID:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         ordersUser: action.payload,

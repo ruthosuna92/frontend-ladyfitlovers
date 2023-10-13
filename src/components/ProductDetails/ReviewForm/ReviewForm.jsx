@@ -20,15 +20,15 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
       const { reviewText, rating } = values;
       const productId = productData.id;
 
-      console.log("Form values:", values);
+      // console.log("Form values:", values);
 
-      console.log("Data a enviar", {
-        userId,
-        productId,
-        reviewText,
-        rating,
-        accessToken,
-      });
+      // console.log("Data a enviar", {
+      //   userId,
+      //   productId,
+      //   reviewText,
+      //   rating,
+      //   accessToken,
+      // });
 
       //datos a enviar   review -> userId, productId, reviewText, rating, // accessToken
       dispatch(
@@ -39,10 +39,10 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
     }
   };
 
-  //para ver en consola los cambios en los campos del formulario
-  const handleFormValuesChange = (changedValues, allValues) => {
-    console.log("Form values:", allValues);
-  };
+  // //para ver en consola los cambios en los campos del formulario
+  // const handleFormValuesChange = (changedValues, allValues) => {
+  //   console.log("Form values:", allValues);
+  // };
 
   return (
     <div className={styles.reviewFormContainer}>

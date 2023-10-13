@@ -20,7 +20,7 @@ const ProductDetails = ({ productData }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userId = useSelector((state) => state.user.id);
-  console.log(productData);
+  // console.log(productData);
   useEffect(() => {
     // saveCartLocal()
   }, []);
@@ -158,8 +158,8 @@ const ProductDetails = ({ productData }) => {
     if (user.email) {
       dispatch(getOrdersByUser({ userId, accessToken })).then(
         (ordersByUser) => {
-          console.log("entro al then");
-          console.log("ordersByUser:", ordersByUser.payload);
+          // console.log("entro al then");
+          // console.log("ordersByUser:", ordersByUser.payload);
           const hasPurchased =
             Array.isArray(ordersByUser.payload) &&
             ordersByUser.payload.length > 0
@@ -169,14 +169,14 @@ const ProductDetails = ({ productData }) => {
                   )
                 )
               : false;
-          console.log(hasPurchased, "hasPurchased");
+          // console.log(hasPurchased, "hasPurchased");
           setUserHasPurchased(hasPurchased);
         }
       );
     }
     // }, [userId, accessToken, currentProductId, dispatch]);
   }, []);
-  console.log(userHasPurchased);
+  // console.log(userHasPurchased);
 
   return (
     <div>
