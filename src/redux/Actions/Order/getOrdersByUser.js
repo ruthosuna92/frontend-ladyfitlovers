@@ -9,7 +9,7 @@ const getOrdersByUser = (idUser, accessToken) => {
                 headers: {
                   authorization: `Bearer ${accessToken}`
                 }
-              }
+            }
             const userId = idUser;
             const { data } = await axios.get(endpoint + userId, config);
             console.log(data);

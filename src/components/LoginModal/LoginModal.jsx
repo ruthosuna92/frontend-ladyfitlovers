@@ -124,6 +124,7 @@ const LoginModal = (props) => {
             }}
           />
         </Form.Item>
+        <p style={{ color: "#BA338A", fontSize: "0.7rem" }}>¿Has olvidado tu contraseña?</p>
         <Divider orientation="left" style="">
           Google
         </Divider>
