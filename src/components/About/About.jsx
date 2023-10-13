@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./about.css";
 import AboutCard from "./AboutCard";
 
 
 const About = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const users=[
     {
