@@ -12,6 +12,7 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
   // const accessToken = useSelector((state) => state.accessToken);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const user = useSelector((state) => state.user);
 
   const handleSubmit = async () => {
     try {
@@ -45,13 +46,22 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
 
   return (
     <div className={styles.reviewFormContainer}>
-      <Card bordered={false}>
-        <h4>Gracias por comprar en LadyFitLovers</h4>
+      <Card
+        className={styles.reviewFormCard}
+        bordered={false}
+        style={{
+          // width: 300,
+          // marginTop: 16,
+          // padding: 0,
+        }}
+      >
+        <h4>Gracias por comprar en LadyFitLovers , {user.name}!</h4>
         <p>¡Dejanos tu opinion del producto!</p>
         <Form
           form={form}
           onFinish={handleSubmit}
           onValuesChange={handleFormValuesChange}
+          className={styles.reviewForm}
         >
           <Form.Item
             name="rating"
