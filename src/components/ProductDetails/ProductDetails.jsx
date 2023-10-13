@@ -178,12 +178,6 @@ const ProductDetails = ({ productData }) => {
   }, []);
   console.log(userHasPurchased);
 
-  // useEffect(()=>{
-  //   axios.get().then end point header todo config y despues le hago el .then
-  // })
-
-  //completar con un use effect que verifique si ya existe una review de ese producto de ese usuario, no mostrar el formulario de postReview
-
   return (
     <div>
       {contextHolder}

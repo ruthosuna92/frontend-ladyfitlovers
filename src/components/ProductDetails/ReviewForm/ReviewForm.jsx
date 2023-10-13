@@ -49,11 +49,13 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
       <Card
         className={styles.reviewFormCard}
         bordered={false}
-        style={{
-          // width: 300,
-          // marginTop: 16,
-          // padding: 0,
-        }}
+        style={
+          {
+            // width: 300,
+            // marginTop: 16,
+            // padding: 0,
+          }
+        }
       >
         <h4>Gracias por comprar en LadyFitLovers , {user.name}!</h4>
         <p>¡Dejanos tu opinion del producto!</p>
@@ -86,7 +88,6 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
             <Button
               type="primary"
               htmlType="submit"
-              onClick={() => handleSubmit()}
             >
               Submit
             </Button>
