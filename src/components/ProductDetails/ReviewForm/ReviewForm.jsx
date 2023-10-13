@@ -39,10 +39,10 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
     }
   };
 
-  // //para ver en consola los cambios en los campos del formulario
-  // const handleFormValuesChange = (changedValues, allValues) => {
-  //   console.log("Form values:", allValues);
-  // };
+  //para ver en consola los cambios en los campos del formulario
+  const handleFormValuesChange = (changedValues, allValues) => {
+    console.log("Form values:", allValues);
+  };
 
   return (
     <div className={styles.reviewFormContainer}>
