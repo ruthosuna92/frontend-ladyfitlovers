@@ -72,7 +72,8 @@ const ProductReviews = ({ productData }) => {
         <Pagination
           current={current}
           onChange={onChange}
-          total={reviews ? Math.ceil(reviews.length / pageSize) : 0}
+          total={reviews ? reviews.length : 0}
+          pageSize={pageSize}
         />
       </div>
     </div>

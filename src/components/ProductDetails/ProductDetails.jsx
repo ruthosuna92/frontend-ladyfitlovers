@@ -150,16 +150,8 @@ const ProductDetails = ({ productData }) => {
   //REVIEWS----------------------------------------------------------------
   const accessToken = useSelector((state) => state.accessToken);
   const user = useSelector((state) => state.user);
-  // console.log(accessToken, "accessToken");
   const currentProductId = productData.id;
   const [userHasPurchased, setUserHasPurchased] = useState(false);
-
-  // const ordersByUser = dispatch(getOrdersByUser(userId, accessToken))
-  // console.log(ordersByUser);
-  // useEffect(() => {
-  //   dispatch(getOrdersByUser(userId, accessToken));
-  // }, [dispatch]);
-
   //mapear las ordenes del usuario y verificar si dentro de esas ordenes hay al menos un product.id que coincida con el currentProductId
 
   useEffect(() => {
