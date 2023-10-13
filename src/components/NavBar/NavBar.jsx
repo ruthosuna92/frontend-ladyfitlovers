@@ -25,6 +25,7 @@ import {
 } from "@ant-design/icons";
 import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 import postCart from "../../redux/Actions/ShoppingCart/postCart";
+import cleanCartReducer from "../../redux/Actions/ShoppingCart/cleanCartReducer";
 
 const NavBar = () => {
   const location = useLocation();
@@ -36,9 +37,8 @@ const NavBar = () => {
 
   // logout
   const handleLogout = () => {
-    console.log(userId);
-    console.log(accessToken);
     dispatch(postCart({userId, products, accessToken}))
+    .then(() => dispatch(cleanCartReducer()))
     dispatch(logoutUser());
     navigate("/");
   };

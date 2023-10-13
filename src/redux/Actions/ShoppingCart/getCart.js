@@ -5,23 +5,20 @@ const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/cart/user/`;
 
 const getCart = (userId, accessToken2) => {
+
   return async (dispatch) => {
     try {
-      console.log(accessToken2);
-      console.log(userId);
       const config = {
         headers: {
           authorization: `Bearer ${accessToken2}`
         }
       }
-  
       const { data } = await axios.get(endpoint + userId,
       config
       );
-        console.log(data);
       return dispatch({
         type: GET_CART,
-        payload: data,
+        payload: data.products,
       });
     } catch (error) {
       if (error.response) {

@@ -27,6 +27,7 @@ import {
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
   REMOVING_PRODUCT,
+  CLEAN_CART_REDUCER,
   //orders
   GET_ORDERS,
   GET_ORDERID,
@@ -119,8 +120,8 @@ const reducer = (state = initialState, action) => {
           action.payload === "TA"
             ? state.saveProducts
             : state.saveProducts.filter(
-                (product) => product.Category.name === action.payload
-              ),
+              (product) => product.Category.name === action.payload
+            ),
 
         savePivot: state.saveProducts.filter(
           (product) => product.Category.name === action.payload
@@ -136,27 +137,27 @@ const reducer = (state = initialState, action) => {
         filteredProducts =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
               )
+            )
             : state.saveProducts.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
-              );
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
+              )
+            );
         filteredColor =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
               )
+            )
             : state.saveProducts.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
-              );
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
+              )
+            );
       }
       return {
         ...state,
@@ -208,7 +209,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-      
+
     case AUTH_USER:
       console.log("User authenticated with Google", action.payload);
       return {
@@ -357,37 +358,65 @@ const reducer = (state = initialState, action) => {
       }
     case REMOVING_PRODUCT:
       let productRemoved = state.cart[action.payload];
-
       return {
         ...state,
         cart: state.cart.filter((prod) => prod !== productRemoved),
       };
-      case GET_CART:
+    case GET_CART:
+      if(action.payload.some((produc) => state.cart.find((prod) => prod.name === produc.name && prod.color === produc.color && prod.size === produc.size))){
+        let count = 0
+        state.cart.map((prod) => {
+          count++
+          console.log('itero: '+ count + ' vez');
+          let productFind = action.payload.find((pro) => pro.id === prod.id && pro.name === prod.name && pro.color === prod.color && pro.size === prod.size)
+          if(productFind){
+            console.log('ecuentro y sumo');
+            prod.quantity = prod.quantity + productFind.quantity
+            action.payload = action.payload.filter((p) => p !== productFind)
+            console.log(action.payload);
+            return productFind = null
+          } else {
+            console.log('no encuentro, sigo iterando');
+            return
+          }
+        })
+        console.log('agrego una vez iteré, agregué y sumé lo que hacía falta');
         return {
           ...state,
-          cart: action.payload
+          cart: [...state.cart, ...action.payload]
         }
+      } else {
+        console.log('no hay productos repetidos');
+        return {
+          ...state,
+          cart: [...state.cart, ...action.payload]
+        }
+      }
+    case CLEAN_CART_REDUCER:
+      return {
+        ...state,
+        cart: action.payload
+      }
     case GET_ALL_USERS:
       return {
         ...state,
-        allUsers: action.payload,
+        allUsers: action.payload
       };
-
     case CLEAN_CART:
       return {
         ...state,
-        cart: [],
+        cart: []
       };
     case GET_ORDERS:
       return {
         ...state,
-        allOrders: action.payload,
+        allOrders: action.payload
       };
     case GET_ORDERID:
       console.log(action.payload);
       return {
         ...state,
-        ordersUser: action.payload,
+        ordersUser: action.payload
       }
     default:
       return {

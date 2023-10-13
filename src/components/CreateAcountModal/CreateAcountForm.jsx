@@ -334,7 +334,6 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
                         placeholder="Password*"
                         autoComplete="off"
                       />
-
                   }
                   {
                     pivotuser ? "" :
