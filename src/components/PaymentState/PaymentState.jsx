@@ -23,16 +23,15 @@ const PaymentState = () => {
   const accessToken = useSelector((state) => state.accessToken);
 
   useEffect(() => {
-    dispatch(cleanCart(userId));
     if (parsedData.status === "approved") {
       const paymentApproved = async () => {
         if (userId) {
           const response = await dispatch(
             postOrder({ userId, products, mpId, totalAmount, accessToken })
           );
-          if (response === 201) {
+          if (response.message === 'Compra realizada correctamente') {
             console.log("Order added");
-            dispatch(cleanCart(userId));
+            dispatch(cleanCart({userId, accessToken}));
           }
         }
       };

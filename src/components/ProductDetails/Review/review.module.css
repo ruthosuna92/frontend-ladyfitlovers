@@ -1,5 +1,8 @@
-.reviewDescription{
-    padding:1em;
-    display: flex;
-    flex-direction: column;
+.reviewContainer {
+  padding: 1em;
+}
+.reviewDescription {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
 }

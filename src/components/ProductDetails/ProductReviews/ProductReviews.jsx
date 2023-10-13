@@ -9,9 +9,11 @@ import Review from "../Review/Review";
 import { Pagination } from "antd";
 
 const ProductReviews = ({ productData }) => {
-  console.log(productData);
+  // console.log(productData);
+
   //reviews
-  const reviews = productData.reviews;
+  const reviews = productData.Reviews;
+
   //paginacion
   const [current, setCurrent] = useState(3);
 
@@ -22,31 +24,36 @@ const ProductReviews = ({ productData }) => {
   };
 
   return (
-    <div className={style.reviewsContainer}>
-      {/* agregar filtro por rating y ordenamiento por fecha */}
+    <div className={style.container}>
+      <div>Reviews filters</div>
+      <div className={style.reviewsContainer}>
+        {/* agregar filtro por rating y ordenamiento por fecha */}
 
-      {/* mapear las reviews del producto que vienen en un array */}
-      {!reviews ? (
-        <>
-          <h4>
-            Actualmente este producto no cuenta con reseñas, ¡sé el primero!
-          </h4>
-        </>
-      ) : (
-        reviews.map(({ id, reviewText, rating, updatedAt, user }) => (
-          //id, reviewText, rating,updatedAt,user.id
-          <Review
-            key={id}
-            id={id}
-            reviewText={reviewText}
-            rating={rating}
-            updatedAt={updatedAt}
-            user={user}
-          />
-        ))
-      )}
+        {/* mapear las reviews del producto que vienen en un array */}
+        {!reviews ? (
+          <>
+            <h4>
+              Actualmente este producto no cuenta con reseñas, ¡sé el primero!
+            </h4>
+          </>
+        ) : (
+          reviews.map(({ id, reviewText, rating, productreview, user }) => (
+            //id, reviewText, rating,updatedAt,user.id
+            <Review
+              key={id}
+              id={id}
+              reviewText={reviewText}
+              rating={rating}
+              updatedAt={productreview.updatedAt}
+              user={user}
+            />
+          ))
+        )}
+      </div>
       {/* cambiar paginacion para que dependa de si hay reviews / de la cantidad que haya */}
-      <Pagination current={current} onChange={onChange} total={50} />
+      <div className={style.pagination}>
+        <Pagination current={current} onChange={onChange} total={50} />
+      </div>
     </div>
   );
 };

@@ -20,8 +20,7 @@ const ProductDetails = ({ productData }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userId = useSelector((state) => state.user.id);
-  console.log(userId);
-
+  console.log(productData);
   useEffect(() => {
     // saveCartLocal()
   }, []);
@@ -150,7 +149,8 @@ const ProductDetails = ({ productData }) => {
 
   //REVIEWS----------------------------------------------------------------
   const accessToken = useSelector((state) => state.accessToken);
-  console.log(accessToken, "accessToken");
+  const user = useSelector((state) => state.user);
+  // console.log(accessToken, "accessToken");
   const currentProductId = productData.id;
   const [userHasPurchased, setUserHasPurchased] = useState(false);
 
@@ -163,14 +163,33 @@ const ProductDetails = ({ productData }) => {
   //mapear las ordenes del usuario y verificar si dentro de esas ordenes hay al menos un product.id que coincida con el currentProductId
 
   useEffect(() => {
-    dispatch(getOrdersByUser(userId, accessToken)).then((ordersByUser) => {
-      const hasPurchased = ordersByUser.some((order) =>
-        order.products.some((product) => product.id === currentProductId)
+    if (user.email) {
+      dispatch(getOrdersByUser({ userId, accessToken })).then(
+        (ordersByUser) => {
+          console.log("entro al then");
+          console.log("ordersByUser:", ordersByUser.payload);
+          const hasPurchased =
+            Array.isArray(ordersByUser.payload) &&
+            ordersByUser.payload.length > 0
+              ? ordersByUser.payload.some((order) =>
+                  order.products.some(
+                    (product) => product.id === currentProductId
+                  )
+                )
+              : false;
+          console.log(hasPurchased, "hasPurchased");
+          setUserHasPurchased(hasPurchased);
+        }
       );
+    }
+    // }, [userId, accessToken, currentProductId, dispatch]);
+  }, []);
+  console.log(userHasPurchased);
 
-      setUserHasPurchased(hasPurchased);
-    });
-  }, [userId, accessToken, currentProductId, dispatch]);
+  // useEffect(()=>{
+  //   axios.get().then end point header todo config y despues le hago el .then
+  // })
+
   //completar con un use effect que verifique si ya existe una review de ese producto de ese usuario, no mostrar el formulario de postReview
 
   return (
@@ -245,7 +264,13 @@ const ProductDetails = ({ productData }) => {
         <div className="productDetailContainerBottom">
           <h2>Opiniones</h2>
 
-          {userHasPurchased && <ReviewForm productData={productData} />}
+          {userHasPurchased && (
+            <ReviewForm
+              productData={productData}
+              userId={userId}
+              accessToken={accessToken}
+            />
+          )}
 
           <ProductReviews productData={productData} />
         </div>

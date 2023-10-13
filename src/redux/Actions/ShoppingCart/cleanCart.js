@@ -4,11 +4,15 @@ import { CLEAN_CART } from "../actionTypes";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/cart/clean`;
 
-const cleanCart = (userId) => {
+const cleanCart = ({ userId, accessToken }) => {
   return async (dispatch) => {
     try {
-      await axios.put(endpoint, {userId});
-
+      const config = {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      };
+      await axios.put(endpoint, { userId }, config);
       return dispatch({
         type: CLEAN_CART,
       });

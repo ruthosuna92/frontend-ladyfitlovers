@@ -1,18 +1,28 @@
+import axios from "axios";
 import { POST_REVIEW } from "../actionTypes";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/review`;
 
-const postReview = (review) => {
-  console.log(review);
+const postReview = ({ userId, productId, reviewText, rating, accessToken }) => {
+  console.log(userId, productId, reviewText, rating, accessToken);
   return async (dispatch) => {
     try {
-      const response = await axios.post(endpoint, {
-        userId,
-        productId,
-        reviewText,
-        rating,
-      });
+      const config = {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.post(
+        endpoint,
+        {
+          userId,
+          productId,
+          reviewText,
+          rating,
+        },
+        config
+      );
 
       const responseData = response.data;
       if (responseData.success) {
