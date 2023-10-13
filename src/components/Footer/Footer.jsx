@@ -5,7 +5,7 @@ import { InstagramOutlined } from "@ant-design/icons";
 
 const Footer = () => {
   return (
-    <div>
+    <div className="footerContainer">
       <div className="footerTop">
         <div className="footerTopRight">
           <h3>Contactanos</h3>
@@ -18,7 +18,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footerBottom">
-        ©2023 Todos los derechos reservados - Grupo de desarrollo Web
+        ©2023 Todos los derechos reservados - <Link to="/nosotros"> Grupo de desarrollo Web </Link>
       </div>
     </div>
   );
