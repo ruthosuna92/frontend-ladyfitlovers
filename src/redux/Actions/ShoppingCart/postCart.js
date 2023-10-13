@@ -1,36 +1,27 @@
-import { ADDING_PRODUCT } from "../actionTypes";
+import axios from "axios";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/cart/add`;
 
-const addingProduct = (product) => {
-  console.log(product);
+const postCart = ({ userId, products, accessToken }) => {
+
   return async (dispatch) => {
     try {
-      //   const { data } = await axios.post(endpoint, [product]);
-
-      //   dispatch({
-      //     type: ADDING_PRODUCT,
-      //     payload: product,
-      //   });
-      //   return { message: "Producto agregado al carrito correctamente" };
-
-      const response = await axios.post(endpoint, {
-        userId: product.userId,
-        products: [product],
-      });
-      const responseData = response.data;
-      if (responseData.success) {
-        dispatch({
-          type: ADDING_PRODUCT,
-          payload: product,
-        });
-        return { message: "Producto agregado al carrito correctamente" };
-      } else {
-        return {
-          message: responseData.message || "Producto no pudo ser agregado",
-        };
+      const config = {
+        headers: {
+          authorization: `Bearer ${accessToken}`
+        }
       }
+      const { data } = await axios.put(endpoint, {
+        userId,
+        products
+      },
+      config
+      );
+      console.log(data);
+      return {
+        message: "Compra realizada correctamente",
+      };
     } catch (error) {
       console.error("Error adding product to cart:", error);
 
@@ -39,4 +30,4 @@ const addingProduct = (product) => {
   };
 };
 
-export default addingProduct;
+export default postCart;

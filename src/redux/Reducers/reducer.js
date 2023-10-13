@@ -362,6 +362,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: state.cart.filter((prod) => prod !== productRemoved),
       };
+      case GET_CART:
+        return {
+          ...state,
+          cart: action.payload
+        }
     case GET_ALL_USERS:
       return {
         ...state,

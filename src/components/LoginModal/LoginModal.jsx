@@ -12,6 +12,7 @@ import { gapi } from "gapi-script";
 
 import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
+import getCart from "../../redux/Actions/ShoppingCart/getCart";
 
 //Enviar a una variable de entorno!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const clientId =
@@ -43,7 +44,7 @@ const LoginModal = (props) => {
       setLoading(true);
       const response = await dispatch(loginUser(email, password));
       const user = await dispatch(userById(response.payload.idUser, response.payload.token)); //idUser es lo que devuelve el loginser del back.
-      // console.log(user);
+      
       if (user) {
         setLoading(false);
         return props.onClose();

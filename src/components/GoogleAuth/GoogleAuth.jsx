@@ -1,16 +1,21 @@
 import { GoogleLogin } from "react-google-login";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./GoogleAuth.css";
 import authUser from "../../redux/Actions/User/authUser";
 import { Button } from "antd";
+import getCart from "../../redux/Actions/ShoppingCart/getCart";
+
+
 
 const clientId =
   "521123783257-d2stfpejph6ok0djqqpm8e396dsg10c5.apps.googleusercontent.com";
 
 const GoogleAuth = ({ onGoogleLoginSuccess }) => {
   const dispatch = useDispatch();
-
-  const onSuccess = (res) => {
+  const userId = useSelector((state) => state.user.id)
+  const accessToken2 = useSelector((state) => state.accessToken)
+ console.log(userId);
+  const onSuccess = async (res) => {
     let profileObj = res.profileObj;
     let accessToken = res.accessToken;
     if (profileObj.familyName == undefined) {
@@ -18,7 +23,12 @@ const GoogleAuth = ({ onGoogleLoginSuccess }) => {
     }
     //userId, token, profileObj
     dispatch(authUser(profileObj, accessToken));
+    if(userId && accessToken2){
+      console.log('entré al if');
+      dispatch(getCart(userId, accessToken2))
+    }
     onGoogleLoginSuccess();
+
   };
 
   const onFailure = (res) => {

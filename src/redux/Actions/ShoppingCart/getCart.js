@@ -4,13 +4,24 @@ import { GET_CART } from "../actionTypes";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/cart/user/`;
 
-const getCart = (id) => {
+const getCart = (userId, accessToken2) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(endpoint + id);
+      console.log(accessToken2);
+      console.log(userId);
+      const config = {
+        headers: {
+          authorization: `Bearer ${accessToken2}`
+        }
+      }
+  
+      const { data } = await axios.get(endpoint + userId,
+      config
+      );
+        console.log(data);
       return dispatch({
         type: GET_CART,
-        payload: response.data,
+        payload: data,
       });
     } catch (error) {
       if (error.response) {
