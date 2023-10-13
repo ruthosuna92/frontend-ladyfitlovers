@@ -13,7 +13,7 @@ const userBan = (value, user, accessToken) => {
                   authorization: `Bearer ${accessToken}`
                 }
               }
-              await axios.put(endpoint,{...user, userBan: value}, config)
+              await axios.put(`${endpoint}`,{...user, userBan: value}, config)
             return {message: 'Usuario baneado correctamente'}
             
            

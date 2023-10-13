@@ -48,6 +48,11 @@ export const GET_ORDERS = "GET_ORDERS";
 export const GET_ORDERID = "GET_ORDERID";
 export const PUT_ORDER = "PUT_ORDER";
 
+//REVIEWS
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
+export const GET_REVIEW_BY_USERID = "GET_REVIEW_BY_USERID";
+export const POST_REVIEW = "POST_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
 
 //GET_OFFERS
 //CREATE_PRODUCT

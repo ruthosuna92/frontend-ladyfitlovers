@@ -140,9 +140,7 @@ const NavBar = () => {
         shape="circle"
         size="large"
         className="buttonNavAccess"
-        // style={{
-        //   border: "none",
-        // }}
+        
       >
         <UserOutlined />
       </Button>
@@ -192,7 +190,6 @@ const NavBar = () => {
         <DrawerCart
           openDrawer={openDrawer}
           onClose={onClose}
-          // saveCartLocal={saveCartLocal}
         />
       )}
       <div className="navBarContainer">
@@ -255,13 +252,13 @@ const NavBar = () => {
         )}
 
         {/* informacion del usuario */}
-        {!location.pathname.includes("admin") && user.email && (
+        {/* {!location.pathname.includes("admin") && user.email && ( */}
           <div className="userInfo">
             <p>Hola, {user.name} </p>
             {/* {user.surname} */}
             {userDropdown}
           </div>
-        )}
+        {/* )} */}
         {!location.pathname.includes("admin") && (
           <>
             <Link to="/perfil/favoritos">
@@ -269,9 +266,6 @@ const NavBar = () => {
                 shape="circle"
                 size="large"
                 className="buttonNavAccess"
-                // style={{
-                //   border: "none",
-                // }}
               >
                 <HeartOutlined />
               </Button>
@@ -282,11 +276,7 @@ const NavBar = () => {
               size="large"
               className="buttonNavAccess"
               onClick={handle}
-              // style={{
-              //   // backgroundColor: "transparent",
-              //   border: "none",
-              //   // padding: 0,
-              // }}
+             
             >
               <ShoppingCartOutlined />
               {totalProducts > 0 && (

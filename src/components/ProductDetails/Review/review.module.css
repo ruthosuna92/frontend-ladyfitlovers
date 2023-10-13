@@ -1,0 +1,12 @@
+.reviewContainer {
+  margin: 0.5em;
+}
+.reviewDescription {
+  padding-top: 1.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.reviewText {
+  padding-top: 1em;
+}
