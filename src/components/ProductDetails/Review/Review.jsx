@@ -15,7 +15,7 @@ const Review = ({ id, reviewText, rating, updatedAt, user }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 450);
     return () => clearTimeout(timer);
   }, []);
 
