@@ -9,7 +9,7 @@ import { Modal, Form, Input, Button, Checkbox, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { gapi } from "gapi-script";
-
+import { Link } from "react-router-dom";
 import "./loginModal.css";
 import ButtonTertiary from "../ButtonTertiary/ButtonTertiary";
 
@@ -124,7 +124,7 @@ const LoginModal = (props) => {
             }}
           />
         </Form.Item>
-        <p style={{ color: "#BA338A", fontSize: "0.7rem" }}>¿Has olvidado tu contraseña?</p>
+        <Link to="/recuperar-contrasena"><p style={{ color: "#BA338A", fontSize: "0.7rem" }}>¿Has olvidado tu contraseña?</p></Link>
         <Divider orientation="left" style="">
           Google
         </Divider>

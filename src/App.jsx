@@ -20,6 +20,8 @@ import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
 import Payment from "./views/Payment/Payment";
 import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
+import RecoveryPassword from "./views/RecoveryPassword/RecoveryPassword";
+
 
 const App = () => {
   // dispatch to get all products globally
@@ -33,7 +35,7 @@ const App = () => {
     dispatch(getAllProducts());
     dispatch(getAllCategories());
   }, []);
-
+  const {pathname} =useLocation()
   return (
 
     <ConfigProvider
@@ -55,7 +57,7 @@ const App = () => {
         },
       }}
     >
-      <NavBar />
+      {pathname !== "/recuperar-contrasena" && <NavBar />}
       {/* <h1>Hello World</h1>
       <Button type="primary">Hello World</Button> */}
       <Routes>
@@ -76,6 +78,7 @@ const App = () => {
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>
+        <Route path="/recuperar-contrasena" element={<RecoveryPassword/>}/>
       </Routes>
       <Footer />
     </ConfigProvider>
