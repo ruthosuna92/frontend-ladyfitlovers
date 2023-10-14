@@ -1,7 +1,6 @@
 .cardsContainer {
     display: flex;
     flex-wrap: wrap;
-  
     flex-direction: row;
     justify-content: space-evenly;
   
@@ -25,4 +24,8 @@
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
+    background-color: #BA338A;
+    color: #f6f1f5;
+    margin: 24px;
+    padding: 16px;
   }

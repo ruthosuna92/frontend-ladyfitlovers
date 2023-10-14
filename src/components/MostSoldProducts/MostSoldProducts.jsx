@@ -11,7 +11,7 @@ const MostSoldProducts = () => {
 
   return (
     <div className="mostSoldProductsContainer">
-      <h1 className="titleMostSold">¡Los más vendidos!</h1>
+      <h1 className="titleMostSold">¡Productos destacados!</h1>
       <div className="cardsContainer">
         {mostSoldProduct?.map(
           ({ id, name, image, price, unitsSold, stock }) => {
