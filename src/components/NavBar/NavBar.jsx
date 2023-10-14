@@ -252,13 +252,13 @@ const NavBar = () => {
         )}
 
         {/* informacion del usuario */}
-        {/* {!location.pathname.includes("admin") && user.email && ( */}
+        {!location.pathname.includes("User") && user.email && (
           <div className="userInfo">
             <p>Hola, {user.name} </p>
             {/* {user.surname} */}
             {userDropdown}
           </div>
-        {/* )} */}
+        )}
         {!location.pathname.includes("admin") && (
           <>
             <Link to="/perfil/favoritos">
