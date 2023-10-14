@@ -1,7 +1,8 @@
-import { Button, Modal, message, Steps, theme } from 'antd';
+import { Button, Modal, message, Steps, theme, Radio } from 'antd';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import LoginModal from '../../LoginModal/LoginModal';
+
 
 const Checkout = ({openCheckout, onCloseCheckout}) => {
  
@@ -19,6 +20,7 @@ const Checkout = ({openCheckout, onCloseCheckout}) => {
       content: 'Last-content',
     },
   ];
+  
     const user = useSelector((state)=> state.user)
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
@@ -43,7 +45,7 @@ const Checkout = ({openCheckout, onCloseCheckout}) => {
         }
     },[user.email])
     const contentStyle = {
-      lineHeight: '400px',
+      lineHeight: '50px',
       textAlign: 'center',
       color: token.colorTextTertiary,
       backgroundColor: token.colorFillAlter,
@@ -51,18 +53,24 @@ const Checkout = ({openCheckout, onCloseCheckout}) => {
       border: `1px dashed ${token.colorBorder}`,
       marginTop: 16,
     };
+   
   return (
     <>
      
       <Modal title="Basic Modal" width={900} open={openCheckout} onOk={() => onCloseCheckout(false)} onCancel={() => onCloseCheckout(false)}>
     <>
       <Steps current={current} items={items} />
+      <div style={contentStyle}> 
       {current === 0 && 
-      <div style={contentStyle}> <LoginModal
+      <LoginModal
         visible={loginModalVisible}
         onClose={() => setLoginModalVisible(false)}
         setCreateAcountModalVisible={setCreateAcountModalVisible}
-      /> </div>}
+      /> }
+      {current === 1 && 
+        <h1>Hola aquí se renderizará algo blabla bla bla lorem ipsu bla bla bla hkjhkj jkbkjbkj kjbkjbkj kjbjkbkj kbjkhk uhoihi jokjñlojk</h1>
+        }
+        </div>
       <div
         style={{
           marginTop: 24,

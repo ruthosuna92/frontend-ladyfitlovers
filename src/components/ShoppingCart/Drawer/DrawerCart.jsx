@@ -185,8 +185,8 @@ const DrawerCart = ({openDrawer, onClose}) => {
               Comprar
             </Button>
           </Space>
-          {openCheckout && <Checkout openCheckout={openCheckout} onCloseCheckout={onCloseCheckout} />}
       </Drawer>
+          {openCheckout && <Checkout openCheckout={openCheckout} onCloseCheckout={onCloseCheckout} />}
     </>
   );
 };
