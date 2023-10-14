@@ -18,8 +18,8 @@ import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
 import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
-import Payment from "./views/Payment/Payment";
 import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
+import About from "./components/About/About";
 import RecoveryPassword from "./views/RecoveryPassword/RecoveryPassword";
 
 
@@ -29,7 +29,7 @@ const App = () => {
   const filteredProducts = useSelector((state) => state.products);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const location = useLocation();
   //condiction para que no se vuelva a cargar los productso si el estado
   useEffect(() => {
     dispatch(getAllProducts());
@@ -58,6 +58,7 @@ const App = () => {
       }}
     >
       {pathname !== "/recuperar-contrasena" && <NavBar />}
+     {location.pathname !== "/nosotros" && <NavBar />}
       {/* <h1>Hello World</h1>
       <Button type="primary">Hello World</Button> */}
       <Routes>
@@ -78,6 +79,7 @@ const App = () => {
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>
+        <Route path="/nosotros" element={<About/>} />
         <Route path="/recuperar-contrasena" element={<RecoveryPassword/>}/>
       </Routes>
       <Footer />

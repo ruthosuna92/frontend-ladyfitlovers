@@ -1,20 +1,22 @@
 import axios from "axios";
-import { CLEAN_CART } from "../actionTypes";
+import { GET_REVIEW_BY_USERID } from "../actionTypes";
 
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
-const endpoint = `${API_URL_BASE}/cart/clean`;
+const endpoint = `${API_URL_BASE}/review/user/`;
 
-const cleanCart = ({ userId, accessToken }) => {
+const getReviewsByUser = (id, accessToken) => {
   return async (dispatch) => {
     try {
       const config = {
         headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      };
-      await axios.put(endpoint, { userId }, config);
+          authorization: `Bearer ${accessToken}`
+        }
+      }
+      const response = await axios.get(endpoint +  id, config);
       return dispatch({
-        type: CLEAN_CART,
+        type: GET_REVIEW_BY_USERID,
+        payload: response.data,
+        // idUser: response.data.id,
       });
     } catch (error) {
       if (error.response) {
@@ -32,7 +34,4 @@ const cleanCart = ({ userId, accessToken }) => {
   };
 };
 
-export default cleanCart;
-
-// payload: response.data,
-// idUser: response.data.id,
+export default getReviewsByUser;
