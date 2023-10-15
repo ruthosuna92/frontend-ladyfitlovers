@@ -6,10 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import updateUser from "../../redux/Actions/User/updateUser";
 import style from "./UpdatePassword.module.css"
 
-const UpdatePassword = ({onClose}) => {
+const UpdatePassword = ({onClose, pivotbander}) => {
   const accessToken = useSelector((state) => state.accessToken);
   const infouser = useSelector((state) => state.user)
-  console.log(infouser.id);
   const id = infouser.id
   const dispatch = useDispatch()
   const [error, setError] = useState({
@@ -67,7 +66,9 @@ const UpdatePassword = ({onClose}) => {
     })
   };
   const handleSumit = async() => {
-    if (error.errorPassNew === "" && error.errorPasscurrent === "") {
+    if(typeof pivotbander === "number"){
+      return
+    }else if (error.errorPassNew === "" && error.errorPasscurrent === "") {
       const { password, newPassword } = updatePassword
       const 
       response = await dispatch(updateUser({ password, newPassword, id }, accessToken))
@@ -83,7 +84,10 @@ const UpdatePassword = ({onClose}) => {
 
   return (
     <div>
+      {
+        typeof pivotbander === "number" ? "" :
       <div className={style.containerInput}>
+        
         <Input
           placeholder="Contraseña Actual*"
           autoComplete="off"
@@ -93,6 +97,7 @@ const UpdatePassword = ({onClose}) => {
         {error.errorPasscurrent && <p className={style.error}>{error.errorPasscurrent}</p>}
 
       </div>
+      }
       <Divider orientation="left">Ingrese la nueva contraseña</Divider>
       <Input
         placeholder="Contraseña Nueva*"

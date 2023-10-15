@@ -3,6 +3,8 @@
     width: 100vw;
     display: grid;
     place-items: center;
+    position: absolute;
+    background-color: white;
 }
 .verifyEmail{
     border-radius: 20px;

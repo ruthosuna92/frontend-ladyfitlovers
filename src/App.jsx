@@ -21,6 +21,7 @@ import PaymentState from "./components/PaymentState/PaymentState";
 import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
 import About from "./components/About/About";
 import RecoveryPassword from "./views/RecoveryPassword/RecoveryPassword";
+import CodeRequirer from "./views/CodeRequierer/CodeRequirer";
 
 
 const App = () => {
@@ -35,7 +36,7 @@ const App = () => {
     dispatch(getAllProducts());
     dispatch(getAllCategories());
   }, []);
-  const {pathname} =useLocation()
+  const { pathname } = useLocation()
   return (
 
     <ConfigProvider
@@ -57,17 +58,20 @@ const App = () => {
         },
       }}
     >
-      {pathname !== "/recuperar-contrasena" && <NavBar />}
-     {location.pathname !== "/nosotros" && <NavBar />}
+      {pathname !== "/nosotros" &&
+        !pathname.startsWith("/recuperar-contrasena") &&
+        <NavBar />
+      }
+
       {/* <h1>Hello World</h1>
       <Button type="primary">Hello World</Button> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/usuarios" element={user?.typeUser === "Admin" ?  <Dashboard />: <Navigate to='/'/>} />
-        <Route path="/admin/productos" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/ordenes" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/crear-producto" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin" element={user?.typeUser === "Admin" ? <Dashboard /> : <Navigate to='/' />} />
+        <Route path="/admin/usuarios" element={user?.typeUser === "Admin" ? <Dashboard /> : <Navigate to='/' />} />
+        <Route path="/admin/productos" element={user?.typeUser === "Admin" ? <Dashboard /> : <Navigate to='/' />} />
+        <Route path="/admin/ordenes" element={user?.typeUser === "Admin" ? <Dashboard /> : <Navigate to='/' />} />
+        <Route path="/admin/crear-producto" element={user?.typeUser === "Admin" ? <Dashboard /> : <Navigate to='/' />} />
         <Route path="/login" />
         <Route path="/contacto" element={<Contac />} />
         <Route path="/register" />
@@ -75,12 +79,15 @@ const App = () => {
         <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/perfil/:key" element={user?.typeUser === "User" ? <Profile/> : <Navigate to='/'/> } />
+        <Route path="/perfil/:key" element={user?.typeUser === "User" ? <Profile /> : <Navigate to='/' />} />
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
-        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>
-        <Route path="/nosotros" element={<About/>} />
-        <Route path="/recuperar-contrasena" element={<RecoveryPassword/>}/>
+        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
+        <Route path="/nosotros" element={<About />} />
+        <Route path="/recuperar-contrasena/" element={<RecoveryPassword />}>
+          <Route path="codigo-requerido" element={<CodeRequirer />} />
+        </Route>
+
       </Routes>
       <Footer />
     </ConfigProvider>

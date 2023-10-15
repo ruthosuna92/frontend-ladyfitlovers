@@ -1,0 +1,73 @@
+import React, { useState, useEffect } from "react";
+import { Input } from "antd";
+import style from "./CodeRequirer.module.css";
+import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
+import verifyCode from "../../redux/Actions/User/verifyCode";
+import { Routes, Route, useLocation, useNavigate, Outlet } from "react-router-dom";
+import UpdatePasswordModal from "../../components/UpdatePassword/UpdatePasswordModal";
+
+const CodeRequirer = () => {
+  const navigate = useNavigate()
+  const [ModalVisible, setModalVisible] = useState(false);
+  const [code, setCode] = useState({
+    code: 0,
+    recovery: false
+  });
+  console.log(code);
+
+  const handleCode = (event) => {
+    setCode({
+      ...code,
+      code: event.target.value,
+      recovery: true
+    });
+  };
+
+  const handleCodeSumit = async() => {
+    try {
+        if (code.code.length === 6){
+          const response = await verifyCode(code.code);
+          console.log(response);
+          if (response.success === true) {
+            
+           
+            setModalVisible(true);
+          }
+        }
+        
+      } catch (error) {
+        
+      }
+  }
+
+  return (
+    <div className={style.containerRecovery}>
+      <div className={style.verifyEmail}>
+        <div style={{ width: "90%", textAlign: "center" }}>
+          <p style={{ fontSize: "1.2rem" }}>validación codigo</p>
+          <p style={{ fontSize: "0.8rem" }}>
+            Ingrese el codigo de verificación 
+          </p>
+          <Input
+            style={{ width: "80%", textAlign: "center" }}
+            placeholder="codigo"
+            maxLength={6}
+            onChange={handleCode}
+          />
+        </div>
+        <ButtonPrimary
+          title="Continuar"
+          disabled={code.code.length < 6 }
+          onClick={handleCodeSumit}
+        />
+      </div>
+      <UpdatePasswordModal
+            visible={ModalVisible}
+            onClose={() => setModalVisible(false)}
+            pivotbander={+code.code}
+          />
+      <Outlet/>
+    </div>
+  );
+};
+export default CodeRequirer;
