@@ -1,7 +1,7 @@
 import React from "react";
-import "./footer.css";
 import { Link } from "react-router-dom";
 import { InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
+import "./footer.css";
 
 const Footer = () => {
   return (
