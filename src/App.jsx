@@ -20,6 +20,7 @@ import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
 import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
 import About from "./components/About/About";
+import Checkout from "./components/ShoppingCart/Checkout/Checkout";
 
 const App = () => {
   // dispatch to get all products globally
@@ -73,6 +74,7 @@ const App = () => {
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/perfil/:key" element={user?.typeUser === "User" ? <Profile/> : <Navigate to='/'/> } />
+        <Route path="/checkout" element={<Checkout/>} />
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
         <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>

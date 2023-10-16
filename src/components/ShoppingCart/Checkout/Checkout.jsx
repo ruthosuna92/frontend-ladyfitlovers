@@ -1,105 +1,264 @@
-import { Button, Modal, message, Steps, theme, Radio } from 'antd';
-import { useState, useEffect } from 'react';
+import { Form, Input, Space, Radio, Card, Button, Select } from 'antd';
+import { useState } from 'react';
+import { provincias } from '../../CreateAcountModal/Provincias';
 import { useSelector } from 'react-redux';
-import LoginModal from '../../LoginModal/LoginModal';
 
 
-const Checkout = ({openCheckout, onCloseCheckout}) => {
- 
-  const steps = [
-    {
-      title: 'Iniciar sesión',
-      content: 'First-content',
-    },
-    {
-      title: 'Confirmar datos',
-      content: 'Second-content',
-    },
-    {
-      title: 'Resumen de compra',
-      content: 'Last-content',
-    },
-  ];
-  
-    const user = useSelector((state)=> state.user)
-    const { token } = theme.useToken();
-    const [current, setCurrent] = useState(0);
-    const [loginModalVisible, setLoginModalVisible] = useState(false);
-    const [createAcountModalVisible, setCreateAcountModalVisible] =
-    useState(false);
-    const next = () => {
-      setCurrent(current + 1);
-    };
-    const prev = () => {
-      setCurrent(current - 1);
-    };
-    const items = steps.map((item) => ({
-      key: item.title,
-      title: item.title,
-    }));
-    useEffect(()=>{
-        if(user.email){
-            setCurrent(1)
-        } else {
-            setLoginModalVisible(true)
-        }
-    },[user.email])
-    const contentStyle = {
-      lineHeight: '50px',
-      textAlign: 'center',
-      color: token.colorTextTertiary,
-      backgroundColor: token.colorFillAlter,
-      borderRadius: token.borderRadiusLG,
-      border: `1px dashed ${token.colorBorder}`,
-      marginTop: 16,
-    };
+const Checkout = () => {
+  const [shipping, setShipping] = useState('Retiro en punto de entrega')
+  const [item, setItem] = useState({
+    calle: null,
+    numero: null,
+    dpto: null,
+    entreCalles: null,
+    localidad: null,
+    codigoPostal: null,
+    provincia: null
+  })
+  const user = useSelector((state) => state.user)
+  const handleRadio = (event) => {
+    setShipping(event.target.value)
+    console.log(event.target.value);
+    console.log(event);
+  }
+  const handleChange = (value) => {
+    setItem({
+      ...item,
+      provincia: value
+    })
+    console.log(`selected ${value}`);
+  };
+  console.log(item.provincia);
+  console.log(user);
+  const handleForm = (event) => {
+  setItem({
+    ...item,
+    [event.target.name]: event.target.value
+  })
+  console.log(event);
+  console.log(event.target.name);// el que necesito para los nombres de las props
+  console.log(event.target.id);
+  console.log(event.target.value);
+}
+console.log(item);
+  const address = `${item.calle} ${item.numero} ${item.dpto}, entre: ${item.entreCalles}, ${item.localidad} - CP: ${item.codigoPostal}, ${item.provincia}`;
+console.log(address);
+  return <>
+
+    <Space
+      direction="horizontal"
+      size="middle"
+      style={{
+        display: 'flex',
+        justifyContent: "space-around"
+      }}
+    >
+      <Space direction='vertical' style={{
+        display: 'flex',
+        justifyContent: "space-around",
+        flexDirection: "column",
+        margin: 40
+      }}>
+        <Radio.Group style={{ margin: 20 }} onChange={handleRadio} defaultValue={"Retiro en punto de entrega"}>
+          <Radio.Button style={{ width: 300 }} value="Retiro en punto de entrega">
+            Retiro en punto de entrega
+          </Radio.Button>
+          <Radio.Button style={{ width: 300 }} value="Envío a domicilio">
+            Envío a domicilio
+          </Radio.Button>
+        </Radio.Group>
+        {shipping === "Retiro en punto de entrega" && <Card
+          style={{
+            width: 600,
+            height: 200,
+            margin: 20
+          }}
+        >
+          <p>Aquí se renderiza opción Retiro en punto de entrega</p>
+
+        </Card>}
+       {shipping === "Envío a domicilio" && user.address && <Card
+          style={{
+            width: 600,
+            height: 200,
+            margin: 20
+          }}
+        >
+          <p>Aquí se renderiza la dirección cuando el cliente tiene una</p>
+
+        </Card>} 
+        {shipping === "Envío a domicilio" && <Card
+          style={{
+            width: 600,
+            height: 320,
+            margin: 20
+          }}
+        >
+          <Form onChange={handleForm}>
+            <span>Ingrese dirección</span>
+            <Form.Item
+              style={{
+                marginBottom: 0,
+              }}
+            >
+              <Form.Item
+                name="Calle"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{
+                  display: 'inline-block',
+                  width: 'calc(33% - 8px)',
+                }}
+              >
+                <Input placeholder="Calle*" name='calle'/>
+              </Form.Item>
+              <Form.Item
+                name="Número"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{
+                  display: 'inline-block',
+                  width: 'calc(33% - 8px)',
+                  margin: '0 8px',
+                }}
+              >
+                <Input placeholder="Número*" name='numero'/>
+              </Form.Item>
+              <Form.Item
+                name="Dpto"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{
+                  display: 'inline-block',
+                  width: 'calc(33% - 8px)',
+                }}
+              >
+                <Input placeholder="Dpto*" name='dpto'/>
+              </Form.Item>
+            </Form.Item>
+            <Form.Item
+              style={{
+                marginBottom: 0,
+              }}
+            >
+              <Form.Item
+                name="Entre calles"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{
+                  display: 'inline-block',
+                  width: 'calc(100% - 8px)',
+                }}
+              >
+                <Input placeholder="Entre calles*" name='entreCalles'/>
+              </Form.Item>
+            </Form.Item>
+            <Form.Item
+              style={{
+                marginBottom: 0,
+              }}
+            >
+              <Form.Item
+                name="Localidad"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{
+                  display: 'inline-block',
+                  width: 'calc(50% - 8px)',
+                }}
+              >
+                <Input placeholder="Localidad*" name='localidad' />
+              </Form.Item>
+              <Form.Item
+                name="Código postal"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{
+                  display: 'inline-block',
+                  width: 'calc(50% - 8px)',
+                  margin: '0 8px',
+                  marginBottom: 10
+                }}
+              >
+                <Input placeholder="Código Postal*" name='codigoPostal'/>
+              </Form.Item>
+              <Form.Item
+                style={{
+                  marginBottom: 0
+                }}
+              >
+                <Select
+                  style={{
+                    display: 'inline-block',
+                    width: 'calc(100% - 8px)',
+                    margin: '0 8px',
+                  }}
+                  defaultValue="Seleccione una provincia"
+                  onChange={handleChange}
+                  options={provincias}
+                />
+              </Form.Item>
+            </Form.Item>
+
+            <Form.Item label=" " colon={false}>
+              <Button type="primary" htmlType="submit" style={{ marginTop: 10 }}>
+                Actualizar
+              </Button>
+            </Form.Item>
+
+          </Form>
+        </Card>}
+        <Card
+          style={{
+            width: 600,
+            height: 200,
+            margin: 20
+          }}
+        >
+          <p>Aquí muestro el total de productos</p>
+
+        </Card>
+      </Space>
+      <Space direction='vertical' style={{
+        display: 'flex',
+        flexDirection: "column",
+        margin: 40,
+        alignItems: "center"
+      }}>
+
+        <Card
+          title="Card title"
+          bordered={false}
+
+          style={{
+            width: 500
+          }}
+        >
+          <p>Resumen del pago</p>
+
+        </Card>
+        <Button type='primary' >Ir a pagar</Button>
+      </Space>
+    </Space>
    
-  return (
-    <>
-     
-      <Modal title="Basic Modal" width={900} open={openCheckout} onOk={() => onCloseCheckout(false)} onCancel={() => onCloseCheckout(false)}>
-    <>
-      <Steps current={current} items={items} />
-      <div style={contentStyle}> 
-      {current === 0 && 
-      <LoginModal
-        visible={loginModalVisible}
-        onClose={() => setLoginModalVisible(false)}
-        setCreateAcountModalVisible={setCreateAcountModalVisible}
-      /> }
-      {current === 1 && 
-        <h1>Hola aquí se renderizará algo blabla bla bla lorem ipsu bla bla bla hkjhkj jkbkjbkj kjbkjbkj kjbjkbkj kbjkhk uhoihi jokjñlojk</h1>
-        }
-        </div>
-      <div
-        style={{
-          marginTop: 24,
-        }}
-      >
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button type="primary" onClick={() => message.success('Processing complete!')}>
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button
-            style={{
-              margin: '0 8px',
-            }}
-            onClick={() => prev()}
-          >
-            Previous
-          </Button>
-        )}
-      </div>
-    </>
-      </Modal>
-    </>
-  );
+  </>
 };
 export default Checkout

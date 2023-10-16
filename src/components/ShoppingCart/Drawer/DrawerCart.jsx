@@ -10,7 +10,7 @@ import LoginModal from '../../LoginModal/LoginModal';
 import EmptyCart from '../emptyCart/emptyCart';
 import { useNavigate } from 'react-router';
 import Checkout from '../Checkout/Checkout';
-import { boolean } from 'yup';
+
 
 const DrawerCart = ({openDrawer, onClose}) => {
   const allProductsAdmin = useSelector((state) => state.allProductsAdmin)
@@ -18,6 +18,7 @@ const DrawerCart = ({openDrawer, onClose}) => {
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  
   
   const [messageApi, contextHolder] = message.useMessage()
   const [loginModalVisible, setLoginModalVisible] = useState(false);
@@ -104,7 +105,12 @@ const DrawerCart = ({openDrawer, onClose}) => {
 
   }
   const handleCheckout = () => {
-    setOpenCheckout(true)
+    if(!user.email){
+      setLoginModalVisible(true)
+    } else {
+      navigate("/checkout")
+      onClose(false)
+    }
   }
   console.log(openCheckout);
   return (

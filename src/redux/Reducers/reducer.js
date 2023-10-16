@@ -363,33 +363,14 @@ const reducer = (state = initialState, action) => {
         cart: state.cart.filter((prod) => prod !== productRemoved),
       };
     case GET_CART:
-      if(action.payload.some((produc) => state.cart.find((prod) => prod.name === produc.name && prod.color === produc.color && prod.size === produc.size))){
-        let count = 0
-        state.cart.map((prod) => {
-          count++
-          console.log('itero: '+ count + ' vez');
-          let productFind = action.payload.find((pro) => pro.id === prod.id && pro.name === prod.name && pro.color === prod.color && pro.size === prod.size)
-          if(productFind){
-            console.log('ecuentro y sumo');
-            prod.quantity = prod.quantity + productFind.quantity
-            action.payload = action.payload.filter((p) => p !== productFind)
-            console.log(action.payload);
-            return productFind = null
-          } else {
-            console.log('no encuentro, sigo iterando');
-            return
-          }
-        })
-        console.log('agrego una vez iteré, agregué y sumé lo que hacía falta');
+      if(action.payload.length){
         return {
           ...state,
-          cart: [...state.cart, ...action.payload]
+          cart: action.payload
         }
       } else {
-        console.log('no hay productos repetidos');
         return {
-          ...state,
-          cart: [...state.cart, ...action.payload]
+          ...state
         }
       }
     case CLEAN_CART_REDUCER:
