@@ -17,15 +17,15 @@ const UsersTable = () => {
   const [showBanModal, setShowBanModal] = useState(false);
   const [user, setUser] = useState({});
 
-
+  const accessToken = useSelector((state) => state.accessToken);
   const allUsers = useSelector((state) => state.allUsers);
   
   
   const onChange = async (value, user) => {
     try {
-     const response= await dispatch(userBan(value, user));
+     const response= await dispatch(userBan(value, user, accessToken));
      if(response){
-      dispatch(getAllUsers());
+      dispatch(getAllUsers(accessToken));
       message.success("Usuario actualizado correctamente", [2] , onClose() );
       }
     } catch (error) {
@@ -122,7 +122,7 @@ const UsersTable = () => {
   ];
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers(accessToken));
   }, []);
 
   return (

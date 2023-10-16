@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal, Select, message } from "antd";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import axios from "axios";
@@ -11,6 +11,7 @@ const UpdateOrderModal = ({ visible, onClose, order }) => {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.accessToken);
 
 
   const statusOptions = [
@@ -22,10 +23,10 @@ const UpdateOrderModal = ({ visible, onClose, order }) => {
   const handleUpdateOrder = async (order, status) => {  
     setLoading(true);
   //  const {data} = await axios.put(`http://localhost:3001/order/update`, {id: order.id,status: status})  
-   const {data} = await axios.put(`${API_URL_BASE}/order/update`, {id: order.id,status: status})  
+   const {data} = await axios.put(`${API_URL_BASE}/order/update`, {id: order.id,status: status}, {headers: {Authorization: `Bearer ${accessToken}`}}	)  
    if(data){
     message.success("Orden actualizada correctamente", [2], onClose());
-    dispatch(getAllOrders())
+    dispatch(getAllOrders(accessToken))
     setLoading(false);
    }
     onClose();

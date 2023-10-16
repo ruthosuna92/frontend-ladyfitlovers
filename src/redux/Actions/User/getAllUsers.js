@@ -4,10 +4,15 @@ import { GET_ALL_USERS} from "../actionTypes";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/user/allUsers`;
 
-const getAllUsers = () => {
+const getAllUsers = (accessToken) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(endpoint);
+      const config = {
+        headers: {
+          authorization: `Bearer ${accessToken}`
+        }
+      }
+      const response = await axios.get(endpoint, config);
       return dispatch({
         type: GET_ALL_USERS,
         payload: response.data,

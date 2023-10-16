@@ -16,6 +16,8 @@ import {CreateAcountSchema} from "../CreateAcountModal/createAcountSchema";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import Favs from "../../views/Favs/Favs";
+import ProductFavs from "../ProductFavs/ProductFavs";
 
 
 const { Header, Sider, Content } = Layout;
@@ -34,7 +36,7 @@ const ProfileLayout = ({ profileKey }) => {
   });
 
   useEffect(() => {
-    console.log(infouser);
+    
     if (infouser) {
       setFormData({
         id: infouser.id,
@@ -100,6 +102,7 @@ const ProfileLayout = ({ profileKey }) => {
         <Content className={style.layaout1}>
           {selectedKey === "perfil" && <DataProfile />}
           {selectedKey === "compras" && <ShoppingClient idUser={infouser.id} />}
+          {selectedKey === "favoritos" && <Favs/>}
           {selectedKey === "editar" && (
             <Formik
               initialValues={{

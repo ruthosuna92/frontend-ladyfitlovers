@@ -5,18 +5,18 @@ import { useParams } from "react-router-dom";
 import getFavoritesByIdUser from "../../redux/Actions/Favs/getFavoritesByIdUser";
 
 const Favs= () => {
-    const favorites = useSelector((state)=> state.favorites)
-    const dispatch = useDispatch()
-    const { key } = useParams();
+    // const favorites = useSelector((state)=> state.favorites)
+    // const dispatch = useDispatch()
+    // const { id } = useParams();
+    // const user = useSelector((state)=> state.user)
 
-    
-    useEffect(()=>{
-        dispatch(getFavoritesByIdUser(key))
-    }, [dispatch])
-    console.log("estado global", favorites);
+    // console.log("aca",user);
+    // useEffect(()=>{
+    //     dispatch(getFavoritesByIdUser(key))
+    // }, [dispatch])
+    // console.log("estado global", favorites);
     return (
     <div>
-        <h1>hola</h1>
         <ProductFavs/>
     </div>
 )

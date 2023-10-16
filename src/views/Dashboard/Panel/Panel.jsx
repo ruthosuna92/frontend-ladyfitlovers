@@ -10,6 +10,8 @@ import Chart from "./Chart";
 const Panel = () => {
   const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.allOrders);
+  const accessToken = useSelector((state) => state.accessToken);
+
 
   const months = [
     { name: "Enero", sales: getMonthSales(allOrders, 0) },
@@ -27,7 +29,7 @@ const Panel = () => {
   ];
 
   useEffect(() => {
-    dispatch(getAllOrders());
+    dispatch(getAllOrders(accessToken));
   }, []);
 
   return (

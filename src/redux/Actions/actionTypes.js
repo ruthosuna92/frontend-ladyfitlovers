@@ -46,9 +46,11 @@ export const GET_OFFERS = "GET_OFFERS";
 //ORDERS
 export const GET_ORDERS = "GET_ORDERS";
 export const GET_ORDERID = "GET_ORDERID";
-
+export const PUT_ORDER = "PUT_ORDER";
 //FAVORITOS
 export const GET_FAVORITES_BY_ID_USER = "GET_FAVORITES_BY_ID_USER" 
+export const ADD_FAVS = "ADD_FAVS"
+export const DELETE_FAV = "DELETE_FAV" 
 //GET_OFFERS
 //CREATE_PRODUCT
 //EDI_PRODUCT

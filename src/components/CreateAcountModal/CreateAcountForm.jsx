@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from "react";
 import { Input, Button, message, Select } from "antd";
 import { Field, useFormikContext } from "formik";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { provincias } from "./Provincias";
 import { saveImage } from "../CreateProduct/saveImage";
 import AvatarEditor from "react-avatar-editor";
@@ -16,7 +16,7 @@ import "./createAcountModal.css";
 import "./createAcountForm.css"
 
 const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }) => {
-
+  const accessToken = useSelector((state) => state.accessToken);
   const { values, errors, resetForm } = useFormikContext();
   const [selectedImage, setSelectedImage] = useState({
     saveImage: null,
@@ -88,6 +88,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
   
     const valuesToSend = {
       id: idUser,
+      userId: idUser,
       name: values.name,
       surname: values.surname,
       phone: values.phone,
@@ -98,9 +99,8 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
     console.log(valuesToSend)
 
     try {
-      const response = await dispatch(updateUser(valuesToSend));
-      console.log(response);
-      dispatch(getUserById(valuesToSend.id));
+      const response = await dispatch(updateUser(valuesToSend, accessToken));
+      dispatch(getUserById(valuesToSend.id, accessToken));
 
       if (response.message === "Usuario editado correctamente") {
         message.success(response.message);
@@ -131,7 +131,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
 
 
     try {
-      const response = await dispatch(updateUser(valuesToSend)); // cambiar por putUser
+      const response = await dispatch(updateUser(valuesToSend, accessToken)); // cambiar por putUser
 
       if (response.message === "Usuario editado correctamente") {
         message.success(response.message, [2], onClose());

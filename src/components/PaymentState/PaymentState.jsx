@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 const PaymentState = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.id);
-  console.log(userId);
+  const accessToken = useSelector((state) => state.accessToken);
   const products = useSelector((state) => state.cart);
   const location = useLocation();
 
@@ -40,7 +40,7 @@ const PaymentState = () => {
           console.log(userId, products, mpId, totalAmount);
 
           const response = await dispatch(
-            postOrder({ userId, products, mpId, totalAmount })
+            postOrder({ userId, products, mpId, totalAmount, accessToken })
           );
           if (response ==201) {
             console.log("order added");

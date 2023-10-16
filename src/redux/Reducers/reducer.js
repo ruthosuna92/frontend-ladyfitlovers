@@ -30,6 +30,9 @@ import {
   //orders
   GET_ORDERS,
   GET_ORDERID,
+  GET_FAVORITES_BY_ID_USER,
+  ADD_FAVS,
+  DELETE_FAV,
   //favorites
   //purchase
 } from "../Actions/actionTypes";
@@ -69,7 +72,7 @@ const initialState = {
   favorites: []
   //purchase
 };
-
+console.log("favvvv", initialState.favorites);
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
@@ -194,25 +197,27 @@ const reducer = (state = initialState, action) => {
         allCategories: [...state.allCategories, action.payload],
       };
     case LOGIN_USER:
+      console.log("User logged in:", action);
       return {
         ...state,
         isLoggedIn: true,
         userId: action.payload.id,
-        token: action.payload.token,
+        accessToken: action.payload.token,
       };
 
     case USER_BY_ID:
-      console.log("User by ID:", action.payload);
+
       return {
         ...state,
         user: action.payload,
       };
+      
     case AUTH_USER:
       console.log("User authenticated with Google", action.payload);
       return {
         ...state,
         isLoggedIn: true,
-        token: action.payload.token,
+        accessToken: action.accessToken,
         user: action.payload,
       };
     case LOGOUT_USER:
@@ -382,9 +387,34 @@ const reducer = (state = initialState, action) => {
         ...state,
         ordersUser: action.payload,
       }
+    case GET_FAVORITES_BY_ID_USER:
+        return {
+          ...state,
+          favorites: action.payload
+        }
+    case ADD_FAVS:
+
+          console.log(action.payload,"payload fav");
+          return {
+            ...state,
+            favorites: [...state.favorites, action.payload]
+
+          }
+        
+    case DELETE_FAV:
+
+console.log("delete, payload", action.payload.id);
+const prueba = state.favorites.filter((e)=> e.id === action.payload.id)
+console.log("soy prueba", prueba);
+          return {
+            ...state,
+            // favorites: [state.favorites.filter((e)=> e.id !== action.payload.id)]
+            favorites: state.favorites.filter((e)=> e.id === action.payload.id)
+          }
     default:
       return {
         ...state,
+     
       };
   }
 };
