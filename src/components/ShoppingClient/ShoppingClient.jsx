@@ -8,13 +8,14 @@ import { getColorName } from "../../utils/getColorName";
 const ShoppingClient = ({ idUser }) => {
   const ordersUser = useSelector((state) => state.ordersUser);
   const accessToken = useSelector((state) => state.accessToken);
+  const userId = useSelector((state) => state.user.id);
 
   console.log(accessToken, "accessToken")
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrdersByUser(idUser, accessToken));
+    dispatch(getOrdersByUser({userId, accessToken}));
   }, [dispatch]);
 
 

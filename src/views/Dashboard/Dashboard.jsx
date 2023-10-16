@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 import SideBarDashboard from "../../components/SideBar/SideBarDashboard/SideBarDashboard";
-import UsersTable from "./UsersTable/Userstable";
+import UsersTable from "./UsersTable/UsersTable";
 import ProductsTable from "./ProductsTable/ProductsTable";
 import CreateProduct from "../../components/CreateProduct/CreateProduct";
 import OrdersTable from "./OrderTable/OrdersTable";

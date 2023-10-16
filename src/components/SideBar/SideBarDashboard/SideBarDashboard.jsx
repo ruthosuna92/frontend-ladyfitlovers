@@ -6,7 +6,6 @@ import {
   LineChartOutlined,
 } from "@ant-design/icons";
 import { Divider, Menu, Switch } from "antd";
-import { useState } from "react";
 import { useNavigate } from "react-router";
 
 const SideBarDashboard = () => {
@@ -26,6 +25,7 @@ const SideBarDashboard = () => {
     getItem("Ordenes de compra", "3", <ShoppingCartOutlined />),
     getItem("Crear producto", "4", <UploadOutlined />),
     getItem("Resumen", "5", <LineChartOutlined />),
+    
   ];
   const handleMenu = ({ item, key, keyPath, selectedKeys, domEvent }) => {
     switch (key) {
@@ -40,6 +40,7 @@ const SideBarDashboard = () => {
         break;
       case "4":
         navigate("/admin/crear-producto");
+        break;
       case "5":
         navigate("/admin");
         break;
