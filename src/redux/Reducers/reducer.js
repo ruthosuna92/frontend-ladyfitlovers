@@ -28,6 +28,9 @@ import {
   INCREMENT_QUANTITY,
   REMOVING_PRODUCT,
   CLEAN_CART_REDUCER,
+  //checkout
+  SHIPPING_TYPE,
+  SHIPPING_COST,
   //orders
   GET_ORDERS,
   GET_ORDERID,
@@ -63,7 +66,9 @@ const initialState = {
   },
   //cart
   cart: [],
-
+  //checkout
+  shippingType: null,
+  shippingCost: null,
   //orders
   allOrders: [],
   ordersUser: [],
@@ -378,6 +383,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: action.payload
       }
+      case SHIPPING_TYPE:
+        return {
+          ...state,
+          shippingType: action.payload
+        }
+      case SHIPPING_COST:
+        return {
+          ...state,
+          shippingCost: action.payload
+        }
     case GET_ALL_USERS:
       return {
         ...state,

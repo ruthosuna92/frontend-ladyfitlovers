@@ -1,10 +1,17 @@
 import { Form, Input, Space, Radio, Card, Button, Select } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { provincias } from '../../CreateAcountModal/Provincias';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import amount from './shipping';
+import shippingType from '../../../redux/Actions/Checkout/shippingType';
+import shippingCost from '../../../redux/Actions/Checkout/shippingCost';
+import checkout from '../../../redux/Actions/Checkout/checkout';
+
+
 
 
 const Checkout = () => {
+  const dispatch = useDispatch()
   const [shipping, setShipping] = useState('Retiro en punto de entrega')
   const [item, setItem] = useState({
     calle: null,
@@ -15,7 +22,17 @@ const Checkout = () => {
     codigoPostal: null,
     provincia: null
   })
+  const [editing, setEditing] = useState(false)
   const user = useSelector((state) => state.user)
+  const cart = useSelector((state)=> state.cart)
+  const typeSelected = useSelector((state) => state.shippingType)
+  const costSelected = useSelector((state) => state.shippingCost)
+  const total = cart.map((prod) => prod.price * prod.quantity).reduce((acc, cur) => acc + cur, 0)
+
+  useEffect(()=>{
+    dispatch(shippingType(shipping))
+    dispatch(shippingCost(amount(shipping)))
+  },[shipping])
   const handleRadio = (event) => {
     setShipping(event.target.value)
     console.log(event.target.value);
@@ -31,18 +48,30 @@ const Checkout = () => {
   console.log(item.provincia);
   console.log(user);
   const handleForm = (event) => {
+    const {name, value} = event.target
   setItem({
     ...item,
-    [event.target.name]: event.target.value
+    [name]: value
   })
-  console.log(event);
-  console.log(event.target.name);// el que necesito para los nombres de las props
-  console.log(event.target.id);
-  console.log(event.target.value);
+
+}
+const handleEdit = (event) => {
+  setEditing(true)
+}
+const handleUpdate = () => {
+  console.log("updated");
+//  setEditing(false)
+}
+const handleCheckout = () => {
+  dispatch(checkout(cart, costSelected))
 }
 console.log(item);
   const address = `${item.calle} ${item.numero} ${item.dpto}, entre: ${item.entreCalles}, ${item.localidad} - CP: ${item.codigoPostal}, ${item.provincia}`;
 console.log(address);
+console.log(user.address);
+
+console.log(typeSelected);
+console.log(costSelected);
   return <>
 
     <Space
@@ -77,24 +106,25 @@ console.log(address);
           <p>Aquí se renderiza opción Retiro en punto de entrega</p>
 
         </Card>}
-       {shipping === "Envío a domicilio" && user.address && <Card
+       {shipping === "Envío a domicilio" && user.address && !editing && <Card
           style={{
             width: 600,
             height: 200,
             margin: 20
           }}
         >
-          <p>Aquí se renderiza la dirección cuando el cliente tiene una</p>
+          <p>{user.address}</p>
+          <Button type='primary' onClick={handleEdit}>edit</Button>
 
         </Card>} 
-        {shipping === "Envío a domicilio" && <Card
+        {shipping === "Envío a domicilio" && (!user.address || editing) && <Card
           style={{
             width: 600,
             height: 320,
             margin: 20
           }}
         >
-          <Form onChange={handleForm}>
+          <Form onChange={handleForm} onClick={handleUpdate}>
             <span>Ingrese dirección</span>
             <Form.Item
               style={{
@@ -245,17 +275,19 @@ console.log(address);
       }}>
 
         <Card
-          title="Card title"
+          title="Resumen de compra"
           bordered={false}
 
           style={{
             width: 500
           }}
         >
-          <p>Resumen del pago</p>
+          <p>Subtotal       ${total}</p>
+          <p>Envío ${costSelected}</p>
+          <p>Total ${total + costSelected}</p>
 
+        <Button type='primary' onClick={handleCheckout}>Ir a pagar</Button>
         </Card>
-        <Button type='primary' >Ir a pagar</Button>
       </Space>
     </Space>
    

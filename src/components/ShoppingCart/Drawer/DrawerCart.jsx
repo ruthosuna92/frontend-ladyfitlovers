@@ -5,7 +5,7 @@ import decrementQuantity from '../../../redux/Actions/ShoppingCart/decrementQuan
 import incrementQuantity from '../../../redux/Actions/ShoppingCart/incrementQuantity';
 import { getColorName } from '../../../utils/getColorName';
 import removingProduct from '../../../redux/Actions/ShoppingCart/removingProduct';
-import checkout from '../../../redux/Actions/ShoppingCart/checkout';
+import checkout from '../../../redux/Actions/Checkout/checkout';
 import LoginModal from '../../LoginModal/LoginModal';
 import EmptyCart from '../emptyCart/emptyCart';
 import { useNavigate } from 'react-router';
