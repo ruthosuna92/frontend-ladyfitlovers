@@ -28,7 +28,9 @@ body {
 
   /* height: 450px; */
   background: #232323;
-  border-radius: 20px;
+  /* border: solid 2px #e0b3cd; */
+  border: solid 2px black;
+  border-radius: 20px 0px 20px 0px;
   overflow: hidden;
 }
 

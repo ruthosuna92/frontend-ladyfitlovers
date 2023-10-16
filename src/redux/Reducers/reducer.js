@@ -32,6 +32,8 @@ import {
   GET_ORDERID,
   //favorites
   //purchase
+  //reviews
+  GET_REVIEW_BY_USERID,
 } from "../Actions/actionTypes";
 
 const initialState = {
@@ -68,6 +70,8 @@ const initialState = {
   ordersUser: [],
   //favorites
   //purchase
+  //reviews
+  reviewsByUser: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -203,12 +207,11 @@ const reducer = (state = initialState, action) => {
       };
 
     case USER_BY_ID:
-
       return {
         ...state,
         user: action.payload,
       };
-      
+
     case AUTH_USER:
       console.log("User authenticated with Google", action.payload);
       return {
@@ -383,7 +386,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ordersUser: action.payload,
-      }
+      };
+    case GET_REVIEW_BY_USERID:
+      console.log(action.payload);
+      return {
+        ...state,
+        reviewsByUser: action.payload,
+      };
     default:
       return {
         ...state,

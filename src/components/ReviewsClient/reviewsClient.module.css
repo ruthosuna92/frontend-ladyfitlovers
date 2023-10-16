@@ -1,0 +1,22 @@
+.reviewsContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ratingContainer{
+    display: flex;
+    flex-direction: row;
+}
+.ratingIcon{
+    display: flex;
+    width: 30%;
+}
+.ratingIcon span,.ratingIcon svg, .ratingIcon path{
+    width: 90%;
+    height: 100%;
+}
+
+.cardInfo{
+    display: flex;
+    flex-direction: column;
+}

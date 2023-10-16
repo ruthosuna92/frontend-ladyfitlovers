@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getColorName } from "../../utils/getColorName";
-import { Select, message } from "antd";
+import { Select, message, Divider } from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
@@ -20,7 +20,7 @@ const ProductDetails = ({ productData }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userId = useSelector((state) => state.user.id);
-  // console.log(productData);
+  console.log(productData.Reviews);
   useEffect(() => {
     // saveCartLocal()
   }, []);
@@ -248,7 +248,7 @@ const ProductDetails = ({ productData }) => {
           </div>
         </div>
         <div className="productDetailContainerBottom">
-          <h2>Opiniones</h2>
+          <h2>Opiniones de clientes</h2>
 
           {userHasPurchased && (
             <ReviewForm

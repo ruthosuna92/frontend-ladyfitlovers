@@ -22,16 +22,25 @@ const PaymentState = () => {
   const mpId = parsedData?.payment_id;
   const accessToken = useSelector((state) => state.accessToken);
 
+  // const shippingCost =useSelector((state)=>state.shippingCost);
+
   useEffect(() => {
     if (parsedData.status === "approved") {
       const paymentApproved = async () => {
         if (userId) {
           const response = await dispatch(
-            postOrder({ userId, products, mpId, totalAmount, accessToken })
+            postOrder({
+              userId,
+              products,
+              mpId,
+              totalAmount,
+              shippingCost,
+              accessToken,
+            })
           );
-          if (response.message === 'Compra realizada correctamente') {
+          if (response.message === "Compra realizada correctamente") {
             console.log("Order added");
-            dispatch(cleanCart({userId, accessToken}));
+            dispatch(cleanCart({ userId, accessToken }));
           }
         }
       };
