@@ -38,6 +38,7 @@ import {
   GET_FAVORITES_BY_ID_USER,
   ADD_FAVS,
   DELETE_FAV,
+  MENU_BURGER,
   //favorites
   //purchase
   //reviews
@@ -83,6 +84,8 @@ const initialState = {
   //purchase
   //reviews
   reviewsByUser: null,
+  //menuBurger
+  menuBurger: false
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -450,6 +453,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         favorites: state.favorites.filter((e) => e.id !== action.payload.id),
       };
+    case MENU_BURGER:
+      return {
+        ...state,
+        menuBurger: !state.menuBurger
+      }
     default:
       return {
         ...state,
