@@ -7,3 +7,16 @@
     background: #ce1995;
     object-fit: cover;
 }
+
+  
+  @media (max-width: 768px) {
+    .carouselSlide {
+      height: 150px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .carouselSlide {
+      height: 80px;
+    }
+  }
