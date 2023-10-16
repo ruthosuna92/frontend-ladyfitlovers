@@ -18,7 +18,7 @@ import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
 import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
-import PreguntasFrecuentes from "./views/PreguntasFrecuentes/PreguntasFrecuentes";
+import QandA from "./views/QandA/QandA";
 import About from "./components/About/About";
 
 const App = () => {
@@ -75,7 +75,7 @@ const App = () => {
         <Route path="/perfil/:key" element={user?.typeUser === "User" ? <Profile/> : <Navigate to='/'/> } />
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
-        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes/>}/>
+        <Route path="/preguntas-frecuentes" element={<QandA/>}/>
         <Route path="/nosotros" element={<About/>} />
       </Routes>
       <Footer />
