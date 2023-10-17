@@ -36,6 +36,14 @@ const App = () => {
     dispatch(getAllCategories());
   }, []);
 
+  useEffect(()=> {
+    if(user) {
+
+      dispatch(getFavoritesByIdUser(user.id))
+    }
+
+  },[user])
+
   return (
 
     <ConfigProvider

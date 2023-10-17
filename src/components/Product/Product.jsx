@@ -35,10 +35,6 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
 
   }
 
-  useEffect(()=> {
-    dispatch(getFavoritesByIdUser(user.id))
-
-  },[dispatch])
 
   return (
     <div key={id} className="cardBox">
@@ -87,7 +83,7 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
             </NavLink>
             
             
-  {favorites.find((fav) => fav.id === id)
+  {favorites?.find((fav) => fav.id === id)
   ? 
   (<button onClick={deleteFavHandler}>SACAR FAV</button>)
   :

@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import getFavoritesByIdUser from "../../redux/Actions/Favs/getFavoritesByIdUser";
-import style from "../Products/Products.module.css"
+// import style from "../Products/Products.module.css"
 import Product from "../Product/Product";
-import { Card, Col, Drawer, Image, Row } from "antd";
+import { Button, Card, Col, Drawer, Image, Row } from "antd";
 import { useEffect } from "react";
 import NoFoundScreen from "../NoFoundScreen/NoFoundScreen";
 import deleteFav from "../../redux/Actions/Favs/deleteFav";
 import { NavLink } from "react-router-dom";
+import style from "../ShoppingClient/ShoppingClient.module.css";
+
 
 
 const ProductFavs = () => {
@@ -22,12 +24,12 @@ const ProductFavs = () => {
 
       },[])
 
-      // console.log(user);
-      // console.log("estof" ,favorites);
     return (
       <div className={style.shoppingClientContainer}>
       
-      {favorites?.map((fav) => (
+      {!favorites.length  ? <NoFoundScreen text={"No se encontraron favoritos"}/>
+      
+      :favorites?.map((fav) => (
         <div key={fav.id}>
             <Card
               key={fav.id}
@@ -40,23 +42,22 @@ const ProductFavs = () => {
               }}
               id={fav.id}
             >
-              <Row justify="space-between">
-              <Col span={2} onClick={() => dispatch(deleteFav(fav.id, user.id, accessToken))}> <br/>❌</Col>
-                <Col span={4}>
-                
-                  {/* <div >Nombre<br /> {name} </div> */}
-                  <div><Image alt={fav.name} src={fav.image && fav.image} width={50} /></div>
+              <Row justify="center">
+                <Col span={3}>
+  
 
-                  {/* <div><img alt={fav.name} src={fav.image} width={50} /></div> */}
+                  <div><Image alt={fav.name} src={fav.image && fav.image} width={50} /></div>
                 </Col>
+                <Col span={11}>
                 <NavLink className={style.buy} to={`/detail/${fav.id}`}>
-                <Col span={5}>
-                  <div ><br/>{fav.name}</div>
-                </Col>
+                  <div >{fav.name}</div>
                 </NavLink>
-                <Col span={4} >
-                <div><br/>Precio: ${fav.price}</div>
+                <div>Precio: ${fav.price}</div>
+                </Col>
+                <Col span={3} >
                   </Col>
+              <Button id={fav.name} shape='circle' size='small' onClick={() => dispatch(deleteFav(fav.id, user.id, accessToken))}>x</Button>
+
 
               </Row>
             </Card>

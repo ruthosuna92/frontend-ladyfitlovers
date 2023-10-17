@@ -16,7 +16,7 @@ const Products = () => {
   return (
     <div className={style.cardsContainer}>
       {
-        !productsPerPage.length  ? <NoFoundScreen/> :
+        !productsPerPage.length  ? <NoFoundScreen text={"No se encontraron productos"}/> :
         productsPerPage.map(({ id, name, image, price, unitsSold, stock }) => {
           // const color = stock.map((stockItem) => stockItem.color);
   
