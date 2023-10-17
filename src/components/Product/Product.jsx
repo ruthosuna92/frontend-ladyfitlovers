@@ -1,23 +1,30 @@
 import React from "react";
-import style from "./Product.module.css";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import { Card, Button, Row, Col } from "antd";
+import style from "./Product.module.css";
+
+
 const { Meta } = Card;
 const colStyle = {
   width: 10,
   textAlign: "center",
 };
 
-const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
+const Product = ({ id, name, image, price, unitsSold, color, stock, priceOnSale }) => {
   let sizes = [];
+
+  const navigate = useNavigate();
+
+const productWithoutStock = stock.every((stock)=> stock.sizeAndQuantity.every((sizeAndQuantity)=> sizeAndQuantity.quantity === 0))
+const hasSale = priceOnSale !== 0 && priceOnSale !== null
 
   return (
     <div key={id} className="cardBox">
       <div key={id} className={style.container}>
         <div className={style.card}>
           <div className={style.imgBx}>
-            <img src={image} alt={name} />
+            <img className={productWithoutStock? style.productWithoutStock : ""} src={image} alt={name}  />
           </div>
 
           <div className={style.contentBx}>
@@ -49,9 +56,9 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
                 );
               })}
             </div>
-            <NavLink className={style.buy} to={`/detail/${id}`}>
-              Comprar
-            </NavLink>
+            <button type="button" disabled={productWithoutStock} className={style.buy} onClick={() => navigate(`/detail/${id}`)}>
+            {productWithoutStock ? "SIN STOCK" : "COMPRAR"}
+          </button>
           </div>
         </div>
       </div>
@@ -63,15 +70,23 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
         </Col>
       </Row>
       <Row>
-        <Col style={colStyle} span={24}>
+        <Col style={colStyle} className={hasSale ? style.oldPrice : ''} span={24}>
           $ {price}
         </Col>
       </Row>
+      {
+        hasSale &&  (
+          <Row>
+            <Col style={colStyle} span={24}>$ {priceOnSale}
+            </Col>
+          </Row>
+        )
+      }
       <Row>
         <Col style={colStyle} span={24}>
-          <NavLink className={style.buy} to={`/detail/${id}`}>
-            Comprar
-          </NavLink>
+          <button type="button" disabled={productWithoutStock} className={style.goToBuy} onClick={() => navigate(`/detail/${id}`)}>
+            {productWithoutStock ? "SIN STOCK" : "COMPRAR"}
+          </button>
         </Col>
       </Row>
     </div>

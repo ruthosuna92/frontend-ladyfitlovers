@@ -2,14 +2,14 @@
     outline: none;
     border: none;
     color:#BA338A;
-    height: 42px;
-    width: 150px;
-    border-radius: 15px;
+    height: 32px;
+    width: 120px;
+    border-radius: 10px;
     background-color: transparent;
     border: solid 1px #BA338A;
     margin-left: 8px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
    }
    .buttonSecondary:hover{
      cursor: pointer;

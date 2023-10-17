@@ -27,7 +27,7 @@ const About = () => {
     {
       name: 'Hebe Lía Romeu',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697166325/Portrait_Placeholder_mk4ckt.png',
+      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697330695/hebe_pcq2he.jpg',
       linkedin: 'https://www.linkedin.com/in/hebeliaromeu/',
       github: 'https://github.com/hebelia',
     },

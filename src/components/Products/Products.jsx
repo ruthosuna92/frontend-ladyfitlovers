@@ -11,13 +11,13 @@ const Products = () => {
   const allProducts = useSelector((state) => state.allProducts);
   const filteredProducts = useSelector((state) => state.products);
   const dispatch = useDispatch();
+ 
   console.log(productsPerPage)
-
   return (
     <div className={style.cardsContainer}>
       {
         !productsPerPage.length  ? <NoFoundScreen/> :
-        productsPerPage.map(({ id, name, image, price, unitsSold, stock }) => {
+        productsPerPage.map(({ id, name, image, price, unitsSold, stock, priceOnSale }) => {
           // const color = stock.map((stockItem) => stockItem.color);
   
           return (
@@ -30,6 +30,8 @@ const Products = () => {
                 price={price}
                 unitsSold={unitsSold}
                 stock={stock}
+                priceOnSale={priceOnSale}
+
               ></Product>
               <Drawer></Drawer>
             </>
