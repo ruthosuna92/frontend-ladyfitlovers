@@ -49,7 +49,15 @@ const ReviewsClient = ({ infoUser }) => {
   console.log(userId);
 
   useEffect(() => {
-    dispatch(getReviewsByUser({ userId, accessToken }));
+    const fetchData = async () => {
+      try {
+        await dispatch(getReviewsByUser({ userId, accessToken }));
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+    fetchData();
+    // dispatch(getReviewsByUser({ userId, accessToken }));
   }, []);
 
   // promedio
@@ -82,7 +90,7 @@ const ReviewsClient = ({ infoUser }) => {
           <Card>
             <Rate defaultValue={averageRating} disabled />
             <p> {averageRating} (puntuación promedio)</p>
-            <p> {reviewsByUser.length} (total de reseñas)</p>
+            <p> {reviewsByUser?.length} (total de reseñas)</p>
           </Card>
         </div>
       </div>
