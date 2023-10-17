@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import loginUser from "../../redux/Actions/User/loginUser";
 import userById from "../../redux/Actions/User/getUserById";
 //imports
-import { Modal, Form, Input, Button, Checkbox, Divider } from "antd";
+import { Modal, Form, Input, Button, Checkbox, Divider, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import { gapi } from "gapi-script";
@@ -41,7 +41,7 @@ const LoginModal = (props) => {
       const values = await form.validateFields();
       const { email, password } = values;
       setLoading(true);
-      const response = await dispatch(loginUser(email, password));
+      const response = await dispatch(loginUser(email.toLowerCase(), password));
       const user = await dispatch(userById(response.payload.idUser, response.payload.token)); //idUser es lo que devuelve el loginser del back.
       // console.log(user);
       if (user) {
@@ -49,7 +49,8 @@ const LoginModal = (props) => {
         return props.onClose();
       }
     } catch (error) {
-      console.log(error.message);
+      setLoading(false);
+      message.error('Email o contraseña incorrectos');
     }
   };
   const handleGoogleLoginSuccess = () => {

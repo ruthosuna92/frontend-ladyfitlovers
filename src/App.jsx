@@ -1,7 +1,7 @@
 //imports
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate, useNavigate } from "react-router-dom";
 import { ConfigProvider, Button } from "antd";
 //actions
 import getAllProducts from "./redux/Actions/Product/getAllProducts";
@@ -20,6 +20,7 @@ import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
 import QandA from "./views/QandA/QandA";
 import About from "./components/About/About";
+import UserBanError from "./components/UserBanError/UserBanError";
 
 const App = () => {
   // dispatch to get all products globally
@@ -28,11 +29,20 @@ const App = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+
   //condiction para que no se vuelva a cargar los productso si el estado
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getAllCategories());
+    
   }, []);
+
+  useEffect(() => {
+    if(user.userBan){
+      navigate("/sin-acceso")
+    }
+  }, [user, location.pathname])
 
   return (
 
@@ -55,16 +65,20 @@ const App = () => {
         },
       }}
     >
-     {location.pathname !== "/nosotros" && <NavBar />}
+     {(location.pathname !== "/nosotros" || location.pathname !== "/sin-acceso") && <NavBar />}
       {/* <h1>Hello World</h1>
       <Button type="primary">Hello World</Button> */}
       <Routes>
+      {user.userBan ? (
+        <Route path="/sin-acceso" element={<UserBanError />} />
+      ) : (
+        <>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/usuarios" element={user?.typeUser === "Admin" ?  <Dashboard />: <Navigate to='/'/>} />
-        <Route path="/admin/productos" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/ordenes" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/crear-producto" element={user?.typeUser === "Admin" ?  <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin" element={(!user.userBan && user?.typeUser === "Admin") ?  <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin/usuarios" element={(!user.userBan && user?.typeUser === "Admin") ?   <Dashboard />: <Navigate to='/'/>} />
+        <Route path="/admin/productos" element={(!user.userBan && user?.typeUser === "Admin") ?   <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin/ordenes" element={(!user.userBan && user?.typeUser === "Admin") ?  <Dashboard /> : <Navigate to='/'/>} />
+        <Route path="/admin/crear-producto" element={(!user.userBan && user?.typeUser === "Admin") ?  <Dashboard /> : <Navigate to='/'/>} />
         <Route path="/login" />
         <Route path="/contacto" element={<Contac />} />
         <Route path="/register" />
@@ -72,11 +86,13 @@ const App = () => {
         <Route path="/products/:category" />
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/perfil/:key" element={user?.typeUser === "User" ? <Profile/> : <Navigate to='/'/> } />
+        <Route path="/perfil/:key" element={(!user.userBan && user?.typeUser === "User") ?  <Profile/> : <Navigate to='/'/> } />
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
         <Route path="/preguntas-frecuentes" element={<QandA/>}/>
         <Route path="/nosotros" element={<About/>} />
+        </>
+      )}
       </Routes>
       <Footer />
     </ConfigProvider>

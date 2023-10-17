@@ -79,8 +79,8 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        saveProducts: action.payload,
-        allProducts: action.payload,
+        saveProducts: action.payload.filter((product) => product.active),
+        allProducts: action.payload.filter((product) => product.active),
         productsPerPage: action.payload.slice(0, state.quantity),
         allProductsAdmin: action.payload,
         totalButtons: Math.ceil(action.payload.length / state.quantity),

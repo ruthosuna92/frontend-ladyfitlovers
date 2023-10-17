@@ -26,7 +26,6 @@ const handleGoToCategory = (category) => {
               className="lazy-image"
               src="https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697237738/LadyFitLovers/8_pfxbpy.jpg"
             /> 
-            {/* <p clasName="textVertical">BUZOS</p> */}
           </button>
           <button className="image image--big" onClick={()=> handleGoToCategory("PANTALONES")}>
             <img
