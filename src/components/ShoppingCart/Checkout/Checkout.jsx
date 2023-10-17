@@ -32,6 +32,12 @@ const Checkout = () => {
   useEffect(()=>{
     dispatch(shippingType(shipping))
     dispatch(shippingCost(amount(shipping)))
+    if(user.address){
+      setItem({
+        ...item,
+        calle: user.address
+      })
+    }
   
   },[shipping])
   const handleRadio = (event) => {
@@ -145,7 +151,7 @@ console.log(costSelected);
                   width: 'calc(33% - 8px)',
                 }}
               >
-                <Input placeholder="Calle*" name='calle'/>
+                <Input placeholder="Calle*" name='calle' defaultValue={item.calle}/>
               </Form.Item>
               <Form.Item
                 name="Número"
