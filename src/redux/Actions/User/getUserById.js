@@ -5,6 +5,7 @@ const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/user/`;
 
 const userById = (id, accessToken) => {
+  console.log(id);
   return async (dispatch) => {
     try {
       const config = {
@@ -13,6 +14,7 @@ const userById = (id, accessToken) => {
         }
       }
       const response = await axios.get(endpoint + id, config);
+      
       return dispatch({
         type: USER_BY_ID,
         payload: response.data,

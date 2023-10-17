@@ -45,7 +45,15 @@ const ProfileLayout = ({ profileKey }) => {
         email: infouser.email || "",
         phone: infouser.phone || "",
         provincia: infouser.provincia || "",
-        address: infouser.address || "",
+        address: {
+          calle: infouser.address.calle || "",
+          numero: infouser.address.numero || "",
+          dpto: infouser.address.dpto || "",
+          entreCalles: infouser.address.entreCalles || "",
+          localidad: infouser.address.localidad || "",
+          codigoPostal: infouser.address.codigoPostal || "",
+          provincia: infouser.address.provincia || "",
+        },
         pivotuser: true,
       });
     }else if (!infouser.id){
@@ -107,13 +115,13 @@ const ProfileLayout = ({ profileKey }) => {
               initialValues={{
                 name: dataUser.name,
                 surname: dataUser.surname,
-                calle: "",
-                numero: "",
-                dpto: "",
-                entreCalles: "",
-                localidad: "",
-                codigoPostal: "",
-                provincia: "",
+                calle: dataUser.address.calle,
+                numero: dataUser.address.numero,
+                dpto: dataUser.address.dpto,
+                entreCalles: dataUser.address.entreCalles,
+                localidad: dataUser.address.localidad,
+                codigoPostal: dataUser.address.codigoPostal,
+                provincia: dataUser.address.provincia,
                 phone: dataUser.phone,
                 email: dataUser.email,
                 password: "",
@@ -124,7 +132,7 @@ const ProfileLayout = ({ profileKey }) => {
               <div className={style.formSetting}>
                 <CreateAcountForm
                   pivotuser={dataUser.pivotuser}
-                  dataAddress={dataUser.address}
+
                   idUser={dataUser.id}
                 />
               </div>

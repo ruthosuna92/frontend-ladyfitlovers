@@ -215,6 +215,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case USER_BY_ID:
+      console.log(action.payload);
       return {
         ...state,
         user: action.payload,
