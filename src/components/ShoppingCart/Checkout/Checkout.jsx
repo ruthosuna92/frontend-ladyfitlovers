@@ -32,6 +32,7 @@ const Checkout = () => {
   useEffect(()=>{
     dispatch(shippingType(shipping))
     dispatch(shippingCost(amount(shipping)))
+  
   },[shipping])
   const handleRadio = (event) => {
     setShipping(event.target.value)
@@ -68,7 +69,8 @@ const handleCheckout = () => {
 console.log(item);
   const address = `${item.calle} ${item.numero} ${item.dpto}, entre: ${item.entreCalles}, ${item.localidad} - CP: ${item.codigoPostal}, ${item.provincia}`;
 console.log(address);
-console.log(user.address);
+const array = user.address.split(",")
+
 
 console.log(typeSelected);
 console.log(costSelected);
