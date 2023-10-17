@@ -27,6 +27,10 @@ import {
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
   REMOVING_PRODUCT,
+  CLEAN_CART_REDUCER,
+  //checkout
+  SHIPPING_TYPE,
+  SHIPPING_COST,
   //orders
   GET_ORDERS,
   GET_ORDERID,
@@ -64,7 +68,9 @@ const initialState = {
   },
   //cart
   cart: [],
-
+  //checkout
+  shippingType: null,
+  shippingCost: null,
   //orders
   allOrders: [],
   ordersUser: [],
@@ -123,8 +129,8 @@ const reducer = (state = initialState, action) => {
           action.payload === "TA"
             ? state.saveProducts
             : state.saveProducts.filter(
-                (product) => product.Category.name === action.payload
-              ),
+              (product) => product.Category.name === action.payload
+            ),
 
         savePivot: state.saveProducts.filter(
           (product) => product.Category.name === action.payload
@@ -140,27 +146,27 @@ const reducer = (state = initialState, action) => {
         filteredProducts =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
               )
+            )
             : state.saveProducts.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
-              );
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
+              )
+            );
         filteredColor =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
               )
+            )
             : state.saveProducts.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
-              );
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
+              )
+            );
       }
       return {
         ...state,
@@ -211,6 +217,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+
 
     case AUTH_USER:
       console.log("User authenticated with Google", action.payload);
@@ -360,32 +367,56 @@ const reducer = (state = initialState, action) => {
       }
     case REMOVING_PRODUCT:
       let productRemoved = state.cart[action.payload];
-
       return {
         ...state,
         cart: state.cart.filter((prod) => prod !== productRemoved),
       };
+    case GET_CART:
+      if(action.payload.length){
+        return {
+          ...state,
+          cart: action.payload
+        }
+      } else {
+        return {
+          ...state
+        }
+      }
+    case CLEAN_CART_REDUCER:
+      return {
+        ...state,
+        cart: action.payload
+      }
+      case SHIPPING_TYPE:
+        return {
+          ...state,
+          shippingType: action.payload
+        }
+      case SHIPPING_COST:
+        return {
+          ...state,
+          shippingCost: action.payload
+        }
     case GET_ALL_USERS:
       return {
         ...state,
-        allUsers: action.payload,
+        allUsers: action.payload
       };
-
     case CLEAN_CART:
       return {
         ...state,
-        cart: [],
+        cart: []
       };
     case GET_ORDERS:
       return {
         ...state,
-        allOrders: action.payload,
+        allOrders: action.payload
       };
     case GET_ORDERID:
       console.log(action.payload);
       return {
         ...state,
-        ordersUser: action.payload,
+        ordersUser: action.payload
       };
     case GET_REVIEW_BY_USERID:
       console.log(action.payload);

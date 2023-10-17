@@ -22,6 +22,7 @@ import QandA from "./views/QandA/QandA";
 import About from "./components/About/About";
 import UserBanError from "./components/UserBanError/UserBanError";
 import ProductsByCategory from "./components/ProductsByCategory/ProductsByCategory";
+import Checkout from "./components/ShoppingCart/Checkout/Checkout";
 
 const App = () => {
   // dispatch to get all products globally
@@ -88,6 +89,7 @@ const App = () => {
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/perfil/:key" element={(!user.userBan && user?.typeUser === "User") ?  <Profile/> : <Navigate to='/'/> } />
+        <Route path="/checkout" element={<Checkout/>} />
         <Route path="/paymentState" element={<PaymentState />} />
         <Route path="/compra" element={<PaymentState />} />
         <Route path="/preguntas-frecuentes" element={<QandA/>}/>
