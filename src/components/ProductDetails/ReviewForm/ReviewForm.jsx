@@ -4,7 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 //styles
 import styles from "./reviewForm.module.css";
 //antd
-import { Button, Card, Col, Form, Radio, Rate, Row, Input } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Radio,
+  Rate,
+  Row,
+  Input,
+  Alert,
+  message,
+  Space,
+} from "antd";
 //actions
 import postReview from "../../../redux/Actions/Reviews/postReview";
 
@@ -42,6 +54,23 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
   //para ver en consola los cambios en los campos del formulario
   const handleFormValuesChange = (changedValues, allValues) => {
     console.log("Form values:", allValues);
+  };
+
+
+  
+  //mensajes de alerta formulario
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'This is a success message',
+    });
+  };
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'This is an error message',
+    });
   };
 
   return (
@@ -85,10 +114,7 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
             <Input.TextArea allowClear showCount />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-            >
+            <Button type="primary" htmlType="submit">
               Submit
             </Button>
           </Form.Item>

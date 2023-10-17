@@ -1,0 +1,84 @@
+.container{
+    width: 80%;
+}
+.average {
+  display: flex;
+  flex-direction: column;
+  /* width: 70%; */
+}
+.averageTitle {
+  color: #ba338a;
+  /* width: 70%; */
+  justify-content: center;
+  text-align: center;
+}
+.averageIcon {
+  /* background-color: #BA338A; */
+  width: 70%;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.iconFace {
+  display: flex;
+  width: 100px;
+  margin: 3px;
+}
+.iconFace span,
+.iconFace svg,
+.iconFace path {
+  width: 90%;
+  height: 100%;
+}
+
+.reviewsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.reviewCard {
+  margin: 0.5em;
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.ratingIcon {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-around; */
+  width: 100%;
+}
+.icon{
+  display: flex;
+  justify-content: center;
+  width: 35%;
+}
+.reviewDate {
+  text-align: right;
+  color: gray;
+}
+.icon span,
+.icon svg,
+.icon path {
+  width: 50%;
+  height: 100%;
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.productLink{
+  color:#ba338a;
+}
+.productLink:hover{
+  color: #ba338a;
+  text-decoration: underline #E0B3D3;
+  text-shadow: 2px 2px 2px 1px red;
+}

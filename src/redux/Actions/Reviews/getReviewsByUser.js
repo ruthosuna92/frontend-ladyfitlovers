@@ -4,15 +4,16 @@ import { GET_REVIEW_BY_USERID } from "../actionTypes";
 const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/review/user/`;
 
-const getReviewsByUser = (id, accessToken) => {
+const getReviewsByUser = ({ userId, accessToken }) => {
+  console.log(userId, accessToken);
   return async (dispatch) => {
     try {
       const config = {
         headers: {
-          authorization: `Bearer ${accessToken}`
-        }
-      }
-      const response = await axios.get(endpoint +  id, config);
+          authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.get(endpoint + userId, config);
       return dispatch({
         type: GET_REVIEW_BY_USERID,
         payload: response.data,

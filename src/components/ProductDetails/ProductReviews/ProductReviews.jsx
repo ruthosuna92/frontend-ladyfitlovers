@@ -6,7 +6,14 @@ import style from "./productReviews.module.css";
 //components
 import Review from "../Review/Review";
 //antd
-import { Pagination, Select } from "antd";
+import { Pagination, Select, Progress, Rate } from "antd";
+import {
+  ShoppingOutlined,
+  UserOutlined,
+  EditOutlined,
+  StarOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
 const { Option } = Select;
 
 const ProductReviews = ({ productData }) => {
@@ -27,9 +34,66 @@ const ProductReviews = ({ productData }) => {
     console.log("cambio el filtro", value);
   };
 
+  //porcentage
+  const calculateAverageProductRating = () => {
+    if (!reviews || reviews.length === 0) return 0;
+    const totalRating = reviews.reduce(
+      (total, review) => total + review.rating,
+      0
+    );
+    return totalRating / reviews.length;
+  };
+  const averageProductRating = calculateAverageProductRating();
+
+  // console.log(averageProductRating);
+
+  //funcion porcentajes
+  const calculateRatingPercentages = (reviews) => {
+    const ratingCounts = [0, 0, 0, 0, 0];
+    reviews.forEach((review) => {
+      const ratingIndex = review.rating - 1;
+      ratingCounts[ratingIndex] += 1;
+    });
+    const totalReviews = reviews.length;
+    return ratingCounts.map((count) =>
+      Math.round((count / totalReviews) * 100)
+    );
+  };
+  const ratingPercentages = calculateRatingPercentages(reviews);
+  const reversedRatingPercentages = ratingPercentages.slice().reverse();
+
+
   return (
     <div className={style.container}>
       {/* agregar filtro por rating y ordenamiento por fecha */}
+
+      <div className={style.reviewStats}>
+        <div className={style.reviewAverage}>
+          {/* aca va a ir el 
+          -promedio de /5  en numero
+          -promedio que se muestre en un rate
+          -agregar un review count
+          */}
+          <div className={style.reviewAverageNum}>
+            <h1 className={style.averageNum}>
+              {averageProductRating.toFixed(1)}
+            </h1>
+            <h1>/5</h1>
+          </div>
+          <div className={style.rateTotal}>
+            <Rate disabled allowHalf defaultValue={averageProductRating} />
+            <p>{reviews.length} reseñas</p>
+          </div>
+        </div>
+        <div className={style.reviewPercentagesContainer}>
+          {reversedRatingPercentages.map((percentage, index) => (
+            <div key={index} className={style.reviewPercentage}>
+              {5 - index}
+              <StarOutlined /> <Progress percent={percentage} status="active" />
+            </div>
+          ))}
+        </div>
+      </div>
 
       {reviews.length === 0 ? (
         <h4>
@@ -54,7 +118,7 @@ const ProductReviews = ({ productData }) => {
             {/* mapear las reviews del producto que vienen en un array */}
             {reviews
               .slice((current - 1) * pageSize, current * pageSize)
-              .map(({ id, reviewText, rating, productreview, user }) => (
+              .map(({ id, reviewText, rating, productreview, User }) => (
                 //id, reviewText, rating,updatedAt,user.id
                 <Review
                   key={id}
@@ -62,7 +126,7 @@ const ProductReviews = ({ productData }) => {
                   reviewText={reviewText}
                   rating={rating}
                   updatedAt={productreview.updatedAt}
-                  user={user}
+                  user={User}
                 />
               ))}
           </div>
@@ -77,7 +141,6 @@ const ProductReviews = ({ productData }) => {
           </div>
         </>
       )}
-      {/* cambiar paginacion para que dependa de si hay reviews / de la cantidad que haya */}
     </div>
   );
 };
