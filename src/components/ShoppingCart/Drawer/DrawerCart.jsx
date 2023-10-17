@@ -5,10 +5,12 @@ import decrementQuantity from '../../../redux/Actions/ShoppingCart/decrementQuan
 import incrementQuantity from '../../../redux/Actions/ShoppingCart/incrementQuantity';
 import { getColorName } from '../../../utils/getColorName';
 import removingProduct from '../../../redux/Actions/ShoppingCart/removingProduct';
-import checkout from '../../../redux/Actions/ShoppingCart/checkout';
+import checkout from '../../../redux/Actions/Checkout/checkout';
 import LoginModal from '../../LoginModal/LoginModal';
 import EmptyCart from '../emptyCart/emptyCart';
 import { useNavigate } from 'react-router';
+import Checkout from '../Checkout/Checkout';
+
 
 const DrawerCart = ({openDrawer, onClose}) => {
   const allProductsAdmin = useSelector((state) => state.allProductsAdmin)
@@ -17,11 +19,16 @@ const DrawerCart = ({openDrawer, onClose}) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   
+  
   const [messageApi, contextHolder] = message.useMessage()
   const [loginModalVisible, setLoginModalVisible] = useState(false);
   const [createAcountModalVisible, setCreateAcountModalVisible] =
     useState(false);
   const [open, setOpen] = useState(openDrawer);
+  const [openCheckout, setOpenCheckout] = useState(false)
+  const onCloseCheckout = (boolean) => {
+    setOpenCheckout(boolean)
+  }
   const showDefaultDrawer = () => {
     setOpen(openDrawer);
   };
@@ -50,7 +57,7 @@ const DrawerCart = ({openDrawer, onClose}) => {
         return
       }
     }
-    if(e.target.outerText !== "Ir a pagar"){
+    if(e.target.outerText !== "Comprar"){
       if(e.target.localName === "span" ){
   
         const id = e.nativeEvent.srcElement.parentElement.offsetParent.offsetParent.id
@@ -97,6 +104,15 @@ const DrawerCart = ({openDrawer, onClose}) => {
     navigate("/products")
 
   }
+  const handleCheckout = () => {
+    if(!user.email){
+      setLoginModalVisible(true)
+    } else {
+      navigate("/checkout")
+      onClose(false)
+    }
+  }
+  console.log(openCheckout);
   return (
     <>
      <LoginModal
@@ -170,37 +186,14 @@ const DrawerCart = ({openDrawer, onClose}) => {
           <Space>
           {total === 0 && <Button onClick={handle}>Buscar productos</Button>}
             {total > 0 && <Button onClick={() => onClose(false)}>Seguir comprando</Button>}
-            <Button type="primary" disabled={total === 0} onClick={() => handleBuy()}> 
+            <Button type="primary" disabled={total === 0} onClick={handleCheckout }> 
             {/* // /payment/createOrder   window.location.href = response.data.response.body.init_point; */}
-              Ir a pagar
+              Comprar
             </Button>
           </Space>
       </Drawer>
+          {openCheckout && <Checkout openCheckout={openCheckout} onCloseCheckout={onCloseCheckout} />}
     </>
   );
 };
 export default DrawerCart;
-
-
-
-// {
-//   "userId": "c853ce97-99d1-401a-91ce-a7ec6d88dd37",
-//   "products": [
-//  {
-// "id": 312,
-// "name": "MUSCULOSA BODY",
-// "image": "https://d22fxaf9t8d39k.cloudfront.net/e7932f7f83718e372db5316f598c872d4daacfd08d1e496e80a70112c821518a205310.jpg",
-//     "price": 8400,
-//     "color": "red",
-//     "quantity": 6
-// },
-// {
-// "id": 3,
-// "name": "REMERA MANGA LARGA",
-// "image": "https://d22fxaf9t8d39k.cloudfront.net/38e94b7bc0a1e5cdbc1c3523a0a138a1ca007735ba6eec97394a48f542c47469205310.jpg",
-//     "price": 8500,
-//     "color": "red",
-//     "quantity": 2
-// }
-// ]
-// }

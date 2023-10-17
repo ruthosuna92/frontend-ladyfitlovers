@@ -1,10 +1,10 @@
 .shoppingClientContainer{
-    height: 70vh;
-    width: 85vw;
+    height: 40vh;
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 40px;
+    justify-content: center;
+    gap: 10px;
     overflow: auto;
 }
 .shoppingClientContainer::-webkit-scrollbar {

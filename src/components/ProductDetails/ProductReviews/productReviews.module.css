@@ -13,3 +13,77 @@
   justify-content: center;
   padding: 1em;
 }
+
+.reviewStats {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  align-self: center;
+}
+
+.reviewAverage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+  padding: 10px;
+  /* width: 70%; */
+  color: gray;
+}
+.reviewAverageNum {
+  display: flex;
+  flex-direction: row;
+  color: #e0b3d3;
+}
+.averageNum {
+  font-size: 5rem;
+  margin-right: 0.5rem;
+  color: #c04c98;
+  /* color:#E0B3D3; */
+}
+.reviewAverageNum h1 {
+  margin: 0;
+}
+
+.reviewAverageNum h1:last-child {
+  display: flex;
+  align-items: center;
+}
+.rateTotal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1.5em;
+}
+
+.reviewPercentagesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  /* min-width: 300px; */
+  justify-content: center;
+  padding: 10px;
+}
+.reviewPercentage {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row;
+}
+.reviewPercentage span {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  padding-right: 0.4em;
+}
+
+@media screen and (max-width: 768px) {
+  .reviewStats {
+    flex-direction: column;
+  }
+  .reviewAverage {
+
+    flex-wrap: wrap;
+
+  }
+}

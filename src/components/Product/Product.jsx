@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import style from "./Product.module.css";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 
 import { Card, Button, Row, Col } from "antd";
+import style from "./Product.module.css";
+
+
 import { useDispatch, useSelector } from "react-redux";
 import addFavs from "../../redux/Actions/Favs/addFavorites";
 import deleteFav from "../../redux/Actions/Favs/deleteFav";
@@ -13,12 +15,17 @@ const colStyle = {
   textAlign: "center",
 };
 
-const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
+const Product = ({ id, name, image, price, unitsSold, color, stock, priceOnSale }) => {
   const user = useSelector((state)=> state.user)
   const dispatch = useDispatch()
   const accessToken = useSelector((state) => state.accessToken);
   const favorites = useSelector((state) => state.favorites);
   let sizes = [];
+
+  const navigate = useNavigate();
+
+const productWithoutStock = stock.every((stock)=> stock.sizeAndQuantity.every((sizeAndQuantity)=> sizeAndQuantity.quantity === 0))
+const hasSale = priceOnSale !== 0 && priceOnSale !== null
 
 
 
@@ -78,9 +85,9 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
               
 
 
-<NavLink className={style.buy} to={`/detail/${id}`}>
-              Comprar
-            </NavLink>
+<button type="button" disabled={productWithoutStock} className={style.buy} onClick={() => navigate(`/detail/${id}`)}>
+            {productWithoutStock ? "SIN STOCK" : "COMPRAR"}
+          </button>
             
             
   {favorites?.find((fav) => fav.id === id)
@@ -106,6 +113,14 @@ const Product = ({ id, name, image, price, unitsSold, color, stock }) => {
         </Col>
       </Row>
       :""}
+      {
+        hasSale &&  (
+          <Row>
+            <Col style={colStyle} span={24}>$ {priceOnSale}
+            </Col>
+          </Row>
+        )
+      }
       <Row>
         <Col style={colStyle} span={24}>
           <NavLink className={style.buy} to={`/detail/${id}`}>

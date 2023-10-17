@@ -1,12 +1,14 @@
 
 .layaout1{
     background-color: #F1ECF0;
-    width: 88vw;
+    /* width: 88vw; */
+    width: 98%;
     height: 71vh;
     display: grid;
     place-items: center;
     margin: 10px;
     border-radius: 10px;
+    overflow: auto;
 }
 .formSetting{
     width: 60%;

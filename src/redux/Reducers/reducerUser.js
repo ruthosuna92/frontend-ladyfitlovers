@@ -1,10 +1,11 @@
-import { LOGIN_USER, LOGOUT_USER } from "../actionTypes";
+import { LOGIN_USER, LOGOUT_USER, SAVE_EMAIL } from "../actionTypes";
 
 const initialState = {
   // usuario
   isLoggedIn: false,
   user: null,
   accessToken: null,
+  email: "",
 };
 
 const reducerUser = (state = initialState, action) => {
@@ -22,6 +23,12 @@ const reducerUser = (state = initialState, action) => {
         isLoggedIn: false,
         user: null,
       };
+    case SAVE_EMAIL:
+      console.log(action.payload);
+      return {
+        ...state,
+        email: action.payload,
+      }  
     default:
       return {
         ...state,

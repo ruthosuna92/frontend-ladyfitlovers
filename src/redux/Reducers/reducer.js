@@ -5,6 +5,7 @@ import {
   USER_BY_ID,
   AUTH_USER,
   GET_ALL_USERS,
+  SAVE_EMAIL,
   //products
   GET_ALL_PRODUCTS,
   GET_ID_DETAIL_PRODUCTS,
@@ -27,6 +28,10 @@ import {
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
   REMOVING_PRODUCT,
+  CLEAN_CART_REDUCER,
+  //checkout
+  SHIPPING_TYPE,
+  SHIPPING_COST,
   //orders
   GET_ORDERS,
   GET_ORDERID,
@@ -35,6 +40,8 @@ import {
   DELETE_FAV,
   //favorites
   //purchase
+  //reviews
+  GET_REVIEW_BY_USERID,
 } from "../Actions/actionTypes";
 
 const initialState = {
@@ -56,6 +63,7 @@ const initialState = {
   userId: [],
   user: [],
   token: [],
+  email: "",
   saveFilters: {
     category: [],
     color: [],
@@ -65,12 +73,16 @@ const initialState = {
   },
   //cart
   cart: [],
-
+  //checkout
+  shippingType: null,
+  shippingCost: null,
   //orders
   allOrders: [],
   ordersUser: [],
-  favorites: []
+  favorites: [],
   //purchase
+  //reviews
+  reviewsByUser: null,
 };
 console.log("favvvv", initialState.favorites);
 const reducer = (state = initialState, action) => {
@@ -78,8 +90,8 @@ const reducer = (state = initialState, action) => {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        saveProducts: action.payload,
-        allProducts: action.payload,
+        saveProducts: action.payload.filter((product) => product.active),
+        allProducts: action.payload.filter((product) => product.active),
         productsPerPage: action.payload.slice(0, state.quantity),
         allProductsAdmin: action.payload,
         totalButtons: Math.ceil(action.payload.length / state.quantity),
@@ -122,8 +134,8 @@ const reducer = (state = initialState, action) => {
           action.payload === "TA"
             ? state.saveProducts
             : state.saveProducts.filter(
-                (product) => product.Category.name === action.payload
-              ),
+              (product) => product.Category.name === action.payload
+            ),
 
         savePivot: state.saveProducts.filter(
           (product) => product.Category.name === action.payload
@@ -139,27 +151,27 @@ const reducer = (state = initialState, action) => {
         filteredProducts =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
               )
+            )
             : state.saveProducts.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
-              );
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
+              )
+            );
         filteredColor =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
               )
+            )
             : state.saveProducts.filter((product) =>
-                product.stock.some(
-                  (stockItem) => stockItem.color === action.payload
-                )
-              );
+              product.stock.some(
+                (stockItem) => stockItem.color === action.payload
+              )
+            );
       }
       return {
         ...state,
@@ -206,12 +218,12 @@ const reducer = (state = initialState, action) => {
       };
 
     case USER_BY_ID:
-
       return {
         ...state,
         user: action.payload,
       };
-      
+
+
     case AUTH_USER:
       console.log("User authenticated with Google", action.payload);
       return {
@@ -360,41 +372,76 @@ const reducer = (state = initialState, action) => {
       }
     case REMOVING_PRODUCT:
       let productRemoved = state.cart[action.payload];
-
       return {
         ...state,
         cart: state.cart.filter((prod) => prod !== productRemoved),
       };
+    case GET_CART:
+      if(action.payload.length){
+        return {
+          ...state,
+          cart: action.payload
+        }
+      } else {
+        return {
+          ...state
+        }
+      }
+    case CLEAN_CART_REDUCER:
+      return {
+        ...state,
+        cart: action.payload
+      }
+      case SHIPPING_TYPE:
+        return {
+          ...state,
+          shippingType: action.payload
+        }
+      case SHIPPING_COST:
+        return {
+          ...state,
+          shippingCost: action.payload
+        }
     case GET_ALL_USERS:
       return {
         ...state,
-        allUsers: action.payload,
+        allUsers: action.payload
       };
-
     case CLEAN_CART:
       return {
         ...state,
-        cart: [],
+        cart: []
       };
     case GET_ORDERS:
       return {
         ...state,
-        allOrders: action.payload,
+        allOrders: action.payload
       };
     case GET_ORDERID:
       console.log(action.payload);
       return {
         ...state,
-        ordersUser: action.payload,
+        ordersUser: action.payload
       }
-    case GET_FAVORITES_BY_ID_USER:
+    case SAVE_EMAIL:
+      return {
+        ...state,
+        email: action.payload
+      }
+    case GET_REVIEW_BY_USERID:
+      console.log(action.payload);
+      return {
+        ...state,
+        reviewsByUser: action.payload,
+      }
+      case GET_FAVORITES_BY_ID_USER:
         return {
           ...state,
           favorites: action.payload
         }
     case ADD_FAVS:
 
-          console.log(action.payload,"payload fav");
+
           return {
             ...state,
             favorites: [...state.favorites, action.payload]
@@ -403,12 +450,10 @@ const reducer = (state = initialState, action) => {
         
     case DELETE_FAV:
 
-console.log("delete, payload", action.payload);
+
 const prueba = state.favorites.filter((e)=> e.id === action.payload.id)
-console.log("soy prueba", prueba);
-          return {
+return {
             ...state,
-            // favorites: [state.favorites.filter((e)=> e.id !== action.payload.id)]
             favorites: state.favorites.filter((e)=> e.id !== action.payload.id)
           }
     default:

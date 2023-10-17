@@ -1,0 +1,44 @@
+
+.containerQA1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: auto;
+  }
+  
+  .containerQA {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: "poppins", sans-serif;
+    color: #ba338a;
+    width: 50%;
+    padding: 32px 32px;
+  }
+
+  .containerQA p{
+    color: #ba338a;
+    font-weight: 700;
+    width: 100%;
+  }
+
+  .containerQA2{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .containerQA2 img {
+    height: 600px;
+  }
+  
+  @media (max-width: 768px) {
+    .containerQA1 {
+      flex-direction: column;
+      justify-content: center;
+    }
+  
+    .containerQA2 img {
+      height: 400px;
+    }
+  }

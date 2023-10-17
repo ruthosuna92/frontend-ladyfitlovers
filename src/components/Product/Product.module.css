@@ -28,7 +28,9 @@ body {
 
   /* height: 450px; */
   background: #232323;
-  border-radius: 20px;
+  border: solid 2px #e0b3cd;
+  /* border: solid 2px black; */
+  border-radius: 20px 0px 20px 0px;
   overflow: hidden;
 }
 
@@ -174,24 +176,35 @@ body {
   cursor: pointer;
 }
 
-.container .card .contentBx a {
+.container .card .contentBx button {
   display: inline-block;
   padding: 10px 20px;
-  background: #fff;
+  background:  #E0B3D3;
   border-radius: 4px;
   margin-top: 10px;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   color: #111;
   opacity: 0;
   transform: translateY(50px);
   transition: translateY 0.5s;
+  border:none;
+  outline: none;
+
 }
 
-.container .card:hover .contentBx a {
+.container .card:hover .contentBx button {
   opacity: 1;
   transform: translateY(0px);
   transition-delay: 0.7s;
+  cursor: pointer;
+}
+
+.container .card:disabled .contentBx button {
+  opacity: 1;
+  transform: translateY(0px);
+  transition-delay: 0.7s;
+  cursor: not-allowed;
 }
 
 h3 {
@@ -210,12 +223,11 @@ h3 {
 .cardBox {
   max-width: 250px;
 }
-.buy{
+.buy {
   text-decoration: none;
-  color:#c04c98;
+  color: #c04c98;
 }
 .buy:hover{
-
   color:#c04c98;
 }
 /* @media (max-width: 768px) {
@@ -238,3 +250,22 @@ h3 {
     justify-content: center;
   }
 } */
+.productWithoutStock{
+  filter:grayscale(100%) 
+}
+
+
+.goToBuy{
+  outline:none;
+  border: none;
+  color:#ba338a;
+  background-color: transparent;
+  font-weight: 700px;
+  cursor:pointer;
+
+}
+
+.oldPrice{
+  text-decoration: line-through;
+  color: #ba338a;
+}

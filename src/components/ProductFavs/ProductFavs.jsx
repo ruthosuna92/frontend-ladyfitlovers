@@ -23,10 +23,10 @@ const ProductFavs = () => {
         dispatch(getFavoritesByIdUser(user.id))
 
       },[])
+      console.log(favorites, "mis favortios");
 
     return (
       <div className={style.shoppingClientContainer}>
-      
       {!favorites.length  ? <NoFoundScreen text={"No se encontraron favoritos"}/>
       
       :favorites?.map((fav) => (

@@ -1,0 +1,14 @@
+.containerUserBan{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #FFD9D8;
+}
+
+.titleUserBan{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ba338a;
+}

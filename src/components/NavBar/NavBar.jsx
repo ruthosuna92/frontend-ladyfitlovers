@@ -24,15 +24,21 @@ import {
   HeartOutlined,
 } from "@ant-design/icons";
 import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
+import postCart from "../../redux/Actions/ShoppingCart/postCart";
+import cleanCartReducer from "../../redux/Actions/ShoppingCart/cleanCartReducer";
 
 const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const products = useSelector((state) => state.cart)
+  const userId = useSelector((state)=> state.user.id)
+  const accessToken = useSelector((state)=> state.accessToken)
 
   // logout
   const handleLogout = () => {
-
+    dispatch(postCart({userId, products, accessToken}))
+    .then(() => dispatch(cleanCartReducer()))
     dispatch(logoutUser());
     navigate("/");
   };
