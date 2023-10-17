@@ -136,7 +136,7 @@
   .responsive {
     position: relative;
     display: flex;
-    /* margin-left: 1rem; */
+    margin-left: 1rem;
   }
 
   .imagesButton {
@@ -213,6 +213,10 @@
 @media (max-width: 600px) {
   .navBarLinksContainer img {
     margin: inherit;
+  }
+
+  .responsive {
+    margin-left: inherit;
   }
 
   .buttonLogin {
