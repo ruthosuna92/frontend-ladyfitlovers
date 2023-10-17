@@ -56,6 +56,7 @@ const ReviewsClient = ({ infoUser }) => {
         console.error("Error fetching reviews:", error);
       }
     };
+    fetchData();
     // dispatch(getReviewsByUser({ userId, accessToken }));
   }, []);
 
