@@ -16,6 +16,7 @@ const ProductsView = () => {
   //     console.log(allProducts);
   //   }
   // }, []);
+
   return (
     <div className={style.containerAll}>
       <Filters />

@@ -18,6 +18,8 @@ import getAllCategories from "./redux/Actions/Category/getAllCategories";
 import Profile from "./views/Profile/Profile";
 import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
+import Favs from "./views/Favs/Favs";
+import getFavoritesByIdUser from "./redux/Actions/Favs/getFavoritesByIdUser";
 import QandA from "./views/QandA/QandA";
 import About from "./components/About/About";
 import RecoveryPassword from "./views/RecoveryPassword/RecoveryPassword";
@@ -49,6 +51,14 @@ const App = () => {
       navigate("/sin-acceso")
     }
   }, [user, pathname])
+
+  useEffect(()=> {
+    if(user) {
+
+      dispatch(getFavoritesByIdUser(user.id))
+    }
+
+  },[user])
 
   return (
 
