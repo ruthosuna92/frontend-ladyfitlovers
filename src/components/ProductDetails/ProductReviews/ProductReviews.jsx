@@ -103,7 +103,7 @@ const ProductReviews = ({ productData }) => {
         <>
           <div className={style.filters}>
             <Select
-              defaultValue="Rating"
+              defaultValue="Todos"
               style={{ width: 120 }}
               onChange={handleFilterChange}
             >

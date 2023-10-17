@@ -90,7 +90,7 @@ const ReviewsClient = ({ infoUser }) => {
           <Card>
             <Rate defaultValue={averageRating} disabled />
             <p> {averageRating} (puntuación promedio)</p>
-            <p> {reviewsByUser.length} (total de reseñas)</p>
+            <p> {reviewsByUser?.length} (total de reseñas)</p>
           </Card>
         </div>
       </div>
