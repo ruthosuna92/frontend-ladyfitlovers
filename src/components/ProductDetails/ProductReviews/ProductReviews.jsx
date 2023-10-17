@@ -82,7 +82,7 @@ const ProductReviews = ({ productData }) => {
           </div>
           <div className={style.rateTotal}>
             <Rate disabled allowHalf defaultValue={averageProductRating} />
-            <p>{reviews.length} reviews</p>
+            <p>{reviews.length} reseñas</p>
           </div>
         </div>
         <div className={style.reviewPercentagesContainer}>
@@ -118,7 +118,7 @@ const ProductReviews = ({ productData }) => {
             {/* mapear las reviews del producto que vienen en un array */}
             {reviews
               .slice((current - 1) * pageSize, current * pageSize)
-              .map(({ id, reviewText, rating, productreview, user }) => (
+              .map(({ id, reviewText, rating, productreview, User }) => (
                 //id, reviewText, rating,updatedAt,user.id
                 <Review
                   key={id}
@@ -126,7 +126,7 @@ const ProductReviews = ({ productData }) => {
                   reviewText={reviewText}
                   rating={rating}
                   updatedAt={productreview.updatedAt}
-                  user={user}
+                  user={User}
                 />
               ))}
           </div>

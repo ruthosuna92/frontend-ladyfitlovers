@@ -22,7 +22,10 @@ const PaymentState = () => {
   const mpId = parsedData?.payment_id;
   const accessToken = useSelector((state) => state.accessToken);
 
-  // const shippingCost =useSelector((state)=>state.shippingCost);
+  const shippingCost = useSelector((state) => state.shippingCost);
+  const shippingType = useSelector((state) => state.shippingType);
+  // const shippingCost = 1;
+  // const shippingType= "Envío a domicilio"
 
   useEffect(() => {
     if (parsedData.status === "approved") {
@@ -35,6 +38,7 @@ const PaymentState = () => {
               mpId,
               totalAmount,
               shippingCost,
+              shippingType,
               accessToken,
             })
           );

@@ -65,54 +65,89 @@ const ReviewsClient = ({ infoUser }) => {
   const averageRating = calcAverageRating();
 
   return (
-    <div>
-      <div>
-        <h1>
-          Mis reseñas <SmileOutlined />
-        </h1>
-        <div className={styles.average}>
-          <h2>Promedio de estrellas que he dado</h2>
-          <Rate defaultValue={averageRating} disabled />
-          <p>sobre ... reseñas </p>
+    <div className={styles.container}>
+      <h1>
+        Mis reseñas <SmileOutlined />
+      </h1>
+
+      <div className={styles.average}>
+        <h3 className={styles.averageTitle}>
+          Nivel de satisfacción segun mis reseñas
+        </h3>
+        <div className={styles.averageIcon}>
+          <div className={styles.iconFace}>
+            {customIcons[Math.round(averageRating)]}
+          </div>
+
+          <Card>
+            <Rate defaultValue={averageRating} disabled />
+            <p> {averageRating} (puntuación promedio)</p>
+            <p> {reviewsByUser.length} (total de reseñas)</p>
+          </Card>
         </div>
-        <div className={styles.reviewsContainer}>
-          {reviewsByUser &&
-            reviewsByUser.map((review) => {
-              const formattedDate = new Date(
-                review.createdAt
-              ).toLocaleDateString("es-AR", {
+      </div>
+
+      <div className={styles.reviewsContainer}>
+        {reviewsByUser &&
+          reviewsByUser.map((review) => {
+            const formattedDate = new Date(review.createdAt).toLocaleDateString(
+              "es-AR",
+              {
                 year: "numeric",
                 month: "short",
                 day: "numeric",
-              });
+              }
+            );
 
-              return (
+            return (
+              <div className={styles.reviewCard}>
                 <Card
+                  className={styles.reviewCard}
                   hoverable
-                  style={{ width: 350 }}
-                  cover={<img alt="example" src={review.Product[0].image} />}
+                  style={{ width: 250 }}
+                  size="small"
+                  cover={
+                    <img
+                      alt="example"
+                      src={review.Product[0].image}
+                      style={{
+                        objectFit: "cover",
+                        height: "200px",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  }
                 >
                   <Meta
-                    // title={review.title}
                     description={
                       <div className={styles.ratingContainer}>
-                        <div className={styles.ratingIcon}>
-                          {customIcons[review.rating]}
-                        </div>
+                        <h3>{review.Product[0].name}</h3>
 
                         <div className={styles.cardInfo}>
-                          <p>{formattedDate}</p>
                           <Rate defaultValue={review.rating} disabled />
                           <p>{review.reviewText}</p>
-                          <a href={review.productLink}>Ir al producto</a>
+                          {/* NOTA */}
+                          <NavLink
+                            className={styles.productLink}
+                            to={`/detail/${review.Product[0].id}`}
+                          >
+                            Ir al producto
+                          </NavLink>
+                        </div>
+                        <div className={styles.ratingIcon}>
+                          <div className={styles.icon}>
+                            {customIcons[review.rating]}
+                          </div>
+
+                          <p className={styles.reviewDate}>{formattedDate}</p>
                         </div>
                       </div>
                     }
                   />
                 </Card>
-              );
-            })}
-        </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

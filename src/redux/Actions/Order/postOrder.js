@@ -9,6 +9,7 @@ const postOrder = ({
   mpId,
   totalAmount,
   shippingCost,
+  shippingType,
   accessToken,
 }) => {
   return async (dispatch) => {
@@ -26,6 +27,7 @@ const postOrder = ({
           mpId,
           totalAmount,
           shippingCost,
+          shippingType,
         },
         config
       );

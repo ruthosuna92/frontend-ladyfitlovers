@@ -37,12 +37,11 @@ const Review = ({ id, reviewText, rating, updatedAt, user }) => {
       >
         <Skeleton loading={loading} avatar active>
           <Meta
-            // avatar={
-            //   <Avatar src={user.image} />
-            // }
-            // title={user.name}
-            avatar={<Avatar src="/svg/logo.png" />}
-            title="hola"
+            avatar={
+              <Avatar size="large" src={user[0].image} />
+            }
+            title={user[0].name}
+
             description={formattedDate}
           />
           <div className={styles.reviewDescription}>
