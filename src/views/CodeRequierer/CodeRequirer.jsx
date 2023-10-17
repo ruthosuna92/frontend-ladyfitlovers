@@ -5,8 +5,11 @@ import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import verifyCode from "../../redux/Actions/User/verifyCode";
 import { Routes, Route, useLocation, useNavigate, Outlet } from "react-router-dom";
 import UpdatePasswordModal from "../../components/UpdatePassword/UpdatePasswordModal";
+import { useSelector } from "react-redux";
 
 const CodeRequirer = () => {
+  const saveEmail= useSelector((state) => state.email);
+  console.log(saveEmail);
   const navigate = useNavigate()
   const [ModalVisible, setModalVisible] = useState(false);
   const [code, setCode] = useState({
@@ -65,6 +68,7 @@ const CodeRequirer = () => {
             visible={ModalVisible}
             onClose={() => setModalVisible(false)}
             pivotbander={+code.code}
+            email={saveEmail}
           />
       <Outlet/>
     </div>

@@ -3,9 +3,13 @@ import { Input } from "antd";
 import style from "./RecoveryPassword.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import recoveryCode from "../../redux/Actions/User/recoveryCode";
-import { Routes, Route, useLocation, useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
+import CodeRequirer from "../CodeRequierer/CodeRequirer";
+import { useDispatch } from "react-redux";
+import saveEmail from "../../redux/Actions/User/saveEmail";
 
 const RecoveryPassword = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const [email, setEmail] = useState({
     email: "",
@@ -43,22 +47,24 @@ const RecoveryPassword = () => {
       });
     }
   };
-  const handleSumit = async() => {
+  const handleSumit = async () => {
     try {
-      if (email.errorEmail === ""){
+      if (email.errorEmail === "") {
         const response = await recoveryCode(email.email, email.recovery);
         console.log(response);
         if (response.success === true) {
+          dispatch(saveEmail(email.email));
           navigate("codigo-requerido")
+
         }
         setEmail({
-          email: "",
+          ...email,
           recovery: false
         })
       }
-      
+
     } catch (error) {
-      
+
     }
   }
 
@@ -84,7 +90,9 @@ const RecoveryPassword = () => {
           onClick={handleSumit}
         />
       </div>
-      <Outlet/>
+      <Outlet>
+        <CodeRequirer email={email.email} />
+      </Outlet>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 import { Modal } from "antd";
 import UpdatePassword from "../UpdatePassword/UpdatePassword";
 
-const UpdatePasswordModal = ({ visible, onClose, pivotbander }) => {
+const UpdatePasswordModal = ({ visible, onClose, pivotbander, email }) => {
  
   return (
       <Modal
@@ -11,7 +11,7 @@ const UpdatePasswordModal = ({ visible, onClose, pivotbander }) => {
       onCancel={onClose}
       footer={null}
     >
-      <UpdatePassword onClose={onClose} pivotbander={pivotbander}/>
+      <UpdatePassword onClose={onClose} pivotbander={pivotbander} email={email}/>
     </Modal>
     
   );

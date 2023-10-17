@@ -1,24 +1,16 @@
-
-const verifyCode = (code) => {
+import axios from "axios"
+const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
+const endpoint = `${API_URL_BASE}/user/recovery`;
+const verifyCode = async (code) => {
     const codeNumber = +code;
-    try {
-      if (codeNumber) {
-        // Simula una petición exitosa
-        console.log("Simulando una petición exitosa para:", codeNumber);
-        // Aquí puedes devolver datos simulados de éxito si es necesario
-        return { success: true, message: "Petición exitosa" };
-      } else {
-        // Simula una petición fallida
-        console.log("Simulando una petición fallida para:", codeNumber);
-        // Simula un error
-        throw new Error("Petición fallida");
+      try {
+        const response = await axios.post(endpoint, codeNumber);
+        return response
+    
+      } catch (error) {
+        return { message: error.message };
       }
-    } catch (error) {
-      // Manejo de errores simulado
-      console.error("Error en la petición:", error.message);
-      // Puedes devolver un objeto que indique un error si es necesario
-      return { success: false, error: error.message };
-    }
+    
   };
   
   export default verifyCode;

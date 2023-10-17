@@ -5,8 +5,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import updateUser from "../../redux/Actions/User/updateUser";
 import style from "./UpdatePassword.module.css"
+import { useNavigate } from "react-router-dom";
 
-const UpdatePassword = ({onClose, pivotbander}) => {
+const UpdatePassword = ({onClose, pivotbander, email}) => {
+  const navigate = useNavigate()
+  console.log(email);
   const accessToken = useSelector((state) => state.accessToken);
   const infouser = useSelector((state) => state.user)
   const id = infouser.id
@@ -66,16 +69,19 @@ const UpdatePassword = ({onClose, pivotbander}) => {
     })
   };
   const handleSumit = async() => {
-    if(typeof pivotbander === "number"){
-      return
+    if(typeof pivotbander === "number" && email !== ""){
+      alert("Nueva contraseña actualizada")
+      navigate("/")
+      setUpdatePassword({})
+
     }else if (error.errorPassNew === "" && error.errorPasscurrent === "") {
       const { password, newPassword } = updatePassword
       const 
       response = await dispatch(updateUser({ password, newPassword, id }, accessToken))
       if (response.message === "Usuario editado correctamente") {
         message.success(response.message);
-        onClose();
         setUpdatePassword({})
+        onClose();
       }else{
         message.error("Error al editar la cuenta");
       }
