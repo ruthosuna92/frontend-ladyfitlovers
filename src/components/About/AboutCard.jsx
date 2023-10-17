@@ -7,7 +7,7 @@ import "./about.css";
 
 const AboutCard = ({user}) => {
 
-    console.log(user)
+  
   return (
     
       <Card

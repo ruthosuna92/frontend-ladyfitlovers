@@ -11,12 +11,12 @@ const Products = () => {
   const allProducts = useSelector((state) => state.allProducts);
   const filteredProducts = useSelector((state) => state.products);
   const dispatch = useDispatch();
- 
-  console.log(productsPerPage)
+  // console.log(productsPerPage)
+
   return (
-    <div className={style.cardsContainer}>
+            <div className={style.cardsContainer}>
       {
-        !productsPerPage.length  ? <NoFoundScreen/> :
+        !productsPerPage.length  ? <NoFoundScreen text={"No se encontraron productos"}/> :
         productsPerPage.map(({ id, name, image, price, unitsSold, stock, priceOnSale }) => {
           // const color = stock.map((stockItem) => stockItem.color);
   

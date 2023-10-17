@@ -35,6 +35,9 @@ import {
   //orders
   GET_ORDERS,
   GET_ORDERID,
+  GET_FAVORITES_BY_ID_USER,
+  ADD_FAVS,
+  DELETE_FAV,
   //favorites
   //purchase
   //reviews
@@ -76,12 +79,12 @@ const initialState = {
   //orders
   allOrders: [],
   ordersUser: [],
-  //favorites
+  favorites: [],
   //purchase
   //reviews
   reviewsByUser: null,
 };
-
+console.log("favvvv", initialState.favorites);
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
@@ -430,10 +433,33 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         reviewsByUser: action.payload,
-      };
+      }
+      case GET_FAVORITES_BY_ID_USER:
+        return {
+          ...state,
+          favorites: action.payload
+        }
+    case ADD_FAVS:
+
+
+          return {
+            ...state,
+            favorites: [...state.favorites, action.payload]
+
+          }
+        
+    case DELETE_FAV:
+
+
+const prueba = state.favorites.filter((e)=> e.id === action.payload.id)
+return {
+            ...state,
+            favorites: state.favorites.filter((e)=> e.id !== action.payload.id)
+          }
     default:
       return {
         ...state,
+     
       };
   }
 };
