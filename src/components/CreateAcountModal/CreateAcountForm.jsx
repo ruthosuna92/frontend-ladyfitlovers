@@ -58,13 +58,22 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
 
   const handleSubmit = async () => {
     setLoading(true);
-    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
+    const address ={
+      calle: values.calle,
+      numero: values.numero,
+      dpto: values.dpto,
+      entreCalles: values.entreCalles,
+      localidad: values.localidad,
+      codigoPostal: values.codigoPostal,
+      provincia: values.provincia
+    };
 
     const valuesToSend = {
+      id: idUser,
       name: values.name,
       surname: values.surname,
       phone: values.phone,
-      address: values.calle && values.numero && values.dpto && values.entreCalles && values.localidad && values.codigoPostal && values.provincia ? address : undefined,
+      address: address,
       email: values.email.toLowerCase(),
       password: values.password,
       userBan: false
@@ -86,11 +95,18 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
     }
   };
   const handleSubmitupdate = async () => {
-    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
+    const address ={
+      calle: values.calle,
+      numero: values.numero,
+      dpto: values.dpto,
+      entreCalles: values.entreCalles,
+      localidad: values.localidad,
+      codigoPostal: values.codigoPostal,
+      provincia: values.provincia
+    };
 
     const valuesToSend = {
       id: idUser,
-      userId: idUser,
       name: values.name,
       surname: values.surname,
       phone: values.phone,
@@ -118,16 +134,22 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
   }
   const handleEdit = async () => {
     setLoading(true);
-    const address = `${values.calle} ${values.numero} ${values.dpto}, entre: ${values.entreCalles}, ${values.localidad} - CP: ${values.codigoPostal}, ${values.provincia}`;
-
-    const checkNewAddress = values.calle && values.numero && values.dpto && values.entreCalles && values.localidad && values.codigoPostal && values.provincia
+    const address ={
+      calle: values.calle,
+      numero: values.numero,
+      dpto: values.dpto,
+      entreCalles: values.entreCalles,
+      localidad: values.localidad,
+      codigoPostal: values.codigoPostal,
+      provincia: values.provincia
+    };
 
     const valuesToSend = {
-      id: values.id,
+      id: idUser,
       name: values.name,
       surname: values.surname,
       phone: values.phone,
-      address: checkNewAddress ? address : values.address,
+      address: address,
       email: values.email,
       password: values.password,
       userBan: values.userBan
@@ -203,9 +225,7 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
             );
           }}
         </Field>
-        {
-          pivotuser ? <p>Direccion actual: {dataAddress}</p> : ""
-        }
+
         {
           isEditing ? <p>Direccion actual: {values.address}</p> : ""
         }
@@ -215,9 +235,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
               return (
                 <div className="fieldAndError">
                   <Input {...field} placeholder="Calle*" autoComplete="off" />
-                  {errors.calle && (
+                  {pivotuser ? errors.calle && (
                     <p className="createProductError">{errors.calle}</p>
-                  )}
+                  ) : ""}
                 </div>
               );
             }}
@@ -227,9 +247,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
               return (
                 <div className="fieldAndError">
                   <Input {...field} placeholder="Número*" autoComplete="off" />
-                  {errors.numero && (
+                  {pivotuser ? errors.numero && (
                     <p className="createProductError">{errors.numero}</p>
-                  )}
+                  ) : ""}
                 </div>
               );
             }}
@@ -239,9 +259,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
               return (
                 <div className="fieldAndError">
                   <Input {...field} placeholder="Dpto" autoComplete="off" />
-                  {errors.dpto && (
+                  {pivotuser ? errors.dpto && (
                     <p className="createProductError">{errors.dpto}</p>
-                  )}
+                  ) : ""}
                 </div>
               );
             }}
@@ -256,9 +276,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
                   placeholder="Entre calles*"
                   autoComplete="off"
                 />
-                {errors.entreCalles && (
+                {pivotuser ? errors.entreCalles && (
                   <p className="createProductError">{errors.entreCalles}</p>
-                )}
+                ) : ""}
               </div>
             );
           }}
@@ -269,9 +289,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
               return (
                 <div className="fieldAndError">
                   <Input {...field} placeholder="Localidad*" autoComplete="off" />
-                  {errors.localidad && (
+                  {pivotuser ? errors.localidad && (
                     <p className="createProductError">{errors.localidad}</p>
-                  )}
+                  ) : ""}
                 </div>
               );
             }}
@@ -285,9 +305,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
                     placeholder="Código postal*"
                     autoComplete="off"
                   />
-                  {errors.codigoPostal && (
+                  {pivotuser ? errors.codigoPostal && (
                     <p className="createProductError">{errors.codigoPostal}</p>
-                  )}
+                  ) : ""}
                 </div>
               );
             }}
@@ -303,9 +323,9 @@ const CreateAcountForm = ({ onClose, pivotuser, dataAddress, idUser, isEditing }
                   onChange={(value) => form.setFieldValue("provincia", value)}
                   style={{ width: "100%" }}
                 />
-                {errors.provincia && (
+                {pivotuser ? errors.provincia && (
                   <p className="createProductError">{errors.provincia}</p>
-                )}
+                ) : ""}
               </div>
             );
           }}
