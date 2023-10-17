@@ -1,0 +1,23 @@
+.productsByCategoryContainer{
+    min-height: 86vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 32px;
+    /* background-color: #f6f1f5 */
+}
+
+.productsByCategoryContainer h3{
+    align-self: center;
+    margin-top: 32px;
+}
+
+
+
+.productsCardsCategoryContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 32px;
+    width: 100%;
+}

@@ -1,7 +1,6 @@
 .cardsContainer {
     display: flex;
     flex-wrap: wrap;
-  
     flex-direction: row;
     justify-content: space-evenly;
   
@@ -16,7 +15,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 2rem;
     background-color:#f6f1f5 ;
     min-height: 512px;
   }	
@@ -25,4 +23,8 @@
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
+    background-color: #E0B3D3;
+    color: #BA338A;
+    width: 100%;
+    padding: 16px;
   }

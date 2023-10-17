@@ -5,6 +5,7 @@ import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from "@ant
 import "./productsTable.css";
 import EditProductModal from "../../../components/EditPorductModal/EditPorductModal";
 import updateProduct from "../../../redux/Actions/Product/updateProduct";
+import getAllProducts from "../../../redux/Actions/Product/getAllProducts";
 
 const ProductsTable = () => {
   const dispatch = useDispatch();
@@ -42,13 +43,15 @@ const ProductsTable = () => {
           stock: product.stock,
           active: value,
         }, accessToken)
-      );
-
+      );     
       message.success(response.message, [2], onClose());
 
       resetForm();
     } catch {
       message.error("Error al crear producto", [2], onClose());
+    }
+    finally {
+      dispatch(getAllProducts(accessToken));
     }
   };
 
