@@ -10,6 +10,7 @@ import { Layout, Menu, Button, theme, Table } from "antd";
 import DataProfile from "../DataProfile/DataProfile";
 import CreateAcountForm from "../CreateAcountModal/CreateAcountForm";
 import ShoppingClient from "../ShoppingClient/ShoppingClient";
+import ReviewsClient from "../ReviewsClient/ReviewsClient";
 import TableShoppingClient from "../TableShoppingClient/TableShoppingClient";
 import style from "./ProfileLayout.module.css";
 import { Formik, Form } from "formik";
@@ -129,6 +130,7 @@ const ProfileLayout = ({ profileKey }) => {
               </div>
             </Formik>
           )}
+          {selectedKey === "opiniones" && <ReviewsClient infoUser={infouser}/>}
         </Content>
       </Layout>
     </Layout>

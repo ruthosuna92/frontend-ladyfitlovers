@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getColorName } from "../../utils/getColorName";
-import { Select, message } from "antd";
+import { Select, message, Divider } from "antd";
 import "./productDetails.css";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import ButtonSecondary from "../ButtonSecondary/ButtonSecondary";
@@ -20,7 +20,7 @@ const ProductDetails = ({ productData }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userId = useSelector((state) => state.user.id);
-  // console.log(productData);
+  console.log(productData);
   useEffect(() => {
     // saveCartLocal()
   }, []);
@@ -152,6 +152,7 @@ const ProductDetails = ({ productData }) => {
   const user = useSelector((state) => state.user);
   const currentProductId = productData.id;
   const [userHasPurchased, setUserHasPurchased] = useState(false);
+  const [userHasAlreadyReviewed, setHasAlreadyReviewed] = useState(false);
   //mapear las ordenes del usuario y verificar si dentro de esas ordenes hay al menos un product.id que coincida con el currentProductId
 
   useEffect(() => {
@@ -173,6 +174,11 @@ const ProductDetails = ({ productData }) => {
           setUserHasPurchased(hasPurchased);
         }
       );
+      //verificar si el usuario YA hizo una review
+      const hasAlreadyReviewed =
+        productData.Reviews &&
+        productData.Reviews.some((review) => review.User[0].id === userId);
+      setHasAlreadyReviewed(hasAlreadyReviewed);
     }
     // }, [userId, accessToken, currentProductId, dispatch]);
   }, []);
@@ -248,9 +254,9 @@ const ProductDetails = ({ productData }) => {
           </div>
         </div>
         <div className="productDetailContainerBottom">
-          <h2>Opiniones</h2>
+          <h2>Opiniones de clientes</h2>
 
-          {userHasPurchased && (
+          {userHasPurchased && !userHasAlreadyReviewed && (
             <ReviewForm
               productData={productData}
               userId={userId}

@@ -4,7 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 //styles
 import styles from "./reviewForm.module.css";
 //antd
-import { Button, Card, Col, Form, Radio, Rate, Row, Input } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Radio,
+  Rate,
+  Row,
+  Input,
+  Alert,
+  message,
+  Space,
+} from "antd";
 //actions
 import postReview from "../../../redux/Actions/Reviews/postReview";
 
@@ -13,6 +25,26 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const user = useSelector((state) => state.user);
+
+  //para ver en consola los cambios en los campos del formulario
+  const handleFormValuesChange = (changedValues, allValues) => {
+    console.log("Form values:", allValues);
+  };
+
+  //mensajes de alerta formulario
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "This is a success message",
+    });
+  };
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "This is an error message",
+    });
+  };
 
   const handleSubmit = async () => {
     try {
@@ -34,14 +66,16 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
       dispatch(
         postReview({ userId, productId, reviewText, rating }, accessToken)
       );
-    } catch (errorInfo) {
-      console.log("Failed:", errorInfo);
+      form.resetFields();
+      message.success("Reseña enviada con exito");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
-  };
-
-  //para ver en consola los cambios en los campos del formulario
-  const handleFormValuesChange = (changedValues, allValues) => {
-    console.log("Form values:", allValues);
+     catch (errorInfo) {
+      message.error("Error al enviar la reseña");
+      console.log("Fallo", errorInfo);
+    }
   };
 
   return (
@@ -85,10 +119,7 @@ const ReviewForm = ({ productData, userId, accessToken }) => {
             <Input.TextArea allowClear showCount />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-            >
+            <Button type="primary" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
