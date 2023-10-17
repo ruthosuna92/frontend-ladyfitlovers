@@ -15,7 +15,6 @@
   .footerTop {
     display: flex;
     justify-content: space-around;
-    width: 100%;
     background-color: #E0B3D3;
     padding: 16px;
   }

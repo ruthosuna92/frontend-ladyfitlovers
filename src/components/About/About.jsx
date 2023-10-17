@@ -20,7 +20,7 @@ const About = () => {
     {
       name: 'Marina Solange García',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697215135/sol_mlmjnq.jpg',
+      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697565079/SOL_mfgxr3.jpg',
       linkedin: 'https://www.linkedin.com/in/marina-solange-garcia/',
       github: 'https://github.com/msolangeg',
     },
@@ -48,7 +48,7 @@ const About = () => {
     {
       name: 'Matias Gochez',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697166325/Portrait_Placeholder_mk4ckt.png',
+      image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697563108/matias_t9crxh.jpg',
       linkedin: 'https://www.linkedin.com/in/matias-gochez-1b2921119/',
       github: 'https://github.com/MGochez',
     },
@@ -63,7 +63,7 @@ const About = () => {
       name: 'Mayra Denhoff',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
       image: 'https://res.cloudinary.com/dv7kzlqy6/image/upload/v1697166325/Portrait_Placeholder_mk4ckt.png',
-      linkedin: 'https://www.linkedin.com/in/leonardo-rodriguez-803560241/',
+      linkedin: 'https://www.linkedin.com/in/mayradenhoff/',
       github: 'https://github.com/Maydenhoff',
     },
   ]

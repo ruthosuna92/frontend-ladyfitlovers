@@ -104,7 +104,7 @@ const App = () => {
             <Route path="/products/:category" element={<ProductsByCategory />} />
             <Route path="/products/:category/:id" />
             <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/perfil/:key" element={(!user.userBan && user?.typeUser === "User") ? <Profile /> : <Navigate to='/' />} />
+            <Route path="/perfil/:key" element={(!user.userBan || user?.typeUser === "Admin") && user?.typeUser === "User"  ? <Profile /> : <Navigate to='/' />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/paymentState" element={<PaymentState />} />
             <Route path="/compra" element={<PaymentState />} />
