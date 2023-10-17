@@ -11,6 +11,7 @@ const getOrdersByUser = ({userId, accessToken}) => {
                   authorization: `Bearer ${accessToken}`
                 }
               }
+            
             const { data } = await axios.get(endpoint + userId, config);
             // console.log(data);
             return dispatch({

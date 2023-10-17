@@ -20,6 +20,9 @@ import Footer from "./components/Footer/Footer";
 import PaymentState from "./components/PaymentState/PaymentState";
 import QandA from "./views/QandA/QandA";
 import About from "./components/About/About";
+import RecoveryPassword from "./views/RecoveryPassword/RecoveryPassword";
+import CodeRequirer from "./views/CodeRequierer/CodeRequirer";
+
 import UserBanError from "./components/UserBanError/UserBanError";
 import ProductsByCategory from "./components/ProductsByCategory/ProductsByCategory";
 import Checkout from "./components/ShoppingCart/Checkout/Checkout";
@@ -37,14 +40,15 @@ const App = () => {
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getAllCategories());
-    
+
   }, []);
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    if(user.userBan){
+    if (user.userBan) {
       navigate("/sin-acceso")
     }
-  }, [user, location.pathname])
+  }, [user, pathname])
 
   return (
 
@@ -67,35 +71,40 @@ const App = () => {
         },
       }}
     >
-     {(location.pathname !== "/nosotros" || location.pathname !== "/sin-acceso") && <NavBar />}
+
+
+      {(pathname !== "/nosotros" || pathname !== "/sin-acceso") && !pathname.startsWith("/recuperar-contrasena") && <NavBar />}
       {/* <h1>Hello World</h1>
       <Button type="primary">Hello World</Button> */}
       <Routes>
-      {user.userBan ? (
-        <Route path="/sin-acceso" element={<UserBanError />} />
-      ) : (
-        <>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin" element={(!user.userBan && user?.typeUser === "Admin") ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/usuarios" element={(!user.userBan && user?.typeUser === "Admin") ?   <Dashboard />: <Navigate to='/'/>} />
-        <Route path="/admin/productos" element={(!user.userBan && user?.typeUser === "Admin") ?   <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/ordenes" element={(!user.userBan && user?.typeUser === "Admin") ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/admin/crear-producto" element={(!user.userBan && user?.typeUser === "Admin") ?  <Dashboard /> : <Navigate to='/'/>} />
-        <Route path="/login" />
-        <Route path="/contacto" element={<Contac />} />
-        <Route path="/register" />
-        <Route path="/products" element={<ProductsView />} />
-        <Route path="/products/:category" element={<ProductsByCategory/>} />
-        <Route path="/products/:category/:id" />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/perfil/:key" element={(!user.userBan && user?.typeUser === "User") ?  <Profile/> : <Navigate to='/'/> } />
-        <Route path="/checkout" element={<Checkout/>} />
-        <Route path="/paymentState" element={<PaymentState />} />
-        <Route path="/compra" element={<PaymentState />} />
-        <Route path="/preguntas-frecuentes" element={<QandA/>}/>
-        <Route path="/nosotros" element={<About/>} />
-        </>
-      )}
+        {user.userBan ? (
+          <Route path="/sin-acceso" element={<UserBanError />} />
+        ) : (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/admin" element={(!user.userBan && user?.typeUser === "Admin") ? <Dashboard /> : <Navigate to='/' />} />
+            <Route path="/admin/usuarios" element={(!user.userBan && user?.typeUser === "Admin") ? <Dashboard /> : <Navigate to='/' />} />
+            <Route path="/admin/productos" element={(!user.userBan && user?.typeUser === "Admin") ? <Dashboard /> : <Navigate to='/' />} />
+            <Route path="/admin/ordenes" element={(!user.userBan && user?.typeUser === "Admin") ? <Dashboard /> : <Navigate to='/' />} />
+            <Route path="/admin/crear-producto" element={(!user.userBan && user?.typeUser === "Admin") ? <Dashboard /> : <Navigate to='/' />} />
+            <Route path="/login" />
+            <Route path="/contacto" element={<Contac />} />
+            <Route path="/register" />
+            <Route path="/products" element={<ProductsView />} />
+            <Route path="/products/:category" element={<ProductsByCategory />} />
+            <Route path="/products/:category/:id" />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/perfil/:key" element={(!user.userBan && user?.typeUser === "User") ? <Profile /> : <Navigate to='/' />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/paymentState" element={<PaymentState />} />
+            <Route path="/compra" element={<PaymentState />} />
+            <Route path="/preguntas-frecuentes" element={<QandA />} />
+            <Route path="/nosotros" element={<About />} />
+            <Route path="/recuperar-contrasena/" element={<RecoveryPassword />}>
+              <Route path="codigo-requerido" element={<CodeRequirer />} />
+            </Route>
+          </>
+        )}
       </Routes>
       <Footer />
     </ConfigProvider>

@@ -5,6 +5,7 @@ import {
   USER_BY_ID,
   AUTH_USER,
   GET_ALL_USERS,
+  SAVE_EMAIL,
   //products
   GET_ALL_PRODUCTS,
   GET_ID_DETAIL_PRODUCTS,
@@ -59,6 +60,7 @@ const initialState = {
   userId: [],
   user: [],
   token: [],
+  email: "",
   saveFilters: {
     category: [],
     color: [],
@@ -417,7 +419,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ordersUser: action.payload
-      };
+      }
+    case SAVE_EMAIL:
+      return {
+        ...state,
+        email: action.payload
+      }
     case GET_REVIEW_BY_USERID:
       console.log(action.payload);
       return {

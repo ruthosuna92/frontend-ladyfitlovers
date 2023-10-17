@@ -43,6 +43,7 @@ export const USER_BY_ID = "USER_BY_ID";
 export const BAN_USER = "BAN_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const GET_ALL_USERS = "GET_ALL_USERS";
+export const SAVE_EMAIL = "SAVE_EMAIL";
 
 //OFFERS
 export const GET_OFFERS = "GET_OFFERS";
