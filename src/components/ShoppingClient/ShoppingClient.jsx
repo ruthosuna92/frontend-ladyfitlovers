@@ -19,9 +19,8 @@ const ShoppingClient = ({ products }) => {
                 bordered={false}
                 hoverable={true}
                 style={{
-                  width: "160vh",
-                  height: 120,
-                  margin: 5,
+                  width: "120vh",
+                  height: 100,
                 }}
                 id={userOrder.id}
               >

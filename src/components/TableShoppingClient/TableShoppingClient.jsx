@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+
 import {  useSelector } from "react-redux";
-import { Button,Table, Tag } from "antd";
+import { Table, Tag } from "antd";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import ShoppingClient from "../ShoppingClient/ShoppingClient";
@@ -25,18 +25,12 @@ const TableShoppingClient = () => {
       key: order.id,
     };
   });
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [order, setOrder] = useState({});
 
   const paymentIdFilters =ordersUser?.map((order) => {
     return {
       text: order.mercadopagoTransactionId,
       value: order.mercadopagoTransactionId,
     };
-  });
-
-  const emailFilters = ordersUser?.map((order) => {
-    return { text: order?.User?.email, value: order?.User?.email };
   });
 
   const colorStatus = (status) => {
@@ -106,9 +100,6 @@ const TableShoppingClient = () => {
       ],
       onFilter: (value, record) => record.status.indexOf(value) === 0,
       key: 7,
-      render: (text, record) => {
-        return <Tag color={colorStatus(record.status)}>{text}</Tag>;
-      },
     },
   ];
 
@@ -123,7 +114,7 @@ const TableShoppingClient = () => {
           expandedRowRender: (record) => (
             <ShoppingClient products={record.products} />
           ),
-          rowExpandable: (record) => record.name !== "Not Expandable",
+          
         }}
         style={{ overflowX: "scroll" }}
       />
