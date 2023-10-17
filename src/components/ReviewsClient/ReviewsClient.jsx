@@ -49,7 +49,14 @@ const ReviewsClient = ({ infoUser }) => {
   console.log(userId);
 
   useEffect(() => {
-    dispatch(getReviewsByUser({ userId, accessToken }));
+    const fetchData = async () => {
+      try {
+        await dispatch(getReviewsByUser({ userId, accessToken }));
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+    // dispatch(getReviewsByUser({ userId, accessToken }));
   }, []);
 
   // promedio
