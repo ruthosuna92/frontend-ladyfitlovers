@@ -5,28 +5,17 @@ import getOrdersByUser from "../../redux/Actions/Order/getOrdersByUser";
 import { Card, Row, Col, Image } from 'antd';
 import { getColorName } from "../../utils/getColorName";
 
-const ShoppingClient = ({ idUser }) => {
-  const ordersUser = useSelector((state) => state.ordersUser);
-  const accessToken = useSelector((state) => state.accessToken);
-  const userId = useSelector((state) => state.user.id);
+const ShoppingClient = ({ products }) => {
 
-  console.log(accessToken, "accessToken")
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getOrdersByUser({userId, accessToken}));
-  }, [dispatch]);
-
-
+ console.log(products);
   return (
     <div className={style.shoppingClientContainer}>
       
-        {ordersUser?.map((userOrder) => (
+        {products?.map((userOrder) => (
           <div key={userOrder.id}>
-            {userOrder.products.map((product) => (
+            {
               <Card
-                key={product.id}
+                key={userOrder.id}
                 bordered={false}
                 hoverable={true}
                 style={{
@@ -34,30 +23,30 @@ const ShoppingClient = ({ idUser }) => {
                   height: 120,
                   margin: 5,
                 }}
-                id={product.id}
+                id={userOrder.id}
               >
                 <Row justify="center">
                   <Col span={4}>
-                    <div >Nombre<br /> {product.name} </div>
+                    <div >Nombre<br /> {userOrder.name} </div>
                   </Col>
                   <Col span={4}>
-                    <div><Image alt={product.name} src={product.image && product.image} width={35} /></div>
+                    <div><Image alt={userOrder.name} src={userOrder.image &&userOrder.image} width={35} /></div>
                   </Col>
                   <Col span={3}>
-                    <div >Color<br />{getColorName(product.color)}</div>
+                    <div >Color<br />{getColorName(userOrder.color)}</div>
                   </Col>
                   <Col span={4} >
-                    <div>Cant.<br />{product.quantity}</div>
+                    <div>Cant.<br />{userOrder.quantity}</div>
                   </Col>
                   <Col span={4}>
-                    <div >Precio x unidad<br />${product.price}</div>
+                    <div >Precio x unidad<br />${userOrder.price}</div>
                   </Col>
                   <Col span={3}>
-                    <div >Total<br />${product.price * product.quantity}</div>
+                    <div >Total<br />${userOrder.price * userOrder.quantity}</div>
                   </Col>
                 </Row>
               </Card>
-            ))}
+            }
           </div>
         ))}
     </div>
