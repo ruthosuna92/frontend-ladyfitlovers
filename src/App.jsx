@@ -21,6 +21,7 @@ import PaymentState from "./components/PaymentState/PaymentState";
 import QandA from "./views/QandA/QandA";
 import About from "./components/About/About";
 import UserBanError from "./components/UserBanError/UserBanError";
+import ProductsByCategory from "./components/ProductsByCategory/ProductsByCategory";
 
 const App = () => {
   // dispatch to get all products globally
@@ -83,7 +84,7 @@ const App = () => {
         <Route path="/contacto" element={<Contac />} />
         <Route path="/register" />
         <Route path="/products" element={<ProductsView />} />
-        <Route path="/products/:category" />
+        <Route path="/products/:category" element={<ProductsByCategory/>} />
         <Route path="/products/:category/:id" />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/perfil/:key" element={(!user.userBan && user?.typeUser === "User") ?  <Profile/> : <Navigate to='/'/> } />

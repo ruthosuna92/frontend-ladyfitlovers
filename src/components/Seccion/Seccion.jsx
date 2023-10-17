@@ -12,7 +12,7 @@ const navigate = useNavigate();
 
 const handleGoToCategory = (category) => {
   dispatch(filtByCategory(category));
-  navigate("/products");
+  navigate(`/products/${category}`);
 };
 
 
