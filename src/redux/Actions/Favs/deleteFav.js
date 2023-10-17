@@ -8,8 +8,6 @@ const endpoint = `${API_URL_BASE}/favorite/remove`;
 
 
 const deleteFav = (productId, userId, accessToken) => {
-    console.log(userId);
-    console.log(productId, "productId")
 
     return async(dispatch) => {
         try {
@@ -23,7 +21,7 @@ const deleteFav = (productId, userId, accessToken) => {
             console.log(data);
             return dispatch({
                 type: DELETE_FAV,
-                payload: productId
+                payload: data
             })
         } catch (error) {
             console.log(error);

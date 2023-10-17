@@ -403,13 +403,13 @@ const reducer = (state = initialState, action) => {
         
     case DELETE_FAV:
 
-console.log("delete, payload", action.payload.id);
+console.log("delete, payload", action.payload);
 const prueba = state.favorites.filter((e)=> e.id === action.payload.id)
 console.log("soy prueba", prueba);
           return {
             ...state,
             // favorites: [state.favorites.filter((e)=> e.id !== action.payload.id)]
-            favorites: state.favorites.filter((e)=> e.id === action.payload.id)
+            favorites: state.favorites.filter((e)=> e.id !== action.payload.id)
           }
     default:
       return {

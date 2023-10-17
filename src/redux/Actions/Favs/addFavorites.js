@@ -6,9 +6,6 @@ const endpoint = `${API_URL_BASE}/favorite/add/`;
 
 const addFavs = (productId, userId, accessToken)=> {
 
-    console.log("user", userId);
- console.log(productId, "productId")
-
     return async(dispatch) => {
 
     try {
