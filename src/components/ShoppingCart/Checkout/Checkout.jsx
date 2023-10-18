@@ -6,6 +6,7 @@ import amount from './shipping';
 import shippingType from '../../../redux/Actions/Checkout/shippingType';
 import shippingCost from '../../../redux/Actions/Checkout/shippingCost';
 import checkout from '../../../redux/Actions/Checkout/checkout';
+import updateUser from '../../../redux/Actions/User/updateUser';
 
 
 
@@ -20,9 +21,14 @@ const Checkout = () => {
     entreCalles: null,
     localidad: null,
     codigoPostal: null,
-    provincia: null
+    provincia: null,
+    phone: null
   })
-  const [editing, setEditing] = useState(false)
+  const [editing, setEditing] = useState({
+    address: false,
+    phone: false
+  })
+  const [disabled, setDisable] = useState(true)
   const user = useSelector((state) => state.user)
   const cart = useSelector((state)=> state.cart)
   const typeSelected = useSelector((state) => state.shippingType)
@@ -32,28 +38,32 @@ const Checkout = () => {
   useEffect(()=>{
     dispatch(shippingType(shipping))
     dispatch(shippingCost(amount(shipping)))
-    if(user.address){
+    if(user.address.calle){
+      let {calle, numero, dpto, entreCalles, localidad, codigoPostal, provincia} = user.address
       setItem({
         ...item,
-        calle: user.address
+        calle,
+        numero,
+        dpto,
+        entreCalles,
+        localidad,
+        codigoPostal,
+        provincia,
+        phone: user.phone
       })
     }
   
-  },[shipping])
+  },[shipping, user])
   const handleRadio = (event) => {
     setShipping(event.target.value)
-    console.log(event.target.value);
-    console.log(event);
   }
   const handleChange = (value) => {
     setItem({
       ...item,
       provincia: value
     })
-    console.log(`selected ${value}`);
   };
-  console.log(item.provincia);
-  console.log(user);
+ 
   const handleForm = (event) => {
     const {name, value} = event.target
   setItem({
@@ -63,23 +73,29 @@ const Checkout = () => {
 
 }
 const handleEdit = (event) => {
-  setEditing(true)
+  const edit = event.target.innerText
+  if(edit === "Editar dirección"){
+    setEditing({
+      ...editing,
+      address: true
+    })
+  } else {
+    setEditing({
+      ...editing,
+      phone: true
+    })
+  }
 }
-const handleUpdate = () => {
-  console.log("updated");
-//  setEditing(false)
+const handleUpdate = (event) => {
+  console.log(`updated ${event.target.innerText}`);
 }
 const handleCheckout = () => {
   dispatch(checkout(cart, costSelected))
 }
 console.log(item);
-  const address = `${item.calle} ${item.numero} ${item.dpto}, entre: ${item.entreCalles}, ${item.localidad} - CP: ${item.codigoPostal}, ${item.provincia}`;
-console.log(address);
-const array = user.address.split(",")
+  const {calle, numero, dpto, entreCalles, localidad, provincia, codigoPostal} = user.address
+  
 
-
-console.log(typeSelected);
-console.log(costSelected);
   return <>
 
     <Space
@@ -90,12 +106,14 @@ console.log(costSelected);
         justifyContent: "space-around"
       }}
     >
+  
       <Space direction='vertical' style={{
         display: 'flex',
         justifyContent: "space-around",
         flexDirection: "column",
         margin: 40
       }}>
+        <h2>Escoge el tipo de entrega</h2>
         <Radio.Group style={{ margin: 20 }} onChange={handleRadio} defaultValue={"Retiro en punto de entrega"}>
           <Radio.Button style={{ width: 300 }} value="Retiro en punto de entrega">
             Retiro en punto de entrega
@@ -114,26 +132,27 @@ console.log(costSelected);
           <p>Aquí se renderiza opción Retiro en punto de entrega</p>
 
         </Card>}
-       {shipping === "Envío a domicilio" && user.address && !editing && <Card
+       {shipping === "Envío a domicilio" && calle && !editing.address && <Card
           style={{
             width: 600,
             height: 200,
             margin: 20
           }}
         >
-          <p>{user.address}</p>
-          <Button type='primary' onClick={handleEdit}>edit</Button>
+          <h3>Dirección de envío:</h3>
+          <p>{`Calle ${calle} número ${numero} dpto ${dpto}, entre: ${entreCalles}, ${localidad} - CP: ${codigoPostal}, ${provincia}`}</p>
+          <Button size='small' type='primary' onClick={handleEdit}>Editar dirección</Button>
 
         </Card>} 
-        {shipping === "Envío a domicilio" && (!user.address || editing) && <Card
+        {shipping === "Envío a domicilio" && (!calle || editing.address) && <Card
           style={{
             width: 600,
             height: 320,
             margin: 20
           }}
         >
+          <h3>Dirección de envío:</h3>
           <Form onChange={handleForm} onClick={handleUpdate}>
-            <span>Ingrese dirección</span>
             <Form.Item
               style={{
                 marginBottom: 0,
@@ -151,7 +170,7 @@ console.log(costSelected);
                   width: 'calc(33% - 8px)',
                 }}
               >
-                <Input placeholder="Calle*" name='calle' defaultValue={item.calle}/>
+                <Input placeholder="Calle*" name='calle' defaultValue={item.calle} value={item.calle}/>
               </Form.Item>
               <Form.Item
                 name="Número"
@@ -166,7 +185,7 @@ console.log(costSelected);
                   margin: '0 8px',
                 }}
               >
-                <Input placeholder="Número*" name='numero'/>
+                <Input placeholder="Número*" name='numero' defaultValue={item.numero} value={item.numero}/>
               </Form.Item>
               <Form.Item
                 name="Dpto"
@@ -180,7 +199,7 @@ console.log(costSelected);
                   width: 'calc(33% - 8px)',
                 }}
               >
-                <Input placeholder="Dpto*" name='dpto'/>
+                <Input placeholder="Dpto*" name='dpto' defaultValue={item.dpto} value={item.dpto}/>
               </Form.Item>
             </Form.Item>
             <Form.Item
@@ -192,7 +211,7 @@ console.log(costSelected);
                 name="Entre calles"
                 rules={[
                   {
-                    required: true,
+                    required: true
                   },
                 ]}
                 style={{
@@ -200,7 +219,7 @@ console.log(costSelected);
                   width: 'calc(100% - 8px)',
                 }}
               >
-                <Input placeholder="Entre calles*" name='entreCalles'/>
+                <Input placeholder="Entre calles*" name='entreCalles' defaultValue={item.entreCalles} value={item.entreCalles}/>
               </Form.Item>
             </Form.Item>
             <Form.Item
@@ -220,14 +239,14 @@ console.log(costSelected);
                   width: 'calc(50% - 8px)',
                 }}
               >
-                <Input placeholder="Localidad*" name='localidad' />
+                <Input placeholder="Localidad*" name='localidad' defaultValue={item.localidad} value={item.localidad}/>
               </Form.Item>
               <Form.Item
                 name="Código postal"
                 rules={[
                   {
                     required: true,
-                  },
+                  }
                 ]}
                 style={{
                   display: 'inline-block',
@@ -236,12 +255,18 @@ console.log(costSelected);
                   marginBottom: 10
                 }}
               >
-                <Input placeholder="Código Postal*" name='codigoPostal'/>
+                <Input placeholder="Código Postal*" name='codigoPostal' defaultValue={item.codigoPostal} value={item.codigoPostal}/>
               </Form.Item>
               <Form.Item
                 style={{
                   marginBottom: 0
                 }}
+                name="Provincia"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
               >
                 <Select
                   style={{
@@ -249,22 +274,63 @@ console.log(costSelected);
                     width: 'calc(100% - 8px)',
                     margin: '0 8px',
                   }}
-                  defaultValue="Seleccione una provincia"
+                  defaultValue={"Seleccione una provincia"}
+                  value={item.provincia}
                   onChange={handleChange}
                   options={provincias}
                 />
               </Form.Item>
             </Form.Item>
 
-            <Form.Item label=" " colon={false}>
-              <Button type="primary" htmlType="submit" style={{ marginTop: 10 }}>
-                Actualizar
+            <Form.Item name="actualizar" label=" " colon={false} id="prueba">
+              <Button size='small' disabled={false} name='actualizar' type="primary" htmlType="submit" style={{ marginTop: 10 }} id="prueba">
+                Actualizar dirección
               </Button>
             </Form.Item>
 
           </Form>
         </Card>}
-        <Card
+       {user.phone && !editing.phone && <Card
+          style={{
+            width: 600,
+            height: 200,
+            margin: 20
+          }}
+        >
+          <h3>Número telefónico: </h3>
+          <p>{user.phone}</p>
+          <Button size='small' style={{marginTop: 10}} name='editPhone' type='primary' onClick={handleEdit}>Editar teléfono</Button>
+
+        </Card>}
+        {(editing.phone || !user.phone) && <Card
+          style={{
+            width: 600,
+            height: 200,
+            margin: 20
+          }}
+        >
+          <h3>Número telefónico: </h3>
+          <Form onChange={handleForm} onClick={handleUpdate}>
+          <Form.Item
+                style={{
+                  marginBottom: 0
+                }}
+              >
+                 <Input placeholder="Número telefónico" name='phone' defaultValue={item.phone}/>
+              </Form.Item>
+            </Form>
+    
+          <Button size='small' name='editPhone' type='primary' style={{marginTop: 10}} onClick={handleEdit}>Actualizar teléfono</Button>
+
+        </Card>}
+      </Space>
+      <Space direction='vertical' style={{
+        display: 'flex',
+        flexDirection: "column",
+        margin: 40,
+        alignItems: "center"
+      }}>
+ <Card
           style={{
             width: 600,
             height: 200,
@@ -274,14 +340,6 @@ console.log(costSelected);
           <p>Aquí muestro el total de productos</p>
 
         </Card>
-      </Space>
-      <Space direction='vertical' style={{
-        display: 'flex',
-        flexDirection: "column",
-        margin: 40,
-        alignItems: "center"
-      }}>
-
         <Card
           title="Resumen de compra"
           bordered={false}
@@ -294,7 +352,7 @@ console.log(costSelected);
           <p>Envío ${costSelected}</p>
           <p>Total ${total + costSelected}</p>
 
-        <Button type='primary' onClick={handleCheckout}>Ir a pagar</Button>
+        <Button type='primary' disabled={editing.address || editing.phone || !calle || !numero || !dpto || !entreCalles || !localidad || !provincia || !codigoPostal || !user.phone} onClick={handleCheckout}>Ir a pagar</Button>
         </Card>
       </Space>
     </Space>
