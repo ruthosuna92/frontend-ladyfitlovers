@@ -26,29 +26,34 @@ import {
 import CreateAcountModal from "../CreateAcountModal/CreateAcountModal";
 import postCart from "../../redux/Actions/ShoppingCart/postCart";
 import cleanCartReducer from "../../redux/Actions/ShoppingCart/cleanCartReducer";
-import setMenuBurger from "../../redux/Actions/MenuBurger/setMenuBurger";
 
 const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const products = useSelector((state) => state.cart)
-  const userId = useSelector((state) => state.user.id)
-  const accessToken = useSelector((state) => state.accessToken)
-  const menuBurger = useSelector(state => state.menuBurger)
+  const products = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.user.id);
+  const accessToken = useSelector((state) => state.accessToken);
 
+  // logout
   const handleLogout = () => {
-    dispatch(postCart({ userId, products, accessToken }))
-      .then(() => dispatch(cleanCartReducer()))
+    dispatch(postCart({ userId, products, accessToken })).then(() =>
+      dispatch(cleanCartReducer())
+    );
     dispatch(logoutUser());
     navigate("/");
   };
+
+  //menus
   const [visible, setVisible] = useState(false);
   const [categoryDropdown, setCategoryDropdown] = useState(false);
+  // modal
   const [loginModalVisible, setLoginModalVisible] = useState(false);
   const [createAcountModalVisible, setCreateAcountModalVisible] =
     useState(false);
+
   const user = useSelector((state) => state.user);
+  //drawerCart
   const cart = useSelector((state) => state.cart);
   const [openDrawer, setOpenDrawer] = useState(false);
   const onClose = (boolean) => {
@@ -106,6 +111,7 @@ const NavBar = () => {
       </Menu.Item>
     </Menu>
   );
+
   const categories = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="perfil">
@@ -132,28 +138,23 @@ const NavBar = () => {
       </Menu.Item>
     </Menu>
   );
+
   const userDropdown = (
     <Dropdown
       overlay={menu}
       visible={visible}
       onVisibleChange={(v) => setVisible(v)}
     >
-      <Button
-        shape="circle"
-        size="large"
-        className={user.image ? "buttonNavAccessUser" : "buttonNavAccess"}
-        style={{
-          backgroundImage: `url('${user.image}')`,
-          backgroundSize: 'cover'
-        }}
-      >
+      <Button shape="circle" size="large" className="buttonNavAccess">
         <UserOutlined />
       </Button>
     </Dropdown>
   );
+
   const openLoginModal = () => {
     setLoginModalVisible(true);
   };
+
   const productsDropdown = (
     <Dropdown
       overlay={menu}
@@ -164,6 +165,9 @@ const NavBar = () => {
         shape="circle"
         size="large"
         className="buttonNavAccess"
+        // style={{
+        //   border: "none",
+        // }}
       >
         <Link to="/products">
           <button
@@ -186,27 +190,13 @@ const NavBar = () => {
   };
   return (
     <>
-      {openDrawer && (
-        <DrawerCart
-          openDrawer={openDrawer}
-          onClose={onClose}
-        />
-      )}
+      {openDrawer && <DrawerCart openDrawer={openDrawer} onClose={onClose} />}
       <div className="navBarContainer">
-      <div className="responsive">
-          <div onClick={() => {
-            dispatch(setMenuBurger())
-            return;
-          }} className={`imagesButton ${menuBurger ? 'open' : ''}`}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
         <div className="navBarLinksContainer">
           <Link to="/">
             <img src={logo} />
           </Link>
+
           <Link to="/">
             <button
               className={
@@ -241,6 +231,18 @@ const NavBar = () => {
               Contacto
             </button>
           </Link>
+          {/* <Link to="/crear-producto">
+            <button
+              className={
+                location.pathname === "/crear-producto"
+                  ? "buttonLinkActive"
+                  : "navBarButton"
+              }
+              title="Crear producto"
+            >
+              Crear
+            </button>
+          </Link> */}
         </div>
         {!location.pathname.includes("admin") && (
           <div className="searchBarDiv">
@@ -252,17 +254,14 @@ const NavBar = () => {
         {!location.pathname.includes("User") && user.email && (
           <div className="userInfo">
             <p>Hola, {user.name} </p>
+            {/* {user.surname} */}
             {userDropdown}
           </div>
         )}
         {!location.pathname.includes("admin") && (
           <>
             <Link to="/perfil/favoritos">
-              <Button
-                shape="circle"
-                size="large"
-                className="buttonNavAccess"
-              >
+              <Button shape="circle" size="large" className="buttonNavAccess">
                 <HeartOutlined />
               </Button>
             </Link>
@@ -272,7 +271,6 @@ const NavBar = () => {
               size="large"
               className="buttonNavAccess"
               onClick={handle}
-
             >
               <ShoppingCartOutlined />
               {totalProducts > 0 && (

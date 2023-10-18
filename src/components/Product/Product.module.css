@@ -68,7 +68,7 @@
   margin: inherit;
   text-align: center;
   transition: 1s;
-  z-index: 90;
+  /* z-index: 90; */
 }
 
 .container .card .contentBx h2 {
