@@ -6,6 +6,7 @@
     min-height: 80vh;
     background-color: #f5f5f5;
     width: 100vw;
+    
 
 }
 
@@ -41,7 +42,7 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 32px;
-    margin: 0px 100px;
+    margin: 0px 200px;
     padding: 50px 100px;
     background-color: #f5f5f5;
     z-index: 10;
