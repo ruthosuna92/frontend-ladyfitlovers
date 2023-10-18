@@ -23,7 +23,7 @@ const ProductsView = () => {
       <div className={style.containeProduct}>
         <Products />
       </div>
-      <Pagination />
+      {allProducts.length ? <Pagination /> : null}
     </div>
   );
 };

@@ -1,0 +1,96 @@
+.menuBurger {
+    display: none;
+}
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    position: fixed;
+}
+@media (max-width: 1110px) {
+    .menuBurger {
+        width: 14rem;
+        height: 100vh;
+        position: relative;
+        background-color: #f6f1f5;
+        border: 0.5px solid #ffffff7f;
+        z-index: 3;
+        display: flex;
+        animation-name: menuBurgerAnimation;
+        animation-duration: 0.6s;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @keyframes menuBurgerAnimation {
+        from {
+            top: -1000px;
+            left: -1000px;
+        }
+
+        to {
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .buttons {
+        height: 40%;
+        z-index: 2;
+        animation-name: button;
+        animation-duration: 0.6s;
+        color: #ba338a;
+        margin-top: -13rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    @keyframes button {
+        from {
+            top: -1000px;
+            left: -1000px;
+        }
+
+        to {
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .tags {
+        color: #ba338a;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .input {
+        padding-bottom: 5%;
+        border-radius: 1rem 0 0 1rem;
+        width: 80%;
+        padding-top: 0.4rem;
+        text-align: center;
+        outline: none;
+    }
+
+    .image {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .inputSearch {
+        width: 15%;
+        height: 85%;
+        top: 0.5rem;
+        border-radius: 0 1rem 1rem 0;
+        position: relative;
+    }
+
+    .containerSearch {
+        width: 100%;
+    }
+}

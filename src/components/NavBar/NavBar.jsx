@@ -31,14 +31,15 @@ const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const products = useSelector((state) => state.cart)
-  const userId = useSelector((state) => state.user.id)
-  const accessToken = useSelector((state) => state.accessToken)
+  const products = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.user.id);
+  const accessToken = useSelector((state) => state.accessToken);
 
   // logout
   const handleLogout = () => {
-    dispatch(postCart({ userId, products, accessToken }))
-      .then(() => dispatch(cleanCartReducer()))
+    dispatch(postCart({ userId, products, accessToken })).then(() =>
+      dispatch(cleanCartReducer())
+    );
     dispatch(logoutUser());
     navigate("/");
   };
@@ -144,12 +145,7 @@ const NavBar = () => {
       visible={visible}
       onVisibleChange={(v) => setVisible(v)}
     >
-      <Button
-        shape="circle"
-        size="large"
-        className="buttonNavAccess"
-
-      >
+      <Button shape="circle" size="large" className="buttonNavAccess">
         <UserOutlined />
       </Button>
     </Dropdown>
@@ -169,9 +165,9 @@ const NavBar = () => {
         shape="circle"
         size="large"
         className="buttonNavAccess"
-      // style={{
-      //   border: "none",
-      // }}
+        // style={{
+        //   border: "none",
+        // }}
       >
         <Link to="/products">
           <button
@@ -194,12 +190,7 @@ const NavBar = () => {
   };
   return (
     <>
-      {openDrawer && (
-        <DrawerCart
-          openDrawer={openDrawer}
-          onClose={onClose}
-        />
-      )}
+      {openDrawer && <DrawerCart openDrawer={openDrawer} onClose={onClose} />}
       <div className="navBarContainer">
         <div className="navBarLinksContainer">
           <Link to="/">
@@ -270,11 +261,7 @@ const NavBar = () => {
         {!location.pathname.includes("admin") && (
           <>
             <Link to="/perfil/favoritos">
-              <Button
-                shape="circle"
-                size="large"
-                className="buttonNavAccess"
-              >
+              <Button shape="circle" size="large" className="buttonNavAccess">
                 <HeartOutlined />
               </Button>
             </Link>
@@ -284,7 +271,6 @@ const NavBar = () => {
               size="large"
               className="buttonNavAccess"
               onClick={handle}
-
             >
               <ShoppingCartOutlined />
               {totalProducts > 0 && (
