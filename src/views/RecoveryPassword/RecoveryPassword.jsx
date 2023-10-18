@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input } from "antd";
+import { Input,message } from "antd";
 import style from "./RecoveryPassword.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import recoveryCode from "../../redux/Actions/User/recoveryCode";
@@ -55,12 +55,13 @@ const RecoveryPassword = () => {
         if (response.success === true) {
           dispatch(saveEmail(email.email));
           navigate("codigo-requerido")
-
+          setEmail({
+            ...email,
+            recovery: false
+          })
+        }else{
+          message.error("El correo no existe")
         }
-        setEmail({
-          ...email,
-          recovery: false
-        })
       }
 
     } catch (error) {

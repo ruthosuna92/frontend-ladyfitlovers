@@ -72,10 +72,14 @@ const UpdatePassword = ({onClose, pivotbander, email}) => {
   const handleSumit = async() => {
     if(typeof pivotbander === "number" && email !== ""){
       const response = await resetPassword(email, updatePassword.newPassword)
-      console.log(response.success);
-      message.success("Nueva contraseña actualizada")
-      navigate("/")
-      setUpdatePassword({})
+      if (response.success === true) {
+        console.log(response.success);
+        message.success("Nueva contraseña actualizada")
+        navigate("/")
+        setUpdatePassword({})
+      }else{
+        message.error("Error al editar la contraseña");
+      }
 
     }else if (error.errorPassNew === "" && error.errorPasscurrent === "") {
       const { password, newPassword } = updatePassword
