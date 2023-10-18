@@ -14,7 +14,7 @@
 
    {
       "name": "VESTIDO DEPORTIVO FIT",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692865640/SoyPuebla/lb2erenywugvlhnd2k8g.webp",
+      "image": "https://m.media-amazon.com/images/I/61ByjCVWr1L._AC_UY1000_.jpg",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -27,7 +27,7 @@
     },
    {
       "name": "PANTALON DEPORTIVO WIDE LEG",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692865103/SoyPuebla/iyo4grlpcng1inj46cfq.webp",
+      "image": "https://img.ltwebstatic.com/images3_pi/2021/11/22/1637569773de32fcd2c07cb3ec66def6a80e3bcc82_thumbnail_750x.webp",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -40,7 +40,7 @@
     },
    {
       "name": "BUZO OVERSIZE",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692865659/SoyPuebla/vj5tikxokd485t6qvfez.webp",
+      "image": "https://luleamindful.com/wp-content/uploads/2021/11/11.1-buzo-oversize-no-gender-duo-PORTADA.jpg",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -53,7 +53,7 @@
     },
    {
       "name": "PANTALON BABUCHA",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692863616/SoyPuebla/bbyed4puafdgiy1goy1m.webp",
+      "image": "https://http2.mlstatic.com/D_NQ_NP_902317-MLA71256883052_082023-O.webp",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -66,7 +66,7 @@
     },
    {
       "name": "TOP DEPORTIVO LADY",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692866797/SoyPuebla/t9qkqogis58f2lgb5gul.webp",
+      "image": "https://d2r9epyceweg5n.cloudfront.net/stores/713/557/products/2114-8910-11-2e41d213512c7d785b15850664716205-1024-1024.jpg",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -79,7 +79,7 @@
     },
    {
       "name": "TOP COMFORT LADY",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692887484/SoyPuebla/yig21w0vbqjibh4wqvcj.webp",
+      "image": "https://acdn.mitiendanube.com/stores/920/457/products/seg-basset-16-de-agosto246201-1fdde4c268eaadef0e16922857472120-480-0.jpg",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -92,7 +92,7 @@
     },
    {
       "name": "TOP PRIMAVERA FIT",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692882947/SoyPuebla/pttujwvdif110rtr6d1l.png",
+      "image": "https://www.lenceriacasasol.com.ar/images/0000000000038-B815161b8a.jpg",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -105,7 +105,7 @@
     },
     {
       "name": "BIKER CORTO LINEA VITALS",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692867935/SoyPuebla/wperpruqs6zqn97ojs5x.webp",
+      "image": "https://www.salpa.com.ar/5793-large_default/calza-biker-summer-gris-melange.jpg",
       "price": 1,
       "sales": 0,
       "stock": [
@@ -118,7 +118,7 @@
     },
     {
       "name": "REMERA DEPORTIVA NEW/LINE",
-      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692863462/SoyPuebla/smhua96yisvln3zdz367.webp",
+      "image": "https://kioshifootwear.com.ar/4923-large_default/remera-deportiva-mujer-blanca.jpg",
       "price": 1,
       "sales": 0,
       "stock": [
