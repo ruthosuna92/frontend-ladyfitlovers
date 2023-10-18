@@ -25,6 +25,7 @@ const SideBarDashboard = () => {
     getItem("Ordenes de compra", "3", <ShoppingCartOutlined />),
     getItem("Crear producto", "4", <UploadOutlined />),
     getItem("Resumen", "5", <LineChartOutlined />),
+ 
     
   ];
   const handleMenu = ({ item, key, keyPath, selectedKeys, domEvent }) => {
@@ -44,19 +45,13 @@ const SideBarDashboard = () => {
       case "5":
         navigate("/admin");
         break;
+    
       default:
         console.log("default");
         break;
     }
   };
-  //   const [mode, setMode] = useState('inline');
-  //   const [theme, setTheme] = useState('light');
-  //   const changeMode = (value) => {
-  //     setMode(value ? 'vertical' : 'inline');
-  //   };
-  //   const changeTheme = (value) => {
-  //     setTheme(value ? 'dark' : 'light');
-  //   };
+  
   return (
     <>
       {/* <br />
@@ -79,3 +74,5 @@ const SideBarDashboard = () => {
   );
 };
 export default SideBarDashboard;
+
+//PruebaCommit

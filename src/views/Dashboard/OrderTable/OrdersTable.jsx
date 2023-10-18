@@ -60,7 +60,7 @@ const OrdersTable = () => {
       title: "Dirección de envío",
       dataIndex: "",
       key: 8,
-      render: (cell) => <p>{cell?.User?.address || "No especificada"}</p>,
+      render: (cell) => <p>{cell?.User?.address? `${cell?.User?.address.calle} ${cell?.User?.address.numero} ${cell?.User?.address.dpto} ${cell?.User?.address.entreCalles} ${cell?.User?.address.localidad} ${cell?.User?.address.provincia} ${cell?.User?.address.codigoPostal}` : "No especificada"}</p>,
     },
     {
       title: "Teléfono",

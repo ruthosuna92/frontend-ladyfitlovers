@@ -64,7 +64,7 @@ const UsersTable = () => {
       title: "Dirección",
       dataIndex: "address",
       key: "address",
-      render: (text) => <p>{text || "No definido"}</p>,
+      render: (value) => <p>{value !== null ? `${value?.calle} ${value?.numero} ${value?.dpto} ${value?.entreCalles} ${value?.localidad} ${value?.provincia} ${value?.codigoPostal}` : "No definido"}</p>,
     },
     {
       title: "Rol",

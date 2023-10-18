@@ -32,13 +32,13 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.cart)
-  const userId = useSelector((state)=> state.user.id)
-  const accessToken = useSelector((state)=> state.accessToken)
+  const userId = useSelector((state) => state.user.id)
+  const accessToken = useSelector((state) => state.accessToken)
 
   // logout
   const handleLogout = () => {
-    dispatch(postCart({userId, products, accessToken}))
-    .then(() => dispatch(cleanCartReducer()))
+    dispatch(postCart({ userId, products, accessToken }))
+      .then(() => dispatch(cleanCartReducer()))
     dispatch(logoutUser());
     navigate("/");
   };
@@ -78,24 +78,32 @@ const NavBar = () => {
           </Link>
         </Menu.Item>
       )}
-      <Menu.Item key="perfil">
-        <Link to="/perfil/perfil">
-          <ProfileOutlined className="menuIcon" />
-          Perfil
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="compras">
-        <Link to="/perfil/compras">
-          <ShoppingOutlined className="menuIcon" />
-          Mis compras
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="opiniones">
-        <Link to="/perfil/opiniones">
-          <StarOutlined className="menuIcon" />
-          Opiniones
-        </Link>
-      </Menu.Item>
+
+      {user.typeUser === "User" && (
+        <Menu.Item key="perfil">
+          <Link to="/perfil/perfil">
+            <ProfileOutlined className="menuIcon" />
+            Perfil
+          </Link>
+        </Menu.Item>
+      )}
+
+      {user.typeUser === "User" && (
+        <Menu.Item key="compras">
+          <Link to="/perfil/compras">
+            <ShoppingOutlined className="menuIcon" />
+            Mis compras
+          </Link>
+        </Menu.Item>
+      )}
+      {user.typeUser === "User" && (
+        <Menu.Item key="opiniones">
+          <Link to="/perfil/opiniones">
+            <StarOutlined className="menuIcon" />
+            Opiniones
+          </Link>
+        </Menu.Item>
+      )}
       <Menu.Item key="logout" onClick={handleLogout}>
         <LogoutOutlined className="menuIcon" />
         Cerrar Sesión
@@ -140,7 +148,7 @@ const NavBar = () => {
         shape="circle"
         size="large"
         className="buttonNavAccess"
-        
+
       >
         <UserOutlined />
       </Button>
@@ -161,9 +169,9 @@ const NavBar = () => {
         shape="circle"
         size="large"
         className="buttonNavAccess"
-        // style={{
-        //   border: "none",
-        // }}
+      // style={{
+      //   border: "none",
+      // }}
       >
         <Link to="/products">
           <button
@@ -276,7 +284,7 @@ const NavBar = () => {
               size="large"
               className="buttonNavAccess"
               onClick={handle}
-             
+
             >
               <ShoppingCartOutlined />
               {totalProducts > 0 && (
