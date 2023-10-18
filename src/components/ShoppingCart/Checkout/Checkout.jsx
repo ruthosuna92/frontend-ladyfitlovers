@@ -26,7 +26,6 @@ const Checkout = () => {
   })
   const user = useSelector((state) => state.user)
   const cart = useSelector((state) => state.cart)
-  const typeSelected = useSelector((state) => state.shippingType)
   const costSelected = useSelector((state) => state.shippingCost)
   const accessToken = useSelector((state) => state.accessToken)
   const total = cart.map((prod) => prod.price * prod.quantity).reduce((acc, cur) => acc + cur, 0)
@@ -35,7 +34,6 @@ const Checkout = () => {
     address: null,
     phone: null
   })
-  console.log(disabled);
   const [item, setItem] = useState({
     calle: user?.address?.calle,
     numero: user?.address?.numero,
@@ -125,7 +123,6 @@ const Checkout = () => {
       })
       dispatch(updateUser({ id: userUpdated.id, phone: userUpdated.phone }, accessToken))
     }
-    console.log(`updated ${event.target.innerText}`);
   }
   const handleCheckout = () => {
     dispatch(checkout(cart, costSelected))
