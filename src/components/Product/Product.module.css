@@ -1,20 +1,7 @@
-/* estilos card 3 */
-/* * {
-  padding: 0;
-  margin: 0;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #131313;
-} */
-
 .container {
   position: relative;
 }
+
 .cardBox {
   max-width: 250px;
 }
@@ -25,11 +12,8 @@ body {
   width: 250px;
   min-height: 300px;
   min-width: 200px;
-
-  /* height: 450px; */
   background: #232323;
   border: solid 2px #e0b3cd;
-  /* border: solid 2px black; */
   border-radius: 20px 0px 20px 0px;
   overflow: hidden;
 }
@@ -71,16 +55,7 @@ body {
   transition: 0.5s;
 }
 
-/* .container .card:hover .imgBx {
-  top: 0%;
-  transform: translateY(-25%);
-} */
-
 .container .card .imgBx img {
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(20deg); */
   min-height: 100%;
   width: 100%;
 }
@@ -89,16 +64,11 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* height: 100px; */
   height: 76px;
   margin: inherit;
   text-align: center;
   transition: 1s;
   z-index: 90;
-}
-
-.container .card:hover .contentBx {
-  height: 210px;
 }
 
 .container .card .contentBx h2 {
@@ -124,23 +94,22 @@ body {
 .container .card:hover .contentBx .size {
   opacity: 1;
   visibility: visible;
-  transition-delay: 0.5s;
+  transition-delay: 0.1s;
 }
 
 .container .card:hover .contentBx .color {
   opacity: 1;
   visibility: visible;
-  transition-delay: 0.6s;
 }
 
 .container .card .contentBx .size h3,
 .container .card .contentBx .color h3 {
-  color: white;
-  font-weight: 300;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: black;
+  font-weight: 500;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-wrap: wrap;
 }
 
 .container .card .contentBx .size span {
@@ -160,13 +129,13 @@ body {
 }
 
 .container .card .contentBx .size span:hover {
-  /* other bug */
   background: #e0b3cd;
 }
 
 .container .card .contentBx a:hover {
   background: #e0b3cd;
 }
+
 .container .card .contentBx .color span {
   width: 20px;
   height: 20px;
@@ -179,7 +148,7 @@ body {
 .container .card .contentBx button {
   display: inline-block;
   padding: 10px 20px;
-  background:  #E0B3D3;
+  background: #E0B3D3;
   border-radius: 4px;
   margin-top: 10px;
   text-decoration: none;
@@ -188,7 +157,7 @@ body {
   opacity: 0;
   transform: translateY(50px);
   transition: translateY 0.5s;
-  border:none;
+  border: none;
   outline: none;
 
 }
@@ -210,62 +179,61 @@ body {
 h3 {
   margin: 5px;
   max-width: 100%;
-  text-wrap: wrap;
 }
 
 .nameProductCard {
   color: #111;
 }
+
 .nameProductCard:hover {
   color: #c04c98;
   text-decoration: underline;
 }
+
 .cardBox {
   max-width: 250px;
 }
+
 .buy {
   text-decoration: none;
   color: #c04c98;
 }
-.buy:hover{
-  color:#c04c98;
-}
-/* @media (max-width: 768px) {
-  .pokemon {
-    width: calc(25% - 10px);
-  }
+
+.buy:hover {
+  color: #c04c98;
 }
 
-@media (max-width: 480px) {
-  .pokemon {
-    width: calc(50% - 10px);
-  }
-}
-
-@media (max-width: 480px) {
-  .pokemons .pokemon:first-child:nth-last-child(1) {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-  }
-} */
-.productWithoutStock{
-  filter:grayscale(100%) 
+.productWithoutStock {
+  filter: grayscale(100%)
 }
 
 
-.goToBuy{
-  outline:none;
+.goToBuy {
+  outline: none;
   border: none;
-  color:#ba338a;
+  color: #ba338a;
   background-color: transparent;
   font-weight: 700px;
-  cursor:pointer;
+  cursor: pointer;
 
 }
 
-.oldPrice{
+.oldPrice {
   text-decoration: line-through;
   color: #ba338a;
+}
+
+.outOfStock {
+  margin: inherit;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 400;
 }
