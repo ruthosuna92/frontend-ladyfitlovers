@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import updateUser from "../../redux/Actions/User/updateUser";
 import style from "./UpdatePassword.module.css"
+import resetPassword from "../../redux/Actions/User/resetpassword";
 import { useNavigate } from "react-router-dom";
 
 const UpdatePassword = ({onClose, pivotbander, email}) => {
@@ -70,9 +71,15 @@ const UpdatePassword = ({onClose, pivotbander, email}) => {
   };
   const handleSumit = async() => {
     if(typeof pivotbander === "number" && email !== ""){
-      alert("Nueva contraseña actualizada")
-      navigate("/")
-      setUpdatePassword({})
+      const response = await resetPassword(email, updatePassword.newPassword)
+      if (response.success === true) {
+        console.log(response.success);
+        message.success("Nueva contraseña actualizada")
+        navigate("/")
+        setUpdatePassword({})
+      }else{
+        message.error("Error al editar la contraseña");
+      }
 
     }else if (error.errorPassNew === "" && error.errorPasscurrent === "") {
       const { password, newPassword } = updatePassword

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import style from "./CodeRequirer.module.css";
 import ButtonPrimary from "../../components/ButtonPrimary/ButtonPrimary";
 import verifyCode from "../../redux/Actions/User/verifyCode";
-import { Routes, Route, useLocation, useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import UpdatePasswordModal from "../../components/UpdatePassword/UpdatePasswordModal";
 import { useSelector } from "react-redux";
 
 const CodeRequirer = () => {
-  const saveEmail= useSelector((state) => state.email);
+  const saveEmail = useSelector((state) => state.email);
   console.log(saveEmail);
   const navigate = useNavigate()
   const [ModalVisible, setModalVisible] = useState(false);
@@ -26,21 +26,22 @@ const CodeRequirer = () => {
     });
   };
 
-  const handleCodeSumit = async() => {
-    try {
-        if (code.code.length === 6){
-          const response = await verifyCode(code.code);
-          console.log(response);
-          if (response.success === true) {
-            
-           
-            setModalVisible(true);
-          }
-        }
-        
-      } catch (error) {
-        
+  const handleCodeSumit = async () => {
+
+    if (code.code.length === 6) {
+      const response = await verifyCode(saveEmail, code.code);
+      console.log(response);
+      if (response.success === true) {
+
+
+        setModalVisible(true);
+      } else {
+        message.error("Codigo incorrecto")
+
       }
+    }
+
+
   }
 
   return (
@@ -49,9 +50,10 @@ const CodeRequirer = () => {
         <div style={{ width: "90%", textAlign: "center" }}>
           <p style={{ fontSize: "1.2rem" }}>validación codigo</p>
           <p style={{ fontSize: "0.8rem" }}>
-            Ingrese el codigo de verificación 
+            Ingrese el codigo de verificación
           </p>
           <Input
+            type="number"
             style={{ width: "80%", textAlign: "center" }}
             placeholder="codigo"
             maxLength={6}
@@ -60,17 +62,17 @@ const CodeRequirer = () => {
         </div>
         <ButtonPrimary
           title="Continuar"
-          disabled={code.code.length < 6 }
+          disabled={code.code.length < 6}
           onClick={handleCodeSumit}
         />
       </div>
       <UpdatePasswordModal
-            visible={ModalVisible}
-            onClose={() => setModalVisible(false)}
-            pivotbander={+code.code}
-            email={saveEmail}
-          />
-      <Outlet/>
+        visible={ModalVisible}
+        onClose={() => setModalVisible(false)}
+        pivotbander={+code.code}
+        email={saveEmail}
+      />
+      <Outlet />
     </div>
   );
 };
