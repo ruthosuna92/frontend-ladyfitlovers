@@ -1,0 +1,177 @@
+[
+   {
+      "name": "MUSCULOSA BODY",
+      "image": "https://d22fxaf9t8d39k.cloudfront.net/e7932f7f83718e372db5316f598c872d4daacfd08d1e496e80a70112c821518a205310.jpg",
+      "price": 8400,
+      "sales": 0,
+      "stock": [
+        { "color": "red", "sizeAndQuantity": [{"size": "S", "quantity": 5}, {"size": "M", "quantity": 8}, {"size": "L", "quantity": 10}, {"size": "XL", "quantity": 7}] },
+        { "color": "blue", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] }
+      ],
+      "category": "MUSCULOSAS"
+    },
+
+   {
+      "name": "VESTIDO DEPORTIVO FIT",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692865640/SoyPuebla/lb2erenywugvlhnd2k8g.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "pink", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "yellow", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	{ "color": "white", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "VESTIDOS"
+    },
+   {
+      "name": "PANTALON DEPORTIVO WIDE LEG",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692865103/SoyPuebla/iyo4grlpcng1inj46cfq.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "pink", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "yellow", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	{ "color": "white", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "PANTALONES"
+    },
+   {
+      "name": "BUZO OVERSIZE",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692865659/SoyPuebla/vj5tikxokd485t6qvfez.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "pink", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "yellow", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	{ "color": "white", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "BUZOS"
+    },
+   {
+      "name": "PANTALON BABUCHA",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692863616/SoyPuebla/bbyed4puafdgiy1goy1m.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "pink", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "yellow", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	{ "color": "white", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "PANTALONES"
+    },
+   {
+      "name": "TOP DEPORTIVO LADY",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692866797/SoyPuebla/t9qkqogis58f2lgb5gul.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "orange", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	{ "color": "white", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "TOPS"
+    },
+   {
+      "name": "TOP COMFORT LADY",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692887484/SoyPuebla/yig21w0vbqjibh4wqvcj.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "orange", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	    { "color": "white", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "TOPS"
+    },
+   {
+      "name": "TOP PRIMAVERA FIT",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692882947/SoyPuebla/pttujwvdif110rtr6d1l.png",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "orange", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "pink", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	    { "color": "purple", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "TOPS"
+    },
+    {
+      "name": "BIKER CORTO LINEA VITALS",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692867935/SoyPuebla/wperpruqs6zqn97ojs5x.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "orange", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "pink", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	    { "color": "purple", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "BIKERS"
+    },
+    {
+      "name": "REMERA DEPORTIVA NEW/LINE",
+      "image": "https://res.cloudinary.com/dvmqbow3t/image/upload/v1692863462/SoyPuebla/smhua96yisvln3zdz367.webp",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "green", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "red", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	    { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "REMERAS"
+    },
+
+    {
+      "name": "MUSCULOSA DRY",
+      "image": "https://www.ladyfit.com.ar/images/catalogo/mujer/musculosas/dry-1.jpg",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "green", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "red", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	    { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "MUSCULOSAS"
+    },
+
+    {
+      "name": "MUSCULOSA RUNNING",
+      "image": "https://www.ladyfit.com.ar/images/catalogo/mujer/musculosas/running-2.jpg",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "green", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "red", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	    { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "MUSCULOSAS"
+    },
+    {
+      "name": "MUSCULOSA HOOP",
+      "image": "https://www.ladyfit.com.ar/images/catalogo/mujer/musculosas/hoop-1.jpga",
+      "price": 1,
+      "sales": 0,
+      "stock": [
+        { "color": "green", "sizeAndQuantity": [{"size": "S", "quantity": 500}, {"size": "M", "quantity": 500}, {"size": "L", "quantity": 500}, {"size": "XL", "quantity": 500}] },
+        { "color": "black", "sizeAndQuantity": [{"size": "S", "quantity": 6}, {"size": "M", "quantity": 9}, {"size": "L", "quantity": 11}, {"size": "XL", "quantity": 8}] },
+        { "color": "pink", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+	    { "color": "gray", "sizeAndQuantity": [{"size": "S", "quantity": 4}, {"size": "M", "quantity": 7}, {"size": "L", "quantity": 9}, {"size": "XL", "quantity": 6}] },
+      ],
+      "category": "MUSCULOSAS"
+    },
+
+
+
+
+]

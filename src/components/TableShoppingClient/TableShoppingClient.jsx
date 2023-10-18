@@ -1,6 +1,6 @@
 
 import {  useSelector } from "react-redux";
-import { Table, Tag } from "antd";
+import { Table, Tag, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import ShoppingClient from "../ShoppingClient/ShoppingClient";
@@ -101,6 +101,17 @@ const TableShoppingClient = () => {
       onFilter: (value, record) => record.status.indexOf(value) === 0,
       key: 7,
     },
+    // {
+    //   title: "Reseña",
+    //   dataIndex: "status",
+    //   filters: [
+    //     { text: "Realizada", value: "Realizada" },
+    //     { text: "No realizada", value: "No realizada" },
+    //   ],
+    //   onFilter: (value, record) => record.status.indexOf(value) === 0,
+    //   key: 8,
+    //   render: (review) => <p>{review?.User?.id || ""}</p>,
+    // },
   ];
 
 

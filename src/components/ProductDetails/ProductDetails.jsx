@@ -170,7 +170,8 @@ const ProductDetails = ({ productData }) => {
                   )
                 )
               : false;
-          // console.log(hasPurchased, "hasPurchased");
+          console.log(ordersByUser)
+          console.log(hasPurchased, "hasPurchased");
           setUserHasPurchased(hasPurchased);
         }
       );

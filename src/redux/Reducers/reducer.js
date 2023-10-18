@@ -84,7 +84,6 @@ const initialState = {
   //reviews
   reviewsByUser: null,
 };
-console.log("favvvv", initialState.favorites);
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
@@ -134,8 +133,8 @@ const reducer = (state = initialState, action) => {
           action.payload === "TA"
             ? state.saveProducts
             : state.saveProducts.filter(
-              (product) => product.Category.name === action.payload
-            ),
+                (product) => product.Category.name === action.payload
+              ),
 
         savePivot: state.saveProducts.filter(
           (product) => product.Category.name === action.payload
@@ -151,27 +150,27 @@ const reducer = (state = initialState, action) => {
         filteredProducts =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-              product.stock.some(
-                (stockItem) => stockItem.color === action.payload
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
               )
-            )
             : state.saveProducts.filter((product) =>
-              product.stock.some(
-                (stockItem) => stockItem.color === action.payload
-              )
-            );
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
+              );
         filteredColor =
           state.savePivot.length > 0
             ? state.savePivot.filter((product) =>
-              product.stock.some(
-                (stockItem) => stockItem.color === action.payload
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
               )
-            )
             : state.saveProducts.filter((product) =>
-              product.stock.some(
-                (stockItem) => stockItem.color === action.payload
-              )
-            );
+                product.stock.some(
+                  (stockItem) => stockItem.color === action.payload
+                )
+              );
       }
       return {
         ...state,
@@ -223,7 +222,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-
 
     case AUTH_USER:
       console.log("User authenticated with Google", action.payload);
@@ -378,89 +376,83 @@ const reducer = (state = initialState, action) => {
         cart: state.cart.filter((prod) => prod !== productRemoved),
       };
     case GET_CART:
-      if(action.payload.length){
+      if (action.payload.length) {
         return {
           ...state,
-          cart: action.payload
-        }
+          cart: action.payload,
+        };
       } else {
         return {
-          ...state
-        }
+          ...state,
+        };
       }
     case CLEAN_CART_REDUCER:
       return {
         ...state,
-        cart: action.payload
-      }
-      case SHIPPING_TYPE:
-        return {
-          ...state,
-          shippingType: action.payload
-        }
-      case SHIPPING_COST:
-        return {
-          ...state,
-          shippingCost: action.payload
-        }
+        cart: action.payload,
+      };
+    case SHIPPING_TYPE:
+      return {
+        ...state,
+        shippingType: action.payload,
+      };
+    case SHIPPING_COST:
+      return {
+        ...state,
+        shippingCost: action.payload,
+      };
     case GET_ALL_USERS:
       return {
         ...state,
-        allUsers: action.payload
+        allUsers: action.payload,
       };
     case CLEAN_CART:
       return {
         ...state,
-        cart: []
+        cart: [],
       };
     case GET_ORDERS:
       return {
         ...state,
-        allOrders: action.payload
+        allOrders: action.payload,
       };
     case GET_ORDERID:
       console.log(action.payload);
       return {
         ...state,
-        ordersUser: action.payload
-      }
+        ordersUser: action.payload,
+      };
     case SAVE_EMAIL:
       return {
         ...state,
-        email: action.payload
-      }
+        email: action.payload,
+      };
     case GET_REVIEW_BY_USERID:
       console.log(action.payload);
       return {
         ...state,
         reviewsByUser: action.payload,
-      }
-      case GET_FAVORITES_BY_ID_USER:
-        return {
-          ...state,
-          favorites: action.payload
-        }
+      };
+    case GET_FAVORITES_BY_ID_USER:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
     case ADD_FAVS:
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload],
+      };
 
-
-          return {
-            ...state,
-            favorites: [...state.favorites, action.payload]
-
-          }
-        
     case DELETE_FAV:
-
-
-const prueba = state.favorites.filter((e)=> e.id === action.payload.id)
-return {
-            ...state,
-            favorites: state.favorites.filter((e)=> e.id !== action.payload.id)
-          }
+      const prueba = state.favorites.filter((e) => e.id === action.payload.id);
+      return {
+        ...state,
+        favorites: state.favorites.filter((e) => e.id !== action.payload.id),
+      };
     default:
       return {
         ...state,
-     
       };
   }
 };

@@ -15,7 +15,7 @@ const addFavs = (productId, userId, accessToken)=> {
             }
         }
         const {data} = await axios.post(endpoint, {productId, userId}, config)
-        console.log(data);
+        // console.log(data);
             return dispatch({
                 type: ADD_FAVS,
                 payload: data

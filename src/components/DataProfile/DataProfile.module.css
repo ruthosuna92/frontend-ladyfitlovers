@@ -1,4 +1,4 @@
-.contianerProfiler{
+/* .contianerProfiler{
     
     height: 80vh;
     width: 80vw;
@@ -60,11 +60,11 @@
     overflow-x: scroll;
 }
 .dataEmail::-webkit-scrollbar {
-    height: 3px; /* Ancho del scrollbar */
+    height: 3px; 
 }
 
 .dataEmail::-webkit-scrollbar-thumb {
-    background-color: #BA338A; /* Color del scrollbar */
+    background-color: #BA338A; 
 }
 
 .profileimg{
@@ -89,4 +89,4 @@ label {
     width: 26%;
     background-color: none;
     font-size: 0.7rem;
-}
+} */

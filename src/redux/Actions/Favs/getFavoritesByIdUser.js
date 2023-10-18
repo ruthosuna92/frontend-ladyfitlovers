@@ -5,8 +5,8 @@ const API_URL_BASE = import.meta.env.VITE_VERCEL_API_URL_BASE;
 const endpoint = `${API_URL_BASE}/favorite/`;
 
 const getFavoritesByIdUser = (id) => {
-    console.log("llegue");
-    console.log(id);
+    // console.log("llegue");
+    // console.log(id);
     return async(dispatch) => {
         try {
             const {data} = await axios.get(`${endpoint}${id}`)

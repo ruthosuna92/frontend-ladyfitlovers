@@ -18,7 +18,7 @@ const deleteFav = (productId, userId, accessToken) => {
             }
 
             const {data} = await axios.put(endpoint, {productId, userId}, config)
-            console.log(data);
+            // console.log(data);
             return dispatch({
                 type: DELETE_FAV,
                 payload: data
