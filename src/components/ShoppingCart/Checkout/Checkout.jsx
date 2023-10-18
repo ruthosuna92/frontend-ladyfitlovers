@@ -131,7 +131,7 @@ const Checkout = () => {
 
 
   useEffect(() => {
-    if (item.calle.length && item.numero && item.dpto && item.entreCalles && item.localidad && item.provincia && item.codigoPostal) {
+    if (item.calle && item.numero && item.dpto && item.entreCalles && item.localidad && item.provincia && item.codigoPostal) {
       setDisable(false)
     } else {
       setDisable(true)

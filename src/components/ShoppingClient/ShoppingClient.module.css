@@ -1,5 +1,5 @@
 .shoppingClientContainer{
-    height: 40vh;
+    /* height: 40vh; */
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -13,4 +13,8 @@
 .shoppingClientContainer::-webkit-scrollbar-thumb {
     background-color: #BA338A; 
     border-radius: 20px;
+}
+
+.containerOrder {
+    justify-content: end;
 }

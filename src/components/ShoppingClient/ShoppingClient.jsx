@@ -18,10 +18,6 @@ const ShoppingClient = ({ products }) => {
                 key={userOrder.id}
                 bordered={false}
                 hoverable={true}
-                style={{
-                  width: "120vh",
-                  height: 100,
-                }}
                 id={userOrder.id}
               >
                 <Row justify="center">

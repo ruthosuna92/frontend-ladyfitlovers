@@ -1,13 +1,14 @@
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Table, Tag, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import ShoppingClient from "../ShoppingClient/ShoppingClient";
 import getOrdersByUser from "../../redux/Actions/Order/getOrdersByUser";
+import style from './TableShoppingClient.module.css'
 
 const TableShoppingClient = () => {
-  
+
   const ordersUser = useSelector((state) => state.ordersUser);
   const accessToken = useSelector((state) => state.accessToken);
   const userId = useSelector((state) => state.user.id);
@@ -17,7 +18,7 @@ const TableShoppingClient = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrdersByUser({userId, accessToken}));
+    dispatch(getOrdersByUser({ userId, accessToken }));
   }, [dispatch]);
   const tableOrders = ordersUser.map((order) => {
     return {
@@ -26,7 +27,7 @@ const TableShoppingClient = () => {
     };
   });
 
-  const paymentIdFilters =ordersUser?.map((order) => {
+  const paymentIdFilters = ordersUser?.map((order) => {
     return {
       text: order.mercadopagoTransactionId,
       value: order.mercadopagoTransactionId,
@@ -117,19 +118,24 @@ const TableShoppingClient = () => {
 
 
   return (
-    <div>
-      <Table
-        dataSource={tableOrders}
-        columns={columns}
-        expandable={{
-          expandedRowRender: (record) => (
-            <ShoppingClient products={record.products} />
-          ),
-          
-        }}
-        style={{ overflowX: "scroll" }}
-      />
-    </div>
+    // <div className={style.container}>
+    <Table
+      dataSource={tableOrders}
+      columns={columns}
+      expandable={{
+        expandedRowRender: (record) => (
+          <ShoppingClient products={record.products} />
+        ),
+
+      }}
+      style={{
+        overflowX: "scroll",
+        width: '90%',
+        position: 'relative',
+        height: '100%'
+      }}
+    />
+    // </div>
   );
 };
 
