@@ -4,7 +4,6 @@ import {
   ShoppingCartOutlined,
   UploadOutlined,
   LineChartOutlined,
-  // EditOutlined,
 } from "@ant-design/icons";
 import { Divider, Menu, Switch } from "antd";
 import { useNavigate } from "react-router";
@@ -26,7 +25,7 @@ const SideBarDashboard = () => {
     getItem("Ordenes de compra", "3", <ShoppingCartOutlined />),
     getItem("Crear producto", "4", <UploadOutlined />),
     getItem("Resumen", "5", <LineChartOutlined />),
-    // getItem("Editar Perfil", "6", <EditOutlined />),
+ 
     
   ];
   const handleMenu = ({ item, key, keyPath, selectedKeys, domEvent }) => {
@@ -46,22 +45,13 @@ const SideBarDashboard = () => {
       case "5":
         navigate("/admin");
         break;
-      // case "6":
-      //   navigate("/perfil/perfil");
-      //   break;
+    
       default:
         console.log("default");
         break;
     }
   };
-  //   const [mode, setMode] = useState('inline');
-  //   const [theme, setTheme] = useState('light');
-  //   const changeMode = (value) => {
-  //     setMode(value ? 'vertical' : 'inline');
-  //   };
-  //   const changeTheme = (value) => {
-  //     setTheme(value ? 'dark' : 'light');
-  //   };
+  
   return (
     <>
       {/* <br />
