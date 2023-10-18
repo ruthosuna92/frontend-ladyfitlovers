@@ -6,7 +6,7 @@ export const CreateAcountSchema = Yup.object().shape({
     // address: Yup.string().required('Dirección es requerida'),
     calle: Yup.string().required("calle obligatoria"),
     numero: Yup.number().required("numero obligatorio"),
-    dpto: Yup.string().required("dpto obligatorio"),
+    dpto: Yup.string().notRequired(),
     entreCalles: Yup.string().required("entreCalles obligatorio"),
     localidad: Yup.string().required("localidad obligatoria"),
     codigoPostal: Yup.number().required("codigo obligatorio"),
