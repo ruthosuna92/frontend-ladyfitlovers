@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./DataProfile.module.css"
 const Profile = () => {
     const infouser = useSelector((state) => state.user)
-    console.log(infouser);
-    
+     console.log(infouser)
+
     return (
         <div className={style.contianerProfiler}>
             <div className={style.subcontainer}>
@@ -45,7 +45,7 @@ const Profile = () => {
                     </div>
                     <div className={style.nameContainer}>
                         <label htmlFor="">Dirección</label>
-                        <span className={style.dataaddres}>Calle:{infouser.address?.calle}, Numero: {infouser.address?.numero}, Dpto: {infouser.address?.dpto}, Entre calles: {infouser.address?.entreCalles}</span>
+                        <span className={style.dataaddres}>{infouser.address? `Calle: ${infouser?.address.calle} Número: ${infouser?.address.numero} Dpto: ${infouser?.address.dpto} Entre Calles: ${infouser?.address.entreCalles} ${infouser?.address.localidad} Provincia: ${infouser?.address.provincia} C.P: ${infouser?.address.codigoPostal}` : "No definido"}</span>
                     </div>
                 </div>
             </div>
