@@ -29,7 +29,7 @@ const CodeRequirer = () => {
   const handleCodeSumit = async() => {
     try {
         if (code.code.length === 6){
-          const response = await verifyCode(code.code);
+          const response = await verifyCode(saveEmail,code.code);
           console.log(response);
           if (response.success === true) {
             
@@ -52,6 +52,7 @@ const CodeRequirer = () => {
             Ingrese el codigo de verificación 
           </p>
           <Input
+            type="number"
             style={{ width: "80%", textAlign: "center" }}
             placeholder="codigo"
             maxLength={6}

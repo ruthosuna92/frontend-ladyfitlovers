@@ -50,7 +50,7 @@ const RecoveryPassword = () => {
   const handleSumit = async () => {
     try {
       if (email.errorEmail === "") {
-        const response = await recoveryCode(email.email, email.recovery);
+        const response = await recoveryCode(email.email);
         console.log(response);
         if (response.success === true) {
           dispatch(saveEmail(email.email));
