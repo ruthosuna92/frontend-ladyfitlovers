@@ -81,6 +81,7 @@ const About = () => {
       </div>
     </div>
   );
+  // testing commit messages to get a badge, don't mind me
 };
 
 export default About;
