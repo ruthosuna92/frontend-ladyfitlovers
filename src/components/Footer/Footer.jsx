@@ -24,10 +24,15 @@ const Footer = () => {
               <InstagramOutlined /> Instagram
             </Link>
             <h3 className="h3footer">Contactanos</h3>
-            <p style={{color:"#ba338a"}}>ladyfitlovers@gmail.com</p>
+            <p style={{color:"#ba338a"}}><MailOutlined /> ladyfitlovers@gmail.com</p>
             <Link to="https://chat.whatsapp.com/LijG0wDr4ytLMZvYiU1dra">
               <WhatsAppOutlined /> Whatsapp
             </Link>
+            <a href="mailto:ladyfitlovers@gmail.com" style={{ color: "#ba338a" }}>
+            <Link>
+          <MailOutlined></MailOutlined> ladyfitlovers@gmail.com
+          </Link>
+          </a>
           </div>
         
         <div >
